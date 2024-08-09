@@ -3,7 +3,7 @@ package com.itwill.golfro.dto;
 import com.itwill.golfro.domain.User;
 
 import lombok.Data;
-
+//
 @Data
 
 public class findIdDto {
