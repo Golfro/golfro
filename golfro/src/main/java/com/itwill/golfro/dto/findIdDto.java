@@ -1,6 +1,6 @@
 package com.itwill.golfro.dto;
 
-import com.itwill.gaebokchi.repository.User;
+import com.itwill.golfro.domain.User;
 
 import lombok.Data;
 
