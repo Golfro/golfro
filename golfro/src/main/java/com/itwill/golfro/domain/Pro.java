@@ -1,0 +1,24 @@
+package com.itwill.golfro.domain;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE) @Builder
+@Getter @ToString
+@Entity @Table(name = "PROS")
+public class Pro {
+	
+	@Id
+	private Integer id;
+	
+	private String career;
+	
+}
