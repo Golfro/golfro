@@ -1,38 +1,31 @@
 package com.itwill.golfro.dto;
 
-import java.sql.Timestamp;
+import com.itwill.golfro.domain.Comment;
 
-import com.itwill.gaebokchi.repository.MainComment;
-
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder @NoArgsConstructor @AllArgsConstructor
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MainCommentItemDto {
-	
-	private Integer id;
-	private Integer postId;
-	private String author;
-	private String nickname;
-	private String image;
+	private Long id;
+	private Long postId;
+	private String userid;
 	private String content;
 	private Integer selection;
-	private Timestamp modifiedTime;
 
-	public static MainCommentItemDto fromEntity(MainComment mainComment) {
+	public static MainCommentItemDto fromEntity(Comment entity) {
 		return MainCommentItemDto.builder()
-				.id(mainComment.getId())
-				.postId(mainComment.getPostId())
-				.nickname(mainComment.getNickname())
-				.image(mainComment.getImage())
-				.author(mainComment.getAuthor())
-				.content(mainComment.getContent())
-				.selection(mainComment.getSelection())
-				.modifiedTime(Timestamp.valueOf(mainComment.getModifiedTime()))
+				.id(entity.getId())
+				.postId(entity.getPost().getId())
+				.userid(entity.getUser().getUserid())
+				.content(entity.getContent())
+				.selection(entity.getSelection())
 				.build();
 	}
-
 }

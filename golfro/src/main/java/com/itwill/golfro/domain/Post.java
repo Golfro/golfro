@@ -1,5 +1,7 @@
 package com.itwill.golfro.domain;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -66,6 +68,8 @@ public class Post extends BaseTimeEntity {
     private String gcaddress;
     
     private Long greenfee;
+    
+    private LocalDateTime teeoff;
     
     private Long likes;
     

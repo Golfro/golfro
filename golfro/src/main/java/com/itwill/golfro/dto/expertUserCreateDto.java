@@ -40,7 +40,18 @@ public class expertUserCreateDto {
 		email = emailPrefix + "@" + emailSeparator;
 		account = bank + "/" + accountNumber;
 		
-		return User.builder().userid(userid).password(password).name(name).nickname(nickname).phone(phone).email(email)
-				.birth(birth).gender(gender).address(address).account(account).accept(accept).build();
+		return User.builder()
+				.userid(userid)
+				.password(password)
+				.name(name)
+				.nickname(nickname)
+				.phone(phone)
+				.email(email)
+				.birth(birth)
+				.gender(gender)
+				.address(address)
+				.account(account)
+				.accept(accept)
+				.build();
 	}
 }
