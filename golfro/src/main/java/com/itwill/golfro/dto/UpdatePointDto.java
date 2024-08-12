@@ -8,5 +8,4 @@ public class UpdatePointDto {
 	private String password;
 	private int withdraw;
 	private int point;
-	
 }

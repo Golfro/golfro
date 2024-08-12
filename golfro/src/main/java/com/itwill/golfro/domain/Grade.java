@@ -17,7 +17,7 @@ import lombok.ToString;
 public class Grade {
 	
 	@Id
-	private Integer id;
+	private String id;
 	
 	private String name;
 	

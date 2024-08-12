@@ -26,6 +26,7 @@ public class JoinPostListDto {
 	private String content;
 	private Long views;
 	private String categoryId;
+	private LocalDateTime modifiedTime;
 
 	public static JoinPostListDto fromEntity(Post entity) {
 		String formattedTeeoff = formatDateTime(entity.getTeeoff());
@@ -42,6 +43,7 @@ public class JoinPostListDto {
 				.content(entity.getContent())
 				.views(entity.getViews())
 				.categoryId(entity.getCategoryId())
+				.modifiedTime(entity.getModifiedTime())
 				.build();
 	}
 

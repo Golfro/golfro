@@ -1,6 +1,7 @@
 package com.itwill.golfro.dto;
 
-import com.itwill.gaebokchi.repository.UserMypage;
+import com.itwill.golfro.domain.Pro;
+import com.itwill.golfro.domain.User;
 
 import lombok.Data;
 
@@ -12,12 +13,12 @@ public class UserProfileDto {
 	private String grade;
 	private String career;
 	
-	public UserMypage toEntity() {
-		return UserMypage.builder()
+	public User toEntity() {
+		return User.builder()
 				.image(image)
 				.userid(userid)
 				.nickname(nickname)
-				.career(career)
+				.pro(Pro.builder().career(career).build())
 				.build(); 
 	}
 }

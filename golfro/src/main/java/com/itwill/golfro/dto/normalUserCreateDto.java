@@ -1,20 +1,20 @@
 package com.itwill.golfro.dto;
 
-import com.itwill.gaebokchi.repository.User;
+import com.itwill.golfro.domain.User;
 
 import lombok.Data;
 
 @Data
 public class normalUserCreateDto {
-	private int id;
+	private Long id;
 	private String userid;
 	private String password;
 	private String name;
 	private String nickname;
 	private String phone;
 	private String email;
-	private int birth;
-	private int gender;
+	private Long birth;
+	private Integer gender;
 	private String address;
 	private int birthYear;
 	private int birthMonth;
@@ -30,12 +30,21 @@ public class normalUserCreateDto {
 	private String emailSeparator;
 
 	public User toEntity() {
-		birth = Integer.parseInt(String.format("%04d%02d%02d", birthYear, birthMonth, birthDay));
+		birth = Long.parseLong(String.format("%04d%02d%02d", birthYear, birthMonth, birthDay));
 		phone = phone0 + "/" + phone1 + "-" + phone2 + "-" + phone3;
 		address = postCode + "/" + addressMain + "/" + addressDetail;
 		email = emailPrefix + "@" + emailSeparator;
 
-		return User.builder().userid(userid).password(password).name(name).nickname(nickname).phone(phone).email(email)
-				.birth(birth).gender(gender).address(address).build();
+		return User.builder()
+				.userid(userid)
+				.password(password)
+				.name(name)
+				.nickname(nickname)
+				.phone(phone)
+				.email(email)
+				.birth(birth)
+				.gender(gender)
+				.address(address)
+				.build();
 	}
 }

@@ -1,6 +1,6 @@
 package com.itwill.golfro.dto;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.itwill.golfro.domain.Post;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ public class MainPostCreateDto {
 	private String clubId;
 	private String userid;
 	private String title;
-	private MultipartFile media;
+	private String media;
 	private String content;
 	private String categoryId;
 	private double height;
@@ -17,5 +17,20 @@ public class MainPostCreateDto {
 	private double handy;
 	private double ironDistance;
 	private double driverDistance;
-	private String mediaPath;
+	
+	public Post toEntity() {
+		return Post.builder()
+				.clubId(clubId)
+				.categoryId(categoryId)
+				.media(media)
+				.userid(userid)
+				.title(title)
+				.content(content)
+				.height(height)
+				.career(career)
+				.handy(handy)
+				.irondistance(ironDistance)
+				.driverdistance(driverDistance)
+				.build();
+	}
 }

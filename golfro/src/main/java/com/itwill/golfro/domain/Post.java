@@ -27,7 +27,7 @@ import lombok.ToString;
 @Entity @Table(name = "POSTS")
 public class Post extends BaseTimeEntity {
     
-    @Id // primary key얌
+    @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // generated as identity
     private Long id;
     

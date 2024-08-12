@@ -9,45 +9,51 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.core.io.ByteArrayResource;
 
-import com.itwill.gaebokchi.repository.ReviewPost;
+import com.itwill.golfro.domain.Post;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ReviewPostListDto {
-	private Integer id;
+	private Long id;
 	private String title;
-	private String author;
-	private String category;
+	private String userid;
+	private String categoryId;
+	private Long views;
+	private Long likes;
 	private LocalDateTime createdTime; // 변경된 필드 타입
-	private Integer views;
-	private Integer likes;
+	private String formattedCreatedTime; // 포맷팅된 날짜를 저장할 필드 추가
 	private ByteArrayResource mediaResource;
 
-	// 포맷팅된 날짜를 저장할 필드 추가
-	private String formattedCreatedTime;
-
-	public static ReviewPostListDto fromEntity(ReviewPost reviewpost) {
+	public static ReviewPostListDto fromEntity(Post entity) {
 		ByteArrayResource mediaResource = null;
-		if (reviewpost.getMediaPath() != null) {
+		
+		if (entity.getMedia() != null) {
 			// 이미지 파일 경로를 바이트 배열로 변환하여 ByteArrayResource 생성
-			byte[] mediaBytes = loadMediaBytes(reviewpost.getMediaPath());
+			byte[] mediaBytes = loadMediaBytes(entity.getMedia());
 			mediaResource = new ByteArrayResource(mediaBytes);
 		}
 
-		LocalDateTime createdTime = reviewpost.getCreatedTime();
+		LocalDateTime createdTime = entity.getCreatedTime();
 		String formattedCreatedTime = formatDateTime(createdTime);
 
-		return ReviewPostListDto.builder().id(reviewpost.getId()).category(reviewpost.getCategory())
-				.title(reviewpost.getTitle()).author(reviewpost.getAuthor()).createdTime(createdTime)
+		return ReviewPostListDto.builder()
+				.id(entity.getId())
+				.categoryId(entity.getCategoryId())
+				.title(entity.getTitle())
+				.userid(entity.getUserid())
+				.createdTime(createdTime)
 				.formattedCreatedTime(formattedCreatedTime) // 포맷팅된 날짜 설정
-				.views(reviewpost.getViews()).likes(reviewpost.getLikes()).mediaResource(mediaResource) // 이미지 데이터 설정
+				.views(entity.getViews())
+				.likes(entity.getLikes())
+				.mediaResource(mediaResource) // 이미지 데이터 설정
 				.build();
 	}
 

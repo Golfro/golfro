@@ -8,50 +8,50 @@ import java.time.LocalDateTime;
 
 import org.springframework.core.io.ByteArrayResource;
 
-import com.itwill.gaebokchi.repository.MyPost;
+import com.itwill.golfro.domain.Post;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// DTO(Data Transfer Object)
-// 뷰 <--> 컨트롤러, 컨트롤러 <--> 서비스 사이에서 데이터를 주고 받을 때 사용하는 객체.
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MyPostListDto {
-	private Integer id;
+	private Long id;
 	private String title;
-	private String author;	
-	private String category;
+	private String userid;
+	private String categoryId;
+	private Long views;
+	private Long likes;
 	private LocalDateTime modifiedTime;
-	private Integer views;
-	private Integer likes;
 	private ByteArrayResource mediaResource; // 이미지 데이터 필드 추가
 
-	public static MyPostListDto fromEntity(MyPost mypost) {
+	public static MyPostListDto fromEntity(Post entity) {
 		ByteArrayResource mediaResource = null;
-		if (mypost.getMediaPath() != null) {
-			// 이미지 파일 경로를 바이트 배열로 변환하여 ByteArrayResource 생성
-			byte[] mediaBytes = loadMediaBytes(mypost.getMediaPath());
+		
+		if (entity.getMedia() != null) {
+			// 미디어 파일 경로를 바이트 배열로 변환하여 ByteArrayResource 생성
+			byte[] mediaBytes = loadMediaBytes(entity.getMedia());
 			mediaResource = new ByteArrayResource(mediaBytes);
 		}
 
 		return MyPostListDto
 				.builder()
-				.id(mypost.getId())
-				.title(mypost.getTitle())
-				.author(mypost.getAuthor())
-				.modifiedTime(mypost.getModifiedTime())
-				.views(mypost.getViews())
-				.likes(mypost.getLikes())
-				.category(mypost.getCategory())
+				.id(entity.getId())
+				.title(entity.getTitle())
+				.userid(entity.getUserid())
+				.categoryId(entity.getCategoryId())
+				.views(entity.getViews())
+				.likes(entity.getLikes())
+				.modifiedTime(entity.getModifiedTime())
 				.mediaResource(mediaResource).build();
 	}
 
-	// 이미지 파일 경로를 바이트 배열로 변환하는 메서드 (실제 구현 필요)
+	// 미디어 파일 경로를 바이트 배열로 변환하는 메서드 (실제 구현 필요)
 	private static byte[] loadMediaBytes(String mediaPath) {
 		try {
 			Path path = Paths.get(mediaPath);
@@ -62,5 +62,4 @@ public class MyPostListDto {
 			return new byte[0]; // 빈 바이트 배열 리턴
 		}
 	}
-
 }

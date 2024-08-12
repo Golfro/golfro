@@ -5,23 +5,20 @@ import com.itwill.golfro.domain.Post;
 import lombok.Data;
 
 @Data
-// 새 글 작성 요청에서 요청 파라미터들을 저장하기 위한 DTO
-public class ReviewPostCreateDto {
-	// 필드 이름을 요청 파라미터 이름과 같게 선언 & 기본 생성자 & setter.
+// 업데이트 요청의 요청 파라미터들을 저장하기 위한 DTO
+public class CommPostUpdateDto {
+	private Long id;
 	private String title;
 	private String content;
-	private String userid;
 	private String categoryId;
-	private String clubId;
 	private String media;
 
 	public Post toEntity() {
 		return Post.builder()
+				.id(id)
 				.title(title)
 				.content(content)
-				.userid(userid)
 				.media(media)
-				.clubId(clubId)
 				.categoryId(categoryId)
 				.build();
 	}
