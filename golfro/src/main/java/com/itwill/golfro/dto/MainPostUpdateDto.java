@@ -1,5 +1,7 @@
 package com.itwill.golfro.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
 
@@ -11,12 +13,13 @@ public class MainPostUpdateDto {
 	private String clubId;
 	private String title;
 	private String content;
-	private String media;
 	private Integer height;
 	private Integer career;
 	private Integer handy;
 	private Integer irondistance;
 	private Integer driverdistance;
+	private MultipartFile media;
+	private String mediaPath;
 	
 	public Post toEntity() {
 	    return Post.builder()

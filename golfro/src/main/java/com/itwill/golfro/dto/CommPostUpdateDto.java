@@ -1,5 +1,7 @@
 package com.itwill.golfro.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.itwill.golfro.domain.Category;
 import com.itwill.golfro.domain.Post;
 
@@ -12,14 +14,15 @@ public class CommPostUpdateDto {
 	private String title;
 	private String content;
 	private String categoryId;
-	private String media;
+	private MultipartFile media;
+	private String mediaPath;
 
 	public Post toEntity() {
 		return Post.builder()
 				.id(id)
 				.title(title)
 				.content(content)
-				.media(media)
+				.media(mediaPath)
 				.category(Category.builder().id(categoryId).build())
 				.build();
 	}

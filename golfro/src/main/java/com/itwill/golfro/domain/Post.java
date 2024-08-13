@@ -75,12 +75,26 @@ public class Post extends BaseTimeEntity {
     
     private Long views;
     
-    // update 기능(제목/내용 수정)에서 사용할 공개 메서드
-    public Post update(String title, String content) {
+    // update 기능에서 사용할 공개 메서드
+    public Post update(String title, String content, Category category, String media) {
         this.title = title;
         this.content = content;
+        this.category = category;
+        this.media = media;
         
         return this;
+    }
+    
+    public Post increaseViews(Long views) {
+    	this.views = views + 1;
+    	
+    	return this;
+    }
+    
+    public Post increaseLikes(Long likes) {
+    	this.likes = likes + 1;
+    	
+    	return this;
     }
     
 }

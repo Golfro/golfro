@@ -43,7 +43,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public Post findPreviousPost(String category, LocalDateTime createdTime) {
+	public Post findPreviousPost(String[] category, LocalDateTime createdTime) {
 		log.info("findPreviousPost(category={}, createdTime={})", category, createdTime);
 		
 		QPost post = QPost.post;
@@ -60,7 +60,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public Post findNextPost(String category, LocalDateTime createdTime) {
+	public Post findNextPost(String[] category, LocalDateTime createdTime) {
 		log.info("findNextPost(category={}, createdTime={})", category, createdTime);
 
         QPost post = QPost.post;
@@ -74,6 +74,20 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 		Post result = query.fetchOne();
 
         return result;
+	}
+	
+	@Override
+	public Post selectById(Long id) {
+		log.info("selectById(id={})", id);
+		
+		QPost post = QPost.post;
+		
+		JPQLQuery<Post> query = from(post)
+				.where(post.id.eq(id));
+		
+		Post result = query.fetchOne();
+		
+		return result;
 	}
 
 	@Override
@@ -143,13 +157,14 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public List<Post> selectById(Long id) {
-		log.info("selectById(id={})", id);
+	public List<Post> selectOrderByIdDesc() {
+		log.info("selectOrderByIdDesc()");
 
         QPost post = QPost.post;
         
         JPQLQuery<Post> query = from(post)
-				.where(post.id.eq(id));
+				.where(post.category.id.in("F001", "F002", "F003"))
+				.orderBy(post.createdTime.desc());
 		
 		List<Post> result = query.fetch();
 
@@ -806,6 +821,34 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
+	public Page<Post> selectPagedPosts(Pageable pageable) {
+		log.info("selectPagedPosts(pageable={})", pageable);
+
+        QPost post = QPost.post;
+        QUser user = QUser.user;
+
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+
+        JPAQuery<Post> query = queryFactory
+            .selectFrom(post)
+            .join(user).on(post.user.userid.eq(user.userid))
+            .where(post.category.id.in("F001", "F002", "F003"))
+            .orderBy(post.createdTime.desc());
+
+        List<Post> list = query
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
+            .fetch();
+
+        long count = from(post)
+            .join(user).on(post.user.userid.eq(user.userid))
+            .where(post.category.id.in("F001", "F002", "F003"))
+            .fetchCount();
+
+        return new PageImpl<>(list, pageable, count);
+	}
+	
+	@Override
 	public Page<Post> selectPagedPosts(String userid, Pageable pageable) {
 		log.info("selectPagedPosts(userid={}, pageable={})", userid, pageable);
 
@@ -917,8 +960,8 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 	
 	@Override
-	public long selectTotalPostCount(String category) {
-		log.info("selectTotalPostCount(category={})", category);
+	public long selectTotalPostCount(String[] category) {
+		log.info("selectTotalPostCount(category={})", (Object) category);
 	    
 	    QPost post = QPost.post;
 	    

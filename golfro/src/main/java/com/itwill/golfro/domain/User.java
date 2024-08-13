@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -69,7 +70,7 @@ public class User {
 	private String address;
 	
 	@NaturalId
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PRO_ID")
 	private Pro pro;
 	
@@ -85,15 +86,64 @@ public class User {
 	
 	private Long withdraw;
 	
-	public User update(String password, String nickname, String image, String phone, String address, String account) {
+	public User update(String password, String phone, String address, String proId, String account) {
         this.password = password;
-        this.nickname = nickname;
-        this.image = image;
         this.phone = phone;
         this.address = address;
+        this.pro = Pro.builder().id(proId).build();
         this.account = account;
         
         return this;
     }
+	
+	public User updateImage(String image) {
+        this.image = image;
+        
+        return this;
+    }
+	
+	public User updateNickname(String nickname) {
+        this.nickname = nickname;
+        
+        return this;
+    }
+	
+	public User updateProCareer(String career) {
+        this.pro = Pro.builder().career(career).build();
+        
+        return this;
+    }
+	
+	public User updatePoint(Long withdraw) {
+		this.point -= withdraw;
+		
+		return this;
+	}
+	
+	public User updateGrade(String grade) {
+		this.grade = Grade.builder().id(grade).build();
+		
+		return this;
+	}
+	
+	public User increasePoint(Long point) {
+        this.point = point + 300;
+        
+        return this;
+    }
+	
+	public User upgrade(String proId) {
+        this.accept = null;
+        this.grade = Grade.builder().id("G10").build();
+        this.pro = Pro.builder().id(proId).build();
+        
+        return this;
+    }
+	
+	public User reject(String userid) {
+		this.accept = null;
+		
+		return this;
+	}
 	
 }

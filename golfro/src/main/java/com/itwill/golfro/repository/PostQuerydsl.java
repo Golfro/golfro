@@ -16,15 +16,17 @@ import com.itwill.golfro.dto.ReviewPostSearchDto;
 import com.querydsl.core.Tuple;
 
 public interface PostQuerydsl {
-	Post findPreviousPost(String category, LocalDateTime createdTime);
+	Post findPreviousPost(String[] category, LocalDateTime createdTime);
 	
-	Post findNextPost(String category, LocalDateTime createdTime);
+	Post findNextPost(String[] category, LocalDateTime createdTime);
+	
+	Post selectById(Long id);
 	
 	Tuple selectByPostId(Long id);
 	
 	List<Post> selectOrderByCreatedTimeDesc(); // origin: commpost-mapper -> id='selectOrderByIdDesc'
 	
-	List<Post> selectById(Long id);
+	List<Post> selectOrderByIdDesc();
 	
 	List<Post> selectTop5ByF001();
 	
@@ -54,6 +56,8 @@ public interface PostQuerydsl {
 	
 	List<Post> getUsersLikesRank();
 	
+	Page<Post> selectPagedPosts(Pageable pageable);
+	
 	Page<Post> selectPagedPosts(String userid, Pageable pageable);
 	
 	List<Post> search(MyPostListSearchDto dto);
@@ -62,7 +66,7 @@ public interface PostQuerydsl {
 	
 	Page<Post> selectPagedP004Posts(Pageable pageable); // origin: reviewpost-mapper -> id='selectPagedPosts'
 	
-	long selectTotalPostCount(String category);
+	long selectTotalPostCount(String[] category);
 	
 	long getTotalCountByUserid(String userid);
 
