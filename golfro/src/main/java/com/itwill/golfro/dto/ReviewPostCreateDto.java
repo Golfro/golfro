@@ -1,6 +1,9 @@
 package com.itwill.golfro.dto;
 
+import com.itwill.golfro.domain.Category;
+import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
+import com.itwill.golfro.domain.User;
 
 import lombok.Data;
 
@@ -19,10 +22,10 @@ public class ReviewPostCreateDto {
 		return Post.builder()
 				.title(title)
 				.content(content)
-				.userid(userid)
+				.user(User.builder().userid(userid).build())
 				.media(media)
-				.clubId(clubId)
-				.categoryId(categoryId)
+				.club(Club.builder().id(clubId).build())
+				.category(Category.builder().id(categoryId).build())
 				.build();
 	}
 }

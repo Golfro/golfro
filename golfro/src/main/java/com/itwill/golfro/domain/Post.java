@@ -36,7 +36,7 @@ public class Post extends BaseTimeEntity {
     
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CLUB_ID")
-    private String clubId;
+    private Club club;
     
     private String media;
     
@@ -46,12 +46,12 @@ public class Post extends BaseTimeEntity {
     @Basic(optional = false)
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USERID")
-    private String userid;
+    private User user;
     
     @Basic(optional = false)
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CATEGORY_ID")
-    private String categoryId;
+    private Category category;
     
     private double height;
     

@@ -1,5 +1,6 @@
 package com.itwill.golfro.dto;
 
+import com.itwill.golfro.domain.Category;
 import com.itwill.golfro.domain.Post;
 
 import lombok.Data;
@@ -19,7 +20,7 @@ public class CommPostUpdateDto {
 				.title(title)
 				.content(content)
 				.media(media)
-				.categoryId(categoryId)
+				.category(Category.builder().id(categoryId).build())
 				.build();
 	}
 }

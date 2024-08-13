@@ -39,10 +39,10 @@ public class JoinPostListDto {
 				.formattedTeeoff(formattedTeeoff)
 				.hole(entity.getHole())
 				.greenfee(entity.getGreenfee())
-				.userid(entity.getUserid())
+				.userid(entity.getUser().getUserid())
 				.content(entity.getContent())
 				.views(entity.getViews())
-				.categoryId(entity.getCategoryId())
+				.categoryId(entity.getCategory().getId())
 				.modifiedTime(entity.getModifiedTime())
 				.build();
 	}

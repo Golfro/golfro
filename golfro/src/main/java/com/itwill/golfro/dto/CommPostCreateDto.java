@@ -1,6 +1,8 @@
 package com.itwill.golfro.dto;
 
+import com.itwill.golfro.domain.Category;
 import com.itwill.golfro.domain.Post;
+import com.itwill.golfro.domain.User;
 
 import lombok.Data;
 
@@ -14,9 +16,9 @@ public class CommPostCreateDto {
 	
 	public Post toEntity() {
 		return Post.builder()
-				.categoryId(categoryId)
+				.category(Category.builder().id(categoryId).build())
 				.media(media)
-				.userid(userid)
+				.user(User.builder().userid(userid).build())
 				.title(title)
 				.content(content)
 				.build();

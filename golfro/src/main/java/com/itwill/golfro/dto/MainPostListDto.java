@@ -30,9 +30,9 @@ public class MainPostListDto {
 	public static MainPostListDto fromEntity(Post entity) {
 		return MainPostListDto.builder()
 				.id(entity.getId())
-				.clubId(entity.getClubId())
+				.clubId(entity.getClub().getId())
 				.title(entity.getTitle())
-				.userid(entity.getUserid())
+				.userid(entity.getUser().getUserid())
 				.views(entity.getViews())
 				.likes(entity.getLikes())
 				.createdTime(formatDateTime(entity.getCreatedTime()))

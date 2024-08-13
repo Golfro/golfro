@@ -46,9 +46,9 @@ public class CommPostListDto {
 		
 		return CommPostListDto.builder()
 				.id(entity.getId())
-				.categoryId(entity.getCategoryId())
+				.categoryId(entity.getCategory().getId())
 				.title(entity.getTitle())
-				.userid(entity.getUserid())
+				.userid(entity.getUser().getUserid())
 				.createdTime(createdTime)
 				.formattedCreatedTime(formattedCreatedTime)
 				.views(entity.getViews())

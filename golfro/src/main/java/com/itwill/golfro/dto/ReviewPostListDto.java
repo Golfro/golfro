@@ -46,9 +46,9 @@ public class ReviewPostListDto {
 
 		return ReviewPostListDto.builder()
 				.id(entity.getId())
-				.categoryId(entity.getCategoryId())
+				.categoryId(entity.getCategory().getId())
 				.title(entity.getTitle())
-				.userid(entity.getUserid())
+				.userid(entity.getUser().getUserid())
 				.createdTime(createdTime)
 				.formattedCreatedTime(formattedCreatedTime) // 포맷팅된 날짜 설정
 				.views(entity.getViews())

@@ -2,7 +2,9 @@ package com.itwill.golfro.dto;
 
 import java.time.LocalDateTime;
 
+import com.itwill.golfro.domain.Category;
 import com.itwill.golfro.domain.Post;
+import com.itwill.golfro.domain.User;
 
 import lombok.Data;
 
@@ -21,8 +23,8 @@ public class JoinPostCreateDto {
         return Post.builder()
         		.title(title)
         		.content(content)
-        		.userid(userid)
-        		.categoryId(categoryId)
+        		.user(User.builder().userid(userid).build())
+        		.category(Category.builder().id(categoryId).build())
         		.gcaddress(gcaddress)
         		.teeoff(teeoff)
         		.greenfee(greenfee)

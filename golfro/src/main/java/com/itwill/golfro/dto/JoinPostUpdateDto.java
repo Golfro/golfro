@@ -2,6 +2,7 @@ package com.itwill.golfro.dto;
 
 import java.time.LocalDateTime;
 
+import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
 
 import lombok.Data;
@@ -23,7 +24,7 @@ public class JoinPostUpdateDto {
 	        		.id(id)
 	        		.title(title)
 	        		.content(content)
-	        		.clubId(clubId)
+	        		.club(Club.builder().id(clubId).build())
 	        		.gcaddress(gcaddress)
 	        		.teeoff(teeoff)
 	        		.greenfee(greenfee)

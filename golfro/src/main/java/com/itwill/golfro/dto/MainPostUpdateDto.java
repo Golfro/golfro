@@ -1,5 +1,6 @@
 package com.itwill.golfro.dto;
 
+import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
 
 import lombok.Data;
@@ -20,7 +21,7 @@ public class MainPostUpdateDto {
 	public Post toEntity() {
 	    return Post.builder()
 	            .id(id)
-	            .clubId(clubId)
+	            .club(Club.builder().id(clubId).build())
 	            .title(title)
 	            .content(content)
 	            .height(height)

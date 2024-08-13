@@ -7,4 +7,5 @@ import lombok.Data;
 public class MyPostListSearchDto {
     private String category;
     private String keyword;
+    private String userid;
 }
