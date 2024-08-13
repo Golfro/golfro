@@ -1,12 +1,10 @@
-package com.itwill.springboot5.repository;
+package com.itwill.golfro.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import com.itwill.golfro.repository.PostRepository;
 
 import lombok.extern.slf4j.Slf4j;
 

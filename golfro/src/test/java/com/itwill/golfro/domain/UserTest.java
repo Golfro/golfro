@@ -1,11 +1,9 @@
-package com.itwill.springboot5.domain;
+package com.itwill.golfro.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import com.itwill.golfro.domain.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +19,7 @@ public class UserTest {
 							   .password("1210")
 							   .email("dmswls1089@naver.com")
 							   .build();
-		log.info("user = {}", user);
+		log.info("member1 = {}", user);
 		
 		assertThat(user).isNotNull();
 	}
