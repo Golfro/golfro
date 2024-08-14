@@ -43,11 +43,15 @@ public class CommPostService {
 	private final MediaService mediaService;
 	
 	@Transactional(readOnly = true)
-	public List<Post> read() {
+	public Page<Post> read(int pageNo, Sort sort) {
 		log.info("read()");
-		List<Post> list = postRepo.selectOrderByIdDesc();
 		
-		return list;
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		
+		String[] categories = {"F001", "F002", "F003"};
+		Page<Post> posts = postRepo.selectOrderByIdDesc(categories, pageable);
+		
+		return posts;
 	}
 	
 	@Transactional(readOnly = true)
@@ -108,9 +112,14 @@ public class CommPostService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Post> searchByCategoryAndKeyword(CommPostSearchDto dto) {
-		log.info("searchByCategoryAndKeyword(dto={})", dto);
-		return postRepo.selectByCategoryAndKeyword(dto);
+	public Page<CommPostListDto> searchByCategoryAndKeyword(CommPostSearchDto dto, int pageNo, Sort sort) {
+		log.info("searchByCategoryAndKeyword(dto={}, pageNo, sort)", dto, pageNo, sort);
+		
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Page<Post> list = postRepo.selectByCategoryAndKeyword(dto, pageable);
+		Page<CommPostListDto> posts = list.map(CommPostListDto::fromEntity);
+		
+		return posts;
 	}
 
 	@Transactional(readOnly = true)

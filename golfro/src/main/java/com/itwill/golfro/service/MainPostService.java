@@ -174,21 +174,25 @@ public class MainPostService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Tuple> searchRead(MainPostSearchDto dto) {
+	public Page<Tuple> searchRead(MainPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("searchRead(dto={})", dto);
 		
-		List<Tuple> list = postRepo.search(dto);
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
 		
-		return list;
+		Page<Tuple> posts = postRepo.search(dto, pageable);
+		
+		return posts;
 	}
 
 	@Transactional(readOnly = true)
-	public List<Tuple> searchReadByUserid(MyPostSearchDto dto) {
+	public Page<Tuple> searchReadByUserid(MyPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("search(dto={})", dto);
 		
-		List<Tuple> list = postRepo.searchMyPost(dto);
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
 		
-		return list;
+		Page<Tuple> posts = postRepo.searchMyPost(dto, pageable);
+		
+		return posts;
 	}
 
 	@Transactional(readOnly = true)

@@ -1,7 +1,6 @@
 package com.itwill.golfro.service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,11 +29,15 @@ public class JoinPostService {
     private final UserRepository userRepo;
 
     @Transactional(readOnly = true)
-	public List<Post> read() {
+	public Page<Post> read(int pageNo, Sort sort) {
 		log.info("read()");
-		List<Post> list = postRepo.selectOrderByIdDesc();
 		
-		return list;
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		
+		String[] category = {"P003"};
+		Page<Post> posts = postRepo.selectOrderByIdDesc(category, pageable);
+		
+		return posts;
 	}
 
     @Transactional(readOnly = true)
@@ -44,10 +47,12 @@ public class JoinPostService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Post> search(JoinPostSearchDto dto) {
+	public Page<Post> search(JoinPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("search(dto={})", dto);
 
-		List<Post> list = postRepo.search(dto);
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		
+		Page<Post> list = postRepo.search(dto, pageable);
 		log.info("Raw search results: {}", list);
 
 		return list;
@@ -92,10 +97,12 @@ public class JoinPostService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Post> findByTeeoffDate(LocalDateTime teeoffDate) {
+	public Page<Post> findByTeeoffDate(LocalDateTime teeoffDate, int pageNo, Sort sort) {
 		log.info("findByTeeoffDate(teeoffDate={})", teeoffDate);
 		
-		List<Post> list = postRepo.selectByTeeoffDate(teeoffDate);
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		
+		Page<Post> list = postRepo.selectByTeeoffDate(teeoffDate, pageable);
 		
 		return list;
 	}

@@ -37,11 +37,15 @@ public class ReviewPostService {
 	private final MediaService mediaService;
 
 	@Transactional(readOnly = true)
-	public List<Post> read() {
+	public Page<Post> read(int pageNo, Sort sort) {
 		log.info("read()");
-		List<Post> list = postRepo.selectOrderByIdDesc();
 		
-		return list;
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		
+		String[] category = {"P004"}; 
+		Page<Post> posts = postRepo.selectOrderByIdDesc(category, pageable);
+		
+		return posts;
 	}
 
 	@Transactional(readOnly = true)

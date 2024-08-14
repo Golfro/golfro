@@ -24,9 +24,13 @@ public class MyPostService {
 	private final PostRepository postRepo;
 
 	@Transactional(readOnly = true)
-	public List<Post> search(MyPostListSearchDto dto) {
-		log.info("search(dto={})", dto);
-		List<Post> list = postRepo.search(dto);
+	public Page<Post> search(MyPostListSearchDto dto, int pageNo, Sort sort) {
+		log.info("search(dto={}, pageNo={}, sort={})", dto, pageNo, sort);
+		
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		
+		Page<Post> list = postRepo.search(dto, pageable);
+		
 		return list;
 	}
 

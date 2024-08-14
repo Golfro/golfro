@@ -24,9 +24,7 @@ public interface PostQuerydsl {
 	
 	Tuple selectByPostId(Long id);
 	
-	List<Post> selectOrderByCreatedTimeDesc(); // origin: commpost-mapper -> id='selectOrderByIdDesc'
-	
-	List<Post> selectOrderByIdDesc();
+	Page<Post> selectOrderByIdDesc(String[] categories, Pageable pageable);
 	
 	List<Post> selectTop5ByF001();
 	
@@ -34,21 +32,21 @@ public interface PostQuerydsl {
 	
 	List<Post> Fixingthetop();
 	
-	List<Post> selectByCategoryAndKeyword(CommPostSearchDto dto);
+	Page<Post> selectByCategoryAndKeyword(CommPostSearchDto dto, Pageable pageable);
 	
 	List<Post> selectOrderByTeeoffDesc();
 	
-	List<Post> search(JoinPostSearchDto dto);
+	Page<Post> search(JoinPostSearchDto dto, Pageable pageable);
 	
-	List<Post> selectByTeeoffDate(LocalDateTime teeoffDate);
+	Page<Post> selectByTeeoffDate(LocalDateTime teeoffDate, Pageable pageable);
 	
 	List<Tuple> selectReadAll();
 	
 	List<Tuple> selectReadAllByUserid(String userid);
 	
-	List<Tuple> search(MainPostSearchDto dto);
+	Page<Tuple> search(MainPostSearchDto dto, Pageable pageable);
 	
-	List<Tuple> searchMyPost(MyPostSearchDto dto);
+	Page<Tuple> searchMyPost(MyPostSearchDto dto, Pageable pageable);
 	
 	Page<Tuple> getPostList(Pageable pageable);
 	
@@ -60,7 +58,7 @@ public interface PostQuerydsl {
 	
 	Page<Post> selectPagedPosts(String userid, Pageable pageable);
 	
-	List<Post> search(MyPostListSearchDto dto);
+	Page<Post> search(MyPostListSearchDto dto, Pageable pageable);
 	
 	List<Post> search(ReviewPostSearchDto dto);
 	

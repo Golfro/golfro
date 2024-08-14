@@ -23,11 +23,16 @@ public class MainCommentService {
 	private final CommentRepository cmtRepo;
 	private final UserRepository userRepo;
 	
-	public Comment mainPostCommentCreate(MainCommentCreateDto dto) {
+	public int mainPostCommentCreate(MainCommentCreateDto dto) {
 		log.info("mainPostCommentCreate(dto={})", dto);
-		cmtRepo.save(dto.toEntity());
 		
-		return dto.toEntity();
+		try {
+			cmtRepo.save(dto.toEntity());
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	@Transactional(readOnly = true)
@@ -56,18 +61,31 @@ public class MainCommentService {
 		entity.increasePoint(entity.getPoint());
 	}
 	
-	public void deleteComment(long id) {
+	public int deleteComment(long id) {
 		log.info("deleteComment(id={})",id);
-		cmtRepo.deleteById(id);
+		
+		try {
+			cmtRepo.deleteById(id);
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 	
 	@Transactional
-	public void editCommentById(CommentUpdateDto dto) {
+	public int editCommentById(CommentUpdateDto dto) {
 		log.info("editCommentById(dto={})", dto);
     	
 		Comment entity = cmtRepo.findById(dto.getId()).orElseThrow();
 		
-        entity.update(dto.getContent());
+        try {
+        	entity.update(dto.getContent());
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

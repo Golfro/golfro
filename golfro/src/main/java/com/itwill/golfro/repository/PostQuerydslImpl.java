@@ -142,33 +142,28 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 	
 	@Override
-	public List<Post> selectOrderByCreatedTimeDesc() {
+	public Page<Post> selectOrderByIdDesc(String[] categories, Pageable pageable) {
 		log.info("selectOrderByIdDesc()");
 
         QPost post = QPost.post;
         
         JPQLQuery<Post> query = from(post)
-				.where(post.category.id.in("F001", "F002", "F003"))
+				.where(post.category.id.in(categories))
 				.orderBy(post.createdTime.desc());
 		
-		List<Post> result = query.fetch();
-
-        return result;
-	}
-
-	@Override
-	public List<Post> selectOrderByIdDesc() {
-		log.info("selectOrderByIdDesc()");
-
-        QPost post = QPost.post;
+        // Paging & Sorting 적용
+     	getQuerydsl().applyPagination(pageable, query);
         
-        JPQLQuery<Post> query = from(post)
-				.where(post.category.id.in("F001", "F002", "F003"))
-				.orderBy(post.createdTime.desc());
+     	// 한 페이지에 표시할 데이터를 fetch.
+		List<Post> list = query.fetch();
 		
-		List<Post> result = query.fetch();
+		// 전체 레코드 개수를 fetch.
+		long count = query.fetchCount();
 
-        return result;
+		// Page<T> 객체를 생성.
+		Page<Post> page = new PageImpl<>(list, pageable, count);
+		
+        return page;
 	}
 
 	@Override
@@ -218,11 +213,8 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public List<Post> selectByCategoryAndKeyword(CommPostSearchDto dto) {
-		log.info("selectByCategoryAndKeyword(category={}, searchCategory={}, keyword={})"
-				, dto.getCategoryId()
-				, dto.getSearchCategory()
-				, dto.getKeyword());
+	public Page<Post> selectByCategoryAndKeyword(CommPostSearchDto dto, Pageable pageable) {
+		log.info("selectByCategoryAndKeyword(dto={}, pageable={})", dto, pageable);
 
 	    QPost post = QPost.post;
 	    
@@ -267,9 +259,16 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	            .where(whereClause)
 	            .orderBy(post.id.desc());
 	    
-	    List<Post> result = query.fetch();
+	    // 페이징 적용
+	    getQuerydsl().applyPagination(pageable, query);
 	    
-	    return result;
+	    List<Post> list = query.fetch();
+	    
+	    // 전체 게시물 수 계산
+	    long count = query.fetchCount();
+
+	    // 페이지 반환
+	    return new PageImpl<>(list, pageable, count);
 	}
 
 	@Override
@@ -288,7 +287,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 	
 	@Override
-	public List<Post> search(JoinPostSearchDto dto) {
+	public Page<Post> search(JoinPostSearchDto dto, Pageable pageable) {
 		log.info("search(dto={})", dto);
 	    
 	    QPost post = QPost.post;
@@ -325,13 +324,19 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	            .where(whereClause)
 	            .orderBy(post.teeoff.desc());
 	    
-	    List<Post> result = query.fetch();
+	    getQuerydsl().applyPagination(pageable, query);
 	    
-	    return result;
+	    List<Post> list = query.fetch();
+	    
+	    long count = query.fetchCount();
+	    
+	    Page<Post> page = new PageImpl<>(list, pageable, count);
+	    
+	    return page;
 	}
 
 	@Override
-	public List<Post> selectByTeeoffDate(LocalDateTime teeoffDate) {
+	public Page<Post> selectByTeeoffDate(LocalDateTime teeoffDate, Pageable pageable) {
 		log.info("selectByTeeoffDate(teeoffDate={})", teeoffDate);
 
         QPost post = QPost.post;
@@ -341,9 +346,15 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
                         .and(post.category.id.eq("P003")))
         		.orderBy(post.teeoff.asc());
 		
-		List<Post> result = query.fetch();
-
-        return result;
+ 		getQuerydsl().applyPagination(pageable, query);
+ 		
+ 		List<Post> list = query.fetch();
+ 		
+ 		long count = query.fetchCount();
+ 		
+ 		Page<Post> page = new PageImpl<>(list, pageable, count);
+ 		
+ 		return page;
 	}
 
 	@Override
@@ -428,7 +439,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public List<Tuple> search(MainPostSearchDto dto) {
+	public Page<Tuple> search(MainPostSearchDto dto, Pageable pageable) {
 		log.info("search(searchDto={})", dto);
 	    
 	    QPost post = QPost.post;
@@ -450,7 +461,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	        .exists();
 
 	    // 메인 쿼리
-	    List<Tuple> result = queryFactory
+	    JPAQuery<Tuple> query = queryFactory
 	        .select(
 	            post.id,
 	            club.name,
@@ -468,10 +479,24 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	        .join(club).on(post.club.id.eq(club.id))
 	        .join(user).on(post.user.userid.eq(user.userid))
 	        .where(buildSearchConditions(dto, searchKeyword))
-	        .orderBy(post.id.desc())
-	        .fetch();
+	        .orderBy(post.id.desc());
 
-	    return result;
+	    // 페이징 적용
+	    getQuerydsl().applyPagination(pageable, query);
+
+	    // 결과 가져오기
+	    List<Tuple> list = query.fetch();
+
+	    // 전체 게시물 수 계산
+	    long count = queryFactory
+	            .select(post.id.count())
+	            .from(post)
+	            .join(club).on(post.club.id.eq(club.id))
+	            .join(user).on(post.user.userid.eq(user.userid))
+	            .where(buildSearchConditions(dto, searchKeyword))
+	            .fetchOne(); 
+	        
+	    return new PageImpl<>(list, pageable, count);
 	}
 
 	private BooleanBuilder buildSearchConditions(MainPostSearchDto dto, String searchKeyword) {
@@ -530,7 +555,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 	
 	@Override
-	public List<Tuple> searchMyPost(MyPostSearchDto dto) {
+	public Page<Tuple> searchMyPost(MyPostSearchDto dto, Pageable pageable) {
 	    log.info("searchMyPost(searchDto={})", dto);
 	    
 	    QPost post = QPost.post;
@@ -552,7 +577,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	        .exists();
 
 	    // 메인 쿼리
-	    List<Tuple> result = queryFactory
+	    JPAQuery<Tuple> query = queryFactory
 	        .select(
 	            post.id,
 	            club.name,
@@ -570,10 +595,24 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	        .join(club).on(post.club.id.eq(club.id))
 	        .join(user).on(post.user.userid.eq(user.userid))
 	        .where(buildSearchConditions(dto, searchKeyword))
-	        .orderBy(post.id.desc())
-	        .fetch();
+	        .orderBy(post.id.desc());
 
-	    return result;
+	    // 페이징 적용
+	    getQuerydsl().applyPagination(pageable, query);
+
+	    // 결과 가져오기
+	    List<Tuple> list = query.fetch();
+
+	    // 전체 게시물 수 계산
+	    long count = queryFactory
+	            .select(post.id.count())
+	            .from(post)
+	            .join(club).on(post.club.id.eq(club.id))
+	            .join(user).on(post.user.userid.eq(user.userid))
+	            .where(buildSearchConditions(dto, searchKeyword))
+	            .fetchOne();
+	        
+	    return new PageImpl<>(list, pageable, count);
 	}
 
 	private BooleanBuilder buildSearchConditions(MyPostSearchDto dto, String searchKeyword) {
@@ -767,8 +806,8 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public List<Post> search(MyPostListSearchDto dto) {
-		log.info("search(dto={})", dto);
+	public Page<Post> search(MyPostListSearchDto dto, Pageable pageable) {
+		log.info("search(dto={}, pageable={})", dto, pageable);
 
 	    QPost post = QPost.post;
 	    QUser user = QUser.user;
@@ -815,9 +854,19 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	        .where(builder)
 	        .orderBy(post.id.desc());
 
+	    // 페이징 적용
+	    getQuerydsl().applyPagination(pageable, query);
+	    
+	    // 전체 게시물 수 계산
 	    List<Post> list = query.fetch();
 
-	    return list;
+	    // 전체 게시물 수 계산
+	    long count = from(post)
+	            .join(user).on(post.user.userid.eq(user.userid))
+	            .where(builder)
+	            .fetchCount();
+	    
+	    return new PageImpl<>(list, pageable, count);
 	}
 
 	@Override
