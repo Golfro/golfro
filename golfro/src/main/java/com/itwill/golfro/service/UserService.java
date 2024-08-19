@@ -220,6 +220,18 @@ public class UserService {
 		entity.reject(userid);
 	}
 
+	public void acceptEx(UpdatePointDto dto) {
+		try {
+			userRepo.save(dto.toAcceptEntity());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void rejectEx(UpdatePointDto dto) {
+		userRepo.save(dto.toRejectEntity());
+	}
+	
 	@Transactional
 	public void deleteUser(String userid) {
 		log.info("deleteUser(userid={})", userid);

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwill.golfro.domain.Post;
-import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.AcceptListDto;
 import com.itwill.golfro.dto.ExchangeListDto;
 import com.itwill.golfro.dto.MemberListDto;
+import com.itwill.golfro.dto.UpdatePointDto;
 import com.itwill.golfro.service.CommPostService;
 import com.itwill.golfro.service.MyPostService;
 import com.itwill.golfro.service.UserService;
@@ -88,16 +88,14 @@ public class AdminController {
 	}
 
 	@PostMapping("exapprove")
-	public String approveEx(@RequestParam(name = "userid") String userid,
-			@RequestParam(name = "withdraw") int withdraw) {
-		userService.acceptEx(userid, withdraw); // ??
+	public String approveEx(UpdatePointDto dto) {
+		userService.acceptEx(dto);
 		return "redirect:/admin/adminExchange";
 	}
 
 	@PostMapping("exreject")
-	public String rejectEx(@RequestParam(name = "userid") String userid,
-			@RequestParam(name = "withdraw") int withdraw) {
-		userService.rejectEx(userid, withdraw); // ??
+	public String rejectEx(UpdatePointDto dto) {
+		userService.rejectEx(dto);
 		return "redirect:/admin/adminExchange";
 	}
 
