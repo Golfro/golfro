@@ -1,6 +1,6 @@
 package com.itwill.golfro.dto;
 
-import com.itwill.gaebokchi.repository.JoinPost;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,33 +8,43 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.itwill.golfro.domain.Post;
+
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class JoinPostListDto {
-	private Integer id;
+	private Long id;
 	private String title;
-	private String gcadress;
+	private String gcaddress;
 	private LocalDateTime teeoff;
-	private Integer hole;
-	private Integer greenfee;
-	private String author;
-	private String content;
-	private Integer views;
-	private LocalDateTime modifiedTime;
-	private String category;
-
 	private String formattedTeeoff;
+	private Integer hole;
+	private Long greenfee;
+	private String userid;
+	private String content;
+	private Long views;
+	private String categoryId;
+	private LocalDateTime modifiedTime;
 
-	public static JoinPostListDto fromEntity(JoinPost joinpost) {
-		String formattedTeeoff = formatDateTime(joinpost.getTeeoff());
+	public static JoinPostListDto fromEntity(Post entity) {
+		String formattedTeeoff = formatDateTime(entity.getTeeoff());
 
-		return JoinPostListDto.builder().id(joinpost.getId()).title(joinpost.getTitle())
-				.gcadress(joinpost.getGcadress()).teeoff(joinpost.getTeeoff()).formattedTeeoff(formattedTeeoff)
-				.hole(joinpost.getHole()).greenfee(joinpost.getGreenfee()).author(joinpost.getAuthor())
-				.content(joinpost.getContent()).views(joinpost.getViews()).modifiedTime(joinpost.getModifiedTime())
-				.category(joinpost.getCategory()).build();
+		return JoinPostListDto.builder()
+				.id(entity.getId())
+				.title(entity.getTitle())
+				.gcaddress(entity.getGcaddress())
+				.teeoff(entity.getTeeoff())
+				.formattedTeeoff(formattedTeeoff)
+				.hole(entity.getHole())
+				.greenfee(entity.getGreenfee())
+				.userid(entity.getUser().getUserid())
+				.content(entity.getContent())
+				.views(entity.getViews())
+				.categoryId(entity.getCategory().getId())
+				.modifiedTime(entity.getModifiedTime())
+				.build();
 	}
 
 	// LocalDateTime을 포맷팅하여 문자열로 변환하는 메서드

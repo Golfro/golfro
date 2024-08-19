@@ -3,12 +3,10 @@ package com.itwill.golfro.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.UserProfileDto;
 import com.itwill.golfro.dto.UserUpdateDto;
-import com.itwill.golfro.repository.Normal;
-import com.itwill.golfro.repository.Pro;
-import com.itwill.golfro.repository.UserMypage;
-import com.itwill.golfro.repository.UserMypageDao;
+import com.itwill.golfro.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,31 +16,34 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserMypageService {
 
-	private final UserMypageDao userDao;
+	private final UserRepository userRepo;
 
-	public Normal read(String userid) {
-		log.debug("read(userid={})", userid);
+	@Transactional(readOnly = true)
+	public User read(String userid) {
+		log.info("read(userid={})", userid);
 
-		Normal user = userDao.selectByUserid(userid);
-		log.debug("select 결과 = {}", user);
+		User user = userRepo.selectByUserid(userid);
+		log.info("select 결과={}", user);
 
 		return user;
 	}
 
-	public Pro readPro(String userid) {
-		log.debug("read(userid={})", userid);
+	public User readPro(String userid) {
+		log.info("readPro(userid={})", userid);
 
-		Pro pro = userDao.selectProByUserid(userid);
-		log.debug("select 결과 = {}", pro);
+		User user = userRepo.selectProByUserid(userid);
+		log.info("select 결과={}", user);
 
-		return pro;
+		return user;
 	}
 	
+	@Transactional(readOnly = true)
 	// 닉네임 중복 체크: true - 중복되지 않은 닉네임(사용 가능한 닉네임), false - 중복된 닉네임
 	public boolean checkNickname(String nickname) {
-		log.debug("checkNickname(nickname={})", nickname);
+		log.info("checkNickname(nickname={})", nickname);
 
-		UserMypage user = userDao.selectByNickname(nickname);
+		User user = userRepo.selectByNickname(nickname);
+		
 		if (user == null) {
 			return true;
 		} else {
@@ -50,35 +51,44 @@ public class UserMypageService {
 		}
 	}
 
-	public void update(UserUpdateDto user) {
-		log.debug("update(user={})", user);
+	@Transactional
+	public void update(UserUpdateDto dto) {
+		log.info("update(dto={})", dto);
 
-		userDao.update(user.toEntity());
-	}
-	
-	public void updateImage(UserProfileDto user) {
-		log.debug("updateImage(dto={})");
-
-		userDao.updateImage(user.toEntity());
+		User entity = userRepo.findByUserid(dto.getUserid());
+		
+		entity.update(dto.getPassword(), dto.getPhone(), dto.getAddress()
+				, dto.getProId(), dto.getAccount());
 	}
 	
 	@Transactional
-    public Object updateProfile(UserProfileDto user) {
-		log.debug("updateProfile(user={})", user);
+	public void updateImage(UserProfileDto dto) {
+		log.info("updateImage(dto={})", dto);
+
+		User entity = userRepo.findByUserid(dto.getUserid());
 		
-		if (user.getNickname() != null) {
-			userDao.updateNickname(user.toEntity());
+		entity.updateImage(dto.getImage());
+	}
+	
+	@Transactional
+    public Object updateProfile(UserProfileDto dto) {
+		log.info("updateProfile(dto={})", dto);
+		
+		User entity = userRepo.findByUserid(dto.getUserid());
+		
+		if (dto.getNickname() != null) {
+			entity.updateNickname(dto.getNickname());
 		}
         
-        if (user.getGrade().equals("G10") && user.getCareer() != null) {
-        	userDao.updateProCareer(user.toEntity());
+        if (dto.getGrade().equals("G10") && dto.getCareer() != null) {
+        	entity.updateProCareer(dto.getCareer());
         }
         
-        if (user.getGrade().equals("G10")) {
-        	return userDao.selectProByUserid(user.getUserid());
+        if (dto.getGrade().equals("G10")) {
+        	return userRepo.selectProByUserid(dto.getUserid());
         }
         
-        return userDao.selectByUserid(user.getUserid());
+        return userRepo.selectByUserid(dto.getUserid());
 	}
 	
 }

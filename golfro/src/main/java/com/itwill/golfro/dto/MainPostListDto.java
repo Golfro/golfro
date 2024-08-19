@@ -5,37 +5,41 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.itwill.gaebokchi.repository.Post;
+import com.itwill.golfro.domain.Post;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder @NoArgsConstructor @AllArgsConstructor
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MainPostListDto {
-	
-	private Integer id;
-	private String clubType;
+	private Long id;
+	private String clubId;
+	private String categoryId;
 	private String title;
-	private String author;
-	private Integer views;
-	private Integer likes;
+	private String userid;
+	private Long views;
+	private Long likes;
 	private String createdTime;
-	private String selection;
-	private LocalDateTime modifiedTime;
-	private String category;
 	
-	
-	public static MainPostListDto fromEntity(Post post) {
-		
-		return MainPostListDto.builder().id(post.getId()).clubType(post.getClubType()).title(post.getTitle()).author(post.getAuthor()).selection(post.getSelection())
-				.views(post.getViews()).likes(post.getLikes()).createdTime(formatDateTime(post.getCreatedTime())).build();
-				
+	public static MainPostListDto fromEntity(Post entity) {
+		return MainPostListDto.builder()
+				.id(entity.getId())
+				.clubId(entity.getClub().getId())
+				.title(entity.getTitle())
+				.userid(entity.getUser().getUserid())
+				.views(entity.getViews())
+				.likes(entity.getLikes())
+				.createdTime(formatDateTime(entity.getCreatedTime()))
+				.build();
 	}
 	
-    private static String formatDateTime(LocalDateTime dateTime) {
+	private static String formatDateTime(LocalDateTime dateTime) {
         if (dateTime != null) {
             // UTC 시간대로 변환
             ZonedDateTime utcDateTime = dateTime.atZone(ZoneId.of("UTC"));
@@ -48,7 +52,5 @@ public class MainPostListDto {
         } else {
             return null;
         }
-    }
-	
-
+	}
 }
