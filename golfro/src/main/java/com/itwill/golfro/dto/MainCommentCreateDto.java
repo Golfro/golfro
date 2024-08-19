@@ -1,19 +1,22 @@
 package com.itwill.golfro.dto;
 
-import com.itwill.gaebokchi.repository.MainComment;
+import com.itwill.golfro.domain.Comment;
+import com.itwill.golfro.domain.Post;
+import com.itwill.golfro.domain.User;
 
 import lombok.Data;
 
 @Data
 public class MainCommentCreateDto {
-	private Integer postId;
+	private Long postId;
 	private String content;
-	private String author;
+	private String userid;
 	
-	
-	public MainComment toEntity() {
-		
-		return MainComment.builder().postId(postId).content(content).author(author).build();
+	public Comment toEntity() {
+		return Comment.builder()
+				.post(Post.builder().id(postId).build())
+				.content(content)
+				.user(User.builder().userid(userid).build())
+				.build();
 	}
-
 }

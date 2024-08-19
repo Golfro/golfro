@@ -18,7 +18,7 @@ import lombok.ToString;
 public class Category {
 	
 	@Id
-	private Integer id;
+	private String id;
 	
 	@Basic(optional = false)
 	private String name;

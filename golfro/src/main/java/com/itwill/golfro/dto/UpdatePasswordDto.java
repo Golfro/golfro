@@ -1,6 +1,6 @@
 package com.itwill.golfro.dto;
 
-import com.itwill.gaebokchi.repository.User;
+import com.itwill.golfro.domain.User;
 
 import lombok.Data;
 
@@ -12,6 +12,11 @@ public class UpdatePasswordDto {
 	private String password;
 
 	public User toEntity() {
-		return User.builder().userid(userid).email(email).phone(phone).password(password).build();
+		return User.builder()
+				.userid(userid)
+				.email(email)
+				.phone(phone)
+				.password(password)
+				.build();
 	}
 }
