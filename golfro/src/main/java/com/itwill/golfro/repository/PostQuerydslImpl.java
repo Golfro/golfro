@@ -930,20 +930,17 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 	
 	@Override
-	public List<Post> search(ReviewPostSearchDto dto) {
+	public Page<Post> search(ReviewPostSearchDto dto, Pageable pageable) {
 		log.info("search(dto={})", dto);
 
 	    QPost post = QPost.post;
 	    QUser user = QUser.user;
 
-	    JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
-
 	    // 검색어 바인딩
 	    String searchKeyword = "%" + dto.getKeyword() + "%";
 
 	    // 기본 쿼리 생성
-	    JPAQuery<Post> query = queryFactory
-	        .selectFrom(post)
+	    JPQLQuery<Post> query = from(post)
 	        .join(user).on(post.user.userid.eq(user.userid))
 	        .where(post.category.id.eq("P004"));
 
@@ -974,8 +971,15 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    // 정렬
 	    query.orderBy(post.id.desc());
 
-	    // 결과 가져오기
-	    return query.fetch();
+	    getQuerydsl().applyPagination(pageable, query);
+ 		
+ 		List<Post> list = query.fetch();
+ 		
+ 		long count = query.fetchCount();
+ 		
+ 		Page<Post> page = new PageImpl<>(list, pageable, count);
+ 		
+ 		return page;
 	}
 
 	@Override

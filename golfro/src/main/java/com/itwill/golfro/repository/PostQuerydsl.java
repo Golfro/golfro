@@ -60,7 +60,7 @@ public interface PostQuerydsl {
 	
 	Page<Post> search(MyPostListSearchDto dto, Pageable pageable);
 	
-	List<Post> search(ReviewPostSearchDto dto);
+	Page<Post> search(ReviewPostSearchDto dto, Pageable pageable);
 	
 	Page<Post> selectPagedP004Posts(Pageable pageable); // origin: reviewpost-mapper -> id='selectPagedPosts'
 	

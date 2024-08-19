@@ -42,8 +42,8 @@ public class JoinController {
 
 	@ModelAttribute("loggedInUser")
 	public User addLoggedInUserToModel(HttpSession session) {
-		String userId = SESSION_ATTR_USER;
-		return joinPostService.getLoggedInUser(userId);
+		String userid = SESSION_ATTR_USER;
+		return joinPostService.getLoggedInUser(userid);
 	}
 
 	@GetMapping("/join_create")

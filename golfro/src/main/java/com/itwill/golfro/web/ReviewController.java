@@ -1,5 +1,13 @@
 package com.itwill.golfro.web;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,39 +32,31 @@ import org.springframework.web.multipart.MultipartFile;
 import com.itwill.golfro.domain.Comment;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
-import com.itwill.golfro.dto.CommPostCreateDto;
-import com.itwill.golfro.dto.CommPostListDto;
-import com.itwill.golfro.dto.CommPostSearchDto;
-import com.itwill.golfro.dto.CommPostUpdateDto;
 import com.itwill.golfro.dto.CommentCreateDto;
 import com.itwill.golfro.dto.CommentUpdateDto;
+import com.itwill.golfro.dto.ReviewPostCreateDto;
+import com.itwill.golfro.dto.ReviewPostListDto;
+import com.itwill.golfro.dto.ReviewPostSearchDto;
+import com.itwill.golfro.dto.ReviewPostUpdateDto;
 import com.itwill.golfro.repository.CommentRepository;
-import com.itwill.golfro.service.CommPostService;
 import com.itwill.golfro.service.MediaService;
+import com.itwill.golfro.service.ReviewPostService;
 import com.itwill.golfro.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/community")
-public class CommunityController {
+@RequestMapping("/review")
+public class ReviewController {
 
 	public static final String SESSION_ATTR_USER = "signedInUser";
 	
 	private final CommentRepository cmtRepo;
-	private final CommPostService commPostService;
+	private final ReviewPostService reviewPostService;
 	private final MediaService mediaService;
 	private final UserService userService;
 
@@ -65,24 +65,23 @@ public class CommunityController {
 	@ModelAttribute("loggedInUser")
 	public User addLoggedInUserToModel(HttpSession session) {
 		String userid = SESSION_ATTR_USER;
-		return commPostService.getLoggedInUser(userid);
+		return reviewPostService.getLoggedInUser(userid);
 	}
 
-	@GetMapping("/comm_create")
-	public String createCommPost(@ModelAttribute("loggedInUser") User loggedInUser, Model model) {
+	@GetMapping("/review_create")
+	public String createReviewPost(@ModelAttribute("loggedInUser") User loggedInUser, Model model) {
 		if (loggedInUser != null) {
 			model.addAttribute("user", loggedInUser);
 		}
-		
-		return "community/comm_create";
+		return "review/review_create";
 	}
 
-	@PostMapping("/comm_create")
-	public String create(@ModelAttribute CommPostCreateDto dto,
+	@PostMapping("/review_create")
+	public String create(@ModelAttribute ReviewPostCreateDto dto,
 			@RequestParam(value = "media", required = false) MultipartFile mediaFile,
 			@ModelAttribute("loggedInUser") User loggedInUser) {
 		if (loggedInUser != null) {
-			log.info("user={}", loggedInUser);
+			log.info("create(loggedInUser={})", loggedInUser);
 		}
 
 		if (mediaFile != null && !mediaFile.isEmpty()) {
@@ -90,66 +89,58 @@ public class CommunityController {
 			dto.setMediaPath(fileName);
 		}
 
-		commPostService.Create(dto);
-		
-		return "redirect:/community/comm_main";
+		reviewPostService.Create(dto);
+		return "redirect:/review/review_main";
 	}
 
-	@GetMapping("/comm_main")
-	public String viewCommunityMain(@RequestParam(name = "post-cate", required = false) String category,
-			@RequestParam(name = "search-category", required = false) String searchCategory,
+	@GetMapping("/review_main")
+	public String viewreviewMain(@RequestParam(name = "search-category", required = false) String category,
 			@RequestParam(name = "keyword", required = false) String keyword,
 			@RequestParam(name = "p", defaultValue = "0") int pageNo, Model model) {
-		log.info("GET: viewCommunityMain(category={}, searchCategory={}, keyword={}, pageNo={})", category, searchCategory, keyword, pageNo);
+		log.info("GET: viewreviewMain(category={}, keyword={}, pageNo={})", category, keyword, pageNo);
 
-		Page<CommPostListDto> posts;
-
-		if ((category != null && !category.isEmpty()) || (searchCategory != null && keyword != null && !keyword.isEmpty())) {
-			CommPostSearchDto searchDto = new CommPostSearchDto();
-			searchDto.setCategoryId(category);
-			searchDto.setSearchCategory(searchCategory);
-			searchDto.setKeyword(keyword);
-			posts = commPostService.searchByCategoryAndKeyword(searchDto, pageNo, Sort.by("id").descending());
-		} else {
-			posts = commPostService.getPagedPosts(pageNo, Sort.by("id").descending());
-		}
-
-		List<Post> pinnedPosts = commPostService.Fixingthetop();
-
+		Page<ReviewPostListDto> posts;
+		List<Post> pinnedPosts = reviewPostService.Fixingthetop();
 		List<Long> pinnedPostIds = pinnedPosts.stream().map(Post::getId).collect(Collectors.toList());
 
-		List<CommPostListDto> filteredPostsList = posts.getContent().stream()
-	            .filter(post -> !pinnedPostIds.contains(post.getId()))
+		if (category != null && keyword != null && !keyword.isEmpty()) {
+			ReviewPostSearchDto searchDto = new ReviewPostSearchDto();
+			searchDto.setCategory(category);
+			searchDto.setKeyword(keyword);
+			posts = reviewPostService.search(searchDto, pageNo, Sort.by("id").descending());
+		} else {
+			posts = reviewPostService.getPagedPosts(pageNo, Sort.by("id").descending());
+		}
+
+		List<ReviewPostListDto> filteredPostsList = posts.getContent().stream()
+				.filter(post -> !pinnedPostIds.contains(post.getId()))
 	            .collect(Collectors.toList());
 
 		posts = new PageImpl<>(filteredPostsList, posts.getPageable(), posts.getTotalElements() - pinnedPosts.size());
-
-
-		model.addAttribute("pinnedPosts", pinnedPosts);
-		model.addAttribute("top5ByF001", commPostService.getTop5ByF001());
-		model.addAttribute("top5ByF002", commPostService.getTop5ByF002());
 		
-		Map<String, String> category_name = commPostService.catrgoryname(); // 카테고리 ID / Name 매핑
-		Map<String, String> userNicknames = userService.getUserNicknames(); // 유저 UserId / Nickname 매핑
-		
-		model.addAttribute("category_name", category_name);
-		model.addAttribute("userNicknames", userNicknames);
-		model.addAttribute("category_name", category_name);
-		model.addAttribute("selectedCategory", category);
-		model.addAttribute("selectedSearchCategory", searchCategory);
-		model.addAttribute("keyword", keyword);
 		model.addAttribute("posts", posts);
+		model.addAttribute("pinnedPosts", pinnedPosts);
 
-		return "community/comm_main";
+		// 카테고리 매핑 정보 추가하기
+		Map<String, String> categoryMap = new HashMap<>();
+		categoryMap.put("P004", "리뷰");
+
+		Map<String, String> userNicknames = userService.getUserNicknames();
+
+		model.addAttribute("userNicknames", userNicknames);
+		model.addAttribute("posts", posts);
+		model.addAttribute("categoryMap", categoryMap);
+		model.addAttribute("keyword", keyword);
+
+		return "review/review_main";
 	}
 
-	@GetMapping("/comm_details")
+	@GetMapping("/review_details")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
 			@RequestParam("id") long id, @RequestParam(name = "commentId", required = false) long commentId,
 			Model model, HttpSession session) {
 		if (loggedInUser != null) {
-			log.info("user={}", loggedInUser);
-			
+			log.info("detailsCommunityPost(loggedInUser={})", loggedInUser);
 			model.addAttribute("user", loggedInUser);
 
 			@SuppressWarnings("unchecked")
@@ -159,7 +150,7 @@ public class CommunityController {
 			}
 
 			if (!viewedPosts.contains(id)) {
-				commPostService.increaseViews(id); // 조회수 증가
+				reviewPostService.increaseViews(id); // 조회수 증가
 				viewedPosts.add(id);
 				session.setAttribute("viewedPosts", viewedPosts);
 			} else {
@@ -170,21 +161,22 @@ public class CommunityController {
 		}
 
 		// 게시물 조회
-		Post post = commPostService.read(id);
+		Post post = reviewPostService.read(id);
 
+		String[] category = {"P004"};
+		
 		// 이전 글과 다음 글 찾기
-		Post previousPost = commPostService.getPreviousPost(post.getCreatedTime());
-		Post nextPost = commPostService.getNextPost(post.getCreatedTime());
+		Post previousPost = reviewPostService.getPreviousPost(category, post.getCreatedTime());
+		Post nextPost = reviewPostService.getNextPost(category, post.getCreatedTime());
 
 		// 댓글 목록 조회
-		List<Comment> commentlist = commPostService.readAllComment(id);
-		long commentcount = commPostService.selectCommentCount(id);
+		List<Comment> commentlist = reviewPostService.readAllComment(id);
+		long commentcount = reviewPostService.selectCommentCount(id);
 
 		Map<String, String> userNicknames = userService.getUserNicknames();
-		Map<String, String> category_name = commPostService.catrgoryname();
 
+		// 모델에 속성 추가
 		model.addAttribute("userNicknames", userNicknames);
-		model.addAttribute("category_name", category_name);
 		model.addAttribute("post", post); // 불러온 게시물 속성 추가
 		model.addAttribute("previousPost", previousPost); // 이전 글
 		model.addAttribute("nextPost", nextPost); // 다음 글
@@ -192,86 +184,78 @@ public class CommunityController {
 		model.addAttribute("commentcount", commentcount);
 		model.addAttribute("commentId", commentId);
 		
-		return "community/comm_details";
+		return "review/review_details";
 	}
 
-	@GetMapping("/comm_modify")
-	public String modifyCommunityPost(@RequestParam("id") long id, Model model) {
-		Post post = commPostService.read(id);
+	@GetMapping("/review_modify")
+	public String modifyReviewPost(@RequestParam("id") long id, Model model) {
+		log.info("modifyReviewPost(id={})", id);
+		
+		Post post = reviewPostService.read(id);
 
 		// 모델에 속성 추가
 		model.addAttribute("post", post);
 
-		return "community/comm_modify";
+		return "review/review_modify";
 	}
 
 	@PostMapping("/update")
-	public String update(CommPostUpdateDto dto) {
+	public String update(ReviewPostUpdateDto dto) {
 		log.info("update(dto={})", dto);
 
 		// 서비스 컴포넌트의 메서드를 호출해서 데이터베이스 테이블 업데이트를 수행.
-		commPostService.update(dto);
+		reviewPostService.update(dto);
 
-		return "redirect:/community/comm_details?id=" + dto.getId();
+		return "redirect:/review/review_details?id=" + dto.getId();
 	}
 
 	@GetMapping("/delete")
-	public String delete(@RequestParam(name = "id") long id) {
+	public String delete(@RequestParam(name = "id") int id) {
 		log.info("delete(id={})", id);
 
-		commPostService.delete(id);
+		reviewPostService.delete(id);
 
-		return "redirect:/community/comm_main";
+		return "redirect:/review/review_main";
 	}
 
 	@PostMapping("/increaseLikes")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> increaseLikes(@RequestParam("id") long id, HttpSession session) {
+		log.info("increaseLikes(id={})", id);
+		
 		String userid = SESSION_ATTR_USER;
 
 		// 해당 사용자가 이미 좋아요를 눌렀는지 확인
 		Set<Integer> likedPosts = userLikedPosts.getOrDefault(userid, new HashSet<>());
-		log.info("likedPosts={}" , likedPosts);
-		
 		if (likedPosts.contains((int) id)) {
 			// 이미 좋아요를 누른 경우 예외 처리
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "이미 좋아요를 눌렀습니다."));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(Collections.singletonMap("error", "이미 좋아요를 눌렀습니다."));
 		}
 
 		// 좋아요를 증가시키고, 사용자의 좋아요 목록에 추가
-		commPostService.increaseLikes(id);
-		
+		reviewPostService.increaseLikes(id);
 		likedPosts.add((int) id);
-		
 		userLikedPosts.put(userid, likedPosts);
-		log.info("userLikedPosts={}" , userLikedPosts);
 
 		// 업데이트된 좋아요 개수 반환
-		Post updatedPost = commPostService.read(id);
+		Post updatedPost = reviewPostService.read(id);
 		Map<String, Object> response = new HashMap<>();
 		response.put("likes", updatedPost.getLikes());
 		
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping("/media/{fileName}")
-	@ResponseBody
-	public ResponseEntity<ByteArrayResource> getMedia(@PathVariable("fileName") String fileName) {
-		ByteArrayResource resource = mediaService.loadFileAsResource(fileName);
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(resource);
-	}
-
 	// 댓글 목록 조회
 	@GetMapping("/comments/{postId}")
 	public String getCommentsByPostId(@PathVariable long postId, Model model) {
 		List<Comment> comments = cmtRepo.selectByPostId(postId);
-		
 		Map<String, String> userNicknames = userService.getUserNicknames();
 		
 		model.addAttribute("comments", comments);
-		model.addAttribute("userNicknames", userNicknames);
+		model.addAttribute("userNicknames", userNicknames);	
 
-		return "community/comm_details";
+		return "review/review_details";
 	}
 
 	@PostMapping("/comments")
@@ -282,8 +266,8 @@ public class CommunityController {
 					.user(User.builder().userid(loggedInUser.getUserid()).build())
 					.post(Post.builder().id(commentCreateDto.getPostId()).build())
 					.content(commentCreateDto.getContent())
-					.build();
-			
+					.build(); // 댓글 작성자 설정
+
 			// 댓글을 데이터베이스에 저장하고 자동 생성된 id를 받아옴
 			Comment result = cmtRepo.save(comment);
 
@@ -304,7 +288,6 @@ public class CommunityController {
 	@ResponseBody
 	public Comment updateComment(@RequestBody CommentUpdateDto commentUpdateDto) {
 		Comment comment = cmtRepo.selectCommentById(commentUpdateDto.getId());
-		
 		if (comment != null) {
 			comment.update(commentUpdateDto.getContent());
 			Comment result = cmtRepo.save(comment);
@@ -315,6 +298,13 @@ public class CommunityController {
 		}
 		
 		return null;
+	}
+
+	@GetMapping("/media/{fileName}")
+	@ResponseBody
+	public ResponseEntity<ByteArrayResource> getMedia(@PathVariable("fileName") String fileName) {
+		ByteArrayResource resource = mediaService.loadFileAsResource(fileName);
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(resource);
 	}
 
 	// DELETE 요청의 URL 수정
@@ -329,5 +319,5 @@ public class CommunityController {
 			return "Failed to delete comment with id: " + id;
 		}
 	}
-	
+
 }

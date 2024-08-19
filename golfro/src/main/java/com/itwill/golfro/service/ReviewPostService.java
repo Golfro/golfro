@@ -17,6 +17,7 @@ import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.CommentCreateDto;
 import com.itwill.golfro.dto.CommentUpdateDto;
 import com.itwill.golfro.dto.ReviewPostCreateDto;
+import com.itwill.golfro.dto.ReviewPostListDto;
 import com.itwill.golfro.dto.ReviewPostSearchDto;
 import com.itwill.golfro.dto.ReviewPostUpdateDto;
 import com.itwill.golfro.repository.CommentRepository;
@@ -88,13 +89,14 @@ public class ReviewPostService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Post> search(ReviewPostSearchDto dto) {
+	public Page<ReviewPostListDto> search(ReviewPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("search(dto={})", dto);
 		
-		List<Post> list = postRepo.search(dto);
-		log.info("Raw search results: {}", list);
+		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Page<Post> list = postRepo.search(dto, pageable);
+		Page<ReviewPostListDto> posts = list.map(ReviewPostListDto::fromEntity);
 		
-		return list;
+		return posts;
 	}
 
 	@Transactional(readOnly = true)
@@ -159,14 +161,14 @@ public class ReviewPostService {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<Post> getPagedPosts(int pageNo, Sort sort) {
+	public Page<ReviewPostListDto> getPagedPosts(int pageNo, Sort sort) {
 		log.info("getPagedPosts(pageNo={}, sort={})", pageNo, sort);
 		
 		Pageable pageable = PageRequest.of(pageNo, 5, sort);
-		
 		Page<Post> list = postRepo.selectPagedPosts(pageable);
+		Page<ReviewPostListDto> posts = list.map(ReviewPostListDto::fromEntity);
 		
-		return list;
+		return posts;
 	}
 
 	@Transactional(readOnly = true)
