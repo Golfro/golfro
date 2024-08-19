@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+// import com.amazonaws.services.s3.AmazonS3;
+// import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.dto.MainPostCreateDto;
@@ -29,9 +32,16 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 public class MainPostService {
+	
+	// private final AmazonS3 amazonS3;
+    private final String bucketName = "golfro-bucket"; // 실제 버킷 이름으로 변경하세요
+    
 
 	private final PostRepository postRepo;
 	private final ClubRepository clubRepo;
+	
+	
+	
 	
 	public void mainCreate(MainPostCreateDto dto) {
 		log.info("mainCreate(dto={})", dto);
@@ -44,23 +54,27 @@ public class MainPostService {
 			int idx = mediaName.lastIndexOf("."); // 이름에서 마지막 . index를 찾아서
 
 			if (idx > 0) { // idx가 유효한지 확인
-				String orgMediaName = mediaName.substring(0, idx); // file 이름에 첫번째 인덱스부터 . 인덱스 전까지만 orgMediaName 변수에 저장
-				String orgMediaType = mediaName.substring(idx); // file 이름에 . 다음 인덱스부터 다음 인덱스 까지(확장자)를 해당 변수애 저장
-				String sMediaName = orgMediaName + uuid + orgMediaType; // 파일 순수 이름 + 랜덤으로 생성된 uuid + 확장자를 합쳐서 한 변수에 저장
-				String realPath = "C:\\Users\\itwill\\Desktop\\media"; // 실제 파일이 저장될 경로를 변수에 저장
+	            String orgMediaName = mediaName.substring(0, idx);
+	            String orgMediaType = mediaName.substring(idx);
+	            String s3FileName = orgMediaName + uuid + orgMediaType;
+	            
+//				String orgMediaName = mediaName.substring(0, idx); // file 이름에 첫번째 인덱스부터 . 인덱스 전까지만 orgMediaName 변수에 저장
+//				String orgMediaType = mediaName.substring(idx); // file 이름에 . 다음 인덱스부터 다음 인덱스 까지(확장자)를 해당 변수애 저장
+//				String sMediaName = orgMediaName + uuid + orgMediaType; // 파일 순수 이름 + 랜덤으로 생성된 uuid + 확장자를 합쳐서 한 변수에 저장
+//				String realPath = "C:\\Users\\itwill\\Desktop\\media"; // 실제 파일이 저장될 경로를 변수에 저장
 
-				File folder = new File(realPath);
-
-				if (!folder.exists()) { // 만약 설정한 경로에 저장 폴더가 존재하지 않는다면,
-					folder.mkdirs(); // 새폴더를 생성
-				}
-				
-				File file = new File(realPath + "/" + sMediaName);
 
 				try {
-					media.transferTo(file);
-					String mediaPath = realPath + "/" + sMediaName;
-					dto.setMediaPath(mediaPath); // DTO에 파일 경로 설정
+					// 파일을 S3에 업로드
+	                // amazonS3.putObject(new PutObjectRequest(bucketName, s3FileName, media.getInputStream(), null));
+	                
+	                // S3에 저장된 파일의 URL을 생성
+	                // String mediaPath = amazonS3.getUrl(bucketName, s3FileName).toString();
+	                // dto.setMediaPath(mediaPath); // DTO에 S3 URL을 저장
+
+//					media.transferTo(file);
+//					String mediaPath = realPath + "/" + sMediaName;
+//					dto.setMediaPath(mediaPath); // DTO에 파일 경로 설정
 				} catch (Exception e) {
 					log.error("Failed to save media file", e);
 					throw new RuntimeException("Failed to save media file", e);
