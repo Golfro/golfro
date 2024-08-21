@@ -21,7 +21,7 @@ public class HomeController {
 	@Autowired
 	private HomeService homeService;
 	
-	@GetMapping("/") // GET 방식의 요청 주소가 context path인 요청을 처리하는 메서드
+	@GetMapping("/home") // GET 방식의 요청 주소가 context path인 요청을 처리하는 메서드
 	public String home(Model model) {
 		log.info("home()");
 		
