@@ -45,7 +45,7 @@ public class Post extends BaseTimeEntity {
     
     @Basic(optional = false)
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID")
+	@JoinColumn(name = "USERID", referencedColumnName = "USERID")
     private User user;
     
     @Basic(optional = false)
@@ -53,15 +53,15 @@ public class Post extends BaseTimeEntity {
 	@JoinColumn(name = "CATEGORY_ID")
     private Category category;
     
-    private double height;
+    private Integer height;
     
-    private double career;
+    private Integer career;
     
-    private double handy;
+    private Integer handy;
     
-    private double irondistance;
+    private Integer irondistance;
     
-    private double driverdistance;
+    private Integer driverdistance;
     
     private Integer hole;
     

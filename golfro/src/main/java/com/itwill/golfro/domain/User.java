@@ -1,5 +1,7 @@
 package com.itwill.golfro.domain;
 
+import java.io.Serializable;
+
 import org.hibernate.annotations.NaturalId;
 
 import jakarta.persistence.Basic;
@@ -19,20 +21,24 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Getter
+@Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 // onlyExplicitlyIncluded 속성: @EqualsAndHashCode.Include 애너테이션이 설정된 필드만 사용할 것인지 여부.
 // callSuper 속성: superclass의 equals(), hashCode() 메서드를 사용할 것인지 여부.
 @Entity
 @Table(name = "USERS")
-public class User {
-	
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
