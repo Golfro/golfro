@@ -35,8 +35,6 @@ public class HomeController {
 
 		return "home"; // 뷰(HTML 파일)의 이름.
 
-		return "mainPost/create"; // 뷰(HTML 파일)의 이름.
-
 	}
 	
 }
