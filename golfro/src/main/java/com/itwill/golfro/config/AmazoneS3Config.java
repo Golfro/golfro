@@ -12,7 +12,7 @@ public class AmazoneS3Config {
 	@Bean
 	public AmazonS3 amazonS3() {
         return AmazonS3ClientBuilder.standard()
-                .withRegion("YOUR_AWS_REGION") // 예: us-east-1
+                .withRegion("ap-northeast-2") // 예: us-east-1
                 .build();
     }
 	

@@ -14,15 +14,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
+import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.MainPostCreateDto;
 import com.itwill.golfro.dto.MainPostSearchDto;
 import com.itwill.golfro.dto.MainPostUpdateDto;
 import com.itwill.golfro.dto.MyPostSearchDto;
 import com.itwill.golfro.repository.ClubRepository;
 import com.itwill.golfro.repository.PostRepository;
+import com.itwill.golfro.repository.UserRepository;
 import com.querydsl.core.Tuple;
 
 import lombok.RequiredArgsConstructor;
@@ -35,7 +38,7 @@ public class MainPostService {
 	private final AmazonS3 amazonS3;
     private final String bucketName = "golfro-bucket"; // 실제 버킷 이름으로 변경하세요
 
-	
+	private final UserRepository userRepo;
 	private final PostRepository postRepo;
 	private final ClubRepository clubRepo;
 	
@@ -55,8 +58,13 @@ public class MainPostService {
 	            String s3FileName = orgMediaName + uuid + orgMediaType; // 파일 순수 이름 + 랜덤 UUID + 확장자를 합쳐서 저장
 
 	            try {
+	            	// ObjectMetadata를 사용하여 파일의 Content-Length 설정
+	                ObjectMetadata metadata = new ObjectMetadata();
+	                metadata.setContentLength(media.getSize());
+	                metadata.setContentType(media.getContentType()); // 파일의 Content-Type을 설정
+	            	
 	                // 파일을 S3에 업로드
-	                amazonS3.putObject(new PutObjectRequest(bucketName, s3FileName, media.getInputStream(), null));
+	                amazonS3.putObject(new PutObjectRequest(bucketName, s3FileName, media.getInputStream(), metadata));
 
 	                // S3에 저장된 파일의 URL을 생성
 	                String mediaPath = amazonS3.getUrl(bucketName, s3FileName).toString();
@@ -70,9 +78,18 @@ public class MainPostService {
 	            throw new IllegalArgumentException("Invalid media file name: " + mediaName);
 	        }
 	    }
-
+	    
+	    User user = userRepo.findByUserid(dto.getUserid());
+	    if(user == null) {
+            throw new RuntimeException("User not found: " + dto.getUserid());
+	    }
+	    dto.setUser(user);
 	    postRepo.save(dto.toEntity());
 	}
+	
+	
+	
+	
 
 
 	public void mainPostUpdate(MainPostUpdateDto dto) {

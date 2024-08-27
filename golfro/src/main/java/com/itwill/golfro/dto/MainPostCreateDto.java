@@ -11,16 +11,17 @@ import lombok.Data;
 
 @Data
 public class MainPostCreateDto {
+	private User user;
 	private String clubId;
 	private String userid;
 	private String title;
 	private String content;
 	private String categoryId;
-	private double height;
-	private double career;
-	private double handy;
-	private double ironDistance;
-	private double driverDistance;
+	private int height;
+	private int career;
+	private int handy;
+	private int ironDistance;
+	private int driverDistance;
 	private MultipartFile media;
 	private String mediaPath;
 	
@@ -29,7 +30,7 @@ public class MainPostCreateDto {
 				.club(Club.builder().id(clubId).build())
 				.category(Category.builder().id(categoryId).build())
 				.media(mediaPath)
-				.user(User.builder().userid(userid).build())
+				.user(user)
 				.title(title)
 				.content(content)
 				.height(height)
