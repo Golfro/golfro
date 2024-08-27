@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+<<<<<<< HEAD
     // AWS SDK 의존성 추가 (안정적인 버전으로 변경)
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.400' // 1.11.x 버전은 안정적임
     implementation 'com.amazonaws:aws-java-sdk-core:1.12.400'
@@ -34,6 +35,12 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.1'
 
     // Spring Boot 프로젝트에 필요한 기타 의존성들
+=======
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+>>>>>>> refs/heads/LJY
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
