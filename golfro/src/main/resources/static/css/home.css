@@ -1,0 +1,402 @@
+@charset "UTF-8";
+
+/* Font Definitions */
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ChosunGu';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* General Layout */
+.container-fluid {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+main {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 50px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Header Section */
+.main-header-gif {
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-button-prev, .swiper-button-next {
+    color: rgba(255, 255, 255, 0.5) !important;;
+}
+
+/* 페이지네이션 기본 색상 */
+.swiper-pagination-bullet {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* 활성화된 페이지네이션 색상 */
+.swiper-pagination-bullet-active {
+    background-color: rgba(255, 255, 255, 1) !important;
+}
+
+/* Image Category */
+.image-category {
+    max-width: 768px;
+    text-align: center;
+    padding: 5px;
+    margin-top: 100px;
+}
+
+.image-category h2 {
+    font-family: 'Freesentation-9Black';
+    font-size: 40px;
+    margin: 50px 0;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+/* Card Styling */
+.card {
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-img-top {
+    object-fit: cover;
+    width: 150px;
+}
+
+.card img {
+    transition: transform 0.5s ease-in-out;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+.image-category h5 {
+    font-family: 'ChosunGu';
+    font-weight: bold;
+}
+
+#clubCategory a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Table Styling */
+.bn1 {
+    flex: 1;
+    text-align: center;
+}
+
+.bn1 th {
+    font-size: 16px;
+    font-weight: 700;
+    border-bottom: 1px solid #c4c4c4;
+    padding-bottom: 10px;
+}
+
+.bn1 td {
+    padding: 11px 10px 0 5px;
+}
+
+.bn1 a {
+    font-size: 15px;
+    display: block;
+    text-align: left;
+    padding-left: 10px;
+    text-decoration: none;
+    color: black;
+    border-right: 1px solid #d2d2d2;
+}
+
+/* Title Section */
+.title h2 {
+    font-family: 'Freesentation-9Black';
+    font-size: 40px;
+    margin: 100px 0 50px;
+}
+
+/* Middle Area Layout */
+.middleArea {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.semi-title {
+    padding: 5px 30px;
+}
+
+.semi-title h4 {
+    font-family: 'SUIT-Regular';
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.semi-title h6 {
+    font-family: 'SUIT-Regular';
+    margin-bottom: 20px;
+}
+
+/* Rank Table */
+.rank {
+    font-family: 'ChosunGu';
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    height: 600px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.rank table {
+    width: 100%;
+}
+
+.rank th {
+    background: #ffffff;
+    border-bottom: 3px solid #0080ff;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.rank td {
+    padding: 10px;
+    border-bottom: 1px dashed #ececec;
+}
+
+.profile-image {
+    max-width: 80px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+}
+
+/* Advertisement Slider */
+.ad-slider {
+    position: relative;
+    overflow: hidden;
+    width: 300px;
+    height: 600px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.slider-container {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    flex: 0 0 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+/* Hot Posts */
+.hot-posts {
+    font-family: 'SUIT-Regular';
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    height: 600px;
+}
+
+/* Instagram Section */
+.instagram {
+    text-align: left;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.instagram-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.instagram h2 {
+    font-family: 'Freesentation-9Black';
+}
+
+.instagram-slider {
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 20px 10px;
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none;
+}
+
+.instagram-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.instagram-media {
+    display: inline-block;
+    min-width: 200px;
+    margin: 0 10px;
+    flex: 0 0 auto;
+}
+
+/* Rank List */
+.rank-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid black;
+}
+
+.rank-item {
+    width: calc(33.333% - 20px);
+    margin-bottom: 15px;
+    margin-right: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.rank-item:nth-child(3n) {
+    margin-right: 0;
+}
+
+.unit_no {
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.pro_img {
+    margin-right: 10px;
+}
+
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.pro_name {
+    flex-grow: 1;
+    font-size: 1.1em;
+}
+
+.pro_point {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Responsive Design */
+@media ( max-width : 768px) {
+    .rank-item {
+        width: calc(50% - 10px);
+    }
+    .middleArea {
+        flex-direction: column;
+    }
+}
+
+@media ( max-width : 480px) {
+    .rank-item {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+.content-wrapper {
+    display: flex;
+}
+
+.middle-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensuring that sections within middle-section stack vertically */
+.middle-section>section {
+    margin-bottom: 20px; /* optional: space between sections */
+}
+
+/* 모바일 화면에서 sidebar 숨기기 */
+@media ( max-width : 768px) {
+    .sidebar {
+        display: none;
+    }
+    .middle-section {
+        margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
+    }
+}
+
+@media ( max-width : 768px) {
+    main {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media ( max-width : 480px) {
+    main {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
