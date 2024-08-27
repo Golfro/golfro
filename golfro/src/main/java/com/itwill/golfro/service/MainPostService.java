@@ -14,12 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
+import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.MainPostCreateDto;
 import com.itwill.golfro.dto.MainPostSearchDto;
 import com.itwill.golfro.dto.MainPostUpdateDto;
 import com.itwill.golfro.dto.MyPostSearchDto;
 import com.itwill.golfro.repository.ClubRepository;
 import com.itwill.golfro.repository.PostRepository;
+import com.itwill.golfro.repository.UserRepository;
 import com.querydsl.core.Tuple;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MainPostService {
 
+	private final UserRepository userRepo;
 	private final PostRepository postRepo;
 	private final ClubRepository clubRepo;
 	
@@ -71,7 +74,14 @@ public class MainPostService {
 			}
 		}
 		
-		postRepo.save(dto.toEntity());
+		User user = userRepo.findByUserid(dto.getUserid());
+        if (user == null) {
+            throw new RuntimeException("User not found: " + dto.getUserid());
+        }
+		
+        dto.setUser(user);
+
+        postRepo.save(dto.toEntity());
 	}
 
 	public void mainPostUpdate(MainPostUpdateDto dto) {

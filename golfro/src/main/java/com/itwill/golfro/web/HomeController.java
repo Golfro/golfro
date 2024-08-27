@@ -21,7 +21,7 @@ public class HomeController {
 	@Autowired
 	private HomeService homeService;
 	
-	@GetMapping("/home") // GET 방식의 요청 주소가 context path인 요청을 처리하는 메서드
+	@GetMapping("/") // GET 방식의 요청 주소가 context path인 요청을 처리하는 메서드
 	public String home(Model model) {
 		log.info("home()");
 		
@@ -33,7 +33,7 @@ public class HomeController {
 		model.addAttribute("rank", home);
 		model.addAttribute("likesRank", likesRank);
 		
-		return "home"; // 뷰(HTML 파일)의 이름.
+		return "/post/create"; // 뷰(HTML 파일)의 이름.
 	}
 	
 }

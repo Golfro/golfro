@@ -45,7 +45,7 @@ public class Post extends BaseTimeEntity {
     
     @Basic(optional = false)
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID")
+	@JoinColumn(name = "USERID", referencedColumnName = "USERID")
     private User user;
     
     @Basic(optional = false)
