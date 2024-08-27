@@ -2,6 +2,7 @@ package com.itwill.golfro.service;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class HomeService {
 	private final UserRepository userRepo;
 	private final PostRepository postRepo;
 	
+	@Cacheable(key = "#id", value="pointsRank")
 	@Transactional(readOnly = true)
 	public List<User> pointsRank() {
 		log.info("pointsRank()");
@@ -28,6 +30,7 @@ public class HomeService {
 		return user;	
 	}
 	
+	@Cacheable(key = "#id", value="likesRank")
 	public List<Post> likesRank(){
 		log.info("likesRank()");
 		List<Post> likesRank = postRepo.getUsersLikesRank();
