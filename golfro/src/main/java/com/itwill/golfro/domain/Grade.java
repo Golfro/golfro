@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter @ToString
 @Entity @Table(name = "GRADES")
 public class Grade {
-	
+	//
 	@Id
 	private String id;
 	
