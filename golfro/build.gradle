@@ -24,8 +24,8 @@ repositories {
 }
 
 dependencies {
-	  // Redis를 Cache Server로 활용하기 위한 의존성
-	  implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // Redis를 Cache Server로 활용하기 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     
     // AWS SDK 의존성 추가 (안정적인 버전으로 변경)
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.400' // 1.11.x 버전은 안정적임
