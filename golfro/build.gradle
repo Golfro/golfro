@@ -29,9 +29,9 @@ dependencies {
     implementation 'com.amazonaws:aws-java-sdk-core:1.12.400'
 
     // Jackson 라이브러리 의존성 추가 (AWS SDK와 호환 가능한 버전으로 다운그레이드)
-//    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1' // 이 버전은 AWS SDK와 호환 가능성이 큼
-//    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.1'
-//    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1' // 이 버전은 AWS SDK와 호환 가능성이 큼
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.1'
 
     // Spring Boot 프로젝트에 필요한 기타 의존성들
     implementation 'org.springframework.boot:spring-boot-starter-web'
