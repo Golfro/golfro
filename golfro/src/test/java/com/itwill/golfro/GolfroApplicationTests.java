@@ -23,17 +23,17 @@ class GolfroApplicationTests {
     @Autowired
     private CategoryRepository categoryRepository;
 
-//	@Test
+ // @Test
     public void testCreatePostWithCategory() {
         // 데이터베이스에서 카테고리 조회
         Category category = categoryRepository.findById("p001").get();
         assertThat(category).isNotNull();
     }
-    
+
     @Test
     public void testUserid() {
     	User user = userRepo.findByUserid("ksm3925");
     	assertThat(user).isNotNull();
     }
-	
+
 }
