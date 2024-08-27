@@ -3,6 +3,7 @@ package com.itwill.golfro.domain;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class Post extends BaseTimeEntity {
     
     @Basic(optional = false)
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID")
+	@JoinColumn(name = "USERID", referencedColumnName = "userid")
     private User user;
     
     @Basic(optional = false)
@@ -53,15 +54,15 @@ public class Post extends BaseTimeEntity {
 	@JoinColumn(name = "CATEGORY_ID")
     private Category category;
     
-    private double height;
+    private int height;
     
-    private double career;
+    private int career;
     
-    private double handy;
+    private int handy;
     
-    private double irondistance;
+    private int irondistance;
     
-    private double driverdistance;
+    private int driverdistance;
     
     private Integer hole;
     
