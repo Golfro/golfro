@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MainPostService {
 	private final AmazonS3 amazonS3;
-    private final String bucketName = "golfro-bucket"; // 실제 버킷 이름으로 변경하세요
+  private final String bucketName = "golfro-bucket"; // 실제 버킷 이름으로 변경하세요
 
 	private final UserRepository userRepo;
 	private final PostRepository postRepo;
@@ -83,14 +83,11 @@ public class MainPostService {
 	    if(user == null) {
             throw new RuntimeException("User not found: " + dto.getUserid());
 	    }
+    
 	    dto.setUser(user);
+    
 	    postRepo.save(dto.toEntity());
 	}
-	
-	
-	
-	
-
 
 	public void mainPostUpdate(MainPostUpdateDto dto) {
 		log.info("mainPostUpdate(dto={})", dto);
