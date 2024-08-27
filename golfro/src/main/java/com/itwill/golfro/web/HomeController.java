@@ -32,7 +32,11 @@ public class HomeController {
 		model.addAttribute("rank", home);
 		model.addAttribute("likesRank", likesRank);
 		
+
+		return "home"; // 뷰(HTML 파일)의 이름.
+
 		return "mainPost/create"; // 뷰(HTML 파일)의 이름.
+
 	}
 	
 }
