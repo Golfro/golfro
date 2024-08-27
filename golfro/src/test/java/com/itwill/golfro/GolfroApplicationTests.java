@@ -29,7 +29,7 @@ class GolfroApplicationTests {
         Category category = categoryRepository.findById("p001").get();
         assertThat(category).isNotNull();
     }
-	
+
     @Test
     public void testUserid() {
     	User user = userRepo.findByUserid("ksm3925");
