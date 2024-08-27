@@ -13,6 +13,7 @@ import lombok.Data;
 public class MainPostCreateDto {
 	private String clubId;
 	private String userid;
+	private User user;
 	private String title;
 	private String content;
 	private String categoryId;

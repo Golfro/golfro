@@ -16,5 +16,4 @@ public class AmazoneS3Config {
                 .build();
     }
 	
-
 }
