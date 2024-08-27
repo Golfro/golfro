@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.3.2'
+    id 'org.springframework.boot' version '3.3.3'
     id 'io.spring.dependency-management' version '1.1.6'
 }
 
@@ -24,50 +24,18 @@ repositories {
 }
 
 dependencies {
-<<<<<<< HEAD
-     implementation 'org.springframework.cloud:spring-cloud-starter-aws:3.0.0'
-     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.563' 
-
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:3.0.0'
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.563' 
 	implementation 'mysql:mysql-connector-java:8.0.33'
-=======
+
     // AWS SDK 의존성 추가 (안정적인 버전으로 변경)
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.400' // 1.11.x 버전은 안정적임
     implementation 'com.amazonaws:aws-java-sdk-core:1.12.400'
->>>>>>> branch 'main' of https://github.com/Golfro/golfro.git
 
-<<<<<<< HEAD
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	
-	// Lombok ---------->
-	compileOnly 'org.projectlombok:lombok'
-	testCompileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testAnnotationProcessor 'org.projectlombok:lombok'
-	// <-----------------
-	
-	// Spring Security ----->
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-	testImplementation 'org.springframework.security:spring-security-test'
-	// <---------------------
-	
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	
-	// Querydsl ----------->
-	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
-	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
-	annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
-	// <--------------------
-=======
     // Jackson 라이브러리 의존성 추가 (AWS SDK와 호환 가능한 버전으로 다운그레이드)
-//    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1' // 이 버전은 AWS SDK와 호환 가능성이 큼
-//    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.1'
-//    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1' // 이 버전은 AWS SDK와 호환 가능성이 큼
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.1'
 
     // Spring Boot 프로젝트에 필요한 기타 의존성들
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -83,9 +51,9 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 
     // Spring Security
-    // implementation 'org.springframework.boot:spring-boot-starter-security'
-    // implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-    // testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -102,9 +70,6 @@ dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.0"
     }
-    // <--------------------
->>>>>>> branch 'main' of https://github.com/Golfro/golfro.git
-}
 
 tasks.named('test') {
     useJUnitPlatform()
@@ -124,4 +89,3 @@ tasks.withType(JavaCompile) {
 clean.doLast {
     file(querydslDir).deleteDir()
 }
-// -----------------------------
