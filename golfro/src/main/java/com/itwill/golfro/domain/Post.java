@@ -53,15 +53,15 @@ public class Post extends BaseTimeEntity {
 	@JoinColumn(name = "CATEGORY_ID")
     private Category category;
     
-    private int height;
+    private Integer height;
     
-    private int career;
+    private Integer career;
     
-    private int handy;
+    private Integer handy;
     
-    private int irondistance;
+    private Integer irondistance;
     
-    private int driverdistance;
+    private Integer driverdistance;
     
     private Integer hole;
     
