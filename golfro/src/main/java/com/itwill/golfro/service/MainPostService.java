@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -34,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 public class MainPostService {
+
 	private final AmazonS3 amazonS3;
 	private final String bucketName = "golfro-bucket"; // 실제 버킷 이름으로 변경하세요
 
@@ -41,6 +44,10 @@ public class MainPostService {
 	private final PostRepository postRepo;
 	private final ClubRepository clubRepo;
 	
+	
+	
+	
+
 	public void mainCreate(MainPostCreateDto dto) {
 	    log.info("mainCreate(dto={})", dto);
 	    String uuid = UUID.randomUUID().toString(); // 랜덤 스트링 생성 (파일명 중복되지 않게 파일명에 부착해주는 스트링)
@@ -82,11 +89,15 @@ public class MainPostService {
 	    if(user == null) {
             throw new RuntimeException("User not found: " + dto.getUserid());
 	    }
-    
 	    dto.setUser(user);
-    
 	    postRepo.save(dto.toEntity());
 	}
+
+
+
+
+
+
 
 	public void mainPostUpdate(MainPostUpdateDto dto) {
 		log.info("mainPostUpdate(dto={})", dto);
