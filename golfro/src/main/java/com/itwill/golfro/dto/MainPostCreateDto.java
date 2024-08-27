@@ -11,9 +11,9 @@ import lombok.Data;
 
 @Data
 public class MainPostCreateDto {
-	private User user;
 	private String clubId;
 	private String userid;
+	private User user;
 	private String title;
 	private String content;
 	private String categoryId;

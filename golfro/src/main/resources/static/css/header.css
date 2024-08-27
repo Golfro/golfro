@@ -1,0 +1,399 @@
+@charset "UTF-8";
+
+/* 폰트 */
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 기본 폰트 설정 */
+body {
+    font-family: SUIT-Regular, SUIT-Regular;
+}
+
+#헤더 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    background-color: white;
+}
+
+.left-section, .center, .right-section {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.left-section {
+    margin-left: 3%;
+}
+
+.left-section .logo img {
+    height: 65px;
+    width: auto;
+}
+
+.center {
+    justify-content: space-around;
+}
+
+.center .nav {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.center .nav-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.center .nav-item:last-child {
+    margin-right: 0;
+}
+
+.center .nav-item>span {
+    font-family: 'SUIT-Regular';
+    color: black;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    background: none;
+    border: none;
+}
+
+.center .nav-item>span:hover, .center .nav-item>span:focus {
+    color: #000;
+    font-weight: bold;
+}
+
+.center .submenu {
+    align-items: center;
+    list-style-type: none;
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.center .submenu a {
+    font-family: 'Pretendard-Regular';
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.center .submenu a:hover {
+    background-color: #f1f1f1;
+}
+
+.center .nav-item:hover .submenu {
+    display: block;
+}
+
+/* 검색 및 로그인 */
+.right-section {
+    justify-content: flex-end;
+    margin-right: 5%;
+}
+
+.right-section button {
+    background: none;
+    border: none;
+    margin-left: 10px;
+    color: black;
+    cursor: pointer;
+}
+
+.right-section svg:hover {
+    color: #000;
+}
+
+.right-section .login {
+    margin-left: 10px;
+    position: relative;
+}
+
+.right-section .login .login-button svg {
+    width: 30px;
+    height: 30px;
+}
+
+.login .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    flex-direction: column;
+    padding: 10px;
+    transform: translateX(-30%);
+}
+
+.login .dropdown-menu a {
+    font-family: 'Pretendard-Regular';
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+.search .input {
+    font-family: 'Pretendard-Regular';
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid #e6e6e6;
+    font-size: 1rem;
+    padding: 15px;
+    height: 40px;
+    width: 200px;
+    transition: width 0.3s ease;
+    border-radius: 8px;
+}
+
+.search-btn {
+    background-color: #fff;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+}
+
+.search-btn:focus, .input:focus {
+    outline: none;
+}
+
+/* 반응형 디자인 */
+@media ( max-width : 1200px) {
+    .nav-item>span {
+        font-size: 18px;
+    }
+    .logo img {
+        height: 60px;
+    }
+}
+
+@media ( max-width : 992px) {
+    .nav-item>span {
+        font-size: 16px;
+        margin: 8px;
+    }
+    .logo img {
+        height: 50px;
+    }
+}
+
+@media ( max-width : 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: 1px solid #d8d8d8;
+    }
+    .left-section {
+        margin-left: 0;
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: center; /* 로고를 가운데 정렬 */
+    }
+    .logo img {
+        justify-content: center;
+        height: 55px !important;
+        width: auto;
+    }
+    .login {
+        display: none;
+    }
+    .center {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-around;
+    }
+    .right-section {
+        margin-right: 0;
+        width: 100%;
+        justify-content: flex-end;
+        order: 1 !important;
+    }
+    .nav-item>span {
+        font-size: 1rem !important;
+        margin: 5px;
+    }
+}
+
+/* 기본적으로 login-mobile 요소를 숨김 */
+.login-mobile {
+    display: none !important;
+}
+
+@media ( max-width : 768px) {
+    .login-mobile {
+        display: block !important;
+        position: fixed;
+        right: 10px;
+        background-color: transparent !important; /* 배경 투명 설정 */
+        border: none !important; /* 보더 제거 */
+        box-shadow: none !important; /* 그림자 제거 */
+        padding: 0 !important; /* 내부 여백 제거 */
+        margin-right: 10px !important; /* 외부 여백 제거 */
+    }
+
+    /* 버튼 크기 설정 */
+    .login-mobile.btn {
+        width: 25px;
+        height: 25px;
+        padding: 0;
+    }
+
+    /* 아이콘 크기 설정 */
+    .login-mobile.btn i {
+        font-size: 25px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .submenu {
+        display: none !important;
+    }
+}
+
+/* Offcanvas 커스터마이징 */
+.offcanvas.offcanvas-end {
+    width: 50vw !important; /* 기본 너비 조정 */
+    background-color: white; /* 배경색 설정 */
+    color: #333; /* 텍스트 색상 설정 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+/* Offcanvas 헤더 스타일 */
+.offcanvas-header {
+    background-color: white; /* 헤더 배경색 */
+    color: #333; /* 헤더 텍스트 색상 */
+}
+
+/* 제목 스타일 */
+.offcanvas-title {
+    font-size: 20px; /* 제목 크기 */
+    font-weight: bold; /* 제목 굵기 */
+}
+
+/* 닫기 버튼 스타일 */
+.offcanvas .btn-close {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.25rem; /* 버튼 크기 조정 */
+}
+
+/* Offcanvas 바디 스타일 */
+.offcanvas-body {
+    padding: 20px; /* 바디 내부 여백 설정 */
+}
+
+/* 링크 스타일 */
+.offcanvas-body a {
+    text-decoration: none; /* 밑줄 제거 */
+    padding: 8px 0;
+}
+
+.offcanvas-body a:hover {
+    font-weight: bold;
+}
+
+.offcanvas-body .list-login {
+    display: flex; /* 리스트 항목들을 가로로 정렬 */
+    justify-content: space-around; /* 항목들 사이에 공간을 균등하게 분배 */
+    padding: 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+.offcanvas-body .list-login li {
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    border: 1px solid #ccc; /* 각 항목에 보더 추가 */
+    padding: 5px 10px; /* 여백 추가 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    margin: 5px;
+    margin-bottom: 30px;
+    border-radius: 8px; /* 둥근 테두리 추가 (선택 사항) */
+    flex: 1; /* 모든 항목이 동일한 크기를 가짐 */
+    min-width: 100px; /* 최소 너비 설정 (글자 수가 적을 때) */
+    max-width: 120px;
+    border-radius: 8px; /* 최대 너비 설정 (너무 길어지지 않도록) */
+}
+
+.offcanvas-body a {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: #000; /* 글자 색상 설정 */
+    display: block; /* 클릭할 수 있는 범위를 블록으로 만듦 */
+    font-size: 14px !important; /* 텍스트 크기 */
+    width: 100%; /* 부모 크기에 맞춤 */
+}
+
+/* 제목 스타일 */
+.offcanvas-body h6 {
+    font-size: 18px; /* 제목 크기 */
+    font-weight: bold; /* 제목 굵기 */
+    margin-top: 20px; /* 상단 여백 */
+    color: #333; /* 제목 색상 */
+}
+
+/* 레슨 카테고리 목록 스타일 */
+.list-lesson {
+    padding: 0; /* 기본 패딩 제거 */
+    margin: 0; /* 기본 마진 제거 */
+    list-style-type: none; /* 점 제거 */
+}
+
+.list-lesson a {
+    display: block; /* 블록으로 설정하여 전체 항목을 클릭 가능하게 함 */
+    padding: 12px; /* 내부 여백 추가 */
+    color: #000; /* 기본 텍스트 색상 */
+    text-decoration: none; /* 기본 밑줄 제거 */
+}
+
+.list-lesson a:hover {
+    background-color: #f1f1f1; /* 호버 시 배경색 변경 */
+    color: #000000; /* 호버 시 글자 색상 변경 */
+}

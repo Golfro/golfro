@@ -13,7 +13,6 @@ import com.itwill.golfro.service.HomeService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @Controller // 디스패쳐 서블릿에서 메서드를 호출할 컨트롤러 컴포넌트.
 public class HomeController {
@@ -33,7 +32,11 @@ public class HomeController {
 		model.addAttribute("rank", home);
 		model.addAttribute("likesRank", likesRank);
 		
+
 		return "home"; // 뷰(HTML 파일)의 이름.
+
+		return "mainPost/create"; // 뷰(HTML 파일)의 이름.
+
 	}
 	
 }

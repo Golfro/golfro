@@ -3,7 +3,6 @@ package com.itwill.golfro.domain;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -46,7 +45,7 @@ public class Post extends BaseTimeEntity {
     
     @Basic(optional = false)
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID", referencedColumnName = "userid")
+	@JoinColumn(name = "USERID", referencedColumnName = "USERID")
     private User user;
     
     @Basic(optional = false)

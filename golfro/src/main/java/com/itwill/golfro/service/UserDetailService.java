@@ -17,14 +17,14 @@ import java.util.Optional;
 public class UserDetailService implements UserDetailsService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository userRepo;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
-		User user = userRepository.findByUserid(userid);
+		User user = userRepo.findByUserid(userid);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with userid: " + userid);
 		}
@@ -33,38 +33,39 @@ public class UserDetailService implements UserDetailsService {
 	}
 
 	public User registerNewUser(User user) {
-		if (userRepository.findByUserid(user.getUserid()) == null) {
+		if (userRepo.findByUserid(user.getUserid()) == null) {
 			throw new RuntimeException("User already exists");
 		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return userRepository.save(user);
+		return userRepo.save(user);
 	}
 
 	public List<User> getAllUsers() {
-		return userRepository.findAll();
+		return userRepo.findAll();
 	}
 
 	public Optional<User> getUserById(Long id) {
-		return userRepository.findById(id);
+		return userRepo.findById(id);
 	}
 
 	public User updateUser(User user) {
-		return userRepository.save(user);
+		return userRepo.save(user);
 	}
 
 	public void deleteUser(Long id) {
-		userRepository.deleteById(id);
+		userRepo.deleteById(id);
 	}
 
 	public boolean changePassword(String userid, String oldPassword, String newPassword) {
-		User user = userRepository.findByUserid(userid);
+		User user = userRepo.findByUserid(userid);
 		if (user != null) {
 			if (passwordEncoder.matches(oldPassword, user.getPassword())) {
 				user.setPassword(passwordEncoder.encode(newPassword));
-				userRepository.save(user);
+				userRepo.save(user);
 				return true;
 			}
 		}
 		return false;
 	}
+	
 }
