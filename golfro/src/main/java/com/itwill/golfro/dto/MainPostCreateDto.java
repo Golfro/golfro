@@ -17,11 +17,11 @@ public class MainPostCreateDto {
 	private String title;
 	private String content;
 	private String categoryId;
-	private int height;
-	private int career;
-	private int handy;
-	private int ironDistance;
-	private int driverDistance;
+	private Integer height;
+	private Integer career;
+	private Integer handy;
+	private Integer ironDistance;
+	private Integer driverDistance;
 	private MultipartFile media;
 	private String mediaPath;
 	
