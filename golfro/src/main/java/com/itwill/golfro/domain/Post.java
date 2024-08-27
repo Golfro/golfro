@@ -3,7 +3,6 @@ package com.itwill.golfro.domain;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
