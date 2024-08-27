@@ -1,0 +1,184 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Freesentation-9Black';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+		format('woff2');
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	background-color: #f8f9fa;
+}
+
+#login {
+	margin-top: 80px;
+	max-width: 1280px;
+	padding: 20px 160px;
+}
+
+#card {
+	border: none;
+	max-width: 400px;
+	margin: 50px auto;
+}
+
+.login-container {
+	max-width: 400px;
+	margin: 50px auto;
+}
+
+#card-header {
+	background-color: white;
+	padding-bottom: 10px;
+	border: none;
+}
+.logo img{
+	height: 70px;
+	width: auto;
+}
+.card-header h5 {
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	color: #808080;
+	margin-bottom: 10px;
+}
+
+.card-body .form-control {
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	border-radius: 10px;
+	height: 45px;
+}
+
+.d-grid .btn-login {
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	font-weight: bold;
+	background-color: black;
+	border: none;
+	border-radius: 10px;
+	height: 120%;
+}
+
+.d-grid .btn-login:hover {
+	background-color: #2FA599;
+}
+
+.card-footer {
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	margin: 0px 8px;
+}
+
+.links {
+	display: flex;
+	justify-content: space-between;
+	padding: 0;
+	list-style-type: none;
+}
+
+.links a {
+	color: #6c757d;
+	text-decoration: none;
+}
+
+.links a:hover {
+	color: #2FA599;
+}
+
+.modal {
+	font-family: 'SUIT-Regular', SUIT-Regular;
+}
+
+#modal-id {
+	max-width: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#madal-content-id {
+	padding: 20px;
+}
+
+#modal-header-id, #modal-body-id, #findIdForm {
+	background: white;
+	border-bottom: none;
+	max-width: 350px;
+}
+
+.modal-header h4 {
+	font-family: Freesentation-9Black;
+}
+
+.modal-body #findIdBtn {
+	background: black;
+	color: white;
+	height: 45px;
+}
+
+.modal-body #findIdBtn:hover {
+	background-color: #2FA599;
+	color: white;
+}
+
+#modal-pw {
+	max-width: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#modal-content-pw {
+	padding: 20px;
+}
+
+#modal-header-pw, #modal-body-pw, #findPwForm {
+	background: white;
+	border-bottom: none;
+	max-width: 350px;
+}
+
+.modal-body #findPwBtn {
+	background: black;
+	color: white;
+	height: 45px;
+}
+
+.modal-body #findPwBtn:hover {
+	background-color: #2FA599;
+	color: white;
+}
+
+.error-message {
+	color: #dc3545;
+	margin-top: 10px;
+}
+
+/* 모바일 화면에서 #login의 padding 제거 */
+@media ( max-width : 768px) {
+	#login {
+		padding: 0px;
+	}
+	.card-body, .card-footer {
+		width: 80%;
+		margin: 0 auto; /* 중앙 정렬 */
+	}
+
+	/* 모바일 화면에서 .card-header h5의 폰트 크기 조정 */
+	.card-header h5 {
+		font-size: 1rem; /* 조정된 폰트 크기, 필요에 따라 변경 가능 */
+		text-align: center; /* 텍스트 중앙 정렬 (필요 시) */
+	}
+	.modal-dialog {
+		margin: 1.75rem auto !important; /* 모바일 화면에서의 중앙 정렬을 위한 margin 설정 */
+	}
+}
