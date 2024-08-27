@@ -12,7 +12,6 @@ import lombok.Data;
 @Data
 public class MainPostCreateDto {
 	private String clubId;
-	private User user;
 	private String userid;
 	private String title;
 	private String content;
