@@ -41,7 +41,7 @@ public class MainPostService {
 	private final UserRepository userRepo;
 	private final PostRepository postRepo;
 	private final ClubRepository clubRepo;
-
+	
 	public void mainCreate(MainPostCreateDto dto) {
 	    log.info("mainCreate(dto={})", dto);
 	    String uuid = UUID.randomUUID().toString(); // 랜덤 스트링 생성 (파일명 중복되지 않게 파일명에 부착해주는 스트링)
