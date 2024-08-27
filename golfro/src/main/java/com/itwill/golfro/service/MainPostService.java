@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MainPostService {
 	private final AmazonS3 amazonS3;
-  private final String bucketName = "golfro-bucket"; // 실제 버킷 이름으로 변경하세요
+	private final String bucketName = "golfro-bucket"; // 실제 버킷 이름으로 변경하세요
 
 	private final UserRepository userRepo;
 	private final PostRepository postRepo;
