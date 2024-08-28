@@ -75,6 +75,15 @@ public class Post extends BaseTimeEntity {
     
     private Long views;
     
+    private Integer selection;
+    
+    
+    
+    
+    
+    
+    
+    
     // update 기능에서 사용할 공개 메서드
     public Post update(String title, String content, Category category, String media) {
         this.title = title;

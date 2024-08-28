@@ -19,23 +19,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MainPostListDto {
 	private Long id;
-	private String clubId;
-	private String categoryId;
+	private String name;
 	private String title;
-	private String userid;
+	private String nickname;
 	private Long views;
 	private Long likes;
 	private String createdTime;
+	private String status;
+	private Integer selection;
 	
 	public static MainPostListDto fromEntity(Post entity) {
 		return MainPostListDto.builder()
 				.id(entity.getId())
-				.clubId(entity.getClub().getId())
+				.name(entity.getUser().getName())
 				.title(entity.getTitle())
-				.userid(entity.getUser().getUserid())
+				.nickname(entity.getUser().getNickname())
 				.views(entity.getViews())
 				.likes(entity.getLikes())
 				.createdTime(formatDateTime(entity.getCreatedTime()))
+				.selection(entity.getSelection())
 				.build();
 	}
 	
