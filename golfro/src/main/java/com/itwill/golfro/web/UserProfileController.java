@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.itwill.golfro.domain.Comment;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
@@ -52,8 +55,11 @@ public class UserProfileController {
 	private final MyPostService myPostService;
 	private final MyCommentService myCommentService;
 
+	private final AmazonS3 amazonS3;
+	private final String bucketName = "golfro-bucket";
+	
 	@GetMapping({ "/profile", "/privacy" })
-	public void privacy(@RequestParam(name = "account", required = false) String account, HttpSession session,
+	public void privacy(@RequestParam(required = false) String account, HttpSession session,
 			Model model) {
 		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
 		String grade = (String) session.getAttribute(SESSION_USER_GRADE);
@@ -91,7 +97,7 @@ public class UserProfileController {
 	// 사용자 닉네임 중복체크 REST 컨트롤러
 	@GetMapping("/checkname")
 	@ResponseBody // 메서드 리턴 값이 클라이언트로 전달되는 데이터.
-	public ResponseEntity<String> checkNickname(@RequestParam(name = "nickname") String nickname) {
+	public ResponseEntity<String> checkNickname(@RequestParam String nickname) {
 		log.info("checkNickname(nickname={})", nickname);
 
 		boolean result = userService.checkNickname(nickname);
@@ -125,7 +131,7 @@ public class UserProfileController {
 	}
 
 	@PostMapping("/file/image")
-	public ResponseEntity<String> saveUserImage(HttpSession session, @RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> saveUserImage(HttpSession session, @RequestParam MultipartFile file) {
 		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
 
 		// 파일이 비어있는지 체크
@@ -134,11 +140,16 @@ public class UserProfileController {
 		}
 
 		try {
-			// 업로드할 디렉토리 경로 설정
-			String uploadDir = "C:\\Users\\itwill\\Desktop\\images\\";
-
-			// 업로드할 파일 경로 설정
-			String filePath = uploadDir + file.getOriginalFilename();
+			// ObjectMetadata를 사용하여 파일의 Content-Length 설정
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentLength(file.getSize());
+            metadata.setContentType(file.getContentType()); // 파일의 Content-Type을 설정
+			
+			// 파일을 S3에 업로드
+            amazonS3.putObject(new PutObjectRequest(bucketName, file.getOriginalFilename(), file.getInputStream(), metadata));
+			
+            // S3에 저장된 파일의 URL을 생성
+            String filePath = amazonS3.getUrl(bucketName, file.getOriginalFilename()).toString();
 			File dest = new File(filePath);
 
 			// 파일을 지정된 경로로 복사
@@ -163,7 +174,7 @@ public class UserProfileController {
 
 	@GetMapping("/file/image")
 	@ResponseBody
-	public Resource viewUserImage(@RequestParam("file") String file) throws IOException {
+	public Resource viewUserImage(@RequestParam String file) throws IOException {
 		log.info("viewUserImage(file={})", file);
 
 		Path path = Paths.get(file);
@@ -179,13 +190,11 @@ public class UserProfileController {
 	public ResponseEntity<String> removeUserImage(HttpSession session) {
 		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
 
-		String uploadDir = "C:\\Users\\itwill\\Desktop\\images\\";
-
-		String filePath = uploadDir + "basic.png";
+		String mediaPath = amazonS3.getUrl(bucketName, "basic_profile.png").toString();
 
 		UserProfileDto dto = new UserProfileDto();
 		dto.setUserid(userid);
-		dto.setImage(filePath);
+		dto.setImage(mediaPath);
 
 		userService.updateImage(dto);
 
@@ -196,7 +205,7 @@ public class UserProfileController {
 	}
 
 	@GetMapping("/mylessons")
-	public String myLessonList(@RequestParam(name = "userid") String userid, HttpSession session) {
+	public String myLessonList(@RequestParam String userid, HttpSession session) {
 		String sessionUserid = (String) session.getAttribute(SESSION_ATTR_USER);
 
 		log.info("myLessonList(userid={})", userid);
@@ -205,7 +214,7 @@ public class UserProfileController {
 	}
 
 	@GetMapping("/myposts")
-	public String myPostList(HttpSession session, @RequestParam(name = "keyword", required = false) String keyword,
+	public String myPostList(HttpSession session, @RequestParam(required = false) String keyword,
 			@RequestParam(name = "p", defaultValue = "0") int pageNo, Model model) {
 		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
 

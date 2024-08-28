@@ -63,9 +63,9 @@ public class MainPostController {
 
 	@GetMapping("/list")
 	public String mainPostList(@RequestParam(name = "p", defaultValue = "0") int pageNo,
-			@RequestParam(name = "userid", required = false) String userid,
-			@RequestParam(value = "category", required = false) String category,
-			@RequestParam(value = "keyword", required = false) String keyword, HttpSession session, Model model) {
+			@RequestParam(required = false) String userid,
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) String keyword, HttpSession session, Model model) {
 		log.debug("mainPostList(pageNo={}, userid={}, category={}, keyword={})", pageNo, userid, category, keyword);
 
 		Page<Tuple> posts;
@@ -91,8 +91,8 @@ public class MainPostController {
 	}
 
 	@GetMapping("/details")
-	public String mainPostDetails(@RequestParam(name = "id") long id,
-			@RequestParam(name = "commentId", required = false) long commentId,
+	public String mainPostDetails(@RequestParam long id,
+			@RequestParam(required = false) long commentId,
 			Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		log.debug("mainPostDetails(id={}, commentId={})", id, commentId);
 
@@ -108,7 +108,7 @@ public class MainPostController {
 	}
 
 	@GetMapping("/modify")
-	public void mainPostModify(@RequestParam(name = "id") long id, Model model) {
+	public void mainPostModify(@RequestParam long id, Model model) {
 		log.debug("mainPostModify(id={})", id);
 		
 		List<Club> clubs = mainPostService.clubTypes();
@@ -120,7 +120,7 @@ public class MainPostController {
 
 	@GetMapping("/video")
 	@ResponseBody
-	public Resource test(@RequestParam(name = "file") String file) throws IOException {
+	public Resource test(@RequestParam String file) throws IOException {
 		log.info("test(file={})", file);
 
 		Path path = Paths.get(file);
@@ -141,7 +141,7 @@ public class MainPostController {
 	}
 
 	@GetMapping("/delete")
-	public String deleteMainPost(@RequestParam(name = "id") long id) {
+	public String deleteMainPost(@RequestParam long id) {
 		log.debug("deleteMainPost(id={})", id);
 
 		mainPostService.deleteById(id);
@@ -150,7 +150,7 @@ public class MainPostController {
 	}
 
 	@PutMapping("/likes/{id}")
-	public ResponseEntity<Void> updateLikes(@PathVariable(name = "id") long id) {
+	public ResponseEntity<Void> updateLikes(@PathVariable long id) {
 		log.debug("updateLikes(id={})", id);
 		
 		mainPostService.updatePostLikes(id);
@@ -160,7 +160,7 @@ public class MainPostController {
 
 	@GetMapping("/likes/{id}")
 	@ResponseBody
-	public long getLikes(@PathVariable(name = "id") long id) {
+	public long getLikes(@PathVariable long id) {
 		log.debug("getLikes(id={})", id);
 		return mainPostService.getPostLikes(id);
 	}
