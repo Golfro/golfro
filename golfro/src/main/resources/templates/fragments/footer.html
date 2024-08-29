@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>footer</title>
+    <link
+    	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    	rel="stylesheet"
+    	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    	crossorigin="anonymous">
+    
+    <style>
+        .footer-golfro {
+        	padding: 20px;
+        	color: #333;
+        	font-size: 14px;
+        	background-color: #f1f1f1;
+        }
+        
+        .footer-links {
+        	list-style: none;
+        	padding: 0;
+        	display: flex;
+        	justify-content: center;
+        	gap: 15px; /* 링크 사이의 간격 설정 */
+        	flex-wrap: nowrap; /* 모바일에서도 줄바꿈 없이 가로 유지 */
+        }
+        
+        .footer-links li {
+        	position: relative;
+        }
+        
+        .footer-links a {
+        	text-decoration: none;
+        	color: #575757;
+        	font-weight: bold;
+        }
+        
+        .footer-links a:hover {
+        	font-weight: normal;
+        }
+        
+        .footer-links li:not(:last-child)::after {
+        	margin-left: 10px;
+        	color: #333;
+        }
+        
+        .footer-info {
+        	text-align: center;
+        	margin-top: 10px;
+        	font-size: 13px;
+        	color: #555;
+        }
+        
+        .footer-bottom {
+        	margin-top: 20px;
+        	font-size: 12px;
+        	color: #777;
+        }
+        
+        @media ( max-width : 768px) {
+        	.footer-links a {
+        		font-size: 12px; /* 모바일 화면에서 폰트 크기 줄이기 */
+        	}
+        	.footer-info {
+        		margin-top: 20px;
+        		font-size: 12px;
+        	}
+        }
+    </style>
+</head>
+
+<body>
+	<div class="footer-golfro container-fluid">
+		<div>
+			<ul class="footer-links">
+				<li><a href="/">회사소개</a></li>
+				<li><a href="/">이용약관</a></li>
+				<li><a href="/">연락처</a></li>
+				<li><a href="/">광고문의</a></li>
+				<li><a href="/">공지사항</a></li>
+				<li><a href="/">개인정보처리방침</a></li>
+			</ul>
+			<p class="footer-info">
+				상호명 : 골프로 | 대표이사 : 권이배 | 주소 : 강남역 1번출구 도보 150m 역삼역 3번출구 도보 120m 삼원타워
+				4층 <br> 고객센터 : golfro@gaebokchi.net (영업시간 평일 10:00~17:00) 주말 ·
+				공휴일 휴무
+			</p>
+		</div>
+
+		<div class="footer-bottom text-center">
+			<span>Copyright ⓒ - 2024 GOLFRO. All rights reserved.</span>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+</body>
+</html>
