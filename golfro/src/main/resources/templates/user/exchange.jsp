@@ -97,8 +97,7 @@
                                 th:if="${#strings.startsWith(userAccount, 'SC')}"
                                 th:text="'SC제일: ' + ${#strings.substring(userAccount, 2)}"></span>
                             <span
-                                th:unless="${#strings.startsWith(userAccount, 'KWANGJU') or #strings.startsWith(userAccount, 'BNK') or #strings.startsWith(userAccount, 'KB') or #strings.startsWith(userAccount, 'IBK') or #strings.startsWith(userAccount, 'NH') or #strings.startsWith(userAccount, 'DGB') or #strings.startsWith(userAccount, 'BUSAN') or #strings.startsWith(userAccount, 'KDB') or #strings.startsWith(userAccount, 'MG') or #strings.startsWith(userAccount, 'SH') or #strings.startsWith(userAccount, 'SOL') or #strings.startsWith(userAccount, 'ShinHyup') or #strings.startsWith(userAccount, 'WOORI') or #strings.startsWith(userAccount, 'PO') or #strings.startsWith(userAccount, 'JB') or #strings.startsWith(userAccount, 'kakao') or #strings.startsWith(userAccount, 'Toss') or #strings.startsWith(userAccount, 'KEB') or #strings.startsWith(userAccount, 'SC')} th:text="
-                                'unknownbank: ' + ${userAccount.split('/')[1]}"></span>
+                                th:unless="${#strings.startsWith(userAccount, 'KWANGJU') or #strings.startsWith(userAccount, 'BNK') or #strings.startsWith(userAccount, 'KB') or #strings.startsWith(userAccount, 'IBK') or #strings.startsWith(userAccount, 'NH') or #strings.startsWith(userAccount, 'DGB') or #strings.startsWith(userAccount, 'BUSAN') or #strings.startsWith(userAccount, 'KDB') or #strings.startsWith(userAccount, 'MG') or #strings.startsWith(userAccount, 'SH') or #strings.startsWith(userAccount, 'SOL') or #strings.startsWith(userAccount, 'ShinHyup') or #strings.startsWith(userAccount, 'WOORI') or #strings.startsWith(userAccount, 'PO') or #strings.startsWith(userAccount, 'JB') or #strings.startsWith(userAccount, 'kakao') or #strings.startsWith(userAccount, 'Toss') or #strings.startsWith(userAccount, 'KEB') or #strings.startsWith(userAccount, 'SC')} th:text="'unknownbank: ' + ${userAccount.split('/')[1]}"></span>
                         </h5>
                     </div>
                     <div class="col-md-6 text-end">
@@ -165,11 +164,13 @@
 
     <script>
 					document.addEventListener('DOMContentLoaded', function() {
-						// Your JavaScript code here
+
 					});
 				</script>
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script
+    <script src="/js/exchange.js"></script>
+</body>
+</html>
