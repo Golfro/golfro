@@ -19,6 +19,7 @@ import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.MainPostCreateDto;
+import com.itwill.golfro.dto.MainPostDetailsDto;
 import com.itwill.golfro.dto.MainPostSearchDto;
 import com.itwill.golfro.dto.MainPostUpdateDto;
 import com.itwill.golfro.dto.MyPostSearchDto;
@@ -155,15 +156,12 @@ public class MainPostService {
 	}
 
 	@Transactional
-	public Tuple selectPostId(long id) {
+	public MainPostDetailsDto selectPostId(long id) {
 		log.info("selectPostId(id={})", id);
 		
 		Post entity = postRepo.findById(id).orElseThrow();
-		entity.increaseViews(entity.getViews());
 
-		Tuple post = postRepo.selectByPostId(id);
-		
-		return post;
+		return MainPostDetailsDto.fromEntity(entity);
 	}
 
 	public void deleteById(long id) {

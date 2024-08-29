@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -25,6 +30,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.dto.MainPostCreateDto;
+import com.itwill.golfro.dto.MainPostDetailsDto;
+import com.itwill.golfro.dto.MainPostListDto;
 import com.itwill.golfro.dto.MainPostSearchDto;
 import com.itwill.golfro.dto.MainPostUpdateDto;
 import com.itwill.golfro.dto.MyPostSearchDto;
@@ -80,7 +87,38 @@ public class MainPostController {
 
 		List<Club> clubs = mainPostService.clubTypes();
 
-		model.addAttribute("post", posts);
+		List<MainPostListDto> dtos = posts.stream()
+			    .map(tuple -> {
+			        Long id = tuple.get(0, Long.class);
+			        String clubName = tuple.get(1, String.class); // DTO에서 'name'으로 사용
+			        String title = tuple.get(2, String.class); // DTO에서 'title'으로 사용
+			        String nickname = tuple.get(3, String.class); // DTO에서 'nickname'으로 사용
+			        Long views = tuple.get(4, Long.class); // DTO에서 'views'로 사용
+			        Long likes = tuple.get(5, Long.class); // DTO에서 'likes'로 사용
+			        LocalDateTime createdTime = tuple.get(6, LocalDateTime.class); // DTO에서 'createdTime'으로 사용
+			        String status = tuple.get(7, String.class); // DTO에서 'status'로 사용
+			        Integer selection = tuple.get(8, Integer.class);
+			        
+			        
+			        // LocalDateTime을 포맷팅하여 String으로 변환
+			        String formattedCreatedTime = createdTime != null ? formatDateTime(createdTime) : null;
+			        
+			        // MainPostListDto 객체 생성
+			        return MainPostListDto.builder()
+			            .id(id)
+			            .name(clubName)
+			            .title(title)
+			            .nickname(nickname)
+			            .views(views)
+			            .likes(likes)
+			            .createdTime(formattedCreatedTime)
+			            .status(status)
+			            .selection(selection)
+			            .build();
+			    })
+			    .collect(Collectors.toList());
+		
+		model.addAttribute("posts", dtos);
 		model.addAttribute("clubs", clubs);
 
 		if (userid != null) {
@@ -90,33 +128,32 @@ public class MainPostController {
 		return "/mainPost/list"; // 그 외의 경우는 메인 게시글 리스트 뷰로 이동
 	}
 
-	@GetMapping("/details")
-	public String mainPostDetails(@RequestParam long id,
-			@RequestParam(required = false) long commentId,
-			Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-		log.debug("mainPostDetails(id={}, commentId={})", id, commentId);
+	@GetMapping("/details/{id}")
+	public String mainPostDetails(@PathVariable(name = "id") long id,
+		Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+		log.debug("mainPostDetails(id={})", id);
 
 		// 로그인한 사용자인 경우, 기존 로직 수행
-		Tuple post = mainPostService.selectPostId(id);
+		MainPostDetailsDto post = mainPostService.selectPostId(id);
 		log.debug("post={}", post);
 		
-		model.addAttribute("commentId", commentId);
+    // model.addAttribute("commentId", commentId);
 		model.addAttribute("post", post);
 
 		// 뷰 이름 반환
 		return "/mainPost/details"; // 또는 적절한 뷰 이름
 	}
-
-	@GetMapping("/modify")
-	public void mainPostModify(@RequestParam long id, Model model) {
-		log.debug("mainPostModify(id={})", id);
-		
-		List<Club> clubs = mainPostService.clubTypes();
-		Tuple post = mainPostService.selectPostId(id);
-		
-		model.addAttribute("clubs", clubs);
-		model.addAttribute("post", post);
-	}
+	
+//	@GetMapping("/modify")
+//	public void mainPostModify(@RequestParam(name = "id") long id, Model model) {
+//		log.debug("mainPostModify(id={})", id);
+//		
+//		List<Club> clubs = mainPostService.clubTypes();
+//		Tuple post = mainPostService.selectPostId(id);
+//		
+//		model.addAttribute("clubs", clubs);
+//		model.addAttribute("post", post);
+//	}
 
 	@GetMapping("/video")
 	@ResponseBody
@@ -186,4 +223,18 @@ public class MainPostController {
 		return "/mainPost/list";
 	}
 	
+	private static String formatDateTime(LocalDateTime dateTime) {
+        if (dateTime != null) {
+            // UTC 시간대로 변환
+            ZonedDateTime utcDateTime = dateTime.atZone(ZoneId.of("UTC"));
+            // 한국 시간대로 변환
+            ZonedDateTime seoulDateTime = utcDateTime.withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+            // 포맷 정의
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            // 포맷 적용
+            return seoulDateTime.format(formatter);
+        } else {
+            return null;
+        }
+	}
 }

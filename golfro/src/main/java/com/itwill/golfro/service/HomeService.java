@@ -22,7 +22,7 @@ public class HomeService {
 	private final UserRepository userRepo;
 	private final PostRepository postRepo;
 	
-	@Cacheable(key = "#id", value="pointsRank")
+//	@Cacheable(key = "#id", value="pointsRank")
 	@Transactional(readOnly = true)
 	public List<User> pointsRank() {
 		log.info("pointsRank()");
@@ -30,7 +30,7 @@ public class HomeService {
 		return user;	
 	}
 	
-	@Cacheable(key = "#id", value="likesRank")
+//	@Cacheable(key = "#id", value="likesRank")
 	public List<Post> likesRank(){
 		log.info("likesRank()");
 		List<Post> likesRank = postRepo.getUsersLikesRank();
