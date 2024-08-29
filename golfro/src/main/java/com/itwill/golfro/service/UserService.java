@@ -96,21 +96,21 @@ public class UserService {
 		}
 	}
 
-	public void nomalUserCreate(normalUserCreateDto dto) {
-		log.info("nomalUserCreate(dto={})", dto);
-		
-		userRepo.save(dto.toEntity());
-	}
-
-	public void expertUserCreate(expertUserCreateDto dto) throws Exception {
-		log.info("expertUserCreate(dto={})", dto);
-		
-		try {
-			userRepo.save(dto.toEntity());
-		} catch (Exception e) {
-			throw new Exception("Failed to insert into pros table", e);
-		}
-	}
+//	public void nomalUserCreate(normalUserCreateDto dto) {
+//		log.info("nomalUserCreate(dto={})", dto);
+//		
+//		userRepo.save(dto.toEntity());
+//	}
+//
+//	public void expertUserCreate(expertUserCreateDto dto) throws Exception {
+//		log.info("expertUserCreate(dto={})", dto);
+//		
+//		try {
+//			userRepo.save(dto.toEntity());
+//		} catch (Exception e) {
+//			throw new Exception("Failed to insert into pros table", e);
+//		}
+//	}
 
 	@Transactional(readOnly = true)
 	public User read(UserSignInDto dto) {

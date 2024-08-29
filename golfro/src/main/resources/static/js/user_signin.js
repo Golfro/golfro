@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {s
     const findPwModal = document.getElementById('findPwModal');
     const findPwForm = document.getElementById('findPwForm');
     const findPwError = document.getElementById('findPwError');
