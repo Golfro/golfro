@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 관리</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-edit {
+            background-color: #f39c12;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-blind {
+            background-color: #34495e;
+            color: #fff;
+        }
+
+        .nav {
+            background-color: #2c3e50;
+            padding: 10px 0;
+        }
+
+        .nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav ul li {
+            margin: 0 10px;
+        }
+
+        .nav ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav ul li a:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <ul>
+            <li><a th:href="@{/adminHome}">홈</a></li>
+            <li><a th:href="@{/adminExchange}">환전 관리</a></li>
+            <li><a th:href="@{/adminMembers}">회원 관리</a></li>
+            <li><a th:href="@{/adminSignup}">가입 승인</a></li>
+            <li><a th:href="@{/adminPosts}">게시글 관리</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>게시글 관리</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>게시글 ID</th>
+                    <th>제목</th>
+                    <th>작성자 ID</th>
+                    <th>작성자 닉네임</th>
+                    <th>최종 수정 날짜</th>
+                    <th>저장된 카테고리</th>
+                    <th>액션</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="post : ${posts}">
+                    <td th:text="${post.id}"></td>
+                    <td>
+                        <a th:href="@{${post.category == 'P001' ? '/mainPost/details' : 
+                                    (post.category == 'P003' ? '/join/join_details' : 
+                                    (post.category == 'P004' ? '/review/review_details' : '/community/comm_details'))}?id=${post.id}" 
+                           class="custom-link" 
+                           th:text="${post.title}"></a>
+                    </td>
+                    <td th:text="${post.author}"></td>
+                    <td th:text="${userNicknames[post.author]}"></td>
+                    <td th:text="${post.modifiedTime}"></td>
+                    <td th:text="${post.category} / ${category_name[post.category]}"></td>
+                    <td>
+                        <button class="btn btn-delete" th:onclick="'deletePost(' + ${post.id} + ')'" type="button">삭제</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function deletePost(id) {
+            if (confirm(id + "번 게시글을 정말 삭제하시겠습니까?")) {
+                // AJAX 요청으로 게시글 삭제 요청 보내기
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "deletePost", true);  // 'deletePost'는 서버의 삭제 엔드포인트 URL
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        alert(id + "번 게시글이 삭제되었습니다.");
+                        location.reload();  // 페이지 새로고침
+                    } else {
+                        alert("게시글 삭제에 실패했습니다. 다시 시도해 주세요.");
+                    }
+                };
+                xhr.send("id=" + id);  // POST 요청으로 게시글 ID 전달
+            }
+        }
+    </script>
+</body>
+</html>
