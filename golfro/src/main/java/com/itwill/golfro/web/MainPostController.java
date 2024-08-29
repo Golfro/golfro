@@ -70,9 +70,9 @@ public class MainPostController {
 
 	@GetMapping("/list")
 	public String mainPostList(@RequestParam(name = "p", defaultValue = "0") int pageNo,
-			@RequestParam(name = "userid", required = false) String userid,
-			@RequestParam(value = "category", required = false) String category,
-			@RequestParam(value = "keyword", required = false) String keyword, HttpSession session, Model model) {
+			@RequestParam(required = false) String userid,
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) String keyword, HttpSession session, Model model) {
 		log.debug("mainPostList(pageNo={}, userid={}, category={}, keyword={})", pageNo, userid, category, keyword);
 
 		Page<Tuple> posts;
@@ -128,31 +128,22 @@ public class MainPostController {
 		return "/mainPost/list"; // 그 외의 경우는 메인 게시글 리스트 뷰로 이동
 	}
 
-	
-	
-	
 	@GetMapping("/details/{id}")
 	public String mainPostDetails(@PathVariable(name = "id") long id,
-			Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+		Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		log.debug("mainPostDetails(id={})", id);
 
 		// 로그인한 사용자인 경우, 기존 로직 수행
 		MainPostDetailsDto post = mainPostService.selectPostId(id);
 		log.debug("post={}", post);
 		
-//		model.addAttribute("commentId", commentId);
+    // model.addAttribute("commentId", commentId);
 		model.addAttribute("post", post);
 
 		// 뷰 이름 반환
 		return "/mainPost/details"; // 또는 적절한 뷰 이름
 	}
 	
-	
-	
-	
-	
-	
-
 //	@GetMapping("/modify")
 //	public void mainPostModify(@RequestParam(name = "id") long id, Model model) {
 //		log.debug("mainPostModify(id={})", id);
@@ -166,7 +157,7 @@ public class MainPostController {
 
 	@GetMapping("/video")
 	@ResponseBody
-	public Resource test(@RequestParam(name = "file") String file) throws IOException {
+	public Resource test(@RequestParam String file) throws IOException {
 		log.info("test(file={})", file);
 
 		Path path = Paths.get(file);
@@ -187,7 +178,7 @@ public class MainPostController {
 	}
 
 	@GetMapping("/delete")
-	public String deleteMainPost(@RequestParam(name = "id") long id) {
+	public String deleteMainPost(@RequestParam long id) {
 		log.debug("deleteMainPost(id={})", id);
 
 		mainPostService.deleteById(id);
@@ -196,7 +187,7 @@ public class MainPostController {
 	}
 
 	@PutMapping("/likes/{id}")
-	public ResponseEntity<Void> updateLikes(@PathVariable(name = "id") long id) {
+	public ResponseEntity<Void> updateLikes(@PathVariable long id) {
 		log.debug("updateLikes(id={})", id);
 		
 		mainPostService.updatePostLikes(id);
@@ -206,7 +197,7 @@ public class MainPostController {
 
 	@GetMapping("/likes/{id}")
 	@ResponseBody
-	public long getLikes(@PathVariable(name = "id") long id) {
+	public long getLikes(@PathVariable long id) {
 		log.debug("getLikes(id={})", id);
 		return mainPostService.getPostLikes(id);
 	}
