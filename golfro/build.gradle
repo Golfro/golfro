@@ -25,7 +25,7 @@ repositories {
 
 dependencies {
     // Redis를 Cache Server로 활용하기 위한 의존성
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     
     // AWS SDK 의존성 추가 (안정적인 버전으로 변경)
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.400'
@@ -50,10 +50,10 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 
     // Spring Security
-//    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    // implementation 'org.springframework.boot:spring-boot-starter-security'
-    // implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-    // testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
