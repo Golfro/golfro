@@ -116,9 +116,9 @@
 
 
 								<div class="views-likes-container d-flex align-items-center">
-									<span><i class="bi bi-eye"></i> ${post.views}</span>
+									<span th:text="|게시글 조회수 : *{views}|"><i class="bi bi-eye"></i> </span>
 									<button id="likes" class="likes bi bi-hand-thumbs-up"></button>
-									<p id="likesCounts">${post.likes}</p>
+									<p id="likesCounts" th:text="|게사글 추천수 : *{likes}|"> </p>
 
 								</div>
 								<!-- 하단 수정하기, 삭제 버튼 영역 -->
