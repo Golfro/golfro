@@ -23,6 +23,7 @@ import com.itwill.golfro.dto.expertUserCreateDto;
 import com.itwill.golfro.dto.findIdDto;
 import com.itwill.golfro.dto.findPasswordDto;
 import com.itwill.golfro.dto.normalUserCreateDto;
+import com.itwill.golfro.service.UserDetailService;
 import com.itwill.golfro.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,6 +43,7 @@ public class UserController {
 	public static int SESSION_TIME = 30 * 60; // 30분
 
 	private final UserService userService;
+	private final UserDetailService userDService;
 
 	@GetMapping("/signin")
 	public String signInForm(HttpServletRequest request,
@@ -100,10 +102,10 @@ public class UserController {
 			RedirectAttributes redirectAttributes) throws Exception {
 		log.info("POST signUp()");
 		if (userType.equals("일반회원")) {
-			userService.nomalUserCreate(normalDto);
+			userDService.nomalUserCreate(normalDto);
 			redirectAttributes.addFlashAttribute("signupSuccess", "normal");
 		} else if (userType.equals("전문가")) {
-			userService.expertUserCreate(expertDto);
+			userDService.expertUserCreate(expertDto);
 			redirectAttributes.addFlashAttribute("signupSuccess", "expert");
 		}
 

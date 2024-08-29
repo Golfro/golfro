@@ -32,11 +32,16 @@ public class SecurityConfig {
 
 		http.userDetailsService(userService);
 
-		http.formLogin((login) -> login.loginPage("/user/signin").defaultSuccessUrl("/", true)
-				.failureUrl("/user/signin?error=true"));
+		http.formLogin(formLogin -> formLogin
+			    .loginPage("/user/signin")
+			    .defaultSuccessUrl("/", true)
+			    .failureUrl("/user/signin?error=true")
+			    .usernameParameter("userid") // 사용자 이름 필드 이름 확인
+			    .passwordParameter("password")); // 비밀번호 필드 이름 확인
+
 
 		http.authorizeHttpRequests((auth) -> auth.requestMatchers("/mainPost/create", "/post/details", "/post/modify",
-				"/post/delete", "/post/update", "/api/comment/**").authenticated().anyRequest().permitAll());
+				"/post/delete", "/post/update").authenticated().anyRequest().permitAll());
 
 		return http.build();
 	}
