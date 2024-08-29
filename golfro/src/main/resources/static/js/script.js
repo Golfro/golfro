@@ -61,12 +61,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function navigateTo(section) {
    if (section === 'MAIN') {
-      window.location.href = '/gaebokchi/mainPost/list';
+      window.location.href = '/mainPost/list';
    } else if (section === 'MEET') {
-      window.location.href = '/gaebokchi/join/join_main';
+      window.location.href = '/join/join_main';
    } else if (section === 'REVIEW') {
-      window.location.href = '/gaebokchi/review/review_main';
+      window.location.href = '/review/review_main';
    } else if (section === 'COMMUNITY') {
-      window.location.href = '/gaebokchi/community/comm_main';
+      window.location.href = '/community/comm_main';
    }
 }

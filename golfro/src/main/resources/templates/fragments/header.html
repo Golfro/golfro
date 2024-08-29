@@ -32,15 +32,15 @@
                     <div th:if="${signedInUser != null}">
                         <!-- 로그인된 경우 -->
                         <ul class="list-login">
-                            <li><a th:href="@{/gaebokchi/user/mypage}" class="btn btn-link">마이페이지</a></li>
-                            <li><a th:href="@{/gaebokchi/user/signout}" class="btn btn-link">로그아웃</a></li>
+                            <li><a th:href="@{/user/mypage}" class="btn btn-link">마이페이지</a></li>
+                            <li><a th:href="@{/user/signout}" class="btn btn-link">로그아웃</a></li>
                         </ul>
                     </div>
                     <div th:unless="${signedInUser != null}">
                         <!-- 로그인되지 않은 경우 -->
                         <ul class="list-login">
-                            <li><a th:href="@{/gaebokchi/user/signin}" class="btn btn-link">로그인</a></li>
-                            <li><a th:href="@{/gaebokchi/user/signup}" class="btn btn-link">회원가입</a></li>
+                            <li><a th:href="@{/user/signin}" class="btn btn-link">로그인</a></li>
+                            <li><a th:href="@{/user/signup}" class="btn btn-link">회원가입</a></li>
                         </ul>
                     </div>
                     <h6 class="mt-4">레슨 카테고리</h6>
@@ -83,11 +83,11 @@
                     </svg>
                 </button>
                 <ul class="dropdown-menu" th:if="${signedInUser != null}">
-                    <li><a th:href="@{/gaebokchi/user/mypage}">마이페이지</a></li>
-                    <li><a th:href="@{/gaebokchi/user/signout}">로그아웃</a></li>
+                    <li><a th:href="@{/user/mypage}">마이페이지</a></li>
+                    <li><a th:href="@{/user/signout}">로그아웃</a></li>
                 </ul>
                 <ul class="dropdown-menu" th:unless="${signedInUser != null}">
-                    <li><a th:href="@{/gaebokchi/user/signin}">로그인</a></li>
+                    <li><a th:href="@{/user/signin}">로그인</a></li>
                 </ul>
             </div>
         </div>

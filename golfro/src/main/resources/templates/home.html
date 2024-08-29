@@ -87,9 +87,9 @@
                     <li class="col-md-2 col-6">
                         <div class="card text-center">
                             <a th:href="@{/mainPost/list}">
-                                <img src="images/웨지.png" class="card-img-top" alt="Category 2">
+                                <img th:src="@{images/전체클럽.png}" class="card-img-top" alt="Category 2">
                                 <div class="card-body">
-                                    <h5 class="card-title">list</h5>
+                                    <h5 class="card-title">전체클럽</h5>
                                 </div>
                             </a>
                         </div>
@@ -97,7 +97,7 @@
                     <li class="col-md-2 col-6">
                         <div class="card text-center">
                             <a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=UT&textSearchSelect=&selectSelection=selectFalse">
-                                <img src="images/유틸.png" class="card-img-top" alt="Category 3">
+                                <img th:src="@{images/유틸.png}" class="card-img-top" alt="Category 3">
                                 <div class="card-body">
                                     <h5 class="card-title">유틸</h5>
                                 </div>
@@ -107,7 +107,7 @@
                     <li class="col-md-2 col-6">
                         <div class="card text-center">
                             <a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=WD&textSearchSelect=&selectSelection=selectFalse">
-                                <img src="images/우드.png" class="card-img-top" alt="Category 4">
+                                <img th:src="@{images/우드.png}" class="card-img-top" alt="Category 4">
                                 <div class="card-body">
                                     <h5 class="card-title">우드</h5>
                                 </div>
@@ -117,7 +117,7 @@
                     <li class="col-md-2 col-6">
                         <div class="card text-center">
                             <a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=IR&textSearchSelect=&selectSelection=selectFalse">
-                                <img src="images/아이언.png" class="card-img-top" alt="Category 5">
+                                <img th:src="@{images/아이언.png}" class="card-img-top" alt="Category 5">
                                 <div class="card-body">
                                     <h5 class="card-title">아이언</h5>
                                 </div>
@@ -127,7 +127,7 @@
                     <li class="col-md-2 col-6">
                         <div class="card text-center">
                             <a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=DR&textSearchSelect=&selectSelection=selectFalse">
-                                <img src="images/드라이버.png" class="card-img-top" alt="Category 6">
+                                <img th:src="@{images/드라이버.png}" class="card-img-top" alt="Category 6">
                                 <div class="card-body">
                                     <h5 class="card-title">드라이버</h5>
                                 </div>
@@ -137,7 +137,7 @@
                     <li class="col-md-2 col-6">
                         <div class="card text-center">
                             <a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=PT&textSearchSelect=&selectSelection=selectFalse">
-                                <img src="images/퍼터.png" class="card-img-top" alt="Category 6">
+                                <img th:src="@{images/PT.jpg}" class="card-img-top" alt="Category 6">
                                 <div class="card-body">
                                     <h5 class="card-title">퍼터</h5>
                                 </div>
@@ -244,6 +244,7 @@
         </div>
     </main>
 
+	<script th:src="@{/js/script.js}"></script>
     <script th:src="@{js/main_header.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-rlpOFsJfXuj/hPLqxG+LWTL3K9f7Wj2lo4J9HFlXCD4ENsT6j58t9/h77GldjJlT"
