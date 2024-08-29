@@ -45,21 +45,28 @@ public class UserController {
 	private final UserService userService;
 	private final UserDetailService userDService;
 
+//	@GetMapping("/signin")
+//	public String signInForm(HttpServletRequest request,
+//			@RequestParam(value = "redirectUrl", required = false) String redirectUrl,
+//			@RequestParam(value = "fromSignup", required = false) Boolean fromSignup) {
+//		if (fromSignup == null || !fromSignup) {
+//			if (redirectUrl == null) {
+//				redirectUrl = request.getHeader("Referer");
+//			}
+//			if (redirectUrl != null && !redirectUrl.contains("/signin") && !redirectUrl.contains("/signup")) {
+//				request.getSession().setAttribute("redirectUrl", redirectUrl);
+//			}
+//		}
+//		
+//		return "user/signin";
+//	}
 	@GetMapping("/signin")
-	public String signInForm(HttpServletRequest request,
-			@RequestParam(value = "redirectUrl", required = false) String redirectUrl,
-			@RequestParam(value = "fromSignup", required = false) Boolean fromSignup) {
-		if (fromSignup == null || !fromSignup) {
-			if (redirectUrl == null) {
-				redirectUrl = request.getHeader("Referer");
-			}
-			if (redirectUrl != null && !redirectUrl.contains("/signin") && !redirectUrl.contains("/signup")) {
-				request.getSession().setAttribute("redirectUrl", redirectUrl);
-			}
-		}
-		
-		return "user/signin";
-	}
+    public String signInForm(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null && error.equals("true")) {
+            model.addAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+        }
+        return "user/signin"; // 로그인 페이지를 반환
+    }
 
 	@PostMapping("/signin")
 	public String signIn(UserSignInDto dto, Model model, HttpSession session,
@@ -67,7 +74,7 @@ public class UserController {
 		log.info("POST signIn(dto={})", dto);
 
 		try {
-			User user = userService.read(dto);
+			User user = userDService.read(dto);
 			if (user != null) {
 				session.setMaxInactiveInterval(SESSION_TIME);
 				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
