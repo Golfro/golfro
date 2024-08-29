@@ -112,14 +112,14 @@ public class UserService {
 //		}
 //	}
 
-	@Transactional(readOnly = true)
-	public User read(UserSignInDto dto) {
-		log.info("UserSignInDto(dto={})", dto);
-		
-		User user = userRepo.selectByUseridAndPassword(dto.getUserid(), dto.getPassword());
-
-		return user;
-	}
+//	@Transactional(readOnly = true)
+//	public User read(UserSignInDto dto) {
+//		log.info("UserSignInDto(dto={})", dto);
+//		
+//		User user = userRepo.selectByUseridAndPassword(dto.getUserid(), dto.getPassword());
+//
+//		return user;
+//	}
 
 	@Transactional(readOnly = true)
 	public User findUserid(findIdDto dto) {

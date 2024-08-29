@@ -1,6 +1,7 @@
 package com.itwill.golfro.service;
 
 import com.itwill.golfro.domain.User;
+import com.itwill.golfro.dto.UserSignInDto;
 import com.itwill.golfro.dto.expertUserCreateDto;
 import com.itwill.golfro.dto.normalUserCreateDto;
 import com.itwill.golfro.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +92,20 @@ public class UserDetailService implements UserDetailsService {
             userRepo.save(user);
         } catch (Exception e) {
             throw new Exception("Failed to insert into pros table", e);
+        }
+    }
+    @Transactional(readOnly = true)
+    public User read(UserSignInDto dto) {
+        log.info("UserSignInDto(dto={})", dto);
+        
+        // 사용자 정보를 조회 (암호화된 비밀번호를 포함하여)
+        User user = userRepo.findByUserid(dto.getUserid());
+
+        // 사용자가 존재하는지 확인하고 비밀번호 검증
+        if (user != null && passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+            return user;
+        } else {
+            return null;
         }
     }
 
