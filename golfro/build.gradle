@@ -38,9 +38,9 @@ dependencies {
 
     // Spring Boot 프로젝트에 필요한 기타 의존성들
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // 중복 제거
-    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' // 중복 제거
-    implementation 'mysql:mysql-connector-java:8.0.33' // 중복 제거
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' 
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' 
+    implementation 'mysql:mysql-connector-java:8.0.33' 
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     // Lombok
@@ -49,10 +49,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
-     // Spring Security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-    testImplementation 'org.springframework.security:spring-security-test'
     // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -89,6 +85,7 @@ sourceSets {
 
 tasks.withType(JavaCompile) {
     options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+    options.compilerArgs += ['-parameters']
 }
 
 clean.doLast {

@@ -79,6 +79,10 @@ public class UserController {
 				session.setMaxInactiveInterval(SESSION_TIME);
 				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
 				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
+				
+				
+	            log.info("세션 아이디 값 : {}", session.getAttribute(SESSION_ATTR_USER));
+	            log.info("세션 등급 값 : {}", session.getAttribute(SESSION_USER_GRADE));
 
 				// 리다이렉트 URL 사용
 				String redirectUrl = (String) session.getAttribute("redirectUrl");
@@ -97,6 +101,13 @@ public class UserController {
 			return "redirect:/user/signin";
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	@GetMapping("/signup") // GET 방식의 /user/signup 요청을 처리하는 컨트롤러 메서드
 	public void signUp() {

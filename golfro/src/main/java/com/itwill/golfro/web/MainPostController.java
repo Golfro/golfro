@@ -65,7 +65,7 @@ public class MainPostController {
 		
 		mainPostService.mainCreate(dto);
 		
-		return "redirect:/mainPost/create";
+		return "redirect:/mainPost/list";
 	}
 
 	@GetMapping("/list")

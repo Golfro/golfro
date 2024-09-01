@@ -24,6 +24,7 @@ public class MainPostCreateDto {
 	private Integer driverDistance;
 	private MultipartFile media;
 	private String mediaPath;
+	private Integer selection;
 	
 	public Post toEntity() {
 		return Post.builder()
@@ -38,6 +39,7 @@ public class MainPostCreateDto {
 				.handy(handy)
 				.irondistance(ironDistance)
 				.driverdistance(driverDistance)
+				.selection(selection)
 				.build();
 	}
 }

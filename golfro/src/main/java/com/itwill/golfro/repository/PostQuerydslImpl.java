@@ -498,6 +498,12 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	        
 	    return new PageImpl<>(list, pageable, count);
 	}
+	
+	
+	
+	
+	
+	
 
 	private BooleanBuilder buildSearchConditions(MainPostSearchDto dto, String searchKeyword) {
 	    BooleanBuilder builder = new BooleanBuilder();
