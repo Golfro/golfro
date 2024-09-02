@@ -1,0 +1,307 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    background-color: white;
+    margin-top: 80px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.card {
+    max-width: 960px;
+    width: 100%;
+    padding: 0 !important;
+}
+
+.menu-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-image: url('../images/review_img.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 180px; /* 기본 높이 설정 */
+    padding: 1rem; /* 기본 패딩 설정 */
+}
+
+.menu-header h2 a {
+    font-family: 'Freesentation-9Black';
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+.menu-header h7 {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* 카드 헤더 스타일 */
+.card-header {
+    background-color: #fff !important;
+    padding-bottom: 0 !important;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.search-button button {
+    padding-left: 5px !important;
+    padding-right: 0px !important;
+}
+
+.card-body {
+    padding-top: 2rem !important;
+}
+
+.search-input {
+    padding: 0px !important;
+    font-size: 0.9rem; /* search-input 전체의 폰트 사이즈 설정 */
+}
+
+.search-field select, .search-field input {
+    font-size: 0.9rem; /* select와 input의 폰트 사이즈 설정 */
+}
+
+#btnAllRead {
+    border: none;
+    background-color: transparent;
+    font-weight: bold;
+    padding-left: 0px !important;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#btnAllRead svg {
+    width: 24px;
+    height: 24px;
+    font-weight: bold;
+}
+
+#btnCreatePost {
+    font-family: 'SUIT-Regular';
+    width: 100%;
+    font-size: 0.9rem;
+    color: white;
+    background: #2FA599;
+}
+
+.card-body-date span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tab-header {
+    font-family: 'SUIT-Regular';
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: bold;
+}
+
+.date-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+    padding: 5px 0px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.date-header {
+    flex: 1;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.btn {
+    flex-shrink: 0;
+    text-decoration: none !important;
+    color: black;
+}
+
+.card-list {
+    border: 1px solid #ccc;
+    width: 100%; /* 카드의 너비를 100%로 설정 */
+    max-width: 290px; /* 최대 너비 설정 */
+    text-align: center;
+    background-color: #fff;
+    margin: 0 auto; /* 가운데 정렬을 위한 자동 마진 설정 */
+    box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
+}
+
+.card-list:hover {
+    border: 3px solid #2FA599;
+}
+
+.card-list.bg-light {
+    color: #ccc;
+}
+
+.card-list.bg-light .custom-link {
+    pointer-events: none;
+    color: #999;
+    opacity: 0.5;
+}
+
+.card-list.bg-light:hover {
+    background-color: #333;
+    border: 1px solid #ccc;
+    cursor: default;
+}
+
+.card-list.bg-light .card-author img {
+    opacity: 0.5;
+}
+
+.card-info {
+    background-color: #eef3f6;
+    padding: 20px;
+    height: 180px;
+}
+
+.custom-link {
+    color: #2FA599;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.custom-link:hover {
+    text-decoration: underline;
+}
+
+.card-info p {
+    margin-bottom: 3px;
+}
+
+.hole {
+    padding: 4px 8px;
+    color: #fff;
+    border-radius: 8px;
+    background-color: #b3b3b3;
+}
+
+.card-author {
+    padding: 20px;
+}
+
+.card-info, .card-author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-author img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 3px;
+}
+
+.card-author span {
+    margin: 10px;
+}
+
+footer.text-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+footer.custom-footer {
+    width: 100%;
+    padding: 20px 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    z-index: 1000;
+}
+
+.mobile-header {
+    display: none !important;
+}
+
+/* 반응형 스타일: 화면이 768px 이하일 때 */
+@media ( max-width : 768px) {
+    .menu-header {
+        height: 120px; /* 화면이 작은 경우 높이 줄이기 */
+        padding: 0.5rem; /* 패딩 줄이기 */
+    }
+    .menu-header h2 {
+        font-size: 1.5rem; /* 작은 화면에서 텍스트 크기 조정 */
+        margin: 0.25rem 0; /* 작은 화면에서 마진 줄이기 */
+    }
+    .menu-header h7 {
+        font-size: 0.875rem; /* 작은 화면에서 텍스트 크기 조정 */
+    }
+    .card-list {
+        max-width: 100%; /* 화면이 작은 경우 카드 너비를 100%로 설정 */
+        font-size: 0.9rem; /* 카드 내 텍스트 크기 조정 */
+    }
+    .date-container {
+        display: none;
+    }
+    #category-search {
+        width: 100%;
+    }
+}
+
+/* 반응형 스타일: 화면이 576px 이하일 때 */
+@media ( max-width : 576px) {
+    .menu-header {
+        height: 100px; /* 더 작은 화면에서 높이 줄이기 */
+        padding: 0.25rem; /* 패딩 줄이기 */
+    }
+    .menu-header h2 {
+        font-size: 1.25rem; /* 더 작은 화면에서 텍스트 크기 조정 */
+        margin: 0.1rem 0; /* 더 작은 화면에서 마진 줄이기 */
+    }
+    .menu-header h7 {
+        font-size: 0.75rem; /* 더 작은 화면에서 텍스트 크기 조정 */
+    }
+    .card-list {
+        max-width: 100%; /* 화면이 매우 작은 경우 카드 너비를 100%로 설정 */
+        font-size: 0.85rem; /* 카드 내 텍스트 크기 조정 */
+        margin: 5px; /* 카드 간격을 더 작게 설정 */
+    }
+    .date-container {
+        display: none;
+    }
+}
