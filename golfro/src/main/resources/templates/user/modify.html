@@ -8,16 +8,16 @@
           rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
           crossorigin="anonymous" />
-    <link rel="stylesheet" href="../css/user_modify.css" />    
+    <link rel="stylesheet" href="/css/user_modify.css" />    
 </head>
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
 
     <div class="container" id="mypage">
-        <div class="row">
-            <th:block th:replace="~{fragments/menu :: menu}"></th:block>
+        <div class="row d-flex ">
+			<div class="menu col-12 col-md-3 d-none d-md-block" th:replace="~{fragments/menu :: menu}"></div>
 
-            <div class="col-8">
+            <div class="col-12 col-md-9 mb-3">
                 <div class="card" id="card">
                     <div class="card-header" id="login-info">
                         <h3>내 정보 수정</h3>
@@ -90,7 +90,7 @@
                                 <div class="mt-2">
                                     <label class="form-label" for="account">어카운트</label>
                                     <div class="flex">
-                                        <select class="form-select" name="bank" size="1" style="width: 20%">
+                                        <select class="form-select" name="bank" size="1">
                                             <option value="" th:selected="*{#strings.split(account, '/')[0] == ''}">선택</option>
                                             <option value="KWANGJU" th:selected="*{#strings.split(account, '/')[0] == 'KWANGJU'}">광주</option>
                                             <option value="BNK" th:selected="*{#strings.split(account, '/')[0] == 'BNK'}">경남</option>

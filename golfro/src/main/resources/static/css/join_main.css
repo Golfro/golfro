@@ -108,7 +108,7 @@ body {
     font-weight: bold;
 }
 
-#btnCreatePost {
+#btnCreatePost, #btnCreateMainPost {
     font-family: 'SUIT-Regular';
     width: 100%;
     font-size: 0.9rem;
