@@ -26,8 +26,6 @@ import com.itwill.golfro.dto.normalUserCreateDto;
 import com.itwill.golfro.service.UserDetailService;
 import com.itwill.golfro.service.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,16 +59,16 @@ public class UserController {
 //		return "user/signin";
 //	}
 	@GetMapping("/signin")
-    public String signInForm(@RequestParam(value = "error", required = false) String error, Model model) {
+    public String signInForm(@RequestParam(required = false) String error, Model model) {
         if (error != null && error.equals("true")) {
             model.addAttribute("errorMessage", "비밀번호가 틀렸습니다.");
         }
+        
         return "user/signin"; // 로그인 페이지를 반환
     }
 
 	@PostMapping("/signin")
-	public String signIn(UserSignInDto dto, Model model, HttpSession session,
-			HttpServletRequest request, HttpServletResponse response) {
+	public String signIn(UserSignInDto dto, Model model, HttpSession session) {
 		log.info("POST signIn(dto={})", dto);
 
 		try {
@@ -79,7 +77,6 @@ public class UserController {
 				session.setMaxInactiveInterval(SESSION_TIME);
 				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
 				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
-				
 				
 	            log.info("세션 아이디 값 : {}", session.getAttribute(SESSION_ATTR_USER));
 	            log.info("세션 등급 값 : {}", session.getAttribute(SESSION_USER_GRADE));
@@ -115,7 +112,7 @@ public class UserController {
 	}
 
 	@PostMapping("/signup")
-	public String signUp(@RequestParam(name = "userType") String userType,
+	public String signUp(@RequestParam String userType,
 			normalUserCreateDto normalDto, expertUserCreateDto expertDto,
 			RedirectAttributes redirectAttributes) throws Exception {
 		log.info("POST signUp()");
@@ -132,7 +129,7 @@ public class UserController {
 
 	@GetMapping("checkUserid")
 	@ResponseBody
-	public ResponseEntity<String> checkUserid(@RequestParam(name = "userid") String userid) {
+	public ResponseEntity<String> checkUserid(@RequestParam String userid) {
 		log.info("checkUserid(userid={})", userid);
 
 		boolean result = userService.checkUserid(userid);
@@ -146,7 +143,7 @@ public class UserController {
 
 	@GetMapping("checkNickname")
 	@ResponseBody
-	public ResponseEntity<String> checkNickname(@RequestParam(name = "nickname") String nickname) {
+	public ResponseEntity<String> checkNickname(@RequestParam String nickname) {
 		log.info("checkNickname(nickname={})", nickname);
 
 		boolean result = userService.checkNickname(nickname);
@@ -160,7 +157,7 @@ public class UserController {
 
 	@GetMapping("checkEmail")
 	@ResponseBody
-	public ResponseEntity<String> checkEmail(@RequestParam(name = "email") String email) {
+	public ResponseEntity<String> checkEmail(@RequestParam String email) {
 		log.info("checkEmail(email={})", email);
 
 		boolean result = userService.checkEmail(email);
@@ -174,7 +171,7 @@ public class UserController {
 
 	@GetMapping("checkPhone")
 	@ResponseBody
-	public ResponseEntity<String> checkPhone(@RequestParam(name = "phone") String phone) {
+	public ResponseEntity<String> checkPhone(@RequestParam String phone) {
 		log.info("checkPhone(phone={})", phone);
 
 		boolean result = userService.checkPhone(phone);
@@ -188,7 +185,7 @@ public class UserController {
 
 	@GetMapping("checkAccept")
 	@ResponseBody
-	public ResponseEntity<String> checkAccept(@RequestParam(name = "accept") String accept) {
+	public ResponseEntity<String> checkAccept(@RequestParam String accept) {
 		log.info("checkAccept(accept={})", accept);
 
 		boolean result = userService.checkAccept(accept);

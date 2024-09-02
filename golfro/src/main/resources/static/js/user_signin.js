@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (response.data === 'Y') {
                     alert('비밀번호가 성공적으로 변경 되었습니다.');
-                    window.location.href = '/gaebokchi/user/signin';
+                    window.location.href = '/user/signin';
                 } else {
                     alert('비밀번호를 다시 확인하세요.');
                 }
