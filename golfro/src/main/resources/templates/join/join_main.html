@@ -35,12 +35,12 @@
 								<!-- 왼쪽: 글쓰기 버튼 -->
 								<div class="col-auto">
 									<th:block th:if="${session.signedInUser ne null}">
-                                        <a href="@{/join/join_create}" class="btn custom-btn" id="btnCreateMainPost">
+                                        <a th:href="@{/join/join_create}" class="btn custom-btn" id="btnCreateMainPost">
                                             <i class="bi bi-pencil-fill"></i> 글쓰기
                                         </a>
                                     </th:block>
                                     <th:block th:if="${session.signedInUser eq null}">
-                                        <a href="@{/user/signin}" class="btn custom-btn" id="btnCreatePost">
+                                        <a th:href="@{/user/signin}" class="btn custom-btn" id="btnCreatePost">
                                             <i class="bi bi-pencil-fill"></i> 글쓰기
                                         </a>
                                     </th:block>
