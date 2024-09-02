@@ -2,25 +2,32 @@
  *  mainPost/details 부여
  */
 
-console.log('comments JS 실행중');
-
 document.addEventListener('DOMContentLoaded', () => {
    getAllMainComments(); // 댓글 리스트업
    getAllLikes(); // 좋아요 수
+
 
    // 댓글 작성 스크립트
    const btnRegisterComment = document.querySelector('#btnRegisterComment');
    if (btnRegisterComment) {
       btnRegisterComment.addEventListener('click', registerComment);
    }
-
+   
+   
+   const postAuthor = document.querySelector('#postAuthor').value;
+   const sessionUser = document.querySelector('#sessionUser').value;
+   
+   console.log(postAuthor);
+   console.log(sessionUser);
+   
+	// like 버튼(추천하기 버튼)
    const btnLikes = document.querySelector('button#likes');
    btnLikes.addEventListener('click', () => {
-      if (signedInUser === postAuthor) {
+      if (sessionUser === postAuthor) {
          alert('본인의 게시물은 추천할 수 없습니다.');
       } else {
          const postId = document.querySelector('input#postId').value;
-         const uri = `../mainPost/likes/${postId}`;
+         const uri = `/mainPost/likes/${postId}`;
 
          axios.put(uri)
             .then((response) => {
@@ -37,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
    function getAllLikes() {
       const postId = document.querySelector('input#postId').value;
-      const uri = `../mainPost/likes/${postId}`;
+      const uri = `/mainPost/likes/${postId}`;
 
       axios.get(uri)
          .then((response) => {
@@ -56,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
+	
 
 
    /* 댓글 작성 함수 */
@@ -64,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const postId = document.querySelector('input#postId').value;
       const content = document.querySelector('textarea#content').value;
       const author = document.querySelector('input#signedInUser').value;
+      
+     
 
       if (content === '' || author === '') {
          alert('피드백 내용 및 작성자는 필수 입력값입니다.')
@@ -106,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
    function getAllMainComments() {
       const postId = document.querySelector('input#postId').value;
-      const uri = `../api/mainComment/all/${postId}`;
+      const uri = `/api/mainComment/all/${postId}`;
 
       axios
          .get(uri)
@@ -165,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                      </p>
                   </div>
                   
-                  <div class="button-container">${signedInUser === postAuthor ?
+                  <div class="button-container">${sessionUser === postAuthor ?
                   `<button class="btn selectComment" data-id="${mainComment.id}">채택</button>` : ''}
                      ${signedInUser === mainComment.author ?
                   `<button class="btn modifyComment" data-id="${mainComment.id}">수정</button>` : ''}

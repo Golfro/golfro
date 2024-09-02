@@ -102,7 +102,7 @@ public class MainPostService {
 		Category category = cateRepo.findById(dto.getCategoryId()).orElseThrow();
 		Club club = clubRepo.findById(dto.getClubId()).orElseThrow();
 		
-		post.update(dto.getTitle(), dto.getContent(), category, club);
+//		post.update(dto.getTitle(), dto.getContent(), category, club);
 	}
 	
 	

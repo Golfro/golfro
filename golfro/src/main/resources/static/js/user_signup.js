@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const findPwModal = document.getElementById('findPwModal');
+	
+	console.log('사인업 js 실행중');
+	
+    const findPwModal = document.getElementById('#findPwModal');
     const findPwForm = document.getElementById('findPwForm');
     const findPwError = document.getElementById('findPwError');
     const errorMessagePw = document.getElementById('errorMessagePw');

@@ -40,13 +40,14 @@ public class MainCommentRestController {
 
 	// postId에 작성된 모든 Comments를 읽는 메서
 	@GetMapping("/all/{postId}")
-	public ResponseEntity<List<Comment>> getMainCommentByPostId(@PathVariable(name = "postId") int postId) {
+	public ResponseEntity<List<Comment>> getMainCommentByPostId(@PathVariable(name = "postId") Long postId) {
 		log.debug("getMainCommentByPostId(postId={})", postId);
 
 		List<Comment> list = mainCommentService.commentReadByPostId(postId);
 		
 		return ResponseEntity.ok(list);
 	}
+	
 
 	@PutMapping("/selectComment/{id}")
 	public ResponseEntity<?> selectionComment(@PathVariable(name = "id") int id) {

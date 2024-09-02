@@ -93,8 +93,8 @@ public class CommPostService {
 		Category category = ctgRepo.findById(dto.getCategoryId()).orElseThrow();
 		Post entity = postRepo.findById(dto.getId()).orElseThrow();
 		
-		entity.update(dto.getTitle(), dto.getContent()
-				, category, dto.getMediaPath());
+//		entity.update(dto.getTitle(), dto.getContent()
+//				, category, dto.getMediaPath());
 	}
 
 	@Transactional(readOnly = true)
