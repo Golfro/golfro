@@ -22,6 +22,8 @@
 			<div class=" container-fluid card border-0" th:object="${post}">
 				<h2>LESSON</h2>
 				<h7>골프에 대해 궁금한 점들을 물어보세요.</h7>
+				<input id="sessionUser" type="hidden" th:value="${session.signedInUser}" />
+				<input id="postAuthor" type="hidden" th:value="${post.userid}" />
 				<div class="mobile-header">
 					<a href="/">LESSON > </a><span>골프에 대해 궁금한 점들을 물어보세요.</span>
 				</div>
@@ -96,15 +98,17 @@
 						<div class="last-section">
 							<div
 								class="sub d-flex justify-content-between align-items-center">
+								
+								<!-- 조회수, 추천하기 영역 -->
 								<div class="views-likes-container d-flex align-items-center">
-
 									<span th:text="|게시글 조회수 : *{views}|"><i
 										class="bi bi-eye"></i> </span>
-									<button id="likes" class="likes bi bi-hand-thumbs-up"></button>
+									<button id="likes" class="likes bi bi-hand-thumbs-up">추천하기버튼</button>
 									<p id="likesCounts" th:text="|게시글 추천수 : *{likes}|"></p>
-
-
 								</div>
+								
+								
+								
 								<!-- 하단 수정하기, 삭제 버튼 영역 -->
 								<div class="dropdown">
 									<button class="btn dropdown-toggle" type="button"
@@ -163,10 +167,6 @@
 		crossorigin="anonymous"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<script>
-		const signedInUser = "${session.signedInUser}";
-		const postAuthor = "${post.userid}";
-	</script>
 	<script th:src="@{/js/commentsSub.js}"></script>
 	<script th:src="@{/js/commentsJS.js}"></script>
 </body>

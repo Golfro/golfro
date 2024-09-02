@@ -92,11 +92,11 @@ public class Post extends BaseTimeEntity {
     }
     
     // update 기능에서 사용할 공개 메서드
-    public Post update(String title, String content, Category category, Club club) {
+    public Post update(String title, String content, Category category, String string) {
         this.title = title;
         this.content = content;
         this.category = category;
-        this.club = club;
+//        this.club = string;
         
         return this;
     }
