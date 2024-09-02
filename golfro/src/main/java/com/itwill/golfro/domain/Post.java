@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PostLoad;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -77,12 +78,18 @@ public class Post extends BaseTimeEntity {
     
     private Integer selection;
     
-    
-    
-    
-    
-    
-    
+    @PostLoad
+    private void setDefaultValues() {
+        if (this.likes == null) {
+            this.likes = 0L;
+        }
+        if (this.views == null) {
+            this.views = 0L;
+        }
+        if (this.selection == null) {
+            this.selection = 0;
+        }
+    }
     
     // update 기능에서 사용할 공개 메서드
     public Post update(String title, String content, Category category, String media) {
