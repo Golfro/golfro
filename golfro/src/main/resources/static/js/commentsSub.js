@@ -4,13 +4,13 @@
 
 document.addEventListener('DOMContentLoaded', () => {
    
-   const postId = document.querySelector('#postId').value;
+   const postId = document.querySelector('input#postId').value;
 
    const btnDeleteMainPost = document.querySelector('button.btnDeleteMainPost');
    btnDeleteMainPost.addEventListener('click', () => {
       const result = confirm('게시물을 삭제하시겠습니까?');
       if (result) {
-         location.href = `delete?id=${postId}`;
+         location.href = `../delete?id=${postId}`;
       }
    })
 
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
    btnModifyid.addEventListener('click', () => {
       const result = confirm('게시물을 수정 하시겠습니까?');
       if (result) {
-         location.href = `modify?id=${postId}`;
+         location.href = `../modify?id=${postId}`;
       }
    })
    

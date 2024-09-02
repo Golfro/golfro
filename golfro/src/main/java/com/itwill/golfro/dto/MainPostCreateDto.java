@@ -37,8 +37,8 @@ public class MainPostCreateDto {
 				.height(height)
 				.career(career)
 				.handy(handy)
-				.irondistance(ironDistance)
-				.driverdistance(driverDistance)
+				.ironDistance(ironDistance)
+				.driverDistance(driverDistance)
 				.selection(selection)
 				.build();
 	}

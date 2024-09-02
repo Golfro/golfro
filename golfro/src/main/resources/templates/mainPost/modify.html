@@ -24,15 +24,12 @@
 		<div class="container-fluid" id="create">
 			<div class="card border-0">
 				<div class="card-header border-0 form-control">
-					<h3>새 글 작성하기</h3>
+					<h3>글 수정하기</h3>
 				</div>
 
 				<div class="card-body form-control border-0">
 					
-					<form method="post" action="/mainPost/create" enctype="multipart/form-data">
-					
-					
-					
+					<form id="modifyForm" enctype="multipart/form-data">
 					<input type="hidden" name="categoryId" value="P001"/>
 					<input type="hidden" name="userid" th:value="${session.signedInUser}"/>
 					
@@ -41,6 +38,8 @@
 							<span>클럽 종류</span>
 							<div class="col-12 mt-2 mb-4">
 								<select id="clubId" class="form-control" name="clubId">
+								
+								<option selected disabled hidden th:text="${post.clubName}"></option>
 									<th:block th:each="clubs : ${clubs}" th:object="${clubs}">
 										<option th:value="*{id}" th:text="*{name}"></option>
 									</th:block>
@@ -49,12 +48,12 @@
 							<span>제목</span>
 							<div class="col-12 mt-2 mb-4">
 								<input id="title" class="form-control" type="text" name="title"
-									placeholder="제목을 입력하세요." required maxlength="50" />
+									th:value="${post.title}" placeholder="제목을 입력하세요." required maxlength="50" />
 							</div>
 							<div class="col-2">
-								<input id="author" class="form-control d-none" type="hidden"
-									name="author" placeholder="작성자 코드값" required
-									th:value="${session.signedInUser}" />
+								<input id="postId" class="form-control" type="text"
+									name="postId" placeholder="작성자 코드값" required
+									th:value="${post.id}" />
 							</div>
 						</div>
 						<!-- 내용 본문 영역 -->
@@ -63,45 +62,51 @@
 							<div class="mt-2 mb-4 row g-1">
 								<div class="col">
 									<input id="height" class="form-control" name="height"
-										type="number" placeholder="키 입력" />
+										th:value="${post.height}" type="number" placeholder="키 입력" />
 								</div>
 								<div class="col">
 									<input id="career" class="form-control" name="career"
-										type="number" placeholder="구력 입력" />
+										th:value="${post.career}" type="number" placeholder="구력 입력" />
 								</div>
 								<div class="col">
 									<input id="handy" class="form-control" name="handy"
-										type="number" placeholder="평균 핸디 입력" />
+										th:value="${post.handy}" type="number" placeholder="평균 핸디 입력" />
 								</div>
 								<div class="col">
 									<input id="ironDistance" class="form-control"
-										name="ironDistance" type="number" placeholder="7번 아이언 평균 비거리"
+										th:value="${post.ironDistance}" name="ironDistance" type="number" placeholder="7번 아이언 평균 비거리"
 										maxlength="3" />
 								</div>
 								<div class="col">
 									<input id="driverDistance" class="form-control"
-										name="driverDistance" type="number" placeholder="드라이버 평균 비거리"
+										th:value="${post.driverDistance}" name="driverDistance" type="number" placeholder="드라이버 평균 비거리"
 										maxlength="3" />
 								</div>
 							</div>
 						</div>
 						<div>
-							<textarea class="mt-2 mb-4 form-control" name=content rows="15"
+							<textarea class="mt-2 mb-4 form-control" name=content rows="15" th:text="${post.content}"
 								placeholder="멘토 피드백 이후 영상 교체로 인한 혼선이 생기는 부분을 방지하기 위하여 게시글 작성 후 동영상 수정은 불가능하오니 해당 부분 참고하여 동영상을 업로드 해주시길 바라며 멘토 피드백 채택 이후에는 게시글의 전체적인 수정 및 삭제는 불가능합니다."
 								required></textarea>
 						</div>
 
 						<!-- 영상 업로드 영역 -->
-						<div class="form-group mt-2">
+						<div class="form-group mt-2 d-none">
 							<input id="media" type="file" accept="video/*"
-								class="form-control-file" name="media" required />
+								class="form-control-file" name="media" />
 						</div>
 						<!-- 하단 버튼 영역 -->
-						<div class="d-flex justify-content-end gap-2">
-							<a href="/mainPost/list"
-								class="cancelBtn btn m-1 px-4 py-2">취소</a> <input
-								class="m-1 px-4 py-2 btn submitBtn" type="submit" value="등록" />
-						</div>
+						
+                        <!-- 하단 버튼 영역 -->
+                        <div
+                            class="lastbtn mt-2 d-flex justify-content-end">
+                            <div>
+                                 <a href="javascript:history.back()" class="m-2 btn">취소하기</a>
+                            </div>
+                            <div>
+                                <button class="m-2 btn" id="btnUpdate">수정완료</button>
+                            </div>
+                        </div>
 					</form>
 				</div>
 			</div>
@@ -112,10 +117,16 @@
 
 
 
+
+
+
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
+		
+		<script th:src="@{/js/mainPost_modify.js}"></script>
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {

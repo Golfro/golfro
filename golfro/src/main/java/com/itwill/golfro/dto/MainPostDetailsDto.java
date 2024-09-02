@@ -18,6 +18,7 @@ public class MainPostDetailsDto {
 	
 	private Long id;
 	private String clubName;
+	private String userid;
 	private String name;
 	private String title;
 	private String content;
@@ -35,9 +36,9 @@ public class MainPostDetailsDto {
     
     private Integer handy;
     
-    private Integer irondistance;
+    private Integer ironDistance;
     
-    private Integer driverdistance;
+    private Integer driverDistance;
     
   
 	
@@ -47,6 +48,7 @@ public class MainPostDetailsDto {
 				.id(entity.getId())
 				.clubName(entity.getClub().getName())
 				.name(entity.getUser().getName())
+				.userid(entity.getUser().getUserid())
 				.title(entity.getTitle())
 				.nickname(entity.getUser().getNickname())
 				.content(entity.getContent())
@@ -59,8 +61,8 @@ public class MainPostDetailsDto {
 				.height(entity.getHeight())
 				.career(entity.getCareer())
 				.handy(entity.getHandy())
-				.irondistance(entity.getIrondistance())
-				.driverdistance(entity.getDriverdistance())
+				.ironDistance(entity.getIronDistance())
+				.driverDistance(entity.getDriverDistance())
 				.build();
 	}
 	

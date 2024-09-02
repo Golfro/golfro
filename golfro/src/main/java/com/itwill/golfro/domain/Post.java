@@ -60,9 +60,9 @@ public class Post extends BaseTimeEntity {
     
     private Integer handy;
     
-    private Integer irondistance;
+    private Integer ironDistance;
     
-    private Integer driverdistance;
+    private Integer driverDistance;
     
     private Integer hole;
     

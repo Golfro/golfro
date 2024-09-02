@@ -16,8 +16,8 @@ public class MainPostUpdateDto {
 	private Integer height;
 	private Integer career;
 	private Integer handy;
-	private Integer irondistance;
-	private Integer driverdistance;
+	private Integer ironDistance;
+	private Integer driverDistance;
 	private MultipartFile media;
 	private String mediaPath;
 	
@@ -30,8 +30,8 @@ public class MainPostUpdateDto {
 	            .height(height)
 	            .career(career)
 	            .handy(handy)
-	            .irondistance(irondistance)
-	            .driverdistance(driverdistance)
+	            .ironDistance(ironDistance)
+	            .driverDistance(driverDistance)
 	            .build();
 	}
 }
