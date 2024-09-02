@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="com/itwill/golfro/config/" kind="src" path="golfro/src/main/java"/>
+	<classpathentry kind="src" path="golfro/src/main/java/com/itwill/golfro/config"/>
+	<classpathentry kind="src" path="golfro/src/test/java"/>
+	<classpathentry kind="lib" path="golfro/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

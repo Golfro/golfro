@@ -6,6 +6,7 @@ import com.itwill.golfro.domain.Category;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
