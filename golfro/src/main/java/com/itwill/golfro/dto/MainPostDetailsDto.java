@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 public class MainPostDetailsDto {
 	
 	private Long id;
+	private String clubId;
 	private String clubName;
 	private String userid;
-	private String name;
 	private String title;
 	private String content;
 	private String nickname;
@@ -46,8 +46,8 @@ public class MainPostDetailsDto {
 	public static MainPostDetailsDto fromEntity(Post entity) {
 		return MainPostDetailsDto.builder()
 				.id(entity.getId())
+				.clubId(entity.getClub().getId())
 				.clubName(entity.getClub().getName())
-				.name(entity.getUser().getName())
 				.userid(entity.getUser().getUserid())
 				.title(entity.getTitle())
 				.nickname(entity.getUser().getNickname())

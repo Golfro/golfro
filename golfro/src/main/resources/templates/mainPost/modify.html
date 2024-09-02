@@ -29,7 +29,7 @@
 
 				<div class="card-body form-control border-0">
 					
-					<form id="modifyForm" enctype="multipart/form-data">
+				<form id="modifyForm" enctype="multipart/form-data">
 					<input type="hidden" name="categoryId" value="P001"/>
 					<input type="hidden" name="userid" th:value="${session.signedInUser}"/>
 					
@@ -38,8 +38,7 @@
 							<span>클럽 종류</span>
 							<div class="col-12 mt-2 mb-4">
 								<select id="clubId" class="form-control" name="clubId">
-								
-								<option selected disabled hidden th:text="${post.clubName}"></option>
+								<option selected disabled th:vlaue="${post.clubId}" th:text="${post.clubName}"></option>
 									<th:block th:each="clubs : ${clubs}" th:object="${clubs}">
 										<option th:value="*{id}" th:text="*{name}"></option>
 									</th:block>
@@ -51,8 +50,8 @@
 									th:value="${post.title}" placeholder="제목을 입력하세요." required maxlength="50" />
 							</div>
 							<div class="col-2">
-								<input id="postId" class="form-control" type="text"
-									name="postId" placeholder="작성자 코드값" required
+								<input id="id" class="form-control" type="text"
+									name="id" required
 									th:value="${post.id}" />
 							</div>
 						</div>
@@ -90,12 +89,7 @@
 								required></textarea>
 						</div>
 
-						<!-- 영상 업로드 영역 -->
-						<div class="form-group mt-2 d-none">
-							<input id="media" type="file" accept="video/*"
-								class="form-control-file" name="media" />
-						</div>
-						<!-- 하단 버튼 영역 -->
+
 						
                         <!-- 하단 버튼 영역 -->
                         <div

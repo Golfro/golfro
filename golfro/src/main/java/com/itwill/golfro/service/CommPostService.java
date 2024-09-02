@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itwill.golfro.domain.Category;
+import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Comment;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
@@ -24,6 +25,7 @@ import com.itwill.golfro.dto.CommentCreateDto;
 import com.itwill.golfro.dto.CommentItemDto;
 import com.itwill.golfro.dto.CommentUpdateDto;
 import com.itwill.golfro.repository.CategoryRepository;
+import com.itwill.golfro.repository.ClubRepository;
 import com.itwill.golfro.repository.CommentRepository;
 import com.itwill.golfro.repository.PostRepository;
 import com.itwill.golfro.repository.UserRepository;
@@ -41,6 +43,7 @@ public class CommPostService {
 	private final UserRepository userRepo;
 	private final CategoryRepository ctgRepo;
 	private final MediaService mediaService;
+	private final ClubRepository clubRepo;
 	
 	@Transactional(readOnly = true)
 	public Page<Post> read(int pageNo, Sort sort) {
@@ -86,11 +89,12 @@ public class CommPostService {
 			String fileName = mediaService.storeFile(dto.getMedia());
 			dto.setMediaPath(fileName);
 		}
-
+		
+		Category category = ctgRepo.findById(dto.getCategoryId()).orElseThrow();
 		Post entity = postRepo.findById(dto.getId()).orElseThrow();
 		
 		entity.update(dto.getTitle(), dto.getContent()
-				, Category.builder().id(dto.getCategoryId()).build(), dto.getMediaPath());
+				, category, dto.getMediaPath());
 	}
 
 	@Transactional(readOnly = true)

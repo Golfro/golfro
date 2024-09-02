@@ -3,6 +3,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+	console.log('subjs');
    
    const postId = document.querySelector('input#postId').value;
 

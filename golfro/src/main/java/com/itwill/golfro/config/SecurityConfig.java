@@ -42,7 +42,7 @@ public class SecurityConfig {
 				.permitAll());
 
 
-		http.authorizeHttpRequests((auth) -> auth.requestMatchers("/mainPost/create", "/post/details", "/post/modify",
+		http.authorizeHttpRequests((auth) -> auth.requestMatchers("/post/create", "/post/details", "/post/modify",
 				"/post/delete", "/post/update").authenticated().anyRequest().permitAll());
 
 		return http.build();

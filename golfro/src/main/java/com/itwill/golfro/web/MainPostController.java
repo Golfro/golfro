@@ -168,14 +168,18 @@ public class MainPostController {
 		return resource;
 	}
 
+	
+	
 	@PostMapping("/update")
 	public String mainPostUpdate(MainPostUpdateDto dto) {
 		log.debug("mainPostUpdate(dto={})", dto);
 		
 		mainPostService.mainPostUpdate(dto);
 
-		return "redirect:/mainPost/details?id=" + dto.getId();
+		return "redirect:/mainPost/details/" + dto.getId();
 	}
+	
+	
 
 	@GetMapping("/delete")
 	public String deleteMainPost(@RequestParam(name="id") long id) {
