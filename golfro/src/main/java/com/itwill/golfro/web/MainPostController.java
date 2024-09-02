@@ -137,23 +137,23 @@ public class MainPostController {
 		MainPostDetailsDto post = mainPostService.selectPostId(id);
 		log.debug("post={}", post);
 		
-    // model.addAttribute("commentId", commentId);
+//        model.addAttribute("commentId", commentId);	
 		model.addAttribute("post", post);
 
 		// 뷰 이름 반환
 		return "/mainPost/details"; // 또는 적절한 뷰 이름
 	}
 	
-//	@GetMapping("/modify")
-//	public void mainPostModify(@RequestParam(name = "id") long id, Model model) {
-//		log.debug("mainPostModify(id={})", id);
-//		
-//		List<Club> clubs = mainPostService.clubTypes();
-//		Tuple post = mainPostService.selectPostId(id);
-//		
-//		model.addAttribute("clubs", clubs);
-//		model.addAttribute("post", post);
-//	}
+	@GetMapping("/modify")
+	public void mainPostModify(@RequestParam(name = "id") long id, Model model) {
+		log.debug("mainPostModify(id={})", id);
+		
+		List<Club> clubs = mainPostService.clubTypes();
+		MainPostDetailsDto post = mainPostService.selectPostId(id);
+		
+		model.addAttribute("clubs", clubs);
+		model.addAttribute("post", post);
+	}
 
 	@GetMapping("/video")
 	@ResponseBody
@@ -178,7 +178,7 @@ public class MainPostController {
 	}
 
 	@GetMapping("/delete")
-	public String deleteMainPost(@RequestParam long id) {
+	public String deleteMainPost(@RequestParam(name="id") long id) {
 		log.debug("deleteMainPost(id={})", id);
 
 		mainPostService.deleteById(id);

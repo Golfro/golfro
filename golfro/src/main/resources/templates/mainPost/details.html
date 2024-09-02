@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,9 +67,9 @@
 									<span
 										th:text="*{handy == null ? '헨디: 데이터 없음' : '헨디: ' + handy + ' /'}"></span>
 									<span
-										th:text="*{irondistance == null ? '아이언 평균 거리: 데이터 없음' : '아이언 평균 거리: ' + irondistance + 'm /'}"></span>
+										th:text="*{ironDistance == null ? '아이언 평균 거리: 데이터 없음' : '아이언 평균 거리: ' + ironDistance + 'm /'}"></span>
 									<span
-										th:text="*{driverdistance == null ? '드라이버 평균 거리: 데이터 없음' : '드라이버 평균 거리: ' + driverdistance + 'm'}"></span>
+										th:text="*{driverDistance == null ? '드라이버 평균 거리: 데이터 없음' : '드라이버 평균 거리: ' + driverDistance + 'm'}"></span>
 								</div>
 							</div>
 						</div>
@@ -80,18 +80,18 @@
 									<p th:text="*{content}"></p>
 								</div>
 								<!-- 포커싱할 댓글 id -->
-								<input type="hidden" id="commentId" value="${commentId}" />
+								<input type="hidden" id="commentId" th:value="${commentId}" />
 							</div>
 
 							<!-- 댓글 리스트 영역 -->
 							<div class="comments-section form-control">
-								<!-- <form action="submit_comment_url" method="post"> -->
 								<div class="form-group">
-									<input class="form-control mt-2" type="hidden"
-										id="signedInUser" required value="${signedInUser}" /> <input
-										type="hidden" id="postId" value="${post.id}" />
+									<input class="form-control mt-2" type="hidden" id="signedInUser" required th:value="${session.signedInUser}" />
+									<input type="hidden" id="postId" th:value="*{id}"/>
 								</div>
 							</div>
+							
+							
 						</div>
 						<div class="last-section">
 							<div
@@ -113,38 +113,38 @@
 										<i class="bi bi-three-dots"></i>
 									</button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<c:if
-											test="${signedInUser eq post.author or signedInUser eq 'admin'}">
-											<li><button class="dropdown-item btnModifyid">수정하기</button></li>
-											<li><button class="dropdown-item btnDeleteMainPost">삭제하기</button></li>
-										</c:if>
+										<!-- 조건: 세션의 signedInUser와 post.author가 같거나 signedInUser가 'admin'인 경우 -->
+										<li
+											th:if="${session.signedInUser eq post.userid or session.signedInUser eq 'admin'}">
+											<button class="dropdown-item btnModifyid">수정하기</button>
+										</li>
+										<li
+											th:if="${session.signedInUser eq post.userid or session.signedInUser eq 'admin'}">
+											<button class="dropdown-item btnDeleteMainPost">삭제하기</button>
+										</li>
 									</ul>
 								</div>
-
-
-								<script th:src="@{/js/commentsSub.js}"></script>
-								<script
-									src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-									integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-									crossorigin="anonymous"></script>
+								
+								
+								
 							</div>
 
 							<div>
 								<!-- 전문가 승인이 완료된 회원의 경우 -->
-								<div th:if="${signedInUserGrade == 'G10'}">
+								<div th:if="${session.signedInUserGrade.id == 'G10'}">
 									<textarea class="form-control" id="content" name="ctext"
 										rows="3" required placeholder="피드백을 작성해주세요."></textarea>
 								</div>
 
 								<!-- 전문가 승인이 완료되지 않은 회원의 경우 -->
-								<div th:unless="${signedInUserGrade == 'G10'}">
+								<div th:unless="${session.signedInUserGrade.id == 'G10'}">
 									<textarea class="form-control" id="finishContent"
 										readonly="readonly">전문가 승인이 완료된 회원만 작성 할 수 있습니다.</textarea>
 								</div>
 							</div>
 
 							<!-- 전문가 승인이 완료된 회원만 버튼이 노출 -->
-							<div th:if="${signedInUserGrade == 'G10'}">
+							<div th:if="${session.signedInUserGrade.id == 'G10'}">
 								<button id="btnRegisterComment" class="btn form-control">피드백
 									작성하기</button>
 							</div>
@@ -164,8 +164,8 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
-		const signedInUser = "${signedInUser}";
-		const postAuthor = "${post.author}";
+		const signedInUser = "${session.signedInUser}";
+		const postAuthor = "${post.userid}";
 	</script>
 	<script th:src="@{/js/commentsSub.js}"></script>
 	<script th:src="@{/js/commentsJS.js}"></script>
