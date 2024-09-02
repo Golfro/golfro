@@ -47,14 +47,14 @@ public class JoinController {
 	}
 
 	@GetMapping("/join_create")
-	public void createJoinPost(@ModelAttribute("loggedInUser") User loggedInUser, Model model) {
+	public void createJoinPost(User loggedInUser, Model model) {
 		if (loggedInUser != null) {
 			model.addAttribute("user", loggedInUser);
 		}
 	}
 
 	@PostMapping("/join_create")
-	public String create(JoinPostCreateDto dto, @ModelAttribute("loggedInUser") User loggedInUser) {
+	public String create(JoinPostCreateDto dto, User loggedInUser) {
 		if (loggedInUser != null) {
 			log.debug("user={}", loggedInUser);
 		}
@@ -66,8 +66,8 @@ public class JoinController {
 
 	@GetMapping("/join_main")
 	public String viewJoinMain(@RequestParam(value = "teeoffDate", required = false) String teeoffDateStr,
-			@RequestParam(value = "category", required = false) String category,
-			@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) String keyword,
 			@RequestParam(name = "p", defaultValue = "0") int pageNo, Model model) {
 		Page<Post> posts;
 		
@@ -109,7 +109,7 @@ public class JoinController {
 	}
 
 	@GetMapping({ "/join_details", "/join_modify" })
-	public void detailsjoinPost(@RequestParam("id") Integer id, @ModelAttribute("loggedInUser") User loggedInUser, Model model) {
+	public void detailsjoinPost(@RequestParam long id, @ModelAttribute User loggedInUser, Model model) {
 		if (loggedInUser != null) {
 			log.debug("user={}", loggedInUser);
 			model.addAttribute("user", loggedInUser);

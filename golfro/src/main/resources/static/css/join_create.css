@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    margin-top: 100px;
+    width: 960px;
+    padding: 20px;
+}
+
+.card-header {
+    background: white !important;
+}
+
+.card-header h3 {
+    font-family: 'Freesentation-9Black', Freesentation-9Black;
+}
+
+.card-body span {
+    font-family: 'SUIT-Regular';
+    font-size: 0.9rem;
+    padding-left: calc(100% -10px);
+    font-weight: 600;
+    color: #2FA599;
+}
+
+.form-control {
+    padding: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.input-group button {
+    font-family: 'SUIT-Regular';
+    background-color: #eeedef;
+    border: 1px solid #ccc;
+}
+
+.container-fluid.px-0 input::placeholder {
+    font-size: 0.8em;
+}
+
+.cancelBtn {
+    background-color: #EEEEEE !important;
+}
+
+.submitBtn {
+    color: white !important;
+    background-color: #2FA599 !important;
+}
+/* Hover 효과 제거 */
+.lastbtn .btn:hover {
+    background-color: #ffffff; /* 배경색 초기화 */
+    color: #2FA599; /* 글자색 초기화 */
+    border-color: #c0c0c0; /* 테두리 색 초기화 */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/*모바일 화면*/
+@media screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    .container-fluid {
+        margin-top: 130px;
+        width: 100%;
+    }
+    .card {
+        width: 100%;
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+    .card-header h3 {
+        margin: 0px;
+    }
+    .card-body {
+        padding-top: 0px !important;
+    }
+    .form-control {
+        width: 100%;
+    }
+    .lastbtn .btn {
+        width: auto; /* 너비 자동 조정 */
+        margin: 5px; /* 여백 조정 */
+        padding: 10px 15px; /* 내부 여백 조정 */
+        font-size: 14px; /* 글자 크기 조정 */
+    }
+
+    /* 모바일에서 카드의 padding 조정 */
+    .card-body {
+        padding: 10px;
+    }
+}
