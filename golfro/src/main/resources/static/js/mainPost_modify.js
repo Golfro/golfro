@@ -12,9 +12,11 @@
 	const btnUpdate = document.querySelector('button#btnUpdate');
 	
 	
+	
+	
 	btnUpdate.addEventListener('click', () => {
-		if(inputTitle.value === '' || textContent === '' || updateMedia === ''){
-			alert('제목과 내용, 동영상 업데이트는 필수 입니다.');
+		if(inputTitle.value === '' || textContent === ''){
+			alert('제목과 내용은 필수 입니다.');
 			return;
 		}
 		
