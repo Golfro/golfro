@@ -54,10 +54,8 @@ public class JoinController {
 	}
 
 	@PostMapping("/join_create")
-	public String create(JoinPostCreateDto dto, User loggedInUser) {
-		if (loggedInUser != null) {
-			log.debug("user={}", loggedInUser);
-		}
+	public String create(JoinPostCreateDto dto) {
+		log.info("create(dto={})", dto);
 		
 		joinPostService.create(dto);
 		
@@ -111,7 +109,7 @@ public class JoinController {
 	@GetMapping({ "/join_details", "/join_modify" })
 	public void detailsjoinPost(@RequestParam long id, @ModelAttribute User loggedInUser, Model model) {
 		if (loggedInUser != null) {
-			log.debug("user={}", loggedInUser);
+			log.info("user={}", loggedInUser);
 			model.addAttribute("user", loggedInUser);
 		}
 
@@ -131,7 +129,7 @@ public class JoinController {
 
 	@PostMapping("/update")
 	public String update(JoinPostUpdateDto dto) {
-		log.debug("update(dto={})", dto);
+		log.info("update(dto={})", dto);
 		
 		joinPostService.update(dto);
 		
@@ -139,8 +137,8 @@ public class JoinController {
 	}
 
 	@GetMapping("/delete")
-	public String delete(@RequestParam(name = "id") long id) {
-		log.debug("delete(id={})", id);
+	public String delete(@RequestParam long id) {
+		log.info("delete(id={})", id);
 		
 		joinPostService.delete(id);
 		

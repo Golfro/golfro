@@ -114,7 +114,7 @@
 						<!-- 카드 형식으로 변환된 포스트 목록 -->
 						<div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-4 mt-1">
 							<div th:each="p : ${posts}" th:object="${posts}" class="col d-flex justify-content-center">
-                                <div class="card-list h-100" th:classappend="*{formattedTeeoff lt today} ? 'bg-light' : ''">
+                                <div class="card-list h-100" th:classappend="${posts.teeoff lt today} ? 'bg-light' : ''">
                                     <div class="card-info">
                                         <h6>
                                             <a th:href="@{/join/join_details(id=*{id})}" class="custom-link" th:text="*{title}">Title</a>
@@ -123,7 +123,7 @@
                                             <small class="hole" th:text="*{hole} + '홀'">Hole</small>
                                         </p>
                                         <p>
-                                            <small th:text="*{formattedTeeoff}">Teeoff</small>
+                                            <small th:text="*{teeoff}">Teeoff</small>
                                         </p>
                                         <p>
                                             <small th:text="*{gcadress}">Address</small>
@@ -134,7 +134,7 @@
                                     </div>
                                     <div class="card-author text-center">
                                         <img src="../images/우드.png" alt="Profile Picture" class="rounded-circle"> <br> 
-                                        <span th:text="*{userNicknames[author]}">Nickname</span>
+                                        <span th:text="${userNicknames}">Nickname</span>
                                     </div>
                                 </div>
                             </div>
