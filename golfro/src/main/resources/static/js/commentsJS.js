@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
    
    const postAuthor = document.querySelector('#postAuthor').value;
    const sessionUser = document.querySelector('#sessionUser').value;
+   const sessionNickName = document.querySelector('#sessionNickName').value;
    
    
    console.log(postAuthor);
@@ -171,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
                <div class="comment-content">
-                  <strong>${mainComment.nickname}</strong>
+                  <strong>${mainComment.nickName}</strong>
                   <div class="comment-text">
                      <p class="commentId d-none"></p>
                      <p>
@@ -181,9 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
                   
                   <div class="button-container">${sessionUser === postAuthor ?
                   `<button class="btn selectComment" data-id="${mainComment.id}">채택</button>` : ''}
-                     ${signedInUser === mainComment.author ?
+                     ${sessionNickName === mainComment.ninckName ?
                   `<button class="btn modifyComment" data-id="${mainComment.id}">수정</button>` : ''}
-                     ${signedInUser === mainComment.author ?
+                     ${sessionNickName === mainComment.ninckName ?
                   `<button class="btn deleteComment" data-id="${mainComment.id}">삭제</button>` : ''}
                   </div>
                   
