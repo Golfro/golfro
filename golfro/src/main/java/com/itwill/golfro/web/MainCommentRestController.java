@@ -22,7 +22,7 @@ import com.itwill.golfro.service.MainCommentService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping("/api/mainComment")
+@RequestMapping("/mainPost/api/mainComment")
 @RestController
 public class MainCommentRestController {
 
@@ -34,9 +34,9 @@ public class MainCommentRestController {
 		log.debug("registerComment(dto={})", dto);
 
 		int result = mainCommentService.mainPostCommentCreate(dto);
-
 		return ResponseEntity.ok(result);
 	}
+	
 
 	// postId에 작성된 모든 Comments를 읽는 메서
 	@GetMapping("/all/{postId}")
