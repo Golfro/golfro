@@ -1,0 +1,265 @@
+@charset "UTF-8";
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 960px;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+.row.justify-content-center .col-md-8 {
+    display: flex;
+    justify-content: center;
+}
+
+.col-md-8 {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    width: 960px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #ffffff;
+    margin-bottom: 100px;
+}
+
+.card h2 {
+    font-family: 'Freesentation-9Black', sans-serif;
+    color: #333333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card h2 a {
+    color: #333333;
+    text-decoration: none;
+}
+
+.card h3 {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    color: #333333;
+}
+
+.card h7 {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    color: #6c757d;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#card-header {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 0px;
+    border: none;
+}
+
+#card-header p {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0px;
+}
+
+.tag {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+}
+
+.tag a {
+    text-decoration: none;
+    font-size: 15px;
+    color: black;
+}
+
+div.card-body {
+    background: white;
+    margin-bottom: 20px;
+    padding: 0px;
+}
+
+.join-title {
+    text-align: center; /* 타이틀 가운데 정렬 */
+    background-image: url('../images/join_title.jpg'); /* 배경 이미지 설정 */
+    background-size: cover; /* 이미지가 컨테이너에 맞게 조정됨 */
+    background-position: center; /* 이미지의 가운데 부분이 표시되도록 설정 */
+    padding: 40px 0; /* 위아래 패딩 추가 */
+}
+
+.join-title p {
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.5); /* 배경색을 검정색에 50% 투명도로 설정 */
+    color: white; /* 타이틀 텍스트를 흰색으로 설정 */
+    margin: 20px 0;
+    padding: 10px;
+}
+
+#author p {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    font-size: 16px;
+    margin: 0px;
+    padding: 10px;
+}
+
+div.card-body .details {
+    background-color: #ffffff;
+    margin-top: 20px; /* 상단 여백 추가 */
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%; /* 부모 요소의 크기를 최대화 */
+}
+
+.details-item {
+    background-color: white;
+    border: 2px dashed #2FA599;
+    width: 33%;
+    padding: 15px;
+    border-radius: 8px;
+    flex: 1; /* 모든 아이템이 동일한 크기로 나눠짐 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 세로 방향 중앙 정렬 */
+    align-items: center; /* 가로 방향 중앙 정렬 */
+    text-align: center;
+    padding: 15px;
+    width: 33%; /* 텍스트 중앙 정렬 */
+}
+
+.details-item h5 {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    color: #333;
+}
+
+.details-item p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 0px;
+    word-break: break-word; /* 긴 단어나 주소가 영역을 넘어가지 않도록 처리 */
+    font-family: 'SUIT-Regular', sans-serif;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.details-item-content {
+    width: 100%;
+}
+
+.details-item-content h5 {
+    padding: 20px;
+    margin: 0px;
+}
+
+.details-item-content p {
+    background: #f7f7f7;
+    border-radius: 8px;
+    margin: 0 10px;
+    min-height: 200px;
+    padding: 30px;
+}
+
+.lastbtn .btn {
+    font-family: 'Pretendard-Regular', sans-serif;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 7px;
+    background-color: #2FA599;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.lastbtn .btn:hover {
+    background-color: #498f87;
+    color: #ffffff;
+}
+
+#btnDelete {
+    font-family: 'Pretendard-Regular', sans-serif;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 7px;
+    background-color: #bcbcbc;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+#btnDelete:hover {
+    background-color: #a2a2a2;
+    color: #ffffff;
+}
+
+/* 모바일 화면에서 레이아웃 조정 */
+@media ( max-width : 768px) {
+    .container {
+        width: 100%;
+        padding: 0 15px; /* 좌우 패딩 추가 */
+    }
+    .card {
+        width: 100%; /* 카드가 가로로 꽉 차도록 설정 */
+        margin-bottom: 30px; /* 아래 여백 줄이기 */
+    }
+    .details-row {
+        flex-direction: column; /* 세로 방향으로 배치 */
+        gap: 10px; /* 항목 간 여백 줄이기 */
+    }
+    .details-item {
+        width: 100%; /* 전체 너비를 사용 */
+        border: 2px dashed #2FA599; /* 경계선 유지 */
+        padding: 10px; /* 패딩 조정 */
+    }
+    .join-title {
+        padding: 20px 0; /* 패딩 줄이기 */
+    }
+    .join-title p {
+        font-size: 1.5rem; /* 폰트 크기 줄이기 */
+        margin: 10px 0; /* 마진 줄이기 */
+    }
+    #author p {
+        font-size: 14px; /* 폰트 크기 줄이기 */
+        padding: 5px; /* 패딩 줄이기 */
+    }
+}
+
+@media ( max-width : 576px) {
+    .container {
+        padding: 0; /* 좌우 패딩 제거 */
+    }
+    .card {
+        width: 100%; /* 카드가 가로로 꽉 차도록 설정 */
+        margin-bottom: 20px; /* 아래 여백 줄이기 */
+    }
+    .details-row {
+        flex-direction: column; /* 세로 방향으로 배치 */
+        gap: 10px; /* 항목 간 여백 줄이기 */
+    }
+    .details-item {
+        width: 100%; /* 전체 너비를 사용 */
+        border: 2px dashed #2FA599; /* 경계선 유지 */
+        padding: 10px; /* 패딩 조정 */
+    }
+    .join-title {
+        padding: 10px 0; /* 패딩 줄이기 */
+    }
+    .join-title p {
+        font-size: 1.2rem; /* 폰트 크기 줄이기 */
+        margin: 5px 0; /* 마진 줄이기 */
+    }
+    #author p {
+        font-size: 12px; /* 폰트 크기 줄이기 */
+        padding: 5px; /* 패딩 조정 */
+    }
+}

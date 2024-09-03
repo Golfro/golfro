@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
-
+	private static final String SESSION_ATTR_USERID = "signedInUserId";
 	private static final String SESSION_ATTR_USER = "signedInUser";
 	private static final String SESSION_USER_GRADE = "signedInUserGrade";
 	public static int SESSION_TIME = 30 * 60; // 30분
@@ -73,13 +73,17 @@ public class UserController {
 	                     HttpServletResponse response) {
 	    log.debug("POST signIn({})", dto);
 
-	    try {
-	        User user = userDService.read(dto);
-	        if (user != null) {
-	            session.setMaxInactiveInterval(SESSION_TIME);
-	            session.setAttribute(SESSION_ATTR_USER, user.getUserid());
-	            session.setAttribute(SESSION_USER_GRADE, user.getGrade());
 
+		try {
+			User user = userDService.read(dto);
+			if (user != null) {
+				session.setMaxInactiveInterval(SESSION_TIME);
+				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
+				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
+				session.setAttribute(SESSION_ATTR_USERID, user.getId());
+				
+	            log.info("세션 아이디 값 : {}", session.getAttribute(SESSION_ATTR_USER));
+	            log.info("세션 등급 값 : {}", session.getAttribute(SESSION_USER_GRADE));
 	            // 리다이렉트 URL 사용
 	            String redirectUrl = (String) session.getAttribute("redirectUrl");
 	            if (redirectUrl != null && !redirectUrl.contains("/signup")) {

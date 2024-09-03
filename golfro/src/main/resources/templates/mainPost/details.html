@@ -20,10 +20,14 @@
 		<div
 			class="container d-flex flex-column justify-content-center align-items-center">
 			<div class=" container-fluid card border-0" th:object="${post}">
+				
 				<h2>LESSON</h2>
-				<h7>골프에 대해 궁금한 점들을 물어보세요.</h7>
-				<input id="sessionUser" type="hidden" th:value="${session.signedInUser}" />
-				<input id="postAuthor" type="hidden" th:value="${post.userid}" />
+				<h7 >골프에 대해 궁금한 점들을 물어보세요.</h7>
+				<input id="sessionUser" type="text" th:value="${session.signedInUser}" />
+				<input id="postAuthor" type="text" th:value="${post.userid}" />
+				<input id="sessionUserId" type="text" th:value="${session.signedInUserId}" />
+				
+				
 				<div class="mobile-header">
 					<a href="/">LESSON > </a><span>골프에 대해 궁금한 점들을 물어보세요.</span>
 				</div>
