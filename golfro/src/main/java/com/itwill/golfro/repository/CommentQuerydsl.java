@@ -3,11 +3,12 @@ package com.itwill.golfro.repository;
 import java.util.List;
 
 import com.itwill.golfro.domain.Comment;
+import com.itwill.golfro.dto.MainCommentItemDto;
 
 public interface CommentQuerydsl {
 	Comment selectCommentById(Long id);
 	
-	List<Comment> selectCommentsByPostId(Long postId);
+	List<MainCommentItemDto> selectCommentsByPostId(Long postId);
 	
 	List<Comment> selectCommentsByUserid(String userid);
 	

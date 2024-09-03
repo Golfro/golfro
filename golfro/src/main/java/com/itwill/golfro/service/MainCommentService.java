@@ -39,9 +39,9 @@ public class MainCommentService {
 	@Transactional(readOnly = true)
 	public List<MainCommentItemDto> commentReadByPostId(long postId) {
 		log.info("commentReadByPostId(postId={})", postId);
-		List<Comment> list = cmtRepo.selectCommentsByPostId(postId);
+		List<MainCommentItemDto> list = cmtRepo.selectCommentsByPostId(postId);
 		
-		return list.stream().map(MainCommentItemDto::fromEntity).toList();
+		return list;
 	}
 
 	@Transactional(readOnly = true)

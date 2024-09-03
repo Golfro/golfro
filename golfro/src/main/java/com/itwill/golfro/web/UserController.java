@@ -39,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	private static final String SESSION_ATTR_USERID = "signedInUserId";
 	private static final String SESSION_ATTR_USER = "signedInUser";
+	private static final String SESSION_ATTR_USERNICKNAME = "signedInUserNickName";
 	private static final String SESSION_USER_GRADE = "signedInUserGrade";
 	public static int SESSION_TIME = 30 * 60; // 30분
 
@@ -81,6 +82,7 @@ public class UserController {
 				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
 				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
 				session.setAttribute(SESSION_ATTR_USERID, user.getId());
+				session.setAttribute(SESSION_ATTR_USERNICKNAME, user.getNickname());
 				
 	            log.info("세션 아이디 값 : {}", session.getAttribute(SESSION_ATTR_USER));
 	            log.info("세션 등급 값 : {}", session.getAttribute(SESSION_USER_GRADE));

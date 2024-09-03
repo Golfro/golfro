@@ -1,6 +1,9 @@
 package com.itwill.golfro.repository;
 
 import java.util.List;
+import static com.itwill.golfro.domain.QComment.comment;
+import static com.itwill.golfro.domain.QUser.user;
+import static com.itwill.golfro.domain.QPost.post;
 
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
@@ -8,6 +11,8 @@ import com.itwill.golfro.domain.Comment;
 import com.itwill.golfro.domain.QComment;
 import com.itwill.golfro.domain.QPost;
 import com.itwill.golfro.domain.QUser;
+import com.itwill.golfro.domain.User;
+import com.itwill.golfro.dto.MainCommentItemDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -41,28 +46,51 @@ public class CommentQuerydslImpl extends QuerydslRepositorySupport implements Co
 	}
 
 	@Override
-	public List<Comment> selectCommentsByPostId(Long postId) {
+	public List<MainCommentItemDto> selectCommentsByPostId(Long postId) {
 		log.info("getCommentsByPostId(postId={})", postId);
 
-	    QComment comment = QComment.comment;
-	    QUser user = QUser.user;
 
 	    JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+		
+        return queryFactory
+                .select(Projections.bean(MainCommentItemDto.class,
+                    comment.id.as("id"),                   // Comment PK번호
+                    user.nickname.as("nickName"),         // User의 닉네임
+                    user.image.as("image"),               // User의 프로필 사진
+                    comment.content.as("content"),        // 댓글 내용
+                    comment.createdTime.as("createdTime"),  // 댓글 최초 작성 시간
+                    comment.modifiedTime.as("modifiedTime"), // 댓글 최종 수정 시간
+                    comment.selection.as("selection"),    // 선택 여부(0 또는 1)
+                    comment.post.id.as("postId")          // Post PK번호
+                ))
+                .from(comment)
+                .leftJoin(comment.user, user)
+                .where(comment.post.id.eq(postId))
+                .fetch();
+        
 
-	    List<Comment> result = queryFactory
-	        .select(Projections.constructor(Comment.class,
-	                comment.id,
-	                comment.content,
-	                comment.user.userid,
-	                user.nickname,
-	                user.image))
-	        .from(comment)
-	        .join(user).on(comment.user.userid.eq(user.userid))
-	        .where(comment.post.id.eq(postId))
-	        .orderBy(comment.selection.desc())
-	        .fetch();
-
-	    return result;
+//	    QComment comment = QComment.comment;
+//	    QUser user = QUser.user;
+//	    QPost post = QPost.post;
+//
+//	    JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+//
+//	    List<Comment> result = queryFactory
+//	        .select(Projections.constructor(Comment.class,
+//	                comment.id,
+//	                comment.content,
+//	                comment.user.userid,
+//	                user.nickname,
+//	                user.image))
+//	        .from(comment)
+//	        .join(user).on(comment.user.userid.eq(user.userid))
+//	        .where(comment.post.id.eq(postId))
+//	        .orderBy(comment.selection.desc())
+//	        .fetch();
+//
+//	    
+//
+//	    return result;
 	}
 
 	@Override
