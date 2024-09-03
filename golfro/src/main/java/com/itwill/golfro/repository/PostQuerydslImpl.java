@@ -124,8 +124,8 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 						post.height,
 						post.career,
 						post.handy,
-						post.irondistance,
-						post.driverdistance,
+						post.ironDistance,
+						post.driverDistance,
 						post.user.userid,
 						new CaseBuilder()
 						.when(existsSubquery.exists())

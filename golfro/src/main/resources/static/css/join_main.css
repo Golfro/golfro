@@ -21,17 +21,18 @@
 body {
     font-family: 'SUIT-Regular', SUIT-Regular;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
     margin: 0;
-    padding: 0;
 }
 
 .container-fluid {
     background-color: white;
-    margin-top: 80px;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+    margin-top: 85px;
+    flex-grow: 1;
 }
 
 .card {
