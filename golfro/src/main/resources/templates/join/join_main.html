@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,6 +11,48 @@
     <link rel="stylesheet" href="/css/join_main.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const todayDateStr = document.getElementById("todayDate").textContent.trim();
+            const todayDate = new Date(todayDateStr);
+
+            function isBefore(teeoffDateStr, todayDate) {
+                const teeoffDate = new Date(teeoffDateStr);
+                return teeoffDate < todayDate;
+            }
+
+            document.querySelectorAll('.card-list').forEach(card => {
+                const teeoffDateStr = card.getAttribute('data-teeoff');
+                if (isBefore(teeoffDateStr, todayDate)) {
+                    card.classList.add('bg-light');
+                }
+            });
+            
+            document.querySelectorAll('.teeoff-date').forEach(element => {
+                // 'data-teeoff' 속성에서 날짜 문자열 가져오기
+                var teeoffDateStr = element.getAttribute('data-teeoff') || '';
+                console.log('Original date string:', teeoffDateStr);
+
+                // 날짜 문자열을 직접 파싱
+                const [datePart, timePart] = teeoffDateStr.split(' ');
+                const [year, month, day] = datePart.split('-');
+                const [hours, minutes, seconds] = (timePart || '00:00:00').split(':'); // timePart가 없을 경우 기본값 설정
+                
+                // Date 객체 생성
+                const date = new Date(year, month - 1, day, hours, minutes, seconds);
+
+                if (isNaN(date.getTime())) {
+                    console.error('Invalid date:', teeoffDateStr);
+                    return;
+                }
+
+                // 날짜 포맷팅
+                const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
+                element.textContent = formattedDate;
+            });
+        });
+    </script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -113,28 +155,30 @@
 						</div>
 						<!-- 카드 형식으로 변환된 포스트 목록 -->
 						<div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-4 mt-1">
-							<div th:each="p : ${posts}" th:object="${posts}" class="col d-flex justify-content-center">
-                                <div class="card-list h-100" th:classappend="${posts.teeoff lt today} ? 'bg-light' : ''">
+                            <div id="todayDate" style="display: none;" th:text="${today}"></div>
+                    
+                            <div th:each="post : ${posts}" class="col d-flex justify-content-center">
+                                <div class="card-list h-100" data-teeoff="${post.teeoff}">
                                     <div class="card-info">
                                         <h6>
-                                            <a th:href="@{/join/join_details(id=*{id})}" class="custom-link" th:text="*{title}">Title</a>
+                                            <a th:href="@{/join/join_details(id=${post.id})}" class="custom-link" th:text="${post.title}">Title</a>
                                         </h6>
                                         <p>
-                                            <small class="hole" th:text="*{hole} + '홀'">Hole</small>
+                                            <small class="hole" th:text="${post.hole} + '홀'">Hole</small>
                                         </p>
                                         <p>
-                                            <small th:text="*{teeoff}">Teeoff</small>
+                                            <small class="teeoff-date" data-teeoff="${post.teeoff}">Teeoff</small>
                                         </p>
                                         <p>
-                                            <small th:text="*{gcadress}">Address</small>
+                                            <small th:text="${post.gcaddress}">Address</small>
                                         </p>
                                         <p class="mt-3">
-                                            <strong th:text="*{greenfee}">Greenfee</strong><small>원~</small>
+                                            <strong th:text="${post.greenfee}">Greenfee</strong><small>원~</small>
                                         </p>
                                     </div>
                                     <div class="card-author text-center">
                                         <img src="../images/우드.png" alt="Profile Picture" class="rounded-circle"> <br> 
-                                        <span th:text="${userNicknames}">Nickname</span>
+                                        <span th:text="${userNicknames.keySet()}">Nickname</span>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +191,7 @@
 		<footer th:replace="~{fragments/footer :: footer}"></footer>
 	</div>
 
-	<script>
+    <script>
     	let currentOffset = 0;
     
     	// 날짜 목록을 업데이트하는 함수
@@ -176,7 +220,7 @@
     	    document.getElementById('date4').href = dates[3] ? `${basePath}join_main?teeoffDate=${dates[3]}` : '#';
     	    document.getElementById('date5').href = dates[4] ? `${basePath}join_main?teeoffDate=${dates[4]}` : '#';
     	    document.getElementById('date6').href = dates[5] ? `${basePath}join_main?teeoffDate=${dates[5]}` : '#';
-    	   	}
+    	}
     
     	// 초기 날짜 목록을 설정합니다.
     	getDates(currentOffset);
