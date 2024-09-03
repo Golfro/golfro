@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Freesentation-9Black';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+		format('woff2');
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+a {
+	text-decoration-line: none;
+}
+
+.info_card {
+	display: flex;
+	align-items: center;
+}
+
+p.user_data {
+	color: darkgray;
+}
+
+.profile_management {
+	margin-left: auto;
+	margin-right: 10px;
+	white-space: nowrap;
+}
+
+.profile_management a {
+	font-family: 'Pretendard-Regular', Pretendard-Regular;
+	font-weight: bold;
+}
+
+.blank {
+	width: 20px;
+}
+
+.shortcuts_icons {
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
+}
+
+.shortcuts_icons:before {
+	display: inline-block;
+	width: 1px;
+	content: '';
+}
+
+.shortcuts_icons:after {
+	display: inline-block;
+	width: 1px;
+	content: '';
+}
+
+a.icon {
+	display: inline-block;
+}
+
+a.icon:link {
+	color: black;
+}
+
+a.icon:visited {
+	color: black;
+}
+
+a.icon:hover  {
+	color: black;
+}
+
+a.icon:active  {
+	color: black;
+}
+
+.icon_tag {
+	text-align: center;
+	margin: 0;
+	margin-top: 7px;
+	font-size: small;
+}
+
+.container {
+	width: 1080px;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+@media ( max-width : 768px) { /* 모바일 화면 크기 */
+	#mypage .row {
+		flex-direction: column-reverse; /* row 내에서 순서를 반대로 */
+	}
+	#mypage .col-8 {
+		order: -1; /* 본문 내용을 위로 올림 */
+	}
+	#mypage .col-4 {
+		order: 1; /* 메뉴를 아래로 내림 */
+	}
+}

@@ -67,3 +67,7 @@ function navigateTo(section) {
       window.location.href = '/community/comm_main';
    }
 }
+
+
+
+
