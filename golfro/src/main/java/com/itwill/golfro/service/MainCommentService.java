@@ -9,6 +9,7 @@ import com.itwill.golfro.domain.Comment;
 import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.CommentUpdateDto;
 import com.itwill.golfro.dto.MainCommentCreateDto;
+import com.itwill.golfro.dto.MainCommentItemDto;
 import com.itwill.golfro.repository.CommentRepository;
 import com.itwill.golfro.repository.UserRepository;
 
@@ -36,11 +37,11 @@ public class MainCommentService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Comment> commentReadByPostId(long postId) {
+	public List<MainCommentItemDto> commentReadByPostId(long postId) {
 		log.info("commentReadByPostId(postId={})", postId);
 		List<Comment> list = cmtRepo.selectCommentsByPostId(postId);
 		
-		return list;
+		return list.stream().map(MainCommentItemDto::fromEntity).toList();
 	}
 
 	@Transactional(readOnly = true)

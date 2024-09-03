@@ -3,6 +3,7 @@ package com.itwill.golfro.dto;
 import java.time.LocalDateTime;
 
 import com.itwill.golfro.domain.Comment;
+import com.itwill.golfro.domain.User;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,8 +18,7 @@ import lombok.NoArgsConstructor;
 public class MainCommentItemDto {
 	private Long id;
 	private Long postId;
-	private String userid;
-	private String nickname;
+	private User user;
 	private String image;
 	private String content;
 	private Integer selection;
@@ -28,8 +28,7 @@ public class MainCommentItemDto {
 		return MainCommentItemDto.builder()
 				.id(entity.getId())
 				.postId(entity.getPost().getId())
-				.userid(entity.getUser().getUserid())
-				.nickname(entity.getUser().getNickname())
+				.user(entity.getUser())
 				.image(entity.getUser().getImage())
 				.content(entity.getContent())
 				.selection(entity.getSelection())

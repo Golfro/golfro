@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itwill.golfro.domain.Comment;
 import com.itwill.golfro.dto.CommentUpdateDto;
 import com.itwill.golfro.dto.MainCommentCreateDto;
+import com.itwill.golfro.dto.MainCommentItemDto;
 import com.itwill.golfro.service.MainCommentService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,10 +41,10 @@ public class MainCommentRestController {
 
 	// postId에 작성된 모든 Comments를 읽는 메서
 	@GetMapping("/all/{postId}")
-	public ResponseEntity<List<Comment>> getMainCommentByPostId(@PathVariable(name = "postId") Long postId) {
+	public ResponseEntity<List<MainCommentItemDto>> getMainCommentByPostId(@PathVariable(name = "postId") Long postId) {
 		log.debug("getMainCommentByPostId(postId={})", postId);
 
-		List<Comment> list = mainCommentService.commentReadByPostId(postId);
+		List<MainCommentItemDto> list = mainCommentService.commentReadByPostId(postId);
 		
 		return ResponseEntity.ok(list);
 	}
