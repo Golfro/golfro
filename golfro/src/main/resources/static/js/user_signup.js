@@ -1,141 +1,209 @@
-document.addEventListener('DOMContentLoaded', function() {
-	
-	console.log('사인업 js 실행중');
-	
-    const findPwModal = document.getElementById('#findPwModal');
-    const findPwForm = document.getElementById('findPwForm');
-    const findPwError = document.getElementById('findPwError');
-    const errorMessagePw = document.getElementById('errorMessagePw');
-    const setNewPwForm = document.getElementById('setNewPwForm');
+document.addEventListener('DOMContentLoaded', () => {
+    const idbutton = document.querySelector('button#idbutton');
+    const nicknamebutton = document.querySelector('button#nicknamebutton');
+    const submitButton = document.querySelector('button#submitButton');
+    let useridChecked = false;
+    let nicknameChecked = false;
 
-    function resetModal() {
-        findPwForm.reset();
-        findPwError.style.display = 'none';
-        errorMessagePw.textContent = '';
+
+    const emailPrefix = document.getElementById('emailPrefix');
+    const emailSeparator = document.getElementById('emailSeparator');
+    const emailDiv = document.getElementById('emailDiv');
+
+    const phone0 = document.getElementById('phone0');
+    const phone1 = document.getElementById('phone1');
+    const phone2 = document.getElementById('phone2');
+    const phone3 = document.getElementById('phone3');
+    const phoneDiv = document.getElementById('phoneDiv');
+
+    const postCode = document.getElementById('postCode');
+    const addressMain = document.getElementById('addressMain');
+    const addressDetail = document.getElementById('addressDetail');
+    const addressDiv = document.getElementById('addressDiv');
+
+    const acceptLicense = document.getElementById('accept');
+    const acceptDiv = document.getElementById('acceptDiv');
+
+    addressDetail.addEventListener('blur', checkAddress)
+
+    function checkAddress() {
+        if (postCode.value === '' || addressMain.value === '') {
+            submitButton.disabled = true;
+            addressDiv.textContent = '주소를 검색 후 입력해 주세요.';
+        } else {
+            submitButton.disabled = false;
+            addressDiv.textContent = '';
+        }
     }
 
-    findPwModal.addEventListener('hidden.bs.modal', function() {
-        resetModal();
-        setNewPwForm.style.display = 'none';
-    });
+    function checkAccept() {
+        if (acceptLicense.value === '') {
+            acceptDiv.textContent = '';
+            return;
+        }
 
-    document.getElementById('findIdForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+        const accept = acceptLicense.value;
+        const acceptUri = `./checkAccept?accept=${accept}`;
 
-
-        const name = document.getElementById('findIdName').value;
-        const email = document.getElementById('findIdEmail').value;
-
-        const findIdUrl = './findId';
-        
-        const data = { name, email };
-
-        axios.post(findIdUrl, data)
+        axios.get(acceptUri)
             .then(function(response) {
-                // 성공적으로 아이디를 찾은 경우
-                document.getElementById('findIdResult').style.display = 'block';
-                document.getElementById('foundId').textContent = `찾은 아이디: ${response.data.userid}`;
-                document.getElementById('findIdError').style.display = 'none';
+                if (response.data === 'N') {
+                    acceptDiv.textContent = '이미 가입된 라이센스 번호입니다.';
+                    acceptDiv.style.color = 'red';
+                    submitButton.disabled = true;
+                } else {
+                    acceptDiv.textContent = '사용 가능한 라이센스 번호입니다.';
+                    acceptDiv.style.color = 'green';
+                    submitButton.disabled = false;
+                }
             })
             .catch(function(error) {
-                if (error.response) {
-                    // 서버가 에러 응답을 보낸 경우 (예: 404, 500 등)
-                    document.getElementById('findIdError').style.display = 'block';
-                    document.getElementById('errorMessage').textContent = error.response.data.error || '아이디를 찾을 수 없습니다.';
-                    document.getElementById('findIdResult').style.display = 'none';
-                } else {
-                    // 요청이 실패한 경우 (네트워크 오류 등)
-                    document.getElementById('findIdError').style.display = 'block';
-                    document.getElementById('errorMessage').textContent = '서버와의 통신 중 오류가 발생했습니다.';
-                    document.getElementById('findIdResult').style.display = 'none';
-                }
+                console.error('Error:', error);
+                acceptDiv.textContent = '라이센스 번호 확인 중 오류가 발생했습니다.';
+                acceptDiv.style.color = 'red';
             });
-    });
+    }
 
-    document.getElementById('findPwForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var phone0 = document.querySelector('select[name="phone0"]').value;
-        var phone1 = document.getElementById('phone1').value;
-        var phone2 = document.getElementById('phone2').value;
-        var phone3 = document.getElementById('phone3').value;
+    acceptLicense.addEventListener('blur', checkAccept);
 
-        var phone = phone0 + '/' + phone1 + '-' + phone2 + '-' + phone3;
+    function checkPhone() {
 
-        const userid = document.getElementById('findPwId').value;
-        const email = document.getElementById('findPwEmail').value;
-        const findPwUrl = `./findPw`;
-        const data = { userid, email, phone }
+        if (phone0.value === '' || phone1.value === '' || phone2.value === '' || phone3.value === '') {
+            phoneDiv.textContent = '';
+            return;
+        }
 
-        axios.post(findPwUrl, data)
+        const phone = phone0.value + '/' + phone1.value + '-' + phone2.value + '-' + phone3.value;
+        const phoneUri = `./checkPhone?phone=${phone}`;
+
+        axios.get(phoneUri)
+            .then(function(response) {
+                if (response.data === 'N') {
+                    phoneDiv.textContent = '이미 가입된 휴대폰 번호입니다.';
+                    phoneDiv.style.color = 'red';
+                    submitButton.disabled = true;
+                } else {
+                    phoneDiv.textContent = '사용 가능한 휴대폰 번호입니다.';
+                    phoneDiv.style.color = 'green';
+                    submitButton.disabled = false;
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+                phoneDiv.textContent = '휴대폰 번호 확인 중 오류가 발생했습니다.';
+                phoneDiv.style.color = 'red';
+            });
+    }
+
+
+    phone3.addEventListener('blur', checkPhone);
+
+    phone0.addEventListener('change', () => { phoneDiv.textContent = ''; });
+    phone1.addEventListener('input', () => { phoneDiv.textContent = ''; });
+    phone2.addEventListener('input', () => { phoneDiv.textContent = ''; });
+
+
+    function checkEmail() {
+        const email = emailPrefix.value + '@' + emailSeparator.value;
+        const emailUri = `./checkEmail?email=${email}`;
+        // 이메일이 비어있으면 체크하지 않음
+        if (emailPrefix.value === '') {
+            emailDiv.textContent = '';
+            return;
+        }
+
+        axios.get(emailUri)
+            .then(function(response) {
+                if (response.data === 'N') {
+                    emailDiv.textContent = '이미 가입된 사용자입니다.';
+                    emailDiv.style.color = 'red';
+                    submitButton.disabled = true;
+                } else {
+                    emailDiv.textContent = '사용 가능한 이메일입니다.';
+                    emailDiv.style.color = 'green';
+                    submitButton.disabled = false;
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+                emailDiv.textContent = '이메일 확인 중 오류가 발생했습니다.';
+                emailDiv.style.color = 'red';
+            });
+    }
+
+    emailPrefix.addEventListener('blur', checkEmail);
+
+    emailSeparator.addEventListener('blur', checkEmail);
+
+    // Submit 버튼 비활성화 함수
+    function updateSubmitButton() {
+        submitButton.disabled = !(useridChecked && nicknameChecked);
+    }
+
+    // 초기 상태에서 submit 버튼 비활성화
+    updateSubmitButton();
+
+    idbutton.addEventListener('click', () => {
+        const userid = document.querySelector('input#userid').value;
+
+        // 유효성 검사를 수행합니다.
+        const regex = /^[a-zA-Z0-9]{1,15}$/;
+        if (!regex.test(userid)) {
+            alert('아이디는 15자 이하의 영문 대소문자와 숫자로만 입력 가능합니다.');
+            return;
+        }
+
+        const iduri = `./checkUserid?userid=${userid}`;
+        axios
+            .get(iduri)
             .then((response) => {
                 if (response.data === 'Y') {
-                    document.getElementById('setNewPwForm').style.display = 'block';
-                    findPwError.style.display = 'none';
-                    document.getElementById('findPwBtn').disabled = true;
-
+                    alert('사용 가능한 아이디 입니다.');
+                    useridChecked = true;
                 } else {
-                    document.getElementById('errorMessagePw').textContent = '해당 정보와 일치하는 계정이 없습니다.';
-                    document.getElementById('findPwError').style.display = 'block';
+                    alert('사용 불가능한 아이디 입니다.');
+                    useridChecked = false;
                 }
+                updateSubmitButton();
             })
             .catch((error) => {
-                console.log(error);
-                document.getElementById('errorMessagePw').textContent = '오류가 발생했습니다. 다시 시도해주세요.';
-                document.getElementById('findPwError').style.display = 'block';
+                console.log('error', error);
+                useridChecked = false;
+                updateSubmitButton();
             });
-
     });
 
-    const setNewPwBtn = document.querySelector('button#setNewPwBtn');
 
-    setNewPwBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        var phone0 = document.querySelector('select[name="phone0"]').value;
-        var phone1 = document.getElementById('phone1').value;
-        var phone2 = document.getElementById('phone2').value;
-        var phone3 = document.getElementById('phone3').value;
-
-        var phone = phone0 + '/' + phone1 + '-' + phone2 + '-' + phone3;
-
-        const password = document.getElementById('userPassword').value;
-        const userid = document.getElementById('findPwId').value;
-        const email = document.getElementById('findPwEmail').value;
-        const data = { userid, email, phone, password }
-        const updatePwUrl = `./updatePw`;
-        axios.post(updatePwUrl, data)
+    nicknamebutton.addEventListener('click', () => {
+        const nickname = document.querySelector('input#nickname').value;
+        const nickuri = `./checkNickname?nickname=${nickname}`;
+        axios
+            .get(nickuri)
             .then((response) => {
-
                 if (response.data === 'Y') {
-                    alert('비밀번호가 성공적으로 변경 되었습니다.');
-                    window.location.href = '/gaebokchi/user/signin';
+                    alert('사용 가능한 닉네임 입니다.')
+                    nicknameChecked = true;
                 } else {
-                    alert('비밀번호를 다시 확인하세요.');
+                    alert('사용 불가능한 닉네임 입니다.')
+                    nicknameChecked = false;
                 }
-
+                updateSubmitButton();
             })
-            .catch((error) => console.log(error));
-
+            .catch((error) => {
+                console.log('error', error);
+                nicknameChecked = false;
+                updateSubmitButton();
+            });
     });
+
+
+
+
     const password = document.getElementById('userPassword');
     const passwordConfirm = document.getElementById('userPasswordConfirm');
     const passwordStrength = document.getElementById('passwordStrength');
     const passwordMatch = document.getElementById('passwordMatch');
     let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-    function checkPasswordMatch() {
-        if (password.value === '' || passwordConfirm.value === '' || password.value !== passwordConfirm.value) {
-            setNewPwBtn.disabled = true; // 비밀번호가 비어있거나 비밀번호와 비밀번호 확인이 일치하지 않으면 버튼 비활성화
-        } else {
-            setNewPwBtn.disabled = false; // 비밀번호가 모두 입력되고 일치하면 버튼 활성화
-        }
-    }
-
-    // 페이지 로드 시 한 번 호출하여 초기 상태 설정
-    checkPasswordMatch();
-
-    // 비밀번호 입력과 확인 입력이 변경될 때마다 비교하여 버튼 상태 업데이트
-    password.addEventListener('input', checkPasswordMatch);
-    passwordConfirm.addEventListener('input', checkPasswordMatch);
-
     function checkPasswordStrength(password) {
         let strength = 0;
         if (password.match(/[a-z]+/)) strength += 1;
@@ -181,6 +249,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     passwordStrength.textContent += ' (유효하지 않은 비밀번호)';
                     updateSubmitButton();
                 }
+
+
             } else {
                 passwordStrength.textContent = '';
             }
@@ -198,4 +268,5 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('비밀번호 관련 요소를 찾을 수 없습니다.');
     }
+
 });
