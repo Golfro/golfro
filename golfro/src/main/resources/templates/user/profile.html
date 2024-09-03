@@ -31,7 +31,7 @@
                             <script>
                             	// 이미지 URL을 가져와서 이미지 태그에 설정
                                 var file = document.getElementById('imagePath').value;
-                                var imageUrl = './file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
+                                var imageUrl = '/user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
                                     
                                 fetch(imageUrl)
                                 	.then(response => response.blob())

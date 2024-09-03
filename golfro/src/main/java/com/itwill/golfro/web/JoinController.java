@@ -93,9 +93,6 @@ public class JoinController {
 			posts = joinPostService.getPagedPosts(pageNo, Sort.by("id").descending());
 		}
 
-		Map<String, String> userNicknames = userService.getUserNicknames();
-
-		model.addAttribute("userNicknames", userNicknames);
 		model.addAttribute("posts", posts);
 		model.addAttribute("selectedCategory", category); // 선택된 카테고리를 모델에 추가
 		model.addAttribute("keyword", keyword); // 검색어를 모델에 추가
