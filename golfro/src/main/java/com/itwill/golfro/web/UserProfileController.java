@@ -1,16 +1,22 @@
 package com.itwill.golfro.web;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.stereotype.Controller;
@@ -173,16 +179,59 @@ public class UserProfileController {
 	}
 
 	@GetMapping("/file/image")
-	@ResponseBody
-	public Resource viewUserImage(@RequestParam String file) throws IOException {
-		log.info("viewUserImage(file={})", file);
+	public ResponseEntity<Resource> viewUserImage(@RequestParam String file) {
+	    try {
+	        // URL 유효성 검사
+	        if (file == null || !file.startsWith("http://") && !file.startsWith("https://")) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                                 .body(null); // 유효하지 않은 URL에 대한 처리
+	        }
 
-		Path path = Paths.get(file);
-		log.info("path={}", path);
+	        // URI 객체 생성
+	        URI uri = new URI(file);
+	        if (!uri.isAbsolute()) {
+	            throw new IllegalArgumentException("URI is not absolute");
+	        }
+	        
+	        URL url = uri.toURL();
 
-		ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+	        // HTTP 연결 설정
+	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	        connection.setRequestMethod("GET");
 
-		return resource;
+	        // 응답 코드 확인
+	        int responseCode = connection.getResponseCode();
+	        if (responseCode != HttpURLConnection.HTTP_OK) {
+	            return ResponseEntity.status(responseCode).body(null); // 적절한 응답 코드 반환
+	        }
+
+	        // 응답 처리
+	        try (InputStream inputStream = connection.getInputStream();
+	             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+
+	            byte[] buffer = new byte[1024];
+	            int bytesRead;
+	            while ((bytesRead = inputStream.read(buffer)) != -1) {
+	                outputStream.write(buffer, 0, bytesRead);
+	            }
+
+	            byte[] imageBytes = outputStream.toByteArray();
+	            ByteArrayResource resource = new ByteArrayResource(imageBytes);
+
+	            // 파일 타입 및 헤더 설정
+	            HttpHeaders headers = new HttpHeaders();
+	            headers.setContentType(MediaType.IMAGE_JPEG); // 이미지 타입을 적절히 설정하세요.
+	            headers.setContentLength(imageBytes.length);
+
+	            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
+	        }
+	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // 잘못된 URL 처리
+	    } catch (IOException | URISyntaxException e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 기타 오류 처리
+	    }
 	}
 
 	@GetMapping("/file/remove")
