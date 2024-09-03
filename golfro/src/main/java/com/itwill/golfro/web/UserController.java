@@ -26,6 +26,8 @@ import com.itwill.golfro.dto.normalUserCreateDto;
 import com.itwill.golfro.service.UserDetailService;
 import com.itwill.golfro.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,33 +45,34 @@ public class UserController {
 	private final UserService userService;
 	private final UserDetailService userDService;
 
-//	@GetMapping("/signin")
-//	public String signInForm(HttpServletRequest request,
-//			@RequestParam(value = "redirectUrl", required = false) String redirectUrl,
-//			@RequestParam(value = "fromSignup", required = false) Boolean fromSignup) {
-//		if (fromSignup == null || !fromSignup) {
-//			if (redirectUrl == null) {
-//				redirectUrl = request.getHeader("Referer");
-//			}
-//			if (redirectUrl != null && !redirectUrl.contains("/signin") && !redirectUrl.contains("/signup")) {
-//				request.getSession().setAttribute("redirectUrl", redirectUrl);
-//			}
-//		}
-//		
-//		return "user/signin";
-//	}
 	@GetMapping("/signin")
-    public String signInForm(@RequestParam(required = false) String error, Model model) {
-        if (error != null && error.equals("true")) {
-            model.addAttribute("errorMessage", "비밀번호가 틀렸습니다.");
-        }
-        
-        return "user/signin"; // 로그인 페이지를 반환
-    }
+	public String signInForm(HttpServletRequest request,
+			@RequestParam(value = "redirectUrl", required = false) String redirectUrl,
+			@RequestParam(value = "fromSignup", required = false) Boolean fromSignup) {
+		if (fromSignup == null || !fromSignup) {
+			if (redirectUrl == null) {
+				redirectUrl = request.getHeader("Referer");
+			}
+			if (redirectUrl != null && !redirectUrl.contains("/signin") && !redirectUrl.contains("/signup")) {
+				request.getSession().setAttribute("redirectUrl", redirectUrl);
+			}
+		}
+		return "user/signin";
+	}
+//	@GetMapping("/signin")
+//    public String signInForm(@RequestParam(required = false) String error, Model model) {
+//        if (error != null && error.equals("true")) {
+//            model.addAttribute("errorMessage", "1234");
+//        }
+//        
+//        return "user/signin"; // 로그인 페이지를 반환
+//    }
 
 	@PostMapping("/signin")
-	public String signIn(UserSignInDto dto, Model model, HttpSession session) {
-		log.info("POST signIn(dto={})", dto);
+	public String signIn(UserSignInDto dto, Model model, HttpSession session, HttpServletRequest request,
+	                     HttpServletResponse response) {
+	    log.debug("POST signIn({})", dto);
+
 
 		try {
 			User user = userDService.read(dto);
@@ -81,31 +84,23 @@ public class UserController {
 				
 	            log.info("세션 아이디 값 : {}", session.getAttribute(SESSION_ATTR_USER));
 	            log.info("세션 등급 값 : {}", session.getAttribute(SESSION_USER_GRADE));
-
-				// 리다이렉트 URL 사용
-				String redirectUrl = (String) session.getAttribute("redirectUrl");
-				if (redirectUrl != null && !redirectUrl.contains("/signup")) {
-					session.removeAttribute("redirectUrl");
-					return "redirect:" + redirectUrl;
-				}
-				
-				return "redirect:/"; // 기본적으로 홈페이지로 리다이렉트
-			} else {
-				model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
-				return "user/signin";
-			}
-		} catch (Exception e) {
-			log.error("로그인 처리 중 오류 발생", e);
-			return "redirect:/user/signin";
-		}
+	            // 리다이렉트 URL 사용
+	            String redirectUrl = (String) session.getAttribute("redirectUrl");
+	            if (redirectUrl != null && !redirectUrl.contains("/signup")) {
+	                session.removeAttribute("redirectUrl");
+	                return "redirect:" + redirectUrl;
+	            }
+	            return "redirect:/";  // 기본적으로 홈페이지로 리다이렉트
+	        } else {
+	            model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
+	            return "user/signin";
+	        }
+	    } catch (Exception e) {
+	        log.error("로그인 처리 중 오류 발생", e);
+	        return "redirect:/user/signin";
+	    }
 	}
-	
-	
-	
-	
-	
-	
-	
+
 
 	@GetMapping("/signup") // GET 방식의 /user/signup 요청을 처리하는 컨트롤러 메서드
 	public void signUp() {

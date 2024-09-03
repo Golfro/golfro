@@ -32,17 +32,17 @@ public class SecurityConfig {
 
 		http.userDetailsService(userService);
 
-		http.formLogin(formLogin -> formLogin
-			    .loginPage("/user/signin")
-			    .loginProcessingUrl("user/signin")
-			    .failureUrl("/user/signin?error=true")
-			    .usernameParameter("userid") // 사용자 이름 필드 이름 확인
-			    .passwordParameter("password") // 비밀번호 필드 이름 확인
-				.permitAll());
-
-
-		http.authorizeHttpRequests((auth) -> auth.requestMatchers("/post/create", "/post/details", "/post/modify",
-				"/post/delete", "/post/update").authenticated().anyRequest().permitAll());
+//		http.formLogin(formLogin -> formLogin
+//			    .loginPage("/user/signin")
+//			    .loginProcessingUrl("user/signin")
+//			    .failureUrl("/user/signin?error=true")
+//			    .usernameParameter("userid") // 사용자 이름 필드 이름 확인
+//			    .passwordParameter("password") // 비밀번호 필드 이름 확인
+//				.permitAll());
+//
+//
+//		http.authorizeHttpRequests((auth) -> auth.requestMatchers("/post/create", "/post/details", "/post/modify",
+//				"/post/delete", "/post/update").authenticated().anyRequest().permitAll());
 
 		return http.build();
 	}

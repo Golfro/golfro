@@ -33,6 +33,7 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
         User user = userRepo.findByUserid(userid);
+        log.debug("userid = {}", userid);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with userid: " + userid);
         }
@@ -94,7 +95,7 @@ public class UserDetailService implements UserDetailsService {
             throw new Exception("Failed to insert into pros table", e);
         }
     }
-    @Transactional(readOnly = true)
+    
     public User read(UserSignInDto dto) {
         log.info("UserSignInDto(dto={})", dto);
         
