@@ -22,8 +22,9 @@
 body {
     font-family: 'SUIT-Regular', SUIT-Regular;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
 .container-fluid {
@@ -32,7 +33,10 @@ body {
     max-width: 960px;
     margin: 0 auto;
     margin-top: 85px;
+    flex-grow: 1;
 }
+
+/* 나머지 스타일은 그대로 유지 */
 
 .card-header {
     display: flex;
@@ -191,6 +195,9 @@ span.club-type-link {
     border-radius: 15px;
 }
 
+footer{
+    margin: 0px; 
+}
 /* 모바일 영역 */
 .mobile-header {
     display: none !important;
