@@ -11,48 +11,6 @@
     <link rel="stylesheet" href="/css/join_main.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const todayDateStr = document.getElementById("todayDate").textContent.trim();
-            const todayDate = new Date(todayDateStr);
-
-            function isBefore(teeoffDateStr, todayDate) {
-                const teeoffDate = new Date(teeoffDateStr);
-                return teeoffDate < todayDate;
-            }
-
-            document.querySelectorAll('.card-list').forEach(card => {
-                const teeoffDateStr = card.getAttribute('data-teeoff');
-                if (isBefore(teeoffDateStr, todayDate)) {
-                    card.classList.add('bg-light');
-                }
-            });
-            
-            document.querySelectorAll('.teeoff-date').forEach(element => {
-                // 'data-teeoff' 속성에서 날짜 문자열 가져오기
-                var teeoffDateStr = element.getAttribute('data-teeoff') || '';
-                console.log('Original date string:', teeoffDateStr);
-
-                // 날짜 문자열을 직접 파싱
-                const [datePart, timePart] = teeoffDateStr.split(' ');
-                const [year, month, day] = datePart.split('-');
-                const [hours, minutes, seconds] = (timePart || '00:00:00').split(':'); // timePart가 없을 경우 기본값 설정
-                
-                // Date 객체 생성
-                const date = new Date(year, month - 1, day, hours, minutes, seconds);
-
-                if (isNaN(date.getTime())) {
-                    console.error('Invalid date:', teeoffDateStr);
-                    return;
-                }
-
-                // 날짜 포맷팅
-                const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
-                element.textContent = formattedDate;
-            });
-        });
-    </script>
 </head>
 <body>
     <div class="container-fluid">
@@ -65,8 +23,8 @@
             <h7>마음 맞는 사람과 함께 골프를 쳐보세요.</h7>
         </div>
         <div class="mobile-header">
-            <a th:href="@{/review/review_main}">LESSON > </a> <span>골프에
-                대해 궁금한 점들을 물어보세요.</span>
+            <a th:href="@{/review/review_main}">LESSON > </a>
+            <span>골프에 대해 궁금한 점들을 물어보세요.</span>
         </div>
         <div class="d-flex justify-content-center">
             <div class="card border-0">
@@ -74,64 +32,37 @@
                 <div class="card-header border-0">
                     <!-- 카테고리 선택 폼 추가 -->
                     <form th:action="@{/join/join_main}" method="get">
-                        <div
-                            class="row d-flex justify-content-between align-items-center">
-                            <div
-                                class="row d-flex justify-content-between align-items-center">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="row d-flex justify-content-between align-items-center">
                                 <!-- 왼쪽: 글쓰기 버튼 -->
                                 <div class="col-auto">
-                                    <th:block
-                                        th:if="${session.signedInUser ne null}">
-                                        <a
-                                            th:href="@{/join/join_create}"
-                                            class="btn custom-btn"
-                                            id="btnCreateMainPost">
-                                            <i class="bi bi-pencil-fill"></i>
+                                    <th:block th:if="${session.signedInUser ne null}">
+                                        <a th:href="@{/join/join_create}" class="btn custom-btn" id="btnCreateMainPost"> <i class="bi bi-pencil-fill"></i>
                                             글쓰기
                                         </a>
                                     </th:block>
-                                    <th:block
-                                        th:if="${session.signedInUser eq null}">
-                                        <a th:href="@{/user/signin}"
-                                            class="btn custom-btn"
-                                            id="btnCreatePost"> <i
-                                            class="bi bi-pencil-fill"></i>
+                                    <th:block th:if="${session.signedInUser eq null}">
+                                        <a th:href="@{/user/signin}" class="btn custom-btn" id="btnCreatePost"> <i class="bi bi-pencil-fill"></i>
                                             글쓰기
                                         </a>
                                     </th:block>
                                 </div>
 
                                 <!-- 오른쪽: 검색 부분 -->
-                                <div
-                                    class="search-input row col-md-8 justify-content-end"
-                                    id="category-search">
-                                    <div
-                                        class="search-field col-auto p-0">
-                                        <select
-                                            class="form-control custom-select"
-                                            name="category"
-                                            id="category">
-                                            <option th:value="'t'"
-                                                th:selected="${selectedCategory == 't'}">골프장명</option>
-                                            <option th:value="'g'"
-                                                th:selected="${selectedCategory == 'g'}">지역</option>
-                                            <option th:value="'h'"
-                                                th:selected="${selectedCategory == 'h'}">홀수</option>
+                                <div class="search-input row col-md-8 justify-content-end" id="category-search">
+                                    <div class="search-field col-auto p-0">
+                                        <select class="form-control custom-select" name="category" id="category">
+                                            <option th:value="'t'" th:selected="${selectedCategory == 't'}">골프장명</option>
+                                            <option th:value="'g'" th:selected="${selectedCategory == 'g'}">지역</option>
+                                            <option th:value="'h'" th:selected="${selectedCategory == 'h'}">홀수</option>
                                         </select>
                                     </div>
                                     <div
                                         class="search-field col-auto px-1">
-                                        <input type="text"
-                                            class="form-control custom-input"
-                                            id="keyword" name="keyword"
-                                            placeholder="검색어를 입력하세요."
-                                            th:value="${keyword}" />
+                                        <input type="text" class="form-control custom-input" id="keyword" name="keyword" placeholder="검색어를 입력하세요." th:value="${keyword}" />
                                     </div>
-                                    <div
-                                        class="col-auto search-button p-0">
-                                        <button type="submit"
-                                            class="btn no-radius"
-                                            id="searchButton">
+                                    <div class="col-auto search-button p-0">
+                                        <button type="submit" class="btn no-radius" id="searchButton">
                                             <i class="bi bi-search"></i>
                                         </button>
                                     </div>
@@ -142,23 +73,15 @@
                 </div>
                 <div class="card-body">
                     <div class="card-body-date">
-                        <div
-                            class="row d-flex justify-content-start align-items-center">
+                        <div class="row d-flex justify-content-start align-items-center">
                             <!-- 왼쪽: 실시간 티타임 예약 텍스트 -->
                             <span class="col-auto">실시간 티타임 예약</span>
 
                             <!-- 오른쪽: 새로고침 버튼 -->
-                            <button type="button"
-                                class="btn col-auto p-0" id="btnAllRead"
-                                onclick="location.href='join_main'">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor"
-                                    class="bi bi-arrow-repeat"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
-                                    <path fill-rule="evenodd"
-                                        d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
+                            <button type="button" class="btn col-auto p-0" id="btnAllRead" onclick="location.href='join_main'">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
+                                    <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
                                 </svg>
                             </button>
                         </div>
@@ -205,7 +128,7 @@
                                             <small class="hole" th:text="${post.hole} + '홀'">Hole</small>
                                         </p>
                                         <p>
-                                            <small class="teeoff-date" data-teeoff="${post.teeoff}">Teeoff</small>
+                                            <small class="teeoff-date" th:text="${#temporals.format(post.teeoff, 'yyyy-MM-dd HH:mm')}">Teeoff</small>
                                         </p>
                                         <p>
                                             <small th:text="${post.gcaddress}">Address</small>
@@ -216,7 +139,7 @@
                                     </div>
                                     <div class="card-author text-center">
                                         <img src="../images/우드.png" alt="Profile Picture" class="rounded-circle"> <br> 
-                                        <span th:text="${userNicknames.keySet()}">Nickname</span>
+                                        <span th:text="${post.user.nickname}">Nickname</span>
                                     </div>
                                 </div>
                             </div>
@@ -227,6 +150,7 @@
         </div>
     </div>
     <footer th:replace="~{fragments/footer :: footer}"></footer>
+    
     <script>
     	let currentOffset = 0;
     
@@ -270,6 +194,21 @@
     	    currentOffset += 6; // 6일씩 이동
     	    getDates(currentOffset);
     	});
+    	
+    	const todayDateStr = document.getElementById("todayDate").textContent.trim();
+        const todayDate = new Date(todayDateStr);
+
+        function isBefore(teeoffDateStr, todayDate) {
+            const teeoffDate = new Date(teeoffDateStr);
+            return teeoffDate < todayDate;
+        }
+
+        document.querySelectorAll('.card-list').forEach(card => {
+            const teeoffDateStr = card.getAttribute('data-teeoff');
+            if (isBefore(teeoffDateStr, todayDate)) {
+                card.classList.add('bg-light');
+            }
+        });
     </script>
 
     <script th:src="@{/js/script.js}"></script>
