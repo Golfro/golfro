@@ -1,0 +1,223 @@
+@charset "UTF-8";
+
+/* 폰트 */
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-fluid {
+    background-color: white;
+    padding: 20px;
+    margin: 0 auto; /* 중앙 정렬 */
+    margin-top: 85px; /* 상단 여백 */
+}
+
+.card {
+    width: 960px;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    align-items: center; /* 수평 중앙 정렬 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    background-color: white !important;
+}
+
+.card-header h2 {
+    font-family: 'Freesentation-9Black';
+    text-align: center;
+}
+
+.card-header h7 {
+    font-family: 'SUIT-Regular';
+    color: #808080;
+    text-align: center;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-container {
+    font-size: 0.9rem;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#searchButton {
+    background: #ffffff;
+    color: #000000;
+    border: none !important;
+    padding: 0px;
+}
+
+#btnCreateMainPost {
+    color: white !important;
+    background: #2FA599;
+    border-radius: 8px;
+}
+
+#btnCreateMainPost a {
+    font-size: 0.9rem;
+    color: white !important;
+}
+
+#btnCreateMainPost .btn {
+    color: white !important;
+}
+
+.mb-1 thead th {
+    border-bottom: 1px solid black;
+}
+
+.mb-1 tbody td {
+    font-family: 'SUIT-Regular';
+    color: #050505;
+    font-size: 0.9rem;
+    padding: 1rem 2rem;
+}
+
+table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.thumbnail {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden; /* 내용이 넘칠 때 숨김 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    line-height: 100px; /* 텍스트를 수직 중앙에 배치 */
+}
+
+.post {
+    flex: 4;
+    display: flex;
+    margin-left: 1rem;
+    align-items: left;
+    flex-direction: column; /* 수직 방향으로 배치 */
+}
+
+.custom-link {
+    font-family: 'SUIT-Regular';
+    color: black; /* 기본 색상을 검정색으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.clock {
+    color: #575757 !important;
+}
+
+.custom-link:hover {
+    text-decoration: underline; /* 마우스 올렸을 때 밑줄 표시 */
+}
+
+.ms-auto {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* 모바일 영역 */
+.mobile-header {
+    display: none !important;
+}
+
+@media ( max-width : 768px) {
+    body {
+        flex-direction: column;
+    }
+    .card {
+        margin-top: 85px;
+        width: 100%;
+        padding: 0px !important;
+    }
+    .card h2, h7 {
+        display: none !important;
+    }
+    .card-body{
+    padding: 0px !important;
+    }
+    .mobile-header {
+        display: block !important;
+        border-radius: 8px;
+        background-image: url('../images/review_header.png');
+        /* 배경 이미지 추가 */
+        background-size: cover; /* 이미지가 요소에 맞게 크기 조정 */
+        margin-bottom: 1rem;
+        padding: 20px 30px;
+        font-size: 1rem;
+    }
+    .mobile-header a {
+        font-weight: bold;
+        text-decoration: none; /* 밑줄 제거 */
+        color: black; /* 글씨 색상 검정 */
+    }
+    .mobile-header a:hover {
+        text-decoration: none; /* 호버 시에도 밑줄 없음 */
+        color: black; /* 호버 시에도 글씨 색상 유지 */
+    }
+    .mobile-header span {
+        font-size: 14px;
+        color: #999999;
+    }
+    .card-body {
+        width: 100%;
+    }
+    .card {
+        border: none;
+    }
+    .review-header {
+        flex-direction: column;
+        align-items: stretch; /* 좌우로 퍼지게 변경 */
+    }
+    .search-container {
+        margin-bottom: 10px; /* 글쓰기 버튼과의 간격을 줌 */
+    }
+    #btnCreateMainPost {
+        margin-left: 0; /* 모바일에서 왼쪽 마진 제거 */
+        display: flex;
+        justify-content: center;
+    }
+    .hide-mobile {
+        display: none;
+    }
+}
