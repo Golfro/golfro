@@ -35,7 +35,6 @@ public class SecurityConfig {
 		http.formLogin(formLogin -> formLogin
 			    .loginPage("/user/signin")
 			    .loginProcessingUrl("user/signin")
-			    .defaultSuccessUrl("/", true)
 			    .failureUrl("/user/signin?error=true")
 			    .usernameParameter("userid") // 사용자 이름 필드 이름 확인
 			    .passwordParameter("password") // 비밀번호 필드 이름 확인

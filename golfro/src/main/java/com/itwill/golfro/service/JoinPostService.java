@@ -106,9 +106,9 @@ public class JoinPostService {
 		
 		Pageable pageable = PageRequest.of(pageNo, 5, sort);
 		
-		Page<Post> list = postRepo.selectByTeeoffDate(teeoffDate, pageable);
+		Page<Post> posts = postRepo.selectByTeeoffDate(teeoffDate, pageable);
 		
-		return list;
+		return posts;
 	}
 	
 	@Transactional(readOnly = true)

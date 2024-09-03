@@ -883,23 +883,14 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
         QPost post = QPost.post;
         QUser user = QUser.user;
 
-        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
-
-        JPAQuery<Post> query = queryFactory
-            .selectFrom(post)
+        JPQLQuery<Post> query = from(post)
             .join(user).on(post.user.userid.eq(user.userid))
-            .where(post.category.id.in("F001", "F002", "F003"))
+            .where(post.category.id.in("P003"))
             .orderBy(post.createdTime.desc());
 
-        List<Post> list = query
-            .offset(pageable.getOffset())
-            .limit(pageable.getPageSize())
-            .fetch();
+        List<Post> list = query.fetch();
 
-        long count = from(post)
-            .join(user).on(post.user.userid.eq(user.userid))
-            .where(post.category.id.in("F001", "F002", "F003"))
-            .fetchCount();
+        long count = query.fetchCount();
 
         return new PageImpl<>(list, pageable, count);
 	}
