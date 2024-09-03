@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    margin-top: 100px;
+    width: 960px;
+    padding: 20px;
+}
+
+.card-header {
+    background: white !important;
+}
+
+.card-header h3 {
+    font-family: 'Freesentation-9Black', Freesentation-9Black;
+}
+
+.card-header p {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    color: #808080;
+}
+
+.card-header {
+    background-color: #2FA599;
+    color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.card-body span {
+    font-family: 'Pretendard-Regular';
+    font-size: 0.9rem;
+    padding-left: calc(100% -10px);
+    font-weight: 600;
+    color: #2FA599;
+}
+
+.input-group button {
+    font-family: 'Pretendard-Regular';
+    font-weight: 700;
+    border: 2px solid black;
+}
+
+.cancelBtn {
+    background-color: #EEEEEE !important;
+}
+
+.submitBtn {
+    color: white !important;
+    background-color: #2FA599 !important;
+}
+/* Hover 효과 제거 */
+.lastbtn .btn:hover {
+    background-color: #ffffff; /* 배경색 초기화 */
+    color: #2FA599; /* 글자색 초기화 */
+    border-color: #c0c0c0; /* 테두리 색 초기화 */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/*모바일 화면*/
+@media screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    .container-fluid {
+        margin-top: 130px;
+        width: 100%;
+    }
+    .card {
+        width: 100%;
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+    .card-header h3 {
+        margin: 0px;
+    }
+    .card-body {
+        padding-top: 0px !important;
+    }
+    .form-control {
+        width: 100%;
+    }
+    .lastbtn .btn {
+        width: auto; /* 너비 자동 조정 */
+        margin: 5px; /* 여백 조정 */
+        padding: 10px 15px; /* 내부 여백 조정 */
+        font-size: 14px; /* 글자 크기 조정 */
+    }
+
+    /* 모바일에서 카드의 padding 조정 */
+    .card-body {
+        padding: 10px;
+    }
+}
