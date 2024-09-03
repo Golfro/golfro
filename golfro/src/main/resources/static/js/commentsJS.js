@@ -17,8 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
    const postAuthor = document.querySelector('#postAuthor').value;
    const sessionUser = document.querySelector('#sessionUser').value;
    
+   
    console.log(postAuthor);
    console.log(sessionUser);
+   
+   
+   
+   
    
 	// like 버튼(추천하기 버튼)
    const btnLikes = document.querySelector('button#likes');
@@ -70,17 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
    function registerComment() {
       const postId = document.querySelector('input#postId').value;
       const content = document.querySelector('textarea#content').value;
-      const author = document.querySelector('input#signedInUser').value;
+	  const userid = document.querySelector('#sessionUserId').value;
       
      
 
-      if (content === '' || author === '') {
+      if (content === '' || userid === '') {
          alert('피드백 내용 및 작성자는 필수 입력값입니다.')
          return;
       }
 
       // Ajax 요청에서 보낼 데이터 객체 생성
-      const data = { postId, content, author };
+      const data = { postId, content, userid };
       console.log(data);
 
       axios
@@ -115,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
    function getAllMainComments() {
       const postId = document.querySelector('input#postId').value;
-      const uri = `/api/mainComment/all/${postId}`;
+      const uri = `/mainPost/api/mainComment/all/${postId}`;
 
       axios
          .get(uri)

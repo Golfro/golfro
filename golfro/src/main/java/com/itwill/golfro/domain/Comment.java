@@ -41,7 +41,8 @@ public class Comment extends BaseTimeEntity {
 	@JoinColumn(name = "USERID")
 	private User user;
 	
-	private Integer selection;
+	@Builder.Default
+	private Integer selection = 0;
 	
 	public Comment update(String content) {
 		this.content = content;

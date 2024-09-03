@@ -10,13 +10,13 @@ import lombok.Data;
 public class MainCommentCreateDto {
 	private Long postId;
 	private String content;
-	private String userid;
+	private Long userid;
 	
 	public Comment toEntity() {
 		return Comment.builder()
 				.post(Post.builder().id(postId).build())
 				.content(content)
-				.user(User.builder().userid(userid).build())
+				.user(User.builder().id(userid).build())
 				.build();
 	}
 }
