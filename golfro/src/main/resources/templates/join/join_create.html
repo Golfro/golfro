@@ -23,8 +23,11 @@
 				</div>
 
 				<div class="card-body form-control border-0">
-					<form method="post" action="@{/join/join_create}">
+					<form method="post" th:action="@{/join/join_create}">
 						<div class="mt-2 row">
+                            <input class="form-control" type="hidden" name="userid" th:value="${session.signedInUser}" />
+                            <input class="form-control" type="hidden" name="categoryId" th:value="P003" />
+                        
 							<span>골프장</span>
 							<div class="col-12 mt-2 mb-4">
 								<input class="form-control" type="text" name="title" placeholder="골프장 입력" required maxlength="20" />
@@ -53,8 +56,6 @@
 								<input class="form-control" type="number" name="hole" placeholder="홀수 입력" required maxlength="2" />
 							</div>
 
-							<input class="form-control" type="hidden" name="userid" th:value="${user.userid}" required />
-                            
                             <span>상세 설명</span>
 							<div class="col-12 mt-2 mb-4">
 								<textarea class="form-control" rows="5" name="content" placeholder="내용 및 연락처, 인원수 등 입력" required maxlength="1000"></textarea>

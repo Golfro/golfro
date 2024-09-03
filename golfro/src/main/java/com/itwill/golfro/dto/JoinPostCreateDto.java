@@ -6,7 +6,6 @@ import com.itwill.golfro.domain.Category;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -14,7 +13,9 @@ public class JoinPostCreateDto {
     private String title;
     private String content;
     private String userid;
+    private User user;
     private String categoryId;
+    private Category category;
     private String gcaddress;
     private LocalDateTime teeoff;
     private Long greenfee;
@@ -24,8 +25,8 @@ public class JoinPostCreateDto {
         return Post.builder()
         		.title(title)
         		.content(content)
-        		.user(User.builder().userid(userid).build())
-        		.category(Category.builder().id(categoryId).build())
+        		.user(user)
+        		.category(category)
         		.gcaddress(gcaddress)
         		.teeoff(teeoff)
         		.greenfee(greenfee)

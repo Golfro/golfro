@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -91,6 +92,13 @@ public class User implements Serializable {
 	private String accept;
 	
 	private Long withdraw;
+	
+	@PrePersist
+    private void prePersist() {
+        if (this.grade == null) {
+            this.grade = Grade.builder().id("G21").name("일반 사용자(흰공)").build();
+        }
+    }
 	
 	public User update(String password, String phone, String address, String proId, String account) {
         this.password = password;

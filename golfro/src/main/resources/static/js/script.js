@@ -54,9 +54,6 @@ document.addEventListener("DOMContentLoaded", function() {
          submenu.style.display = "none";
       });
    };
-
-   // 검색 기능 초기화
-   performSearch();
 });
 
 function navigateTo(section) {

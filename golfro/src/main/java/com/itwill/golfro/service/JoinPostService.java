@@ -14,6 +14,7 @@ import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.JoinPostCreateDto;
 import com.itwill.golfro.dto.JoinPostSearchDto;
 import com.itwill.golfro.dto.JoinPostUpdateDto;
+import com.itwill.golfro.repository.CategoryRepository;
 import com.itwill.golfro.repository.PostRepository;
 import com.itwill.golfro.repository.UserRepository;
 
@@ -27,6 +28,7 @@ public class JoinPostService {
 
     private final PostRepository postRepo;
     private final UserRepository userRepo;
+    private final CategoryRepository ctgRepo;
 
     @Transactional(readOnly = true)
 	public Page<Post> read(int pageNo, Sort sort) {
@@ -63,6 +65,8 @@ public class JoinPostService {
 
 		Post result = new Post();
 		try {
+			dto.setUser(userRepo.findByUserid(dto.getUserid()));
+			dto.setCategory(ctgRepo.findById(dto.getCategoryId()).orElseThrow());
 			result = postRepo.save(dto.toEntity());
 			log.info("insert 결과: {}", result);
 		} catch (Exception e) {
