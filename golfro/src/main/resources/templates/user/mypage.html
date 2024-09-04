@@ -21,8 +21,10 @@
     <main>
         <div class="container" id="mypage">
             <div class="row d-flex">
-                <th:block th:replace="~{fragments/menu :: menu}"></th:block>
-
+                <div class="menu col-12 col-md-3">
+                    <th:block th:replace="~{fragments/menu :: menu}"></th:block>
+                </div>
+                
                 <div class="col-12 col-md-9 mb-3" th:object="${user}">
                     <div class="card">
                         <div class="info_card">
@@ -183,6 +185,9 @@
             </div>
         </div>
     </main>
+    
+    
+    
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 
     <script
