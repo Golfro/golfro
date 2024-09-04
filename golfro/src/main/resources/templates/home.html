@@ -227,16 +227,18 @@
                                     th:if="${status.index >= 3}">
                                     <h5 class="rank-title"
                                         th:text="${status.index + 1} + '위'"></h5>
+                                    <input type="hidden" class="imagePath" th:value="${likesRank.image}" />
                                     <img
                                         th:id="'profileImage-' + ${status.index}"
-                                        class="rank-img"
+                                        class="rank-img image"
+                                        src=""
                                         alt="Uploaded Image">
                                     <div class="rank-card-body">
 
                                         <p class="rank-name"
                                             th:text="${likesRank.name}"></p>
                                         <p class="rank-point"
-                                            th:text="'포인트: ' + ${likesRank.point}"></p>
+                                            th:text="${likesRank.point} + ' 포인트'"></p>
                                     </div>
                                 </div>
                             </div>
