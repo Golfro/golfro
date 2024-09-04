@@ -130,13 +130,24 @@ public class MainPostService {
 		
 		return list;
 	}
+	
+	
+	
+	@Transactional
+	public void increaseViews(Long id) {
+		Post entity = postRepo.findById(id).orElseThrow();
+		entity.increaseViews(entity.getViews());
+	}
+	
 
 	@Transactional
 	public MainPostDetailsDto selectPostId(long id) {
 		log.info("selectPostId(id={})", id);
 		
+		
+		
 		Post entity = postRepo.findById(id).orElseThrow();
-
+		
 		return MainPostDetailsDto.fromEntity(entity);
 	}
 
@@ -163,23 +174,23 @@ public class MainPostService {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<Tuple> searchRead(MainPostSearchDto dto, int pageNo, Sort sort) {
+	public Page<Post> searchRead(MainPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("searchRead(dto={})", dto);
 		
 		Pageable pageable = PageRequest.of(pageNo, 5, sort);
 		
-		Page<Tuple> posts = postRepo.search(dto, pageable);
+		Page<Post> posts = postRepo.search(dto, pageable);
 		
 		return posts;
 	}
 
 	@Transactional(readOnly = true)
-	public Page<Tuple> searchReadByUserid(MyPostSearchDto dto, int pageNo, Sort sort) {
+	public Page<Post> searchReadByUserid(MyPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("search(dto={})", dto);
 		
 		Pageable pageable = PageRequest.of(pageNo, 5, sort);
 		
-		Page<Tuple> posts = postRepo.searchMyPost(dto, pageable);
+		Page<Post> posts = postRepo.searchMyPost(dto, pageable);
 		
 		return posts;
 	}

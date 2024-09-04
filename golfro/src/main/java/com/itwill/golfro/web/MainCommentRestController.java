@@ -72,9 +72,9 @@ public class MainCommentRestController {
 
 	}
 
-	@PutMapping("/edit/{id}")
-	public ResponseEntity<Integer> editComment(@RequestBody CommentUpdateDto dto) {
-		log.debug("editComment(dto={})", dto);
+	@PutMapping("/edit/{commentId}")
+	public ResponseEntity<?> editComment(@RequestBody CommentUpdateDto dto) {
+		log.debug("11editComment(dto={})", dto);
 		
 		int result = mainCommentService.editCommentById(dto);
 		

@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
    /* 댓글 작성 함수 */
    function registerComment() {
       const postId = document.querySelector('input#postId').value;
-	  console.log(postId);
       const content = document.querySelector('textarea#content').value;
 	  const userid = document.querySelector('#sessionUserId').value;
       
@@ -244,48 +243,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-   function modifyMainComment(event) {
-      const commentId = event.target.getAttribute('data-id');
-      const commentTextElement = document.querySelector(`#comment-${commentId} .comment-text`);
-      const editAreaElement = document.querySelector(`#comment-${commentId} .edit-area`);
 
-      alert('댓글을 수정합니다.');
-
-      // 원래의 댓글 텍스트를 숨기고 수정 영역을 보여줍니다.
-      commentTextElement.style.display = 'none';
-      editAreaElement.style.display = 'block';
-
-      // 저장 버튼 이벤트 리스너
-      const saveButton = editAreaElement.querySelector('.save-edit');
-      saveButton.addEventListener('click', () => {
-         const editedContent = document.getElementById(`edit-textarea-${commentId}`).value;
-
-         axios.put(`/mainPost/api/mainComment/edit/${commentId}`, { content: editedContent })
-            .then((response) => {
-               alert('댓글이 수정되었습니다.');
-               document.querySelector(`#comment-${commentId} .comment-text span`).textContent = editedContent;
-               commentTextElement.style.display = 'block';
-               editAreaElement.style.display = 'none';
-            })
-            .catch(error => console.log(error));
-      });
-
-      // 취소 버튼 이벤트 리스너
-      const cancelButton = editAreaElement.querySelector('.cancel-edit');
-      cancelButton.addEventListener('click', () => {
-         commentTextElement.style.display = 'block';
-         editAreaElement.style.display = 'none';
-      });
-   }
-
-
-
-   function modifyMainComment(event) {
+   function modifyMainComment(event) {	
       const commentId = event.target.getAttribute('data-id');
       const commentTextElement = document.querySelector(`#comment-${commentId} .comment-text`);
       const editAreaElement = document.querySelector(`#comment-${commentId} .edit-area`);
       const buttonContainer = document.querySelector(`#comment-${commentId} .button-container`);
-
+	
       alert('댓글을 수정합니다.');
 
       // 원래의 댓글 텍스트를 숨기고 수정 영역을 보여줍니다.
@@ -300,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
       saveButton.addEventListener('click', () => {
          const editedContent = document.getElementById(`edit-textarea-${commentId}`).value;
 
-         axios.put(`../api/mainComment/edit/${commentId}`, { content: editedContent })
+         axios.put(`../api/mainComment/edit/${commentId}`, {id:commentId, content: editedContent })
             .then((response) => {
                alert('댓글이 수정되었습니다.');
                document.querySelector(`#comment-${commentId} .comment-text span`).textContent = editedContent;
