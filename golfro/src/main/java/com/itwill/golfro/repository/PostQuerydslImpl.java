@@ -1,5 +1,6 @@
 package com.itwill.golfro.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -336,13 +337,17 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public Page<Post> selectByTeeoffDate(LocalDateTime teeoffDate, Pageable pageable) {
+	public Page<Post> selectByTeeoffDate(LocalDate teeoffDate, Pageable pageable) {
 		log.info("selectByTeeoffDate(teeoffDate={})", teeoffDate);
 
         QPost post = QPost.post;
         
+        // LocalDate를 LocalDateTime으로 변환
+        LocalDateTime startDateTime = teeoffDate.atStartOfDay(); // 시작일의 자정
+        LocalDateTime endDateTime = teeoffDate.plusDays(1).atStartOfDay(); // 다음 날의 자정
+        
         JPQLQuery<Post> query = from(post)
-        		.where(post.teeoff.eq(teeoffDate) // TRUNC 대신 직접 비교
+        		.where(post.teeoff.between(startDateTime, endDateTime)
                         .and(post.category.id.eq("P003")))
         		.orderBy(post.teeoff.asc());
 		
