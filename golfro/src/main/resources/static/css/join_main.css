@@ -28,8 +28,7 @@ body {
 
 .container-fluid {
     background-color: white;
-    padding: 20px;
-    max-width: 960px;
+    padding: 0px !important;
     margin: 0 auto;
     margin-top: 85px;
     flex-grow: 1;
@@ -76,8 +75,8 @@ body {
 }
 
 .search-button button {
-    padding-left: 5px !important;
-    padding-right: 0px !important;
+    padding: 0px !important;
+    margin-left: 5px;
 }
 
 .card-body {
@@ -91,6 +90,10 @@ body {
 
 .search-field select, .search-field input {
     font-size: 0.9rem; /* select와 input의 폰트 사이즈 설정 */
+}
+
+label.mx-2 {
+    font-size: 1rem;
 }
 
 #btnAllRead {
@@ -250,12 +253,12 @@ footer.custom-footer {
     z-index: 1000;
 }
 
-.mobile-header {
-    display: none !important;
-}
 
 /* 반응형 스타일: 화면이 768px 이하일 때 */
 @media ( max-width : 768px) {
+    .container-fluid{
+    margin-top: 115px;
+    }
     .menu-header {
         height: 120px; /* 화면이 작은 경우 높이 줄이기 */
         padding: 0.5rem; /* 패딩 줄이기 */

@@ -11,21 +11,18 @@
     <link rel="stylesheet" href="/css/join_main.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
+    
+    <th:block th:replace="~{/fragments/header :: header}"></th:block>
 </head>
 <body>
     <div class="container-fluid">
-        <header th:replace="~{fragments/header :: header}"></header>
-
         <div class="menu-header">
             <h2>
                 <a th:href="@{/join/join_main}">JOIN</a>
             </h2>
             <h7>마음 맞는 사람과 함께 골프를 쳐보세요.</h7>
         </div>
-        <div class="mobile-header">
-            <a th:href="@{/review/review_main}">LESSON > </a>
-            <span>골프에 대해 궁금한 점들을 물어보세요.</span>
-        </div>
+     
         <div class="d-flex justify-content-center">
             <div class="card border-0">
                 <!-- 검색 폼과 기타 요소들은 그대로 유지 -->
@@ -50,23 +47,26 @@
 
                                 <!-- 오른쪽: 검색 부분 -->
                                 <div class="search-input row col-md-8 justify-content-end" id="category-search">
-                                    <div class="search-field col-auto p-0">
+                                   
+                                    <div class="search-field col-auto px-1" id="keywordField">
+                                        <input type="text" class="form-control custom-input" id="keyword" name="keyword" placeholder="검색어를 입력하세요." th:value="${keyword}" />
+                                    </div>
+                                    <div class="search-field col-auto px-2 d-flex align-items-center" id="holeField">
+                                        <label class="mx-2"><input type="checkbox" name="holes" th:value="${9}"> 9홀</label>
+                                        <label class="mx-2"><input type="checkbox" name="holes" th:value="${18}"> 18홀</label>
+                                    </div>
+                                     <div class="search-field col-auto p-0">
                                         <select class="form-control custom-select" name="category" id="category">
                                             <option th:value="'t'" th:selected="${selectedCategory == null or selectedCategory == '' or selectedCategory == 't'}">골프장명</option>
                                             <option th:value="'g'" th:selected="${selectedCategory == 'g'}">지역</option>
                                             <option th:value="'h'" th:selected="${selectedCategory == 'h'}">홀수</option>
                                         </select>
                                     </div>
-                                    <div class="search-field col-auto px-1" id="keywordField">
-                                        <input type="text" class="form-control custom-input" id="keyword" name="keyword" placeholder="검색어를 입력하세요." th:value="${keyword}" />
-                                    </div>
-                                    <div class="search-field col-auto px-1 d-none" id="holeField">
-                                        <label><input type="checkbox" name="holes" th:value="${9}"> 9홀</label>
-                                        <label><input type="checkbox" name="holes" th:value="${18}"> 18홀</label>
-                                    </div>
                                     <div class="col-auto search-button p-0">
                                         <button type="submit" class="btn no-radius" id="searchButton">
-                                            검색
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg>
                                         </button>
                                     </div>
                                 </div>
