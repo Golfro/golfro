@@ -50,11 +50,11 @@ public class MainCommentRestController {
 	}
 	
 
-	@PutMapping("/selectComment/{id}")
-	public ResponseEntity<?> selectionComment(@PathVariable(name = "id") int id) {
-		log.debug("selectionComment(id={})", id);
+	@PutMapping("/selectComment/{commentsId}")
+	public ResponseEntity<?> selectionComment(@PathVariable(name = "commentsId") Long commentsId) {
+		log.debug("selectionComment(id={})", commentsId);
 		try {
-			mainCommentService.selectCommentAndGiftPoint(id);
+			mainCommentService.selectCommentAndGiftPoint(commentsId);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			log.error("Error updating comment or gifting points", e);

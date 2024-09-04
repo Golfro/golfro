@@ -23,9 +23,12 @@
 				
 				<h2>LESSON</h2>
 				<h7 >골프에 대해 궁금한 점들을 물어보세요.</h7>
-				<input id="sessionUser" type="text" th:value="${session.signedInUser}" />
-				<input id="postAuthor" type="text" th:value="${post.userid}" />
-				<input id="sessionUserId" type="text" th:value="${session.signedInUserId}" />
+				<p> 현재 로그인 세션 PK : <input id="sessionUserId" type="text" th:value="${session.signedInUserId}"/></p>
+				<p> 현재 로그인 세션 아이디: <input id="sessionUser" type="text" th:value="${session.signedInUser}" /></p>
+				<p> 현재 로그인 세션 닉네임: <input id="sessionNickName" type="text" th:value="${session.signedInUserNickName}" /></p>
+				<p> 글 작성자 아이디 : <input id="postAuthor" type="text" th:value="${post.userid}"/> </p>
+				<input type="hidden" id="postId" th:value="${post.id}"/>
+				
 				
 				
 				<div class="mobile-header">
@@ -86,19 +89,17 @@
 									<p th:text="*{content}"></p>
 								</div>
 								<!-- 포커싱할 댓글 id -->
-								<input type="hidden" id="commentId" th:value="${commentId}" />
+								<input type="hidden" id="commentId" value="${commentId}" />
 							</div>
 
 							<!-- 댓글 리스트 영역 -->
 							<div class="comments-section form-control">
 								<div class="form-group">
 									<input class="form-control mt-2" type="hidden" id="signedInUser" required th:value="${session.signedInUser}" />
-									<input type="hidden" id="postId" th:value="*{id}"/>
 								</div>
 							</div>
-							
-							
 						</div>
+						
 						<div class="last-section">
 							<div
 								class="sub d-flex justify-content-between align-items-center">
@@ -115,19 +116,18 @@
 								
 								<!-- 하단 수정하기, 삭제 버튼 영역 -->
 								<div class="dropdown">
-									<button class="btn dropdown-toggle" type="button"
+									<button th:if="${session.signedInUser eq post.userid or session.signedInUser eq 'admin'}"  
+										class="btn dropdown-toggle" type="button"
 										id="dropdownMenuButton" data-bs-toggle="dropdown"
 										aria-expanded="false">
+										<script th:src="@{/js/commentsSub.js}"></script>
 										<i class="bi bi-three-dots"></i>
 									</button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<!-- 조건: 세션의 signedInUser와 post.author가 같거나 signedInUser가 'admin'인 경우 -->
-										<li
-											th:if="${session.signedInUser eq post.userid or session.signedInUser eq 'admin'}">
+										<li>
 											<button class="dropdown-item btnModifyid">수정하기</button>
 										</li>
-										<li
-											th:if="${session.signedInUser eq post.userid or session.signedInUser eq 'admin'}">
+										<li>
 											<button class="dropdown-item btnDeleteMainPost">삭제하기</button>
 										</li>
 									</ul>
@@ -171,7 +171,7 @@
 		crossorigin="anonymous"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<script th:src="@{/js/commentsSub.js}"></script>
+	
 	<script th:src="@{/js/commentsJS.js}"></script>
 </body>
 </html>

@@ -116,10 +116,10 @@
 						</div>
 						<!-- 카드 형식으로 변환된 포스트 목록 -->
 						<div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-4 mt-1">
-                            <div id="todayDate" style="display: none;" th:text="${today}"></div>
+                            <div id="todayDate" style="display: none;" th:value="${today}"></div>
                     
                             <div th:each="post : ${posts}" class="col d-flex justify-content-center">
-                                <div class="card-list h-100" data-teeoff="${post.teeoff}">
+                                <div class="card-list h-100" th:value="${post.teeoff}">
                                     <div class="card-info">
                                         <h6>
                                             <a th:href="@{/join/join_details(id=${post.id})}" class="custom-link" th:text="${post.title}">Title</a>
@@ -195,21 +195,6 @@
     	    currentOffset += 6; // 6일씩 이동
     	    getDates(currentOffset);
     	});
-    	
-    	const todayDateStr = document.getElementById("todayDate").textContent.trim();
-        const todayDate = new Date(todayDateStr);
-
-        function isBefore(teeoffDateStr, todayDate) {
-            const teeoffDate = new Date(teeoffDateStr);
-            return teeoffDate < todayDate;
-        }
-
-        document.querySelectorAll('.card-list').forEach(card => {
-            const teeoffDateStr = card.getAttribute('data-teeoff');
-            if (isBefore(teeoffDateStr, todayDate)) {
-                card.classList.add('bg-light');
-            }
-        });
     </script>
 
     <script>
@@ -248,6 +233,18 @@
                         });
                 } else {
                     console.error('No file path found for index:', index);
+                }
+            });
+            
+            const todayDateStr = document.getElementById("todayDate").value;
+            const todayDate = new LocalDateTime(todayDateStr);
+			console.log(todayDate);
+            
+            document.querySelectorAll('.card-list').forEach(card => {
+                const teeoffDateStr = card.value;
+                console.log(teeoffDateStr);
+                if (teeoffDateStr < todayDate) {
+                    card.classList.add('bg-light');
                 }
             });
         });

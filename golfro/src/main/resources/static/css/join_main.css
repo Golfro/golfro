@@ -228,16 +228,11 @@ body {
 }
 
 .card-author img {
-    width: 55px;
-    height: 55px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    margin-bottom: 10px;
     border: 1px solid #ccc;
     padding: 3px;
-}
-
-.card-author span {
-    margin: 10px;
 }
 
 footer.text-center {

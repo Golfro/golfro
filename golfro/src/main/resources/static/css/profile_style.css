@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+        format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#mypage {
+    margin-top: 150px;
+    max-width: 1280px;
+    padding: 40px 40px 160px;
+}
+
+.user_data, .basic_font {
+    font-family: Arial, sans-serif;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+.info_card {
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    width: 1080px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.bold_title {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
+    color: #333;
+}
+
+.small_title {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    color: darkgray;
+    font-weight: 100;
+}
+
+.bottom_line {
+    border-bottom: solid 1px #e7e7e7;
+}
+
+.input_none {
+    border: none;
+}
+
+img#image {
+    width: 100px;
+    height: 100px;
+}

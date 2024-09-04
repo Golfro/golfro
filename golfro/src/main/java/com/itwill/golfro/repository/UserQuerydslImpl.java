@@ -166,7 +166,7 @@ public class UserQuerydslImpl extends QuerydslRepositorySupport implements UserQ
 
 		JPQLQuery<User> query = from(user)
 				.orderBy(user.point.desc())
-                .limit(5);
+                .limit(7);
 		
 		List<User> result = query.fetch();
 

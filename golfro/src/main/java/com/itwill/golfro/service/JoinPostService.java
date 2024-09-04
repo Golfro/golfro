@@ -1,5 +1,6 @@
 package com.itwill.golfro.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.data.domain.Page;
@@ -101,7 +102,7 @@ public class JoinPostService {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<Post> findByTeeoffDate(LocalDateTime teeoffDate, int pageNo, Sort sort) {
+	public Page<Post> findByTeeoffDate(LocalDate teeoffDate, int pageNo, Sort sort) {
 		log.info("findByTeeoffDate(teeoffDate={})", teeoffDate);
 		
 		Pageable pageable = PageRequest.of(pageNo, 5, sort);

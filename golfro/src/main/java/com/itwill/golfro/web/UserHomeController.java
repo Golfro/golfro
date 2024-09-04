@@ -24,19 +24,19 @@ public class UserHomeController {
 
 	@GetMapping("/mypage")
 	public void mypage(HttpSession session, Model model) {
-		log.debug("mypage()");
+		log.info("mypage()");
 
-		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
-		String grade = (String) session.getAttribute(SESSION_USER_GRADE);
+		Object userid = session.getAttribute(SESSION_ATTR_USER);
+		Object grade = session.getAttribute(SESSION_USER_GRADE);
 
 		if (grade.equals("G10")) {
-			User pro = userService.readPro(userid);
+			User pro = userService.readPro((String) userid);
 			model.addAttribute("user", pro);
-			log.debug("user={}", pro);
+			log.info("user={}", pro);
 		} else {
-			User user = userService.read(userid);
+			User user = userService.read((String) userid);
 			model.addAttribute("user", user);
-			log.debug("user={}", user);
+			log.info("user={}", user);
 		}
 	}
 	

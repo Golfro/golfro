@@ -48,4 +48,11 @@ public class Comment extends BaseTimeEntity {
 		this.content = content;
 		return this;
 	}
+	
+	
+	public Comment selectionConfirm() {
+        this.selection = 1;
+        
+        return this;
+    }
 }
