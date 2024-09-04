@@ -6,11 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itwill.golfro.domain.Comment;
+import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.CommentUpdateDto;
 import com.itwill.golfro.dto.MainCommentCreateDto;
 import com.itwill.golfro.dto.MainCommentItemDto;
 import com.itwill.golfro.repository.CommentRepository;
+import com.itwill.golfro.repository.PostRepository;
 import com.itwill.golfro.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MainCommentService {
 	
+	private final PostRepository postRepo;
 	private final CommentRepository cmtRepo;
 	private final UserRepository userRepo;
 	
@@ -53,13 +56,19 @@ public class MainCommentService {
 	}
 
 	@Transactional
-	public void selectCommentAndGiftPoint(long id) {
-		log.info("selectCommentAndGiftPoint(id={})", id);
+	public void selectCommentAndGiftPoint(long commentsId) {
+		log.info("selectCommentAndGiftPoint(id={})", commentsId);
 		
-		Comment comment = cmtRepo.findById(id).orElseThrow();
+		
+		Comment comment = cmtRepo.findById(commentsId).orElseThrow();
+		Post post = postRepo.findById(comment.getPost().getId()).get();
 		User entity = userRepo.findByUserid(comment.getUser().getUserid());
 		
+		
+		post.selectionConfirm();
+		comment.selectionConfirm();
 		entity.increasePoint(entity.getPoint());
+		
 	}
 	
 	public int deleteComment(long id) {

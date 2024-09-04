@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
    
    
    console.log(postAuthor);
-   console.log(sessionUser);
+   console.log(`세션 닉네임 : ${sessionNickName}`);
    
    
    
@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
    /* 댓글 작성 함수 */
    function registerComment() {
       const postId = document.querySelector('input#postId').value;
+	  console.log(postId);
       const content = document.querySelector('textarea#content').value;
 	  const userid = document.querySelector('#sessionUserId').value;
       
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                //전체 댓글 갱신 함수넣기   
                getAllMainComments();
 
-               const focusCommentId = document.querySelector('input#commentId').value;
+         /*      const focusCommentId = document.querySelector('input#commentId').value;
 
                if (focusCommentId) {
                   const commentElement = document.getElementById(`comment-${focusCommentId}`);
@@ -111,6 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
                } else {
                   console.error('focusCommentId is null or undefined.');
                }
+			   
+			   */
             }
          })
          .catch((error) => {
@@ -182,9 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
                   
                   <div class="button-container">${sessionUser === postAuthor ?
                   `<button class="btn selectComment" data-id="${mainComment.id}">채택</button>` : ''}
-                     ${sessionNickName === mainComment.ninckName ?
+				  
+                     ${sessionNickName === mainComment.nickName ?
                   `<button class="btn modifyComment" data-id="${mainComment.id}">수정</button>` : ''}
-                     ${sessionNickName === mainComment.ninckName ?
+                     ${sessionNickName === mainComment.nickName ?
                   `<button class="btn deleteComment" data-id="${mainComment.id}">삭제</button>` : ''}
                   </div>
                   
@@ -204,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       divComments.innerHTML = htmlString;
 
-      const focusCommentId = document.querySelector('input#commentId').value;
+  /*    const focusCommentId = document.querySelector('input#commentId').value;
 
       if (focusCommentId) {
          const commentElement = document.getElementById(`comment-${focusCommentId}`);
@@ -215,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
          }
       } else {
          console.error('focusCommentId is null or undefined.');
-      }
+      } */
 
       /* 생선되는 모든 버튼에 이벤트 리스너를 추가하는 영역 */
 
@@ -256,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
       saveButton.addEventListener('click', () => {
          const editedContent = document.getElementById(`edit-textarea-${commentId}`).value;
 
-         axios.put(`../api/mainComment/edit/${commentId}`, { content: editedContent })
+         axios.put(`/mainPost/api/mainComment/edit/${commentId}`, { content: editedContent })
             .then((response) => {
                alert('댓글이 수정되었습니다.');
                document.querySelector(`#comment-${commentId} .comment-text span`).textContent = editedContent;
@@ -350,15 +354,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!result) {
          return;
       }
-      const uri = `../api/mainComment/selectComment/${commentsId}`;
-      axios.put(uri)
-         .then((response) => {
-            console.log(response.data);
-            alert('해당 게시물의 채택이 완료되었습니다.');
-            getAllMainComments();
-            alert('피드백을 작성해준 멘토에게 포인트가 지급되었습니다.');
-         })
-         .catch((error) => console.log(error));
+      const uri = `/mainPost/api/mainComment/selectComment/${commentsId}`;
+	  axios.put(uri)
+	      .then((response) => {
+	          console.log(response.data);
+	          alert('해당 게시물의 채택이 완료되었습니다.');
+	          getAllMainComments();
+	          alert('피드백을 작성해준 멘토에게 포인트가 지급되었습니다.');
+	      })
+	      .catch((error) => {
+	          console.error('Error response:', error.response); // 응답 객체 전체를 출력
+	          console.error('Error status:', error.response.status); // 상태 코드
+	          console.error('Error data:', error.response.data); // 서버에서 반환한 에러 메시지
+	          console.error('Error message:', error.message); // 기본 에러 메시지
+	      });
    }
 
 
@@ -413,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
          button.style.display = 'none';
       });
 
-      const btnFoot = document.querySelector('#btnFoot');
+      const btnFoot = document.querySelector('#dropdownMenuButton');
       btnFoot.classList.add('d-none');
 
    }

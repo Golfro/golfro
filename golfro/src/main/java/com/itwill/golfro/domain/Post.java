@@ -113,4 +113,10 @@ public class Post extends BaseTimeEntity {
     	return this;
     }
     
+	public Post selectionConfirm() {
+        this.selection = 1;
+        
+        return this;
+    }
+    
 }
