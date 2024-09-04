@@ -27,6 +27,7 @@
 				<p> 현재 로그인 세션 아이디: <input id="sessionUser" type="text" th:value="${session.signedInUser}" /></p>
 				<p> 현재 로그인 세션 닉네임: <input id="sessionNickName" type="text" th:value="${session.signedInUserNickName}" /></p>
 				<p> 글 작성자 아이디 : <input id="postAuthor" type="text" th:value="${post.userid}"/> </p>
+				<input type="hidden" id="postId" th:value="${post.id}"/>
 				
 				
 				
@@ -88,14 +89,13 @@
 									<p th:text="*{content}"></p>
 								</div>
 								<!-- 포커싱할 댓글 id -->
-								<input type="text" id="commentId" th:value="${commentId}" />
+								<input type="hidden" id="commentId" value="${commentId}" />
 							</div>
 
 							<!-- 댓글 리스트 영역 -->
 							<div class="comments-section form-control">
 								<div class="form-group">
 									<input class="form-control mt-2" type="hidden" id="signedInUser" required th:value="${session.signedInUser}" />
-									<input type="hidden" id="postId" th:value="*{id}"/>
 								</div>
 							</div>
 						</div>

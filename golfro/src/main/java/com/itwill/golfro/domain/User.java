@@ -98,6 +98,10 @@ public class User implements Serializable {
         if (this.grade == null) {
             this.grade = Grade.builder().id("G21").name("일반 사용자(흰공)").build();
         }
+        
+        if (this.point == null) {
+        	this.point = 0L;
+        }
     }
 	
 	public User update(String password, String phone, String address, String proId, String account) {
@@ -140,7 +144,7 @@ public class User implements Serializable {
 		return this;
 	}
 	
-	public User increasePoint(Long point) {
+	public User increasePoint(Long commentsId) {
         this.point = point + 300;
         
         return this;
