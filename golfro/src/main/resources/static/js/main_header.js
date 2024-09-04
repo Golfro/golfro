@@ -28,7 +28,7 @@ window.addEventListener('scroll', function() {
     const rightSectionButton = document.querySelector('.right-section button');
     const loginButton = document.querySelector('.login .login-button svg');
 
-    if (window.scrollY > 960) {
+    if (window.scrollY > 800) {
         // 스크롤 위치가 960px 이상일 때
         header.style.backgroundColor = 'white';
         header.style.borderBottom = '1px solid #e4e4e4'; // 하단 테두리 추가

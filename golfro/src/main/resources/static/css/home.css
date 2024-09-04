@@ -48,26 +48,35 @@
 }
 
 .middle-section {
-    padding: 0 150px;
     max-width: 100%;
     box-sizing: border-box;
+    margin-bottom: 30px;
 }
 
 /* 클럽별 레슨받기 */
 .image-category {
-    max-width: 768px;
+    max-width: 1080px !important;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 100px;
+    margin-bottom: 100px !important;
 }
 
 .image-category h2 {
     font-family: 'Freesentation-9Black';
     font-size: 40px;
-    margin: 50px 0;
+    margin: 50px 0 30px;
 }
 
+/* 카드 목록을 Flexbox 컨테이너로 설정 */
 #clubCategory {
-    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px; /* 카드 간의 간격 조정 */
+}
+
+#clubCategory .col-md-2, #clubCategory .col-2 {
+    flex: 1 1 calc(20% - 1rem); /* 카드가 20% 너비를 가지며, 간격을 고려하여 계산 */
+    margin-bottom: 1rem; /* 카드의 하단 간격 조정 */
 }
 
 .text-left {
@@ -77,12 +86,13 @@
 /* Card Styling */
 .card {
     margin: 5px;
-    border-radius: 10px;
+    border-radius: 20px;
     transition: transform 0.3s ease-in-out;
 }
 
 .card-body {
     padding: 15px;
+    background-color: #82CBC4;
 }
 
 .card-img-top {
@@ -93,7 +103,7 @@
 
 .card img {
     transition: transform 0.5s ease-in-out;
-    border: 2px solid #dbdbdb;
+    border: 2px solid #82CBC4;
 }
 
 .card:hover img {
@@ -103,6 +113,11 @@
 .image-category h5 {
     font-family: 'ChosunGu';
     font-weight: bold;
+    color: black;
+    padding: 7px 0px;
+    background-color: white;
+    border-radius: 20px;
+    margin: 0px;
 }
 
 #clubCategory a {
@@ -110,113 +125,142 @@
     color: black;
 }
 
+/* 프로 랭킹 부분 */
+.bestPro {
+    background-color: #f7f7f7;
+}
+
 h2.tit_type {
     font-size: 2rem;
     font-family: 'Freesentation-9Black';
-    margin-top: 50px;
+    text-align: center; /* 텍스트를 가운데로 정렬 */
+    padding-top: 50px;
 }
 
-/* Middle Area Layout */
+h5.tit_type {
+    font-family: 'SUIT-Regular';
+    text-align: center; /* 텍스트를 가운데로 정렬 */
+    padding-bottom: 30px;
+}
+
 .middleArea {
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    flex-wrap: wrap;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: flex-start; /* 시작점에 정렬 */
+    flex-direction: column; /* 카드가 세로로 쌓이도록 설정 */
+    width: 100%;
 }
 
-.semi-title {
-    padding: 5px 30px;
-}
-
-.semi-title h4 {
-    font-family: 'SUIT-Regular';
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.semi-title h6 {
-    font-family: 'SUIT-Regular';
-    margin-bottom: 20px;
-}
-
-/* Rank Table */
-.rank {
-    font-family: 'ChosunGu';
-    padding: 20px;
+.rank-container {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    height: 600px;
-    border: 1px solid #ddd;
+    flex-direction: column; /* 줄별로 카드 배치 */
+    align-items: center; /* 중앙 정렬 */
+}
+
+.rank-row {
+    display: flex;
+    justify-content: space-between; /* 카드 사이에 공간을 균등하게 배치 */
+    width: 100%; /* 부모 요소의 너비에 맞추기 */
+    flex-wrap: wrap; /* 카드가 줄 바꿈을 할 수 있도록 설정 */
+    gap: 10px; /* 카드 간의 가로 간격을 10px로 설정 */
+}
+
+/* 첫 번째 줄: 1위부터 3위까지 */
+.top-row .rank-card {
+    flex: 1 1 calc(33% - 10px);
+    /* 카드가 부모 요소의 33% 너비에서 10px을 뺀 너비를 차지하도록 설정 */
+    aspect-ratio: 3/4; /* 높이를 가로의 1.5배로 설정 */
+    margin-bottom: 20px;
+}
+
+/* 두 번째 줄: 4위부터 7위까지 */
+.bottom-row .rank-card {
+    flex: 1 1 calc(25% - 10px);
+    /* 카드가 부모 요소의 25% 너비에서 10px을 뺀 너비를 차지하도록 설정 */
+    aspect-ratio: 5/6; /* 높이를 가로의 1.2배로 설정 */
+    margin-bottom: 50px;
+}
+
+.rank-card {
+    background-color: #ffffff;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    box-sizing: border-box; /* padding과 border를 포함한 전체 너비 계산 */
+}
+
+/* 카드 이미지 */
+.rank-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.rank-card-body {
+    padding: 10px 0;
+}
+
+.rank-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.top-row h5.rank-title {
+    font-size: 2rem;
+}
+
+.bottom-row h5.rank-title {
+    font-size: 1.5rem;
+}
+
+.rank-name {
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.rank-point {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Rank Table */ /*
+.rank {
+	font-family: 'ChosunGu';
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	height: 600px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
 }
 
 .rank table {
-    width: 100%;
+	width: 100%;
 }
 
 .rank th {
-    background: #ffffff;
-    border-bottom: 3px solid #0080ff;
-    font-size: 20px;
-    padding: 10px;
+	background: #ffffff;
+	border-bottom: 3px solid #0080ff;
+	font-size: 20px;
+	padding: 10px;
 }
 
 .rank td {
-    padding: 10px;
-    border-bottom: 1px dashed #ececec;
+	padding: 10px;
+	border-bottom: 1px dashed #ececec;
 }
 
 .profile-image {
-    max-width: 80px;
-    max-height: 80px;
-    width: auto;
-    height: auto;
+	max-width: 80px;
+	max-height: 80px;
+	width: auto;
+	height: auto;
 }
-
-/* Advertisement Slider */
-.ad-slider {
-    position: relative;
-    overflow: hidden;
-    width: 300px;
-    height: 600px;
-    margin: 20px auto;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-}
-
-.slider-container {
-    display: flex;
-    transition: transform 0.5s ease;
-}
-
-.slide {
-    flex: 0 0 100%;
-}
-
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.prev-btn, .next-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.prev-btn {
-    left: 10px;
-}
-
-.next-btn {
-    right: 10px;
-}
+*/
 
 /* Hot Posts */
 .hot-posts {
@@ -229,11 +273,14 @@ h2.tit_type {
 
 /* Instagram Section */
 .instagram {
+    max-width: 1280px !important;
     text-align: left;
     padding: 20px;
+    margin-top: 50px;
     margin-bottom: 20px;
     position: relative;
-    overflow: hidden; /* 부모 요소의 범위를 넘는 콘텐츠를 숨깁니다. */
+    overflow: hidden;
+    margin-bottom: 20px; /* 부모 요소의 범위를 넘는 콘텐츠를 숨깁니다. */
 }
 
 .instagram-header {
@@ -248,70 +295,21 @@ h2.tit_type {
 }
 
 /*swiper*/
-
 .swiper-container {
     width: 100%;
     height: 100%;
     overflow: hidden; /* 슬라이더의 콘텐츠가 컨테이너를 넘지 않도록 합니다. */
-    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
 }
 
 .swiper-slide {
     box-sizing: border-box;
-}
-/* Rank List */
-.rank-list {
-    display: flex;
-    flex-wrap: wrap;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    border: 1px solid black;
-}
-
-.rank-item {
-    width: calc(33.333% - 20px);
-    margin-bottom: 15px;
-    margin-right: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-}
-
-.rank-item:nth-child(3n) {
-    margin-right: 0;
-}
-
-.unit_no {
-    font-weight: bold;
-    margin-right: 10px;
-    font-size: 1.2em;
-}
-
-.pro_img {
-    margin-right: 10px;
-}
-
-.profile-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.pro_name {
-    flex-grow: 1;
-    font-size: 1.1em;
-}
-
-.pro_point {
-    font-size: 0.9em;
-    color: #666;
 }
 
 /* Responsive Design */
