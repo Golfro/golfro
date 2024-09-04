@@ -8,294 +8,260 @@
 <link rel="stylesheet" href="/css/footer.css" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
 <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
 <th:block th:replace="~{/fragments/header :: header}"></th:block>
 </head>
 <body>
-    <div class="container-fluid">
-        <main>
-            <div class="card border-0">
-                <div class="card-header border-0">
-                    <h2>LESSON</h2>
-                    <h7>골프에 대해 궁금한 점들을 물어보세요.</h7>
-                </div>
-                <div class="mobile-header">
-                    <a href="review_main">LESSON > </a> <span>골프에
-                        대해 궁금한 점들을 물어보세요.</span>
-                </div>
-                <div class="card-body">
+	<div class="container-fluid">
+		<main>
+			<div class="card border-0">
+				<div class="card-header border-0">
+					<h2>LESSON</h2>
+					<h7>골프에 대해 궁금한 점들을 물어보세요.</h7>
+				</div>
+				<div class="mobile-header">
+					<a href="review_main">LESSON > </a> <span>골프에 대해 궁금한 점들을
+						물어보세요.</span>
+				</div>
+				<div class="card-body">
 
-                    <form method="get" action="/mainPost/search">
-                        <div
-                            class="d-flex justify-content-between align-items-center pb-3"
-                            id=all-create>
-                            <div class="col-auto">
-                                <button type="button"
-                                    class="form-control" id="btnAllRead"
-                                    onclick="location.href='list'">
-                                    <i class="bi bi-justify"></i> 전체글 목록
-                                </button>
-                            </div>
-
-
-                            <div class="col-auto"
-                                th:if="${session.signedInUserGrade != null and 
+					<form method="get" action="/mainPost/search">
+						<div
+							class="d-flex justify-content-between align-items-center pb-3"
+							id=all-create>
+							<div class="col-auto">
+								<button type="button" class="form-control" id="btnAllRead"
+									onclick="location.href='list'">
+									<i class="bi bi-justify"></i> 전체글 목록
+								</button>
+							</div>
+							<div class="col-auto"
+								th:if="${session.signedInUserGrade != null and 
              (session.signedInUserGrade.id == 'G21' or 
               session.signedInUserGrade.id == 'G22' or 
               session.signedInUserGrade.id == 'G23' or 
               session.signedInUserGrade.id == 'G00')}">
-                                <button type="button"
-                                    class="form-control"
-                                    id="btnCreateMainPost"
-                                    onclick="location.href='create'">
-                                    <i class="bi bi-pencil-fill"></i>
-                                    글쓰기
-                                </button>
-                            </div>
+								<button type="button" class="form-control"
+									id="btnCreateMainPost" onclick="location.href='create'">
+									<i class="bi bi-pencil-fill"></i> 글쓰기
+								</button>
+							</div>
 
 
-                        </div>
+						</div>
 
 
-                        <div
-                            class="d-flex justify-content-center align-items-center mt-3 mb-3">
-                            <div class="search-box">
-                                <!-- 검색 카테고리 영역 -->
-                                <div class="search-category">
-                                    <select class="form-control"
-                                        name="searchCategory"
-                                        id="searchCategory"
-                                        onchange="toggleSearchField()">
-                                        <option value="searchClubs"
-                                            th:selected="${param.searchCategory == 'searchClubs'}">클럽별
-                                            검색</option>
-                                        <option value="searchSelection"
-                                            th:selected="${param.searchCategory == 'searchSelection'}">채택별
-                                            검색</option>
-                                        <option value="searchTitle"
-                                            th:selected="${param.searchCategory == 'searchTitle'}">제목
-                                            검색</option>
-                                        <option value="searchContent"
-                                            th:selected="${param.searchCategory == 'searchContent'}">내용
-                                            검색</option>
-                                        <option
-                                            value="searchTitleContent"
-                                            th:selected="${param.searchCategory == 'searchTitleContent'}">제목+내용
-                                            검색</option>
-                                        <option value="searchAuthor"
-                                            th:selected="${param.searchCategory == 'searchAuthor'}">작성자
-                                            검색</option>
-                                    </select>
-                                </div>
+						<div
+							class="d-flex justify-content-center align-items-center mt-3 mb-3">
+							<div class="search-box">
+								<!-- 검색 카테고리 영역 -->
+								<div class="search-category">
+									<select class="form-control" name="searchCategory"
+										id="searchCategory" onchange="toggleSearchField()">
+										<option value="searchClubs"
+											th:selected="${param.searchCategory == 'searchClubs'}">클럽별
+											검색</option>
+										<option value="searchSelection"
+											th:selected="${param.searchCategory == 'searchSelection'}">채택별
+											검색</option>
+										<option value="searchTitle"
+											th:selected="${param.searchCategory == 'searchTitle'}">제목
+											검색</option>
+										<option value="searchContent"
+											th:selected="${param.searchCategory == 'searchContent'}">내용
+											검색</option>
+										<option value="searchTitleContent"
+											th:selected="${param.searchCategory == 'searchTitleContent'}">제목+내용
+											검색</option>
+										<option value="searchAuthor"
+											th:selected="${param.searchCategory == 'searchAuthor'}">작성자
+											검색</option>
+									</select>
+								</div>
 
 
-                                <div
-                                    class="search-input d-flex justify-content-center align-items-center">
-                                    <div id="clubSelectField"
-                                        class="search-field">
-                                        <!-- 검색 카테고리 중 클럽타입 체크박스 영역 -->
-                                        <select class="form-control"
-                                            name="clubSelect"
-                                            id="clubSelect">
-                                            <th:block
-                                                th:each="c : ${clubs}">
-                                                <option
-                                                    th:value="${c.id}"
-                                                    th:text="${c.name}"
-                                                    th:selected="${c.id == param.clubSelect}"></option>
-                                            </th:block>
-                                        </select>
-                                    </div>
+
+								<div
+									class="search-input d-flex justify-content-center align-items-center">
+									<div id="clubSelectField" class="search-field">
+										<!-- 검색 카테고리 중 클럽타입 체크박스 영역 -->
+										<select class="form-control" name="clubSelect" id="clubSelect">
+											<th:block th:each="c : ${clubs}">
+												<option th:value="${c.id}" th:text="${c.name}"
+													th:selected="${c.id == param.clubSelect}"></option>
+											</th:block>
+										</select>
+									</div>
 
 
-                                    <!--  검색 카테고리 중 검색어 입력 -->
-                                    <div id="textSearchSelectField"
-                                        class="search-field">
-                                        <input type="text"
-                                            class="form-control"
-                                            name="textSearchSelect"
-                                            placeholder="검색어를 입력하세요"
-                                            th:value="${param.textSearchSelect}">
-                                    </div>
+									<!--  검색 카테고리 중 검색어 입력 -->
+									<div id="textSearchSelectField" class="search-field">
+										<input type="text" class="form-control"
+											name="textSearchSelect" placeholder="검색어를 입력하세요"
+											th:value="${param.textSearchSelect}">
+									</div>
 
 
-                                    <div id="searchSelectionField"
-                                        class="search-field">
-                                        <select
-                                            class="form-control no-radius"
-                                            name="selectSelection"
-                                            id="selectSelection">
-                                            <option value="selectFalse"
-                                                th:selected="${param.selectSelection == 'selectFalse'}">미완료</option>
-                                            <option value="selectTrue"
-                                                th:selected="${param.selectSelection == 'selectTrue'}">해결완료</option>
-                                        </select>
-                                    </div>
+									<div id="searchSelectionField" class="search-field">
+										<select class="form-control no-radius" name="selectSelection"
+											id="selectSelection">
+											<option value="selectFalse"
+												th:selected="${param.selectSelection == 'selectFalse'}">미완료</option>
+											<option value="selectTrue"
+												th:selected="${param.selectSelection == 'selectTrue'}">해결완료</option>
+										</select>
+									</div>
 
 
-                                    <div class="search-button mx-2">
-                                        <button type="submit"
-                                            class="btn no-radius"
-                                            id="searchButton">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-</svg></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+
+									<div class="search-button mx-2">
+										<button type="submit" class="btn no-radius" id="searchButton">
+
+
+
+											<svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor" class="bi bi-search"
+												viewBox="0 0 16 16">
+  <path
+													d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+</svg>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
 
 
 
 
-                    <ul class="divide-y">
-                        <c:set var="noticeTitle1"
-                            value="골프로(Golfro) 안내사항" />
-                        <c:set var="noticeUrl1"
-                            value="http://localhost:8080/gaebokchi/community/comm_details?id=83" />
-                        <li class="notice"><a href="${noticeUrl1}"
-                            class="notice-link"><strong>${noticeTitle1}</strong></a></li>
-                        <c:set var="noticeTitle2" value="안녕하세요 운영자입니다." />
-                        <c:set var="noticeUrl2"
-                            value="http://localhost:8080/gaebokchi/community/comm_details?id=83" />
-                        <li class="notice"><a href="${noticeUrl2}"
-                            class="notice-link"><strong>${noticeTitle2}
-                            </strong> </a></li>
+					<ul class="divide-y">
+						<c:set var="noticeTitle1" value="골프로(Golfro) 안내사항" />
+						<c:set var="noticeUrl1"
+							value="http://localhost:8080/gaebokchi/community/comm_details?id=83" />
+						<li class="notice"><a href="${noticeUrl1}"
+							class="notice-link"><strong>${noticeTitle1}</strong></a></li>
+						<c:set var="noticeTitle2" value="안녕하세요 운영자입니다." />
+						<c:set var="noticeUrl2"
+							value="http://localhost:8080/gaebokchi/community/comm_details?id=83" />
+						<li class="notice"><a href="${noticeUrl2}"
+							class="notice-link"><strong>${noticeTitle2} </strong> </a></li>
 
 
-                        <div th:each="post:${posts} "
-                            th:object="${post}">
-                            <li class="py-3.5 sm:py-4">
-                                <div class="mx-3">
-                                    <div
-                                        class="selection ${p.selection == '해결 완료' ? 'resolved-border' : ''}">
-                                        <div
-                                            class="hidden flex-col item-center sm:flex sm:-space-y-2.5">
-                                            <span
-                                                th:text="${post.status}">채택여부</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="d-flex flex-column w-100 py-1 px-2">
-                                    <div class="main-list-info">
-                                        <span th:text="*{nickname}"></span>
-                                        <span><i
-                                            th:text="*{createdTime}"
-                                            class="bi bi-dot"></i></span>
-                                    </div>
-                                    <div class="main-list-title my-2">
+						<tr th:if="${#lists.isEmpty(posts)}">
+							<td colspan="3">검색 결과가 없습니다.</td>
+						</tr>
 
-                                        <a th:text="*{title}"
-                                            th:href="@{/mainPost/details/{id}(id=*{id})}">
-                                        </a>
 
-                                    </div>
-                                    <div
-                                        class="main-list-view-like d-flex justify-content-between align-items-center pt-1">
-                                        <span class="club-type-link"
-                                            th:text="*{name}"></span> <span><i
-                                            class="bi bi-eye"
-                                            th:text="|조회수 : *{views}|">
-                                        </i> <i class="bi bi-heart"
-                                            th:text="|좋아요 : *{likes}"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </li>
-                        </div>
+						<div th:each="post:${posts} " th:object="${post}">
+							<li class="py-3.5 sm:py-4">
+								<div class="mx-3">
+									<div
+										class="selection" th:value="*{selection == 1 ? '해결완료' : '해결중'}">
+										<div
+											class="hidden flex-col item-center sm:flex sm:-space-y-2.5">
+											<span th:text="*{selection}">채택여부</span>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex flex-column w-100 py-1 px-2">
+									<div class="main-list-info">
+										<span th:text="${post.user.nickname}"></span> <span><i
+											th:text="*{createdTime}" class="bi bi-dot"></i></span>
+									</div>
+									<div class="main-list-title my-2">
+
+										<a th:text="*{title}"
+											th:href="@{/mainPost/details/{id}(id=*{id})}"> </a>
+
+									</div>
+									<div
+										class="main-list-view-like d-flex justify-content-between align-items-center pt-1">
+										<span class="club-type-link" th:text="${post.club.name}"></span> <span><i
+											class="bi bi-eye" th:text="|조회수 : *{views}|"> </i> <i
+											class="bi bi-heart" th:text="|좋아요 : *{likes}"></i> </span>
+									</div>
+								</div>
+							</li>
+						</div>
 
 
 
-                    </ul>
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <c:choose>
-                                <c:when test="${currentPage > 1}">
-                                    <li class="page-item"><a
-                                        class="page-link"
-                                        href="?page=${currentPage - 1}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}"
-                                        aria-label="Previous"><span
-                                            aria-hidden="true">«</span></a></li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="page-item disabled"><a
-                                        class="page-link" href="#"
-                                        aria-label="Previous"><span
-                                            aria-hidden="true">«</span></a></li>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:forEach begin="${startPage}"
-                                end="${endPage}" var="i">
-                                <li
-                                    class="page-item ${i == currentPage ? 'active' : ''}"><a
-                                    class="page-link"
-                                    href="?page=${i}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}">${i}</a></li>
-                            </c:forEach>
-                            <c:choose>
-                                <c:when
-                                    test="${currentPage < totalPages}">
-                                    <li class="page-item"><a
-                                        class="page-link"
-                                        href="?page=${currentPage + 1}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}"
-                                        aria-label="Next"><span
-                                            aria-hidden="true">»</span></a></li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="page-item disabled"><a
-                                        class="page-link" href="#"
-                                        aria-label="Next"><span
-                                            aria-hidden="true">»</span></a></li>
-                                </c:otherwise>
-                            </c:choose>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </main>
-    </div>
+					</ul>
+					<nav aria-label="Page navigation">
+						<ul class="pagination justify-content-center">
+							<c:choose>
+								<c:when test="${currentPage > 1}">
+									<li class="page-item"><a class="page-link"
+										href="?page=${currentPage - 1}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}"
+										aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item disabled"><a class="page-link"
+										href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+								</c:otherwise>
+							</c:choose>
+							<c:forEach begin="${startPage}" end="${endPage}" var="i">
+								<li class="page-item ${i == currentPage ? 'active' : ''}"><a
+									class="page-link"
+									href="?page=${i}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}">${i}</a></li>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${currentPage < totalPages}">
+									<li class="page-item"><a class="page-link"
+										href="?page=${currentPage + 1}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}"
+										aria-label="Next"><span aria-hidden="true">»</span></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item disabled"><a class="page-link"
+										href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</main>
+	</div>
 
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
+	<footer th:replace="~{fragments/footer :: footer}"></footer>
 
 
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript">
-					document.addEventListener('DOMContentLoaded', function() {
-						toggleSearchField(); // 페이지 로드 시 필드 초기화
-					});
-					function toggleSearchField() {
-						var searchCategory = document
-								.getElementById("searchCategory").value;
-						var clubSelectField = document
-								.getElementById("clubSelectField");
-						var textSearchSelectField = document
-								.getElementById("textSearchSelectField");
-						var searchSelectionField = document
-								.getElementById("searchSelectionField");
-						if (searchCategory === "searchClubs") {
-							clubSelectField.style.display = "block";
-							textSearchSelectField.style.display = "none";
-							searchSelectionField.style.display = "none";
-						} else if (searchCategory === "searchSelection") {
-							clubSelectField.style.display = "none";
-							textSearchSelectField.style.display = "none";
-							searchSelectionField.style.display = "block";
-						} else {
-							clubSelectField.style.display = "none";
-							textSearchSelectField.style.display = "block";
-							searchSelectionField.style.display = "none";
-						}
-					}
-				</script>
-    <script th:src="@{/js/list.js}"></script>
-    <script th:src="@{/js/script.js}"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+			toggleSearchField(); // 페이지 로드 시 필드 초기화
+		});
+		function toggleSearchField() {
+			var searchCategory = document.getElementById("searchCategory").value;
+			var clubSelectField = document.getElementById("clubSelectField");
+			var textSearchSelectField = document
+					.getElementById("textSearchSelectField");
+			var searchSelectionField = document
+					.getElementById("searchSelectionField");
+			if (searchCategory === "searchClubs") {
+				clubSelectField.style.display = "block";
+				textSearchSelectField.style.display = "none";
+				searchSelectionField.style.display = "none";
+			} else if (searchCategory === "searchSelection") {
+				clubSelectField.style.display = "none";
+				textSearchSelectField.style.display = "none";
+				searchSelectionField.style.display = "block";
+			} else {
+				clubSelectField.style.display = "none";
+				textSearchSelectField.style.display = "block";
+				searchSelectionField.style.display = "none";
+			}
+		}
+	</script>
+	<script th:src="@{/js/list.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

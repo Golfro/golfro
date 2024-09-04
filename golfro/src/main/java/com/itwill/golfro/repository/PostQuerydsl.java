@@ -45,9 +45,9 @@ public interface PostQuerydsl {
 	
 	List<Tuple> selectReadAllByUserid(String userid);
 	
-	Page<Tuple> search(MainPostSearchDto dto, Pageable pageable);
+	Page<Post> search(MainPostSearchDto dto, Pageable pageable);
 	
-	Page<Tuple> searchMyPost(MyPostSearchDto dto, Pageable pageable);
+	Page<Post> searchMyPost(MyPostSearchDto dto, Pageable pageable);
 	
 	Page<Tuple> getPostList(Pageable pageable);
 	

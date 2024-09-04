@@ -5,7 +5,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
+import com.itwill.golfro.domain.User;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,9 +21,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MainPostListDto {
 	private Long id;
-	private String name;
+	private Club club;
 	private String title;
-	private String nickname;
+	private User user;
 	private Long views;
 	private Long likes;
 	private String createdTime;
@@ -31,9 +33,9 @@ public class MainPostListDto {
 	public static MainPostListDto fromEntity(Post entity) {
 		return MainPostListDto.builder()
 				.id(entity.getId())
-				.name(entity.getUser().getName())
+				.club(entity.getClub())
 				.title(entity.getTitle())
-				.nickname(entity.getUser().getNickname())
+				.user(entity.getUser())
 				.views(entity.getViews())
 				.likes(entity.getLikes())
 				.createdTime(formatDateTime(entity.getCreatedTime()))

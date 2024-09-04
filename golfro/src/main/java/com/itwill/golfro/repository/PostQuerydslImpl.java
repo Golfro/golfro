@@ -473,43 +473,18 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public Page<Tuple> search(MainPostSearchDto dto, Pageable pageable) {
+	public Page<Post> search(MainPostSearchDto dto, Pageable pageable) {
 		log.info("search(searchDto={})", dto);
 	    
 	    QPost post = QPost.post;
 	    QClub club = QClub.club;
 	    QUser user = QUser.user;
-	    QComment comment = QComment.comment;
 	    
-	    JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
-
 	    // 검색어 바인딩
 	    String searchKeyword = "%" + dto.getTextSearchSelect() + "%";
 	    
-	    // 서브쿼리: 댓글 존재 여부 확인
-	    BooleanExpression existsSubquery = JPAExpressions
-	        .selectOne()
-	        .from(comment)
-	        .where(comment.post.id.eq(post.id)
-	               .and(comment.selection.eq(1)))
-	        .exists();
-
 	    // 메인 쿼리
-	    JPAQuery<Tuple> query = queryFactory
-	        .select(
-	            post.id,
-	            club.name,
-	            post.title,
-	            user.nickname,
-	            post.views,
-	            post.likes,
-	            post.createdTime,
-	            new CaseBuilder()
-	                .when(existsSubquery)
-	                .then("해결 완료")
-	                .otherwise("해결 중")
-	        )
-	        .from(post)
+	    JPQLQuery<Post> query = from(post)
 	        .join(club).on(post.club.id.eq(club.id))
 	        .join(user).on(post.user.userid.eq(user.userid))
 	        .where(buildSearchConditions(dto, searchKeyword))
@@ -519,16 +494,10 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    getQuerydsl().applyPagination(pageable, query);
 
 	    // 결과 가져오기
-	    List<Tuple> list = query.fetch();
+	    List<Post> list = query.fetch();
 
 	    // 전체 게시물 수 계산
-	    long count = queryFactory
-	            .select(post.id.count())
-	            .from(post)
-	            .join(club).on(post.club.id.eq(club.id))
-	            .join(user).on(post.user.userid.eq(user.userid))
-	            .where(buildSearchConditions(dto, searchKeyword))
-	            .fetchOne(); 
+	    long count = query.fetchCount(); 
 	        
 	    return new PageImpl<>(list, pageable, count);
 	}
@@ -544,9 +513,8 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
 	    QPost post = QPost.post;
 	    QUser user = QUser.user;
-	    QComment comment = QComment.comment;
 	    
-	    if ("searchClubs".equals(dto.getSearchCategory())) {
+	    if (dto.getSearchCategory().equals("searchClubs")) {
 	        if (dto.getClubSelect().equals("WG")) builder.and(post.club.id.eq("WG"));
 	        if (dto.getClubSelect().equals("PT")) builder.and(post.club.id.eq("PT"));
 	        if (dto.getClubSelect().equals("UT")) builder.and(post.club.id.eq("UT"));
@@ -556,22 +524,8 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    }
 
 	    if (dto.getSearchCategory().equals("searchSelection")) {
-	        if (dto.getSelectSelection().equals("selectTrue")) {
-	            builder.and(JPAExpressions
-	                .selectOne()
-	                .from(comment)
-	                .where(comment.post.id.eq(post.id)
-	                       .and(comment.selection.eq(1)))
-	                .exists());
-	        }
-	        if (dto.getSelectSelection().equals("selectFalse")) {
-	            builder.and(JPAExpressions
-	                .selectOne()
-	                .from(comment)
-	                .where(comment.post.id.eq(post.id)
-	                       .and(comment.selection.eq(1)))
-	                .notExists());
-	        }
+	    	if (dto.getSelectSelection().equals("selectFalse")) builder.and(post.selection.eq(0));
+	        if (dto.getSelectSelection().equals("selectTrue")) builder.and(post.selection.eq(1));
 	    }
 
 	    if (dto.getSearchCategory().equals("searchTitle")) {
@@ -594,44 +548,24 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    return builder;
 	}
 	
+	
+	
+	
+	
+	
 	@Override
-	public Page<Tuple> searchMyPost(MyPostSearchDto dto, Pageable pageable) {
+	public Page<Post> searchMyPost(MyPostSearchDto dto, Pageable pageable) {
 	    log.info("searchMyPost(searchDto={})", dto);
 	    
 	    QPost post = QPost.post;
 	    QClub club = QClub.club;
 	    QUser user = QUser.user;
-	    QComment comment = QComment.comment;
-	    
-	    JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
 
 	    // 검색어 바인딩
 	    String searchKeyword = "%" + dto.getTextSearchSelect() + "%";
 	    
-	    // 서브쿼리: 댓글 존재 여부 확인
-	    BooleanExpression existsSubquery = JPAExpressions
-	        .selectOne()
-	        .from(comment)
-	        .where(comment.post.id.eq(post.id)
-	               .and(comment.selection.eq(1)))
-	        .exists();
-
 	    // 메인 쿼리
-	    JPAQuery<Tuple> query = queryFactory
-	        .select(
-	            post.id,
-	            club.name,
-	            post.title,
-	            user.nickname,
-	            post.views,
-	            post.likes,
-	            post.createdTime,
-	            new CaseBuilder()
-	                .when(existsSubquery)
-	                .then("해결 완료")
-	                .otherwise("해결 중")
-	        )
-	        .from(post)
+	    JPQLQuery<Post> query = from(post)
 	        .join(club).on(post.club.id.eq(club.id))
 	        .join(user).on(post.user.userid.eq(user.userid))
 	        .where(buildSearchConditions(dto, searchKeyword))
@@ -641,16 +575,10 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    getQuerydsl().applyPagination(pageable, query);
 
 	    // 결과 가져오기
-	    List<Tuple> list = query.fetch();
+	    List<Post> list = query.fetch();
 
 	    // 전체 게시물 수 계산
-	    long count = queryFactory
-	            .select(post.id.count())
-	            .from(post)
-	            .join(club).on(post.club.id.eq(club.id))
-	            .join(user).on(post.user.userid.eq(user.userid))
-	            .where(buildSearchConditions(dto, searchKeyword))
-	            .fetchOne();
+	    long count = query.fetchCount();
 	        
 	    return new PageImpl<>(list, pageable, count);
 	}
