@@ -3,7 +3,6 @@ package com.itwill.golfro.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.golfro.domain.Category;
-import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
 
@@ -16,8 +15,9 @@ public class ReviewPostCreateDto {
 	private String title;
 	private String content;
 	private String userid;
+	private User user;
 	private String categoryId;
-	private String clubId;
+	private Category category;
 	private MultipartFile media;
 	private String mediaPath;
 
@@ -25,10 +25,9 @@ public class ReviewPostCreateDto {
 		return Post.builder()
 				.title(title)
 				.content(content)
-				.user(User.builder().userid(userid).build())
+				.user(user)
+				.category(category)
 				.media(mediaPath)
-				.club(Club.builder().id(clubId).build())
-				.category(Category.builder().id(categoryId).build())
 				.build();
 	}
 }
