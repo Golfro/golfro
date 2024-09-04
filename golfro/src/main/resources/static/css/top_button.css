@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+#topButton {
+	display: block; /* 초기에는 보이지 않도록 설정 */
+	position: fixed; /* 스크롤 시에도 고정 */
+	bottom: 20px; /* 화면 하단에서 20px 위 */
+	right: 20px; /* 화면 오른쪽에서 20px 왼쪽 */
+	z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+	font-size: 0.9rem;
+	border: 1px solid #888;
+	background-color: #ffffff;
+	color: #888;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 50%;
+	display: flex; /* 중앙 정렬을 위해 flex 사용 */
+	align-items: center; /* 수직 중앙 정렬 */
+	justify-content: center; /* 수평 중앙 정렬 */
+	line-height: 1; /* 줄 높이 조정 */
+}

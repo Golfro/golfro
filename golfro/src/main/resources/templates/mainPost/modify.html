@@ -10,8 +10,9 @@
 	crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/mainPost_create.css}">
 
-<title>글 작성｜GOLFRO</title>
+<title>수정하기｜GOLFRO</title>
 
 </head>
 
@@ -50,7 +51,7 @@
 									th:value="${post.title}" placeholder="제목을 입력하세요." required maxlength="50" />
 							</div>
 							<div class="col-2">
-								<input id="id" class="form-control" type="text"
+								<input id="id" class="form-control d-none" type="text"
 									name="id" required
 									th:value="${post.id}" />
 							</div>
@@ -95,10 +96,10 @@
                         <div
                             class="lastbtn mt-2 d-flex justify-content-end">
                             <div>
-                                 <a href="javascript:history.back()" class="m-2 btn">취소하기</a>
+                                 <a href="javascript:history.back()" class="m-1 px-4 py-2 btn cancelBtn">취소</a>
                             </div>
                             <div>
-                                <button class="m-2 btn" id="btnUpdate">수정완료</button>
+                                <button class="m-1 px-4 py-2 btn submitBtn" id="btnUpdate">완료</button>
                             </div>
                         </div>
 					</form>
