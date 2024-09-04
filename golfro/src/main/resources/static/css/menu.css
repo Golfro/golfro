@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+        format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+ul.sub_menu {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+a.menu_link h3 {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
+    color: #000000;
+}
+
+h4.menu_header {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
+    color: #000000;
+}
+
+a.menu_link {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    color: #9d9d9d;
+    font-size: 110%;
+}
+
+li.menu_item {
+    line-height: 2
+}
+
+button#viewGainPoints {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+/* 모바일 화면에서 h3 숨기기 */
+@media ( max-width : 768px) {
+    a.menu_link h3 {
+        display: none;
+    }
+}
+
+h4.menu_header {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
+    color: #000000;
+}
+
+a.menu_link {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    color: #9d9d9d;
+    font-size: 110%;
+}
+
+li.menu_item {
+    line-height: 2;
+}
+
+button#viewGainPoints {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+}
