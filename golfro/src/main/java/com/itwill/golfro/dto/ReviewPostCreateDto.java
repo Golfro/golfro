@@ -15,9 +15,9 @@ public class ReviewPostCreateDto {
 	// 필드 이름을 요청 파라미터 이름과 같게 선언 & 기본 생성자 & setter.
 	private String title;
 	private String content;
-	private String userid;
+//	private String userid;
 	private String categoryId;
-	private String clubId;
+//	private String clubId;
 	private MultipartFile media;
 	private String mediaPath;
 
@@ -25,9 +25,9 @@ public class ReviewPostCreateDto {
 		return Post.builder()
 				.title(title)
 				.content(content)
-				.user(User.builder().userid(userid).build())
+//				.user(User.builder().userid(userid).build())
 				.media(mediaPath)
-				.club(Club.builder().id(clubId).build())
+//				.club(Club.builder().id(clubId).build())
 				.category(Category.builder().id(categoryId).build())
 				.build();
 	}

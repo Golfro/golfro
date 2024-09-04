@@ -61,28 +61,17 @@ public class ReviewController {
 	private final UserService userService;
 
 	private Map<String, Set<Integer>> userLikedPosts = new HashMap<>();
-	
-	@ModelAttribute("loggedInUser")
-	public User addLoggedInUserToModel(HttpSession session) {
-		String userid = SESSION_ATTR_USER;
-		return reviewPostService.getLoggedInUser(userid);
-	}
 
 	@GetMapping("/review_create")
-	public String createReviewPost(@ModelAttribute("loggedInUser") User loggedInUser, Model model) {
-		if (loggedInUser != null) {
-			model.addAttribute("user", loggedInUser);
-		}
+	public String createReviewPost() {
+
 		return "review/review_create";
 	}
 
 	@PostMapping("/review_create")
 	public String create(@ModelAttribute ReviewPostCreateDto dto,
-			@RequestParam(value = "media", required = false) MultipartFile mediaFile,
-			@ModelAttribute("loggedInUser") User loggedInUser) {
-		if (loggedInUser != null) {
-			log.info("create(loggedInUser={})", loggedInUser);
-		}
+			@RequestParam(value = "media", required = false) MultipartFile mediaFile
+			) {
 
 		if (mediaFile != null && !mediaFile.isEmpty()) {
 			String fileName = mediaService.storeFile(mediaFile);
@@ -136,12 +125,9 @@ public class ReviewController {
 	}
 
 	@GetMapping("/review_details")
-	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
+	public String detailsCommunityPost(
 			@RequestParam("id") long id, @RequestParam(name = "commentId", required = false) long commentId,
 			Model model, HttpSession session) {
-		if (loggedInUser != null) {
-			log.info("detailsCommunityPost(loggedInUser={})", loggedInUser);
-			model.addAttribute("user", loggedInUser);
 
 			@SuppressWarnings("unchecked")
 			Set<Long> viewedPosts = (Set<Long>) session.getAttribute("viewedPosts");
@@ -149,16 +135,10 @@ public class ReviewController {
 				viewedPosts = new HashSet<>();
 			}
 
-			if (!viewedPosts.contains(id)) {
 				reviewPostService.increaseViews(id); // 조회수 증가
 				viewedPosts.add(id);
 				session.setAttribute("viewedPosts", viewedPosts);
-			} else {
 				log.info("이미 조회한 게시물입니다.");
-			}
-		} else {
-			log.info("로그인하지 않은 사용자는 조회수가 증가하지 않습니다.");
-		}
 
 		// 게시물 조회
 		Post post = reviewPostService.read(id);
@@ -260,10 +240,10 @@ public class ReviewController {
 
 	@PostMapping("/comments")
 	@ResponseBody
-	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto, @ModelAttribute("loggedInUser") User loggedInUser) {
-		if (loggedInUser != null) {
+	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto,User user) {
+		
 			Comment comment = Comment.builder()
-					.user(User.builder().userid(loggedInUser.getUserid()).build())
+					.user(User.builder().userid(user.getUserid()).build())
 					.post(Post.builder().id(commentCreateDto.getPostId()).build())
 					.content(commentCreateDto.getContent())
 					.build(); // 댓글 작성자 설정
@@ -278,10 +258,7 @@ public class ReviewController {
 				// 저장에 실패한 경우 처리
 				return null;
 			}
-		} else {
-			// 로그인 되지 않은 경우 처리
-			return null;
-		}
+		
 	}
 
 	@PutMapping("/comments")
