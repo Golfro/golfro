@@ -1,12 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const select = document.getElementById('categorySelect');
-    const defaultOption = select.querySelector('option[value="de"]');
-    defaultOption.style.display = 'none';
-
-    select.addEventListener('click', function() {
-        defaultOption.style.display = 'none';
-    });
-
     document.querySelectorAll('.post-link').forEach(function(link) {
         link.addEventListener('click', function(event) {
             event.preventDefault();

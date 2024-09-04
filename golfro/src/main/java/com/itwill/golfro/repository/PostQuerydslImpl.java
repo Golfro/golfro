@@ -890,7 +890,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
         JPQLQuery<Post> query = from(post)
             .join(user).on(post.user.userid.eq(user.userid))
-            .where(post.category.id.in("P003"))
+            .where(post.category.id.in("P004"))
             .orderBy(post.createdTime.desc());
 
         List<Post> list = query.fetch();

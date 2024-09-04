@@ -76,7 +76,7 @@ body {
                             </div>
                             <div class="col">
                                 <input class="form-control mb-2" type="text" name="title" placeholder="제목을 입력하세요." required autofocus />
-                                <input class="form-control mb-2" type="hidden" name="author" th:value="${loggedInUser.userid}" />
+                                <input class="form-control mb-2" type="hidden" name="author" th:value="${session.signedInUser}" />
                             </div>
                         </div>
                         <div class="mb-3">

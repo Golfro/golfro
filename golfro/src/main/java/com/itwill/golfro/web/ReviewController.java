@@ -8,18 +8,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,7 +36,6 @@ import com.itwill.golfro.dto.ReviewPostListDto;
 import com.itwill.golfro.dto.ReviewPostSearchDto;
 import com.itwill.golfro.dto.ReviewPostUpdateDto;
 import com.itwill.golfro.repository.CommentRepository;
-import com.itwill.golfro.service.MediaService;
 import com.itwill.golfro.service.ReviewPostService;
 import com.itwill.golfro.service.UserService;
 
@@ -54,10 +50,9 @@ import lombok.extern.slf4j.Slf4j;
 public class ReviewController {
 
 	public static final String SESSION_ATTR_USER = "signedInUser";
-	
+
 	private final CommentRepository cmtRepo;
 	private final ReviewPostService reviewPostService;
-	private final MediaService mediaService;
 	private final UserService userService;
 
 	private Map<String, Set<Integer>> userLikedPosts = new HashMap<>();
@@ -69,16 +64,11 @@ public class ReviewController {
 	}
 
 	@PostMapping("/review_create")
-	public String create(@ModelAttribute ReviewPostCreateDto dto,
-			@RequestParam(value = "media", required = false) MultipartFile mediaFile
-			) {
+	public String create(ReviewPostCreateDto dto,
+			@RequestParam(value = "media", required = false) MultipartFile mediaFile) {
 
-		if (mediaFile != null && !mediaFile.isEmpty()) {
-			String fileName = mediaService.storeFile(mediaFile);
-			dto.setMediaPath(fileName);
-		}
-
-		reviewPostService.Create(dto);
+		reviewPostService.Create(dto, mediaFile);
+		
 		return "redirect:/review/review_main";
 	}
 
@@ -97,54 +87,42 @@ public class ReviewController {
 			searchDto.setCategory(category);
 			searchDto.setKeyword(keyword);
 			posts = reviewPostService.search(searchDto, pageNo, Sort.by("id").descending());
+			model.addAttribute("keyword", keyword);
 		} else {
 			posts = reviewPostService.getPagedPosts(pageNo, Sort.by("id").descending());
 		}
 
 		List<ReviewPostListDto> filteredPostsList = posts.getContent().stream()
-				.filter(post -> !pinnedPostIds.contains(post.getId()))
-	            .collect(Collectors.toList());
+				.filter(post -> !pinnedPostIds.contains(post.getId())).collect(Collectors.toList());
 
 		posts = new PageImpl<>(filteredPostsList, posts.getPageable(), posts.getTotalElements() - pinnedPosts.size());
-		
+
 		model.addAttribute("posts", posts);
 		model.addAttribute("pinnedPosts", pinnedPosts);
-
-		// 카테고리 매핑 정보 추가하기
-		Map<String, String> categoryMap = new HashMap<>();
-		categoryMap.put("P004", "리뷰");
-
-		Map<String, String> userNicknames = userService.getUserNicknames();
-
-		model.addAttribute("userNicknames", userNicknames);
-		model.addAttribute("posts", posts);
-		model.addAttribute("categoryMap", categoryMap);
-		model.addAttribute("keyword", keyword);
 
 		return "review/review_main";
 	}
 
 	@GetMapping("/review_details")
-	public String detailsCommunityPost(
-			@RequestParam("id") long id, @RequestParam(name = "commentId", required = false) long commentId,
-			Model model, HttpSession session) {
+	public String detailsCommunityPost(@RequestParam("id") long id,
+			@RequestParam(name = "commentId", required = false) long commentId, Model model, HttpSession session) {
 
-			@SuppressWarnings("unchecked")
-			Set<Long> viewedPosts = (Set<Long>) session.getAttribute("viewedPosts");
-			if (viewedPosts == null) {
-				viewedPosts = new HashSet<>();
-			}
+		@SuppressWarnings("unchecked")
+		Set<Long> viewedPosts = (Set<Long>) session.getAttribute("viewedPosts");
+		if (viewedPosts == null) {
+			viewedPosts = new HashSet<>();
+		}
 
-				reviewPostService.increaseViews(id); // 조회수 증가
-				viewedPosts.add(id);
-				session.setAttribute("viewedPosts", viewedPosts);
-				log.info("이미 조회한 게시물입니다.");
+		reviewPostService.increaseViews(id); // 조회수 증가
+		viewedPosts.add(id);
+		session.setAttribute("viewedPosts", viewedPosts);
+		log.info("이미 조회한 게시물입니다.");
 
 		// 게시물 조회
 		Post post = reviewPostService.read(id);
 
-		String[] category = {"P004"};
-		
+		String[] category = { "P004" };
+
 		// 이전 글과 다음 글 찾기
 		Post previousPost = reviewPostService.getPreviousPost(category, post.getCreatedTime());
 		Post nextPost = reviewPostService.getNextPost(category, post.getCreatedTime());
@@ -163,14 +141,14 @@ public class ReviewController {
 		model.addAttribute("commentlist", commentlist); // 댓글 목록 추가하기
 		model.addAttribute("commentcount", commentcount);
 		model.addAttribute("commentId", commentId);
-		
+
 		return "review/review_details";
 	}
 
 	@GetMapping("/review_modify")
 	public String modifyReviewPost(@RequestParam("id") long id, Model model) {
 		log.info("modifyReviewPost(id={})", id);
-		
+
 		Post post = reviewPostService.read(id);
 
 		// 모델에 속성 추가
@@ -202,7 +180,7 @@ public class ReviewController {
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> increaseLikes(@RequestParam("id") long id, HttpSession session) {
 		log.info("increaseLikes(id={})", id);
-		
+
 		String userid = SESSION_ATTR_USER;
 
 		// 해당 사용자가 이미 좋아요를 눌렀는지 확인
@@ -222,7 +200,7 @@ public class ReviewController {
 		Post updatedPost = reviewPostService.read(id);
 		Map<String, Object> response = new HashMap<>();
 		response.put("likes", updatedPost.getLikes());
-		
+
 		return ResponseEntity.ok(response);
 	}
 
@@ -231,34 +209,32 @@ public class ReviewController {
 	public String getCommentsByPostId(@PathVariable long postId, Model model) {
 		List<Comment> comments = cmtRepo.selectByPostId(postId);
 		Map<String, String> userNicknames = userService.getUserNicknames();
-		
+
 		model.addAttribute("comments", comments);
-		model.addAttribute("userNicknames", userNicknames);	
+		model.addAttribute("userNicknames", userNicknames);
 
 		return "review/review_details";
 	}
 
 	@PostMapping("/comments")
 	@ResponseBody
-	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto,User user) {
-		
-			Comment comment = Comment.builder()
-					.user(User.builder().userid(user.getUserid()).build())
-					.post(Post.builder().id(commentCreateDto.getPostId()).build())
-					.content(commentCreateDto.getContent())
-					.build(); // 댓글 작성자 설정
+	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto, User user) {
 
-			// 댓글을 데이터베이스에 저장하고 자동 생성된 id를 받아옴
-			Comment result = cmtRepo.save(comment);
+		Comment comment = Comment.builder().user(User.builder().userid(user.getUserid()).build())
+				.post(Post.builder().id(commentCreateDto.getPostId()).build()).content(commentCreateDto.getContent())
+				.build(); // 댓글 작성자 설정
 
-			// 저장된 댓글 객체를 반환하여 클라이언트에게 전달
-			if (result != null) {
-				return comment;
-			} else {
-				// 저장에 실패한 경우 처리
-				return null;
-			}
-		
+		// 댓글을 데이터베이스에 저장하고 자동 생성된 id를 받아옴
+		Comment result = cmtRepo.save(comment);
+
+		// 저장된 댓글 객체를 반환하여 클라이언트에게 전달
+		if (result != null) {
+			return comment;
+		} else {
+			// 저장에 실패한 경우 처리
+			return null;
+		}
+
 	}
 
 	@PutMapping("/comments")
@@ -268,20 +244,13 @@ public class ReviewController {
 		if (comment != null) {
 			comment.update(commentUpdateDto.getContent());
 			Comment result = cmtRepo.save(comment);
-			
+
 			if (result != null) {
 				return comment; // 수정된 댓글 객체 반환
 			}
 		}
-		
-		return null;
-	}
 
-	@GetMapping("/media/{fileName}")
-	@ResponseBody
-	public ResponseEntity<ByteArrayResource> getMedia(@PathVariable("fileName") String fileName) {
-		ByteArrayResource resource = mediaService.loadFileAsResource(fileName);
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(resource);
+		return null;
 	}
 
 	// DELETE 요청의 URL 수정
