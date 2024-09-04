@@ -1,146 +1,149 @@
 @charset "UTF-8";
 /* 폰트 */
 @font-face {
-	font-family: 'Freesentation-9Black';
-	src:
-		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
-		format('woff2');
-	font-weight: 900;
-	font-style: normal;
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 900;
+    font-style: normal;
 }
 
 @font-face {
-	font-family: 'SUIT-Regular';
-	src:
-		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
-		format('woff2');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
 }
 
 .card {
-	margin-top: 80px;
-	width: 960px;
-	padding: 20px;
+    margin-top: 80px;
+    width: 960px;
+    padding: 20px;
 }
 
 .card-header {
-	background: white !important;
+    background: white !important;
 }
 
 .card-header h3 {
-	font-family: 'Freesentation-9Black', Freesentation-9Black;
+    font-family: 'Freesentation-9Black', Freesentation-9Black;
 }
 
 #clubType {
-	width: 100%;
+    width: 100%;
 }
 
-.card-body{
+.card-body {
     padding: 0px !important;
 }
+
 .card-body span {
-	font-family: 'SUIT-Regular';
-	font-size: 0.9rem;
-	padding-left: calc(100% -10px);
-	font-weight: 600;
-	color: #2FA599;
+    font-family: 'SUIT-Regular';
+    font-size: 0.9rem;
+    padding-left: calc(100% -10px);
+    font-weight: 600;
+    color: #2FA599;
 }
 
 select {
-	appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	background:
-		url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' class=\'bi bi-chevron-down\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708\'/%3E%3C/svg%3E')
-		no-repeat;
-	background-position: right 20px center;
-	background-size: 20px 20px; /* 아이콘 크기 조정 */
-	padding-right: 30px; /* 화살표와 텍스트 간 간격 */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background:
+        url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' class=\'bi bi-chevron-down\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708\'/%3E%3C/svg%3E')
+        no-repeat;
+    background-position: right 20px center;
+    background-size: 20px 20px; /* 아이콘 크기 조정 */
+    padding-right: 30px; /* 화살표와 텍스트 간 간격 */
 }
 
 select.form-control {
-	font-family: 'SUIT-Regular', SUIT-Regular; /* 원하는 폰트로 변경 */
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    font-family: 'SUIT-Regular', SUIT-Regular; /* 원하는 폰트로 변경 */
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }
 
 /* option 요소의 폰트 설정 */
 select.form-control option {
-	font-family: 'SUIT-Regular', SUIT-Regular; /* 원하는 폰트로 변경 */
+    font-family: 'SUIT-Regular', SUIT-Regular; /* 원하는 폰트로 변경 */
 }
 
 .form-control {
-	padding: 10px 20px;
-	border: 1px solid #ced4da;
-	border-radius: 0.25rem;
-	height: 120%;
+    padding: 10px 20px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    height: 120%;
 }
 
 .container-fluid.px-0 input::placeholder {
-	font-size: 0.8em;
+    font-size: 0.8em;
 }
 
 .cancelBtn {
-	background-color: #EEEEEE !important;
+    background-color: #EEEEEE !important;
+    font-family: 'SUIT-Regular', SUIT-Regular;
 }
 
 .submitBtn {
-	color: white !important;
-	background-color: #2FA599 !important;
+    color: white !important;
+    background-color: #2FA599 !important;
+    font-family: 'SUIT-Regular', SUIT-Regular;
 }
 /* Hover 효과 제거 */
 .lastbtn .btn:hover {
-	background-color: #ffffff; /* 배경색 초기화 */
-	color: #2FA599; /* 글자색 초기화 */
-	border-color: #c0c0c0; /* 테두리 색 초기화 */
+    background-color: #ffffff; /* 배경색 초기화 */
+    color: #2FA599; /* 글자색 초기화 */
+    border-color: #c0c0c0; /* 테두리 색 초기화 */
 }
 
 /*모바일 화면*/
 @media screen and (max-width: 768px) {
-	body {
-		flex-direction: column;
-	}
-	#create {
-		margin-top: 130px;
-	}
-	.card {
-		width: 100%;
-		padding: 0px !important;
-	}
-	.card-header h3 {
-		margin: 0px;
-	}
-	.card-body {
-		padding-top: 0px !important;
-	}
-	.form-control {
-		width: 100%;
-	}
-	.lastbtn .btn {
-		width: auto; /* 너비 자동 조정 */
-		margin: 5px; /* 여백 조정 */
-		padding: 10px 15px; /* 내부 여백 조정 */
-		font-size: 14px; /* 글자 크기 조정 */
-	}
+    body {
+        flex-direction: column;
+    }
+    #create {
+        margin-top: 130px;
+    }
+    .card {
+        width: 100%;
+        padding: 0px !important;
+    }
+    .card-header h3 {
+        margin: 0px;
+    }
+    .card-body {
+        padding-top: 0px !important;
+    }
+    .form-control {
+        width: 100%;
+    }
+    .lastbtn .btn {
+        width: auto; /* 너비 자동 조정 */
+        margin: 5px; /* 여백 조정 */
+        padding: 10px 15px; /* 내부 여백 조정 */
+        font-size: 14px; /* 글자 크기 조정 */
+    }
 
-	/* 추가된 부분: .row의 flex-direction을 column으로 변경 */
-	.row.g-1 {
-		flex-direction: column; /* 추가: 각 col들이 세로로 배치되도록 변경 */
-	}
-	.row.g-1 .col {
-		width: 100%; /* col들이 전체 너비를 차지 */
-		margin-bottom: 10px;
-	}
+    /* 추가된 부분: .row의 flex-direction을 column으로 변경 */
+    .row.g-1 {
+        flex-direction: column; /* 추가: 각 col들이 세로로 배치되도록 변경 */
+    }
+    .row.g-1 .col {
+        width: 100%; /* col들이 전체 너비를 차지 */
+        margin-bottom: 10px;
+    }
 
-	/* 모바일에서 카드의 padding 조정 */
-	.card-body {
-		padding: 10px;
-	}
+    /* 모바일에서 카드의 padding 조정 */
+    .card-body {
+        padding: 10px;
+    }
 }
