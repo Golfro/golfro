@@ -68,6 +68,7 @@ public class JoinController {
 			@RequestParam(required = false) String keyword,
 			@RequestParam(name = "p", defaultValue = "0") int pageNo, Model model) {
 		Page<Post> posts;
+		Sort sort = Sort.by("teeoff").descending(); // 정렬 설정
 		
 		LocalDate today = LocalDate.now();
 		List<LocalDate> dates = new ArrayList<>();
@@ -80,17 +81,17 @@ public class JoinController {
 		// 검색 처리
 		if ((category != null && !category.isEmpty()) && (keyword != null && !keyword.isEmpty())) {
 			JoinPostSearchDto searchDto = new JoinPostSearchDto(category, keyword);
-			posts = joinPostService.search(searchDto, pageNo, Sort.by("id").descending());
+			posts = joinPostService.search(searchDto, pageNo, sort);
 		} else if (teeoffDateStr != null && !teeoffDateStr.isEmpty()) {
 			try {
 				LocalDate teeoffDate = LocalDate.parse(teeoffDateStr);
-				posts = joinPostService.findByTeeoffDate(teeoffDate, pageNo, Sort.by("id").descending());
+				posts = joinPostService.findByTeeoffDate(teeoffDate, pageNo, sort);
 			} catch (DateTimeParseException e) {
 				log.error("날짜 형식 오류: {}", teeoffDateStr, e);
-				posts = joinPostService.read(pageNo, Sort.by("id").descending());
+				posts = joinPostService.read(pageNo, sort);
 			}
 		} else {
-			posts = joinPostService.getPagedPosts(pageNo, Sort.by("id").descending());
+			posts = joinPostService.getPagedPosts(pageNo, sort);
 		}
 
 		model.addAttribute("posts", posts);

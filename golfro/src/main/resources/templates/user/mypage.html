@@ -51,7 +51,7 @@
 								</div>
 							</a>
 						</div>
-                        <th:if test="${session.signedInUser eq 'admin'}">
+                        <th:block th:if="${session.signedInUser eq 'admin'}">
                             <div class="shortcuts_icon">
                                 <a class="icon" th:href="@{/admin/adminHome}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cast" viewBox="0 0 16 16">
@@ -63,8 +63,8 @@
                                     </div>
                                 </a>
                             </div>
-                        </th:if>
-                        <th:if test="${session.signedInUserGrade eq 'G10'}">
+                        </th:block>
+                        <th:block th:if="${session.signedInUserGrade eq 'G10'}">
     						<div class="shortcuts_icon">
     							<a class="icon" th:href="@{/user/exchange}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
@@ -77,7 +77,7 @@
     								</div>
     							</a>
     						</div>
-                        </th:if>
+                        </th:block>
 						<div class="shortcuts_icon">
 							<a class="icon" th:href="@{/user/myPostList}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-file-earmark-post" viewBox="0 0 16 16">
