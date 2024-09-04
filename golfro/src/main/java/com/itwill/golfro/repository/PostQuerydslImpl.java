@@ -44,15 +44,18 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public Post findPreviousPost(String[] category, LocalDateTime createdTime) {
-		log.info("findPreviousPost(category={}, createdTime={})", category, createdTime);
+	public Post findPreviousPost(String[] category, LocalDateTime teeoff) {
+		log.info("findPreviousPost(category={}, createdTime={})", category, teeoff);
 		
 		QPost post = QPost.post;
         
+		LocalDateTime now = LocalDateTime.now();
+		
 		JPQLQuery<Post> query = from(post)
-				.where(post.createdTime.lt(createdTime)
+				.where(post.teeoff.gt(now)
+						.and(post.teeoff.lt(teeoff))
 						.and(post.category.id.in(category)))
-				.orderBy(post.createdTime.desc())
+				.orderBy(post.teeoff.desc())
 				.limit(1);
 		
 		Post result = query.fetchOne();
@@ -61,15 +64,18 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	}
 
 	@Override
-	public Post findNextPost(String[] category, LocalDateTime createdTime) {
-		log.info("findNextPost(category={}, createdTime={})", category, createdTime);
+	public Post findNextPost(String[] category, LocalDateTime teeoff) {
+		log.info("findNextPost(category={}, createdTime={})", category, teeoff);
 
         QPost post = QPost.post;
         
+        LocalDateTime now = LocalDateTime.now();
+        
         JPQLQuery<Post> query = from(post)
-				.where(post.createdTime.gt(createdTime)
+				.where(post.teeoff.gt(now)
+						.and(post.teeoff.gt(teeoff))
 						.and(post.category.id.in(category)))
-				.orderBy(post.createdTime.asc())
+				.orderBy(post.teeoff.asc())
 				.limit(1);
 		
 		Post result = query.fetchOne();
@@ -298,23 +304,46 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    
 	    // 검색 키워드 처리
 	    if (dto.getCategory() != null
-	    		&& !dto.getCategory().isEmpty()
-	    		&& dto.getKeyword() != null
-	    		&& !dto.getKeyword().isEmpty()) {
-	        String searchKeyword = "%" + dto.getKeyword().toUpperCase() + "%"; // 대소문자 구분 없이 검색
-	        
+	            && !dto.getCategory().isEmpty()
+	            && dto.getKeyword() != null
+	            && !dto.getKeyword().isEmpty()) {
+
+	        String searchKeyword = dto.getKeyword().toUpperCase(); // 대소문자 구분 없이 검색
+
 	        switch (dto.getCategory()) {
 	            case "t":
-	                whereClause.and(post.title.likeIgnoreCase(searchKeyword));
-	                break;
 	            case "g":
-	                whereClause.and(post.gcaddress.likeIgnoreCase(searchKeyword));
+	                searchKeyword = "%" + searchKeyword + "%"; // `%` 추가
 	                break;
 	            case "h":
-	                whereClause.and(post.hole.eq(Integer.parseInt(searchKeyword)));
+	                // `searchKeyword`를 정수로 변환할 때 `%` 제거
+	                // 예를 들어, `searchKeyword`가 "18"일 경우 정수로 변환
+	                try {
+	                    Integer.parseInt(searchKeyword); // 입력값이 올바른 정수인지 확인
+	                } catch (NumberFormatException e) {
+	                    e.printStackTrace();
+	                }
 	                break;
 	            default:
+	                searchKeyword = null; // 기본값 설정
 	                break;
+	        }
+
+	        if (searchKeyword != null) {
+	            switch (dto.getCategory()) {
+	                case "t":
+	                    whereClause.and(post.title.likeIgnoreCase(searchKeyword));
+	                    break;
+	                case "g":
+	                    whereClause.and(post.gcaddress.likeIgnoreCase(searchKeyword));
+	                    break;
+	                case "h":
+	                    // `searchKeyword`를 정수로 변환하여 비교
+	                    whereClause.and(post.hole.eq(Integer.parseInt(dto.getKeyword())));
+	                    break;
+	                default:
+	                    break;
+	            }
 	        }
 	    }
 	    
@@ -349,7 +378,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
         JPQLQuery<Post> query = from(post)
         		.where(post.teeoff.between(startDateTime, endDateTime)
                         .and(post.category.id.eq("P003")))
-        		.orderBy(post.teeoff.asc());
+        		.orderBy(post.teeoff.desc());
 		
  		getQuerydsl().applyPagination(pageable, query);
  		
@@ -890,8 +919,13 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
         JPQLQuery<Post> query = from(post)
             .join(user).on(post.user.userid.eq(user.userid))
+
             .where(post.category.id.in("P004"))
             .orderBy(post.createdTime.desc());
+
+            .where(post.category.id.in("P003"))
+            .orderBy(post.teeoff.desc());
+
 
         List<Post> list = query.fetch();
 

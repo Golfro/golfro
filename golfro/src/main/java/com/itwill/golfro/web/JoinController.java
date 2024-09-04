@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -23,7 +22,6 @@ import com.itwill.golfro.dto.JoinPostCreateDto;
 import com.itwill.golfro.dto.JoinPostSearchDto;
 import com.itwill.golfro.dto.JoinPostUpdateDto;
 import com.itwill.golfro.service.JoinPostService;
-import com.itwill.golfro.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +36,6 @@ public class JoinController {
 	public static final String SESSION_ATTR_USER = "signedInUser";
 	
 	private final JoinPostService joinPostService;
-	private final UserService userService;
 
 	@ModelAttribute("loggedInUser")
 	public User addLoggedInUserToModel(HttpSession session) {
@@ -66,6 +63,7 @@ public class JoinController {
 	public String viewJoinMain(@RequestParam(value = "teeoffDate", required = false) String teeoffDateStr,
 			@RequestParam(required = false) String category,
 			@RequestParam(required = false) String keyword,
+			@RequestParam(required = false) Integer holes,
 			@RequestParam(name = "p", defaultValue = "0") int pageNo, Model model) {
 		Page<Post> posts;
 		Sort sort = Sort.by("teeoff").descending(); // 정렬 설정
@@ -81,6 +79,9 @@ public class JoinController {
 		// 검색 처리
 		if ((category != null && !category.isEmpty()) && (keyword != null && !keyword.isEmpty())) {
 			JoinPostSearchDto searchDto = new JoinPostSearchDto(category, keyword);
+			posts = joinPostService.search(searchDto, pageNo, sort);
+		} else if ((category != null && !category.isEmpty()) && (holes != null)) {
+			JoinPostSearchDto searchDto = new JoinPostSearchDto(category, holes.toString());
 			posts = joinPostService.search(searchDto, pageNo, sort);
 		} else if (teeoffDateStr != null && !teeoffDateStr.isEmpty()) {
 			try {
@@ -103,15 +104,7 @@ public class JoinController {
 	}
 
 	@GetMapping({ "/join_details", "/join_modify" })
-	public void detailsjoinPost(@RequestParam long id, @ModelAttribute User loggedInUser, Model model) {
-		if (loggedInUser != null) {
-			log.info("user={}", loggedInUser);
-			model.addAttribute("user", loggedInUser);
-		}
-
-		Map<String, String> userNicknames = userService.getUserNicknames();
-
-		model.addAttribute("userNicknames", userNicknames);
+	public void detailsjoinPost(@RequestParam long id, Model model) {
 		Post post = joinPostService.read(id);
 		
 		String[] category = {"P003"};

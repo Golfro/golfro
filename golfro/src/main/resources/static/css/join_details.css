@@ -28,7 +28,7 @@
 }
 
 .card h2 {
-    font-family: 'Freesentation-9Black', sans-serif;
+    font-family: 'Freesentation-9Black', Freesentation-9Black;
     color: #333333;
     text-align: center;
     margin-bottom: 20px;
@@ -77,7 +77,8 @@
 div.card-body {
     background: white;
     margin-bottom: 20px;
-    padding: 0px;
+    padding: 0px; 
+    border-bottom: 1px solid #ccc;
 }
 
 .join-title {
@@ -89,6 +90,7 @@ div.card-body {
 }
 
 .join-title p {
+    font-family: 'Freesentation-9Black', Freesentation-9Black;
     font-size: 2rem;
     font-weight: bold;
     background-color: rgba(0, 0, 0, 0.5); /* 배경색을 검정색에 50% 투명도로 설정 */
@@ -97,16 +99,33 @@ div.card-body {
     padding: 10px;
 }
 
+small.hole {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    font-size: 1rem;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    color: white; /* 타이틀 텍스트를 흰색으로 설정 */
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #2FA599;
+    font-size: 1rem;
+}
+
+#author {
+    border-bottom: 1px solid #ccc;
+}
+
 #author p {
     font-family: 'SUIT-Regular', SUIT-Regular;
-    font-size: 16px;
+    font-size: 20px;
     margin: 0px;
+    font-weight: bold;
     padding: 10px;
 }
 
 div.card-body .details {
     background-color: #ffffff;
-    margin-top: 20px; /* 상단 여백 추가 */
+    margin-top: 16px; /* 상단 여백 추가 */
 }
 
 .details-row {
@@ -164,6 +183,7 @@ div.card-body .details {
     background: #f7f7f7;
     border-radius: 8px;
     margin: 0 10px;
+    
     min-height: 200px;
     padding: 30px;
 }
