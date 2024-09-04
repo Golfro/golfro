@@ -1,5 +1,6 @@
 package com.itwill.golfro.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public interface PostQuerydsl {
 	
 	Page<Post> search(JoinPostSearchDto dto, Pageable pageable);
 	
-	Page<Post> selectByTeeoffDate(LocalDateTime teeoffDate, Pageable pageable);
+	Page<Post> selectByTeeoffDate(LocalDate teeoffDate, Pageable pageable);
 	
 	List<Tuple> selectReadAll();
 	

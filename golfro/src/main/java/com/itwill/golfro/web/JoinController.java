@@ -84,7 +84,7 @@ public class JoinController {
 		} else if (teeoffDateStr != null && !teeoffDateStr.isEmpty()) {
 			try {
 				LocalDate teeoffDate = LocalDate.parse(teeoffDateStr);
-				posts = joinPostService.findByTeeoffDate(teeoffDate.atStartOfDay(), pageNo, Sort.by("id").descending());
+				posts = joinPostService.findByTeeoffDate(teeoffDate, pageNo, Sort.by("id").descending());
 			} catch (DateTimeParseException e) {
 				log.error("날짜 형식 오류: {}", teeoffDateStr, e);
 				posts = joinPostService.read(pageNo, Sort.by("id").descending());
