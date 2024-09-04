@@ -52,18 +52,21 @@
                                 <div class="search-input row col-md-8 justify-content-end" id="category-search">
                                     <div class="search-field col-auto p-0">
                                         <select class="form-control custom-select" name="category" id="category">
-                                            <option th:value="'t'" th:selected="${selectedCategory == 't'}">골프장명</option>
+                                            <option th:value="'t'" th:selected="${selectedCategory == null or selectedCategory == '' or selectedCategory == 't'}">골프장명</option>
                                             <option th:value="'g'" th:selected="${selectedCategory == 'g'}">지역</option>
                                             <option th:value="'h'" th:selected="${selectedCategory == 'h'}">홀수</option>
                                         </select>
                                     </div>
-                                    <div
-                                        class="search-field col-auto px-1">
+                                    <div class="search-field col-auto px-1" id="keywordField">
                                         <input type="text" class="form-control custom-input" id="keyword" name="keyword" placeholder="검색어를 입력하세요." th:value="${keyword}" />
+                                    </div>
+                                    <div class="search-field col-auto px-1 d-none" id="holeField">
+                                        <label><input type="checkbox" name="holes" th:value="${9}"> 9홀</label>
+                                        <label><input type="checkbox" name="holes" th:value="${18}"> 18홀</label>
                                     </div>
                                     <div class="col-auto search-button p-0">
                                         <button type="submit" class="btn no-radius" id="searchButton">
-                                            <i class="bi bi-search"></i>
+                                            검색
                                         </button>
                                     </div>
                                 </div>
@@ -116,10 +119,10 @@
 						</div>
 						<!-- 카드 형식으로 변환된 포스트 목록 -->
 						<div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-4 mt-1">
-                            <div id="todayDate" style="display: none;" th:value="${today}"></div>
+                            <input id="todayDate" type="hidden" th:value="${today}" />
                     
                             <div th:each="post : ${posts}" class="col d-flex justify-content-center">
-                                <div class="card-list h-100" th:value="${post.teeoff}">
+                                <div class="card-list h-100" th:attr="data-teeoff=${post.teeoff}">
                                     <div class="card-info">
                                         <h6>
                                             <a th:href="@{/join/join_details(id=${post.id})}" class="custom-link" th:text="${post.title}">Title</a>
@@ -197,58 +200,7 @@
     	});
     </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 모든 .imagePath와 .image 클래스를 가진 요소를 찾습니다.
-            var imagePaths = document.querySelectorAll('.imagePath');
-            var images = document.querySelectorAll('.image');
-    
-            // .imagePath와 .image를 순회하면서 각각의 요소에 대해 작업합니다.
-            imagePaths.forEach(function(input, index) {
-                var file = input.value;
-                var imageUrl = '/user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
-    
-                if (file) {
-                    fetch(imageUrl)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok.');
-                            }
-                            return response.blob();
-                        })
-                        .then(blob => {
-                            var reader = new FileReader();
-                            reader.onload = function() {
-                                // .image 요소를 올바르게 업데이트합니다.
-                                if (images[index]) {
-                                    images[index].src = reader.result;
-                                } else {
-                                    console.error('No image element found for index:', index);
-                                }
-                            };
-                            reader.readAsDataURL(blob);
-                        })
-                        .catch(error => {
-                            console.error('Error fetching image:', error);
-                        });
-                } else {
-                    console.error('No file path found for index:', index);
-                }
-            });
-            
-            const todayDateStr = document.getElementById("todayDate").value;
-            const todayDate = new LocalDateTime(todayDateStr);
-			console.log(todayDate);
-            
-            document.querySelectorAll('.card-list').forEach(card => {
-                const teeoffDateStr = card.value;
-                console.log(teeoffDateStr);
-                if (teeoffDateStr < todayDate) {
-                    card.classList.add('bg-light');
-                }
-            });
-        });
-    </script>
+    <script th:src="@{/js/join_main.js}"></script>
 
     <script th:src="@{/js/script.js}"></script>
 

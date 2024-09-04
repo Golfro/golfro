@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-	const modifyForm = document.querySelector('form#modifyForm');
-	const btnUpdate = document.querySelector('button#btnUpdate');
 	// 제목, 그린피, 홀수, 내용 입력란
 	const title = document.querySelector('input[name="title"]');
 	const greenfee = document.querySelector('input[name="greenfee"]');
 	const hole = document.querySelector('input[name="hole"]');
 	const content = document.querySelector('textarea[name="content"]');
-
+	
 	document.getElementById('btnUpdate').addEventListener('click', function() {
 		const result = confirm('변경 내용을 저장할까요?');
 		if (result) {
@@ -16,17 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			modifyForm.submit(); // 폼 양식 데이터 제출(서버로 요청 보냄).
 		}
 	});
-
-	function execDaumPostcode() {
-		new daum.Postcode({
-			oncomplete: function(data) {
-				var addr = data.address;
-				document.getElementById('address').value = addr;
-			}
-		}).open();
-	}
-
-
+	
 	// 제목, 그린피, 홀수 입력란 길이 체크 이벤트 리스너
 	title.addEventListener('input', function() {
 		if (title.value.trim().length > 20) {
@@ -55,7 +43,4 @@ document.addEventListener('DOMContentLoaded', function() {
 			content.value = content.value.trim().substring(0, 1000);
 		}
 	});
-
 });
-
-
