@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			const postId = postIdElement.value;
 			const result = confirm('게시물을 삭제하시겠습니까?');
 			if (result) {
-				fetch(`/gaebokchi/review/delete?id=${postId}`, {
+				fetch(`/review/delete?id=${postId}`, {
 					method: 'GET'
 				})
 					.then(response => {
 						if (response.ok) {
 							alert('게시물이 삭제되었습니다.');
-							window.location.href = '/gaebokchi/review/review_main';
+							window.location.href = '/review/review_main';
 						} else {
 							throw new Error('게시물 삭제에 실패했습니다.');
 						}
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const commentId = event.target.previousElementSibling.value;
 			const result = confirm('댓글을 삭제하시겠습니까?');
 			if (result) {
-				fetch(`/gaebokchi/review/comments/${commentId}`, {
+				fetch(`/review/comments/${commentId}`, {
 					method: 'DELETE'
 				})
 					.then(response => {
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					content: updatedContent
 				};
 
-				fetch('/gaebokchi/review/comments', {
+				fetch('/review/comments', {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json'
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			alert('추천은 로그인 후 가능합니다.');
 
 			// 로그인 페이지로 리디렉션
-			window.location.href = '/gaebokchi/user/signin';
+			window.location.href = '/user/signin';
 		});
 	}
 
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const postId = postIdElement.value;
-			fetch('/gaebokchi/review/increaseLikes?id=' + postId, {
+			fetch('/review/increaseLikes?id=' + postId, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			event.preventDefault();
 
 			const postId = postIdElement.value;
-			const author = document.querySelector('input[name="author"]').value;
+			const userid = document.querySelector('input[name="userid"]').value;
 			const content = document.querySelector('textarea[name="content"]').value;
 
 			if (content.trim() === '') {
@@ -187,11 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			const data = {
 				postId: postId,
-				author: author,
+			    userid: userid,
 				content: content
 			};
 
-			fetch('/gaebokchi/review/comments', {
+			fetch('/review/comment_add', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				body: JSON.stringify(data)
 			})
 				.then(response => {
-					if (response.ok) {
+					if (response.data === 'Y') {
 						alert('댓글이 등록되었습니다.');
 						location.reload();
 					} else {

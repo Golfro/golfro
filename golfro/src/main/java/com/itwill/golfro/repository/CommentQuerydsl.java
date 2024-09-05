@@ -10,6 +10,8 @@ public interface CommentQuerydsl {
 	
 	List<MainCommentItemDto> selectCommentsByPostId(Long postId);
 	
+	List<Comment> selectAllComments(Long postId);
+	
 	List<Comment> selectCommentsByUserid(String userid);
 	
 	List<Comment> selectMyCommentsByUserid(String userid); // origin: mycomment-mapper -> id='selectCommentsByUserid'

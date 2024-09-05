@@ -8,15 +8,17 @@ import lombok.Data;
 
 @Data
 public class CommentCreateDto {
-    private Long postId;
+	private Long id;
+    private Post post;
     private String content;
     private String userid;
+    private User user;
     
     public Comment toEntity() {
         return Comment.builder()
-                .post(Post.builder().id(postId).build())
+                .post(post)
                 .content(content)
-                .user(User.builder().userid(userid).build())
+                .user(user)
                 .build();
     }
 }

@@ -280,7 +280,7 @@ public class CommunityController {
 		if (loggedInUser != null) {
 			Comment comment = Comment.builder()
 					.user(User.builder().userid(loggedInUser.getUserid()).build())
-					.post(Post.builder().id(commentCreateDto.getPostId()).build())
+					.post(Post.builder().id(commentCreateDto.getId()).build())
 					.content(commentCreateDto.getContent())
 					.build();
 			

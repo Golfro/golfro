@@ -190,14 +190,21 @@ public class ReviewPostService {
 	public List<Comment> readAllComment(long postId) {
 		log.info("readAllComment(postId={})", postId);
 		
-		List<Comment> list = cmtRepo.findByPostId(postId);
+		List<Comment> list = cmtRepo.selectAllComments(postId);
 		
 		return list;
 	}
 
-	public void inserComment(CommentCreateDto dto) {
-		log.info("inserComment(dto={})", dto);
-		cmtRepo.save(dto.toEntity());
+	@Transactional
+	public Comment insertComment(CommentCreateDto dto) {
+		log.info("insertComment(dto={})", dto);
+		
+		User user = userRepo.findByUserid(dto.getUserid());
+		dto.setUser(user);
+		Post post = postRepo.findById(dto.getId()).orElseThrow();
+		dto.setPost(post);
+		
+		return cmtRepo.save(dto.toEntity());
 	}
 
 	public void updateComment(CommentUpdateDto dto) {
