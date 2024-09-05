@@ -3,7 +3,6 @@ package com.itwill.golfro.repository;
 import java.util.List;
 import static com.itwill.golfro.domain.QComment.comment;
 import static com.itwill.golfro.domain.QUser.user;
-import static com.itwill.golfro.domain.QPost.post;
 
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
@@ -11,7 +10,6 @@ import com.itwill.golfro.domain.Comment;
 import com.itwill.golfro.domain.QComment;
 import com.itwill.golfro.domain.QPost;
 import com.itwill.golfro.domain.QUser;
-import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.MainCommentItemDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
@@ -160,6 +158,21 @@ public class CommentQuerydslImpl extends QuerydslRepositorySupport implements Co
 	    		.where(comment.post.id.eq(postId));
 
 	    long result = query.fetchCount();
+	    
+	    return result;
+	}
+
+	@Override
+	public List<Comment> selectAllComments(Long postId) {
+		QComment comment = QComment.comment;
+	    QUser user = QUser.user;
+
+	    JPQLQuery<Comment> query = from(comment)
+	        .join(user).on(comment.user.userid.eq(user.userid))
+	        .where(comment.post.id.eq(postId))
+	        .orderBy(comment.selection.desc());
+
+	    List<Comment> result = query.fetch();
 	    
 	    return result;
 	}

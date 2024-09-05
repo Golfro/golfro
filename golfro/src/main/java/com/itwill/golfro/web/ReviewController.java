@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,9 +52,7 @@ public class ReviewController {
 
 	public static final String SESSION_ATTR_USER = "signedInUser";
 
-	private final CommentRepository cmtRepo;
 	private final ReviewPostService reviewPostService;
-	private final UserService userService;
 
 	private Map<String, Set<Integer>> userLikedPosts = new HashMap<>();
 
@@ -104,8 +103,7 @@ public class ReviewController {
 	}
 
 	@GetMapping("/review_details")
-	public String detailsCommunityPost(@RequestParam("id") long id,
-			@RequestParam(name = "commentId", required = false) long commentId, Model model, HttpSession session) {
+	public String detailsCommunityPost(@RequestParam("id") long id, Model model, HttpSession session) {
 
 		@SuppressWarnings("unchecked")
 		Set<Long> viewedPosts = (Set<Long>) session.getAttribute("viewedPosts");
@@ -121,7 +119,7 @@ public class ReviewController {
 		// 게시물 조회
 		Post post = reviewPostService.read(id);
 
-		String[] category = { "P004" };
+		String[] category = {"P004"};
 
 		// 이전 글과 다음 글 찾기
 		Post previousPost = reviewPostService.getPreviousPost(category, post.getCreatedTime());
@@ -131,16 +129,12 @@ public class ReviewController {
 		List<Comment> commentlist = reviewPostService.readAllComment(id);
 		long commentcount = reviewPostService.selectCommentCount(id);
 
-		Map<String, String> userNicknames = userService.getUserNicknames();
-
 		// 모델에 속성 추가
-		model.addAttribute("userNicknames", userNicknames);
 		model.addAttribute("post", post); // 불러온 게시물 속성 추가
 		model.addAttribute("previousPost", previousPost); // 이전 글
 		model.addAttribute("nextPost", nextPost); // 다음 글
 		model.addAttribute("commentlist", commentlist); // 댓글 목록 추가하기
 		model.addAttribute("commentcount", commentcount);
-		model.addAttribute("commentId", commentId);
 
 		return "review/review_details";
 	}
@@ -204,66 +198,41 @@ public class ReviewController {
 		return ResponseEntity.ok(response);
 	}
 
-	// 댓글 목록 조회
-	@GetMapping("/comments/{postId}")
-	public String getCommentsByPostId(@PathVariable long postId, Model model) {
-		List<Comment> comments = cmtRepo.selectByPostId(postId);
-		Map<String, String> userNicknames = userService.getUserNicknames();
-
-		model.addAttribute("comments", comments);
-		model.addAttribute("userNicknames", userNicknames);
-
-		return "review/review_details";
-	}
-
-	@PostMapping("/comments")
+	@PostMapping("/comment_add")
 	@ResponseBody
-	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto, User user) {
-
-		Comment comment = Comment.builder().user(User.builder().userid(user.getUserid()).build())
-				.post(Post.builder().id(commentCreateDto.getPostId()).build()).content(commentCreateDto.getContent())
-				.build(); // 댓글 작성자 설정
-
-		// 댓글을 데이터베이스에 저장하고 자동 생성된 id를 받아옴
-		Comment result = cmtRepo.save(comment);
-
-		// 저장된 댓글 객체를 반환하여 클라이언트에게 전달
-		if (result != null) {
-			return comment;
-		} else {
-			// 저장에 실패한 경우 처리
-			return null;
-		}
-
+	public ResponseEntity<String> addComment(@RequestBody CommentCreateDto commentCreateDto) {
+		reviewPostService.insertComment(commentCreateDto);
+		
+		return ResponseEntity.ok("Y");
 	}
 
-	@PutMapping("/comments")
-	@ResponseBody
-	public Comment updateComment(@RequestBody CommentUpdateDto commentUpdateDto) {
-		Comment comment = cmtRepo.selectCommentById(commentUpdateDto.getId());
-		if (comment != null) {
-			comment.update(commentUpdateDto.getContent());
-			Comment result = cmtRepo.save(comment);
+//	@PutMapping("/comments")
+//	@ResponseBody
+//	public Comment updateComment(@RequestBody CommentUpdateDto commentUpdateDto) {
+//		Comment comment = cmtRepo.selectCommentById(commentUpdateDto.getId());
+//		if (comment != null) {
+//			comment.update(commentUpdateDto.getContent());
+//			Comment result = cmtRepo.save(comment);
+//
+//			if (result != null) {
+//				return comment; // 수정된 댓글 객체 반환
+//			}
+//		}
+//
+//		return null;
+//	}
 
-			if (result != null) {
-				return comment; // 수정된 댓글 객체 반환
-			}
-		}
-
-		return null;
-	}
-
-	// DELETE 요청의 URL 수정
-	@DeleteMapping("/comments/{id}")
-	@ResponseBody
-	public String deleteComment(@PathVariable("id") long id) {
-		try {
-			cmtRepo.deleteById(id);
-			return "Deleted comment with id: " + id;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "Failed to delete comment with id: " + id;
-		}
-	}
+//	// DELETE 요청의 URL 수정
+//	@DeleteMapping("/comments/{id}")
+//	@ResponseBody
+//	public String deleteComment(@PathVariable("id") long id) {
+//		try {
+//			cmtRepo.deleteById(id);
+//			return "Deleted comment with id: " + id;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "Failed to delete comment with id: " + id;
+//		}
+//	}
 
 }

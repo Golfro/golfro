@@ -38,7 +38,7 @@ public class Comment extends BaseTimeEntity {
 	@Basic(optional = false)
 	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID")
+	@JoinColumn(name = "USERID", referencedColumnName = "USERID")
 	private User user;
 	
 	@Builder.Default
