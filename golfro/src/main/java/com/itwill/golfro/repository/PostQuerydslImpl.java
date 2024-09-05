@@ -481,7 +481,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    QUser user = QUser.user;
 	    
 	    // 검색어 바인딩
-	    String searchKeyword = "%" + dto.getTextSearchSelect() + "%";
+	    String searchKeyword = dto.getTextSearchSelect();
 	    
 	    // 메인 쿼리
 	    JPQLQuery<Post> query = from(post)
@@ -495,14 +495,13 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
 	    // 결과 가져오기
 	    List<Post> list = query.fetch();
+	    log.info("***** list size = {}", list.size());
 
 	    // 전체 게시물 수 계산
 	    long count = query.fetchCount(); 
 	        
 	    return new PageImpl<>(list, pageable, count);
 	}
-	
-	
 	
 	
 	
