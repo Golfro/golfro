@@ -114,7 +114,7 @@ body {
     border-top: 1px solid #ccc;
     width: 100%;
     background-color: white;
-    padding: 10px;
+    padding: 5px;
     height: 180px; /* 충분한 높이 제공 */
     box-sizing: border-box; /* 패딩 포함 전체 크기 계산 */
 }
@@ -140,16 +140,11 @@ body {
     border-bottom: 1px solid #ccc;
 }
 
-.nick-date i {
-    font-size: 2rem;
-    padding: 10px;
-}
 
 .nickname h7 {
     color: black;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: bold;
-    font-size: 0.8rem;
 }
 
 .nickname div>span {
@@ -165,7 +160,7 @@ body {
 }
 
 div.right .post-content p {
-    margin-left: 52px;
+    margin-left: 20px;
     margin-right: 20px;
     text-align: left;
     font-size: 0.9rem;
@@ -178,7 +173,7 @@ div.right .post-content p {
 /* 댓글 섹션 */
 .sub {
     padding-left: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .comment {
@@ -204,12 +199,6 @@ div.right .post-content p {
     height: 70%;
 }
 
-.profile-image {
-    width: 52px;
-    height: 56px;
-    border: 1px solid #c6c6c6;
-    border-radius: 80px;
-}
 
 .post-sticky {
     position: sticky;
