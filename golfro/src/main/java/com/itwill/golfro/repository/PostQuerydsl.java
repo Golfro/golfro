@@ -17,9 +17,9 @@ import com.itwill.golfro.dto.ReviewPostSearchDto;
 import com.querydsl.core.Tuple;
 
 public interface PostQuerydsl {
-	Post findPreviousPost(String[] category, LocalDateTime createdTime);
+	Post findPreviousPost(String[] category, LocalDateTime teeoff);
 	
-	Post findNextPost(String[] category, LocalDateTime createdTime);
+	Post findNextPost(String[] category, LocalDateTime teeoff);
 	
 	Post selectById(Long id);
 	

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.itwill.golfro.domain.Category;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.JoinPostCreateDto;
@@ -84,6 +85,11 @@ public class JoinPostService {
 
 	public void update(JoinPostUpdateDto dto) {
 		log.info("update(dto={})", dto);
+		
+		User user = userRepo.findByUserid(dto.getUserid());
+		Category category = ctgRepo.findById(dto.getCategoryId()).orElseThrow();
+		dto.setUser(user);
+		dto.setCategory(category);
 		
 		Post result = postRepo.save(dto.toEntity());
 		log.info("update 결과: {}", result);

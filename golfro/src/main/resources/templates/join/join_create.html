@@ -35,7 +35,7 @@
 
 							<span>주소</span>
 							<div class="input-group mb-4">
-								<input id="address" class="form-control" type="text" name="gcadress" placeholder="주소 입력" required />
+								<input id="address" class="form-control" type="text" name="gcaddress" placeholder="주소 입력" required />
 								<button type="button" class="btn" onclick="execDaumPostcode()">주소 검색</button>
 							</div>
 
@@ -85,11 +85,9 @@
 
 		document.addEventListener('DOMContentLoaded', function() {
 			var titleInput = document.querySelector('input[name="title"]');
-			var greenfeeInput = document
-					.querySelector('input[name="greenfee"]');
+			var greenfeeInput = document.querySelector('input[name="greenfee"]');
 			var holeInput = document.querySelector('input[name="hole"]');
-			var contentInput = document
-					.querySelector('textarea[name="content"]');
+			var contentInput = document.querySelector('textarea[name="content"]');
 
 			titleInput.addEventListener('input', function() {
 				if (this.value.length > 20) {

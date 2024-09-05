@@ -9,13 +9,14 @@
     font-weight: 900;
     font-style: normal;
 }
+
 @font-face {
-	font-family: 'SUIT-Regular';
-	src:
-		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
-		format('woff2');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
@@ -201,10 +202,16 @@ h5.tit_type {
     width: 100%;
     object-fit: cover;
     border-radius: 8px;
-    border: 1px solid #ccc;}
+    border: 1px solid #ccc;
+}
 
 .rank-card-body {
-    padding: 10px 0;
+    display: flex;
+    justify-content: center; /* 수평으로 중앙에 배치 */
+    align-items: center; /* 수직으로 중앙에 배치 */
+    flex-direction: column;
+    text-align: center; /* 텍스트 중앙 정렬 (선택 사항) */
+    padding: 10px;
 }
 
 .rank-title {
@@ -223,14 +230,15 @@ h5.tit_type {
 
 .rank-name {
     font-family: 'Freesentation-9Black';
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 1.5em;
+    margin: 0px;
 }
 
 .rank-point {
     font-family: 'SUIT-Regular';
-    font-size: 1em;
+    font-size: 1.2em;
     color: #2FA599;
+    margin: 0px;
 }
 
 /* Rank Table */ /*
@@ -371,6 +379,73 @@ h5.tit_type {
         padding: 0px !important;
     }
     div.card-body {
+        padding: 5px;
+    }
+}
+
+.swiper-slide {
+    box-sizing: border-box;
+}
+
+/* Responsive Design */
+@media ( max-width : 768px) {
+    .rank-item {
+        width: calc(50% - 
+ 
+ 10px);
+    }
+    .middleArea {
+        flex-direction: column;
+    }
+}
+
+.content-wrapper {
+    display: flex;
+}
+
+.middle-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensuring that sections within middle-section stack vertically */
+.middle-section>section {
+    margin-bottom: 20px; /* optional: space between sections */
+}
+
+/* 모바일 화면에서 sidebar 숨기기 */
+@media ( max-width : 768px) {
+    .sidebar {
+        display: none;
+    }
+    .middle-section {
+        margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
+        padding: 0px !important;
+    }
+    h5
+.card-title {
+        font-size: 12px; /* Adjust the size as needed */
+        margin: 0px !important;
+    }
+    div
+.card-body {
+        padding: 5px;
+    }
+}
+
+@media ( max-width : 576px) {
+    h5
+.card-title {
+        font-size: 12px; /* Adjust the size as needed */
+        margin: 0px !important;
+    }
+    .middle-section {
+        margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
+        padding: 0px !important;
+    }
+    div
+.card-body {
         padding: 5px;
     }
 }
