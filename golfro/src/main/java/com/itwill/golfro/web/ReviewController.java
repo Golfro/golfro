@@ -155,7 +155,7 @@ public class ReviewController {
 	public String update(ReviewPostUpdateDto dto) {
 		log.info("update(dto={})", dto);
 
-		// 서비스 컴포넌트의 메서드를 호출해서 데이터베이스 테이블 업데이트를 수행.
+		// 서비스 컴포넌트의 메서드를 호출해서 데이터베이스 테이블 업데이트를수행.
 		reviewPostService.update(dto);
 
 		return "redirect:/review/review_details?id=" + dto.getId();
