@@ -91,8 +91,7 @@ public class MainPostController {
 
 		List<Club> clubs = mainPostService.clubTypes();
 
-		List<MainPostListDto> dtos = posts.stream()
-			    .map(tuple -> {
+		Page<MainPostListDto> dtos = posts.map(tuple -> {
 			        Long id = tuple.get(0, Long.class);
 			        Club club = Club.builder().name(tuple.get(1, String.class)).build(); // DTO에서 'name'으로 사용
 			        String title = tuple.get(2, String.class); // DTO에서 'title'으로 사용
@@ -119,11 +118,11 @@ public class MainPostController {
 			            .status(status)
 			            .selection(selection)
 			            .build();
-			    })
-			    .collect(Collectors.toList());
+			    });
 		
 		model.addAttribute("posts", dtos);
 		model.addAttribute("clubs", clubs);
+		model.addAttribute("baseUrl", "/mainPost/list");
 
 		if (userid != null) {
 			return "/user/myLessonList"; // 사용자가 로그인한 상태에서는 다른 뷰로 이동
@@ -231,7 +230,11 @@ public class MainPostController {
 
 	@GetMapping("/search")
 	public String searchPosts(MainPostSearchDto dto, MyPostSearchDto myDto,
-			@RequestParam(name = "p", defaultValue = "0") int pageNo, Model model) {
+			@RequestParam(name = "p", defaultValue = "0") int pageNo,
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) String keyword,
+			@RequestParam(required = false) String selection,
+			Model model) {
 		log.info("searchPosts(dto={}, myDto={}) by userid", dto, myDto);
 		
 		Page<Post> posts;
@@ -247,6 +250,7 @@ public class MainPostController {
 		
 		model.addAttribute("posts", posts);
 		model.addAttribute("clubs", clubs);
+		model.addAttribute("baseUrl", "/mainPost/search");
 
 		return "mainPost/list";
 	}
