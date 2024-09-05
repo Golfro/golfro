@@ -75,9 +75,11 @@ public class MainPostController {
 	@GetMapping("/list")
 	public String mainPostList(@RequestParam(name = "p", defaultValue = "0") int pageNo,
 			@RequestParam(required = false) String userid,
-			@RequestParam(required = false) String category,
-			@RequestParam(required = false) String keyword, HttpSession session, Model model) {
-		log.debug("mainPostList(pageNo={}, userid={}, category={}, keyword={})", pageNo, userid, category, keyword);
+	        @RequestParam(required = false) String searchCategory,
+	        @RequestParam(required = false) String clubSelect,
+	        @RequestParam(required = false) String textSearchSelect,
+	        @RequestParam(required = false) String selectSelection,
+			HttpSession session, Model model) {
 
 		Page<Tuple> posts;
 
@@ -123,6 +125,11 @@ public class MainPostController {
 		model.addAttribute("posts", dtos);
 		model.addAttribute("clubs", clubs);
 		model.addAttribute("baseUrl", "/mainPost/list");
+		
+		model.addAttribute("searchCategory", searchCategory);
+	    model.addAttribute("clubSelect", clubSelect);
+	    model.addAttribute("textSearchSelect", textSearchSelect);
+	    model.addAttribute("selectSelection", selectSelection);
 
 		if (userid != null) {
 			return "/user/myLessonList"; // 사용자가 로그인한 상태에서는 다른 뷰로 이동
@@ -231,9 +238,10 @@ public class MainPostController {
 	@GetMapping("/search")
 	public String searchPosts(MainPostSearchDto dto, MyPostSearchDto myDto,
 			@RequestParam(name = "p", defaultValue = "0") int pageNo,
-			@RequestParam(required = false) String category,
-			@RequestParam(required = false) String keyword,
-			@RequestParam(required = false) String selection,
+	        @RequestParam(required = false) String searchCategory,
+	        @RequestParam(required = false) String clubSelect,
+	        @RequestParam(required = false) String textSearchSelect,
+	        @RequestParam(required = false) String selectSelection,
 			Model model) {
 		log.info("searchPosts(dto={}, myDto={}) by userid", dto, myDto);
 		
@@ -251,6 +259,11 @@ public class MainPostController {
 		model.addAttribute("posts", posts);
 		model.addAttribute("clubs", clubs);
 		model.addAttribute("baseUrl", "/mainPost/search");
+		
+		model.addAttribute("searchCategory", searchCategory);
+	    model.addAttribute("clubSelect", clubSelect);
+	    model.addAttribute("textSearchSelect", textSearchSelect);
+	    model.addAttribute("selectSelection", selectSelection);
 
 		return "mainPost/list";
 	}
