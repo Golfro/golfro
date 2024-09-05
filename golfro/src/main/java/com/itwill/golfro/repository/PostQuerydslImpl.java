@@ -901,7 +901,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
 	    // 기본 쿼리 생성
 	    JPQLQuery<Post> query = from(post)
-	        .join(user).on(post.user.userid.eq(user.userid))
+	        .join(user).on(post.user.userid.eq(user.userid)) 
 	        .where(post.category.id.eq("P004"));
 
 	    // 조건 추가
