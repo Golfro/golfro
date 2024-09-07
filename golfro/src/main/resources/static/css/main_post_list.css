@@ -35,7 +35,7 @@ body {
 	flex-grow: 1;
 }
 
-/* 나머지 스타일은 그대로 유지 */
+/* 메뉴 헤더 */
 .menu-header {
 	display: flex;
 	flex-direction: column;
@@ -46,8 +46,8 @@ body {
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	height: 180px; /* 기본 높이 설정 */
-	padding: 1rem; /* 기본 패딩 설정 */
+	height: 180px;
+	padding: 1rem;
 }
 
 .menu-header h2 a {
@@ -198,6 +198,10 @@ ul {
 	font-weight: bold;
 }
 
+i {
+    font-style: normal;
+}
+
 span.club-type-link {
 	padding: 5px 10px;
 	font-size: 0.8rem;
@@ -211,10 +215,12 @@ span.club-type-link {
 	justify-content: center;
 	margin-top: 1rem;
 }
+
 /* 페이지 아이템 기본 스타일 */
 .page-item {
 	margin: 0 0.25rem;
 }
+
 /* 페이지 링크 기본 스타일 */
 .page-link {
 	color: black !important; /* 글씨 색상 검정 */
@@ -243,7 +249,7 @@ footer {
 	margin: 0px;
 }
 
-@media ( max-width : 768px) {
+@media (max-width: 768px) {
 	body {
 		flex-direction: column;
 	}
@@ -252,15 +258,15 @@ footer {
 		margin-top: 105px;
 	}
 	.menu-header {
-		height: 120px; /* 화면이 작은 경우 높이 줄이기 */
-		padding: 0.5rem; /* 패딩 줄이기 */
+		height: 120px;
+		padding: 0.5rem;
 	}
 	.menu-header h2 {
-		font-size: 1.5rem; /* 작은 화면에서 텍스트 크기 조정 */
-		margin: 0.25rem 0; /* 작은 화면에서 마진 줄이기 */
+		font-size: 1.5rem;
+		margin: 0.25rem 0;
 	}
 	.menu-header h7 {
-		font-size: 0.875rem; /* 작은 화면에서 텍스트 크기 조정 */
+		font-size: 0.875rem;
 	}
 	.card {
 		margin-top: 20px;
@@ -278,15 +284,11 @@ footer {
 		width: 90%;
 	}
 	.search-category, .search-input {
-		width: 100%; /* 가로로 꽉 차게 설정 */
+		width: 100%;
 	}
 	.divide-y li {
 		padding: 10px 5px;
 		font-size: 90%;
-	}
-	.main-list-view-like span {
-		font-size: 90%;
-		font-weight: normal;
 	}
 	.selection {
 		margin-top: 10px;
