@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	const rightSectionButton = document.querySelector('.right-section button');
 	const loginButton = document.querySelector('.login .login-button svg');
 	const submenuItems = document.querySelectorAll('.submenu a'); // submenu 항목
-
+ 
 	// 초기 설정: 헤더의 하단 테두리 숨기기
 	header.style.borderBottom = 'none';
 	header.style.backgroundColor = 'rgba(0, 0, 0, 0)'; // 투명 배경색 설정

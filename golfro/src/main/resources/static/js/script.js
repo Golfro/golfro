@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // 레슨 버튼에 마우스를 올릴 때 드롭다운 메뉴 표시
       mainFolder.addEventListener("mouseenter", function() {
          submenu.style.display = "block";
-      });
+      }); 
 
       // 레슨 버튼에서 마우스가 떠날 때, 메뉴 외부로 이동한 경우에만 메뉴 숨김
       mainFolder.addEventListener("mouseleave", function(event) {
