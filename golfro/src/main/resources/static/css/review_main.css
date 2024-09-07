@@ -2,116 +2,113 @@
 
 /* 폰트 */
 @font-face {
-    font-family: 'Freesentation-9Black';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
-        format('woff2');
-    font-weight: 900;
-    font-style: normal;
+	font-family: 'Freesentation-9Black';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+		format('woff2');
+	font-weight: 900;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'SUIT-Regular';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
-        format('woff2');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    font-family: 'SUIT-Regular', SUIT-Regular;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .container-fluid {
-    background-color: white;
-    padding: 20px;
-    margin: 0 auto; /* 중앙 정렬 */
-    margin-top: 85px; /* 상단 여백 */
+	background-color: white;
+	padding: 0px !important;
+	margin: 0 auto;
+	margin-top: 85px;
+	flex-grow: 1;
 }
 
 .card {
-    width: 960px;
+	max-width: 960px;
+	width: 100%;
+	padding: 0 !important;
 }
 
+.menu-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	background-image: url('../images/review_title.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 180px; /* 기본 높이 설정 */
+	padding: 1rem; /* 기본 패딩 설정 */
+}
+
+.menu-header h2 a {
+	font-family: 'Freesentation-9Black';
+	text-align: center;
+	text-decoration: none;
+	color: black;
+}
+
+.menu-header h7 {
+	font-size: 1rem;
+	color: #666;
+}
+/* 카드 헤더 스타일 */
 .card-header {
-    display: flex;
-    flex-direction: column; /* 세로로 배치 */
-    align-items: center; /* 수평 중앙 정렬 */
-    justify-content: center; /* 수직 중앙 정렬 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    background-color: white !important;
-}
-
-.card-header h2 {
-    font-family: 'Freesentation-9Black';
-    text-align: center;
-}
-
-.card-header h7 {
-    font-family: 'SUIT-Regular';
-    color: #808080;
-    text-align: center;
-}
-
-.review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	background-color: #fff !important;
+	padding-bottom: 0 !important;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	border: none;
 }
 
 .search-container {
-    font-size: 0.9rem;
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	font-size: 0.9rem;
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #searchButton {
-    background: #ffffff;
-    color: #000000;
-    border: none !important;
-    padding: 0px;
+	background: #ffffff;
+	color: #000000;
+	border: none !important;
+	padding: 0px;
 }
 
 #btnCreateMainPost {
-    color: white !important;
-    background: #2FA599;
-    border-radius: 8px;
+	color: white !important;
+	background: #2FA599;
+	border-radius: 8px;
 }
 
 #btnCreateMainPost a {
-    font-size: 0.9rem;
-    color: white !important;
+	font-size: 0.9rem;
+	color: white !important;
 }
 
 #btnCreateMainPost .btn {
-    color: white !important;
+	color: white !important;
 }
 
-.mb-1 thead th {
-    border-bottom: 1px solid black;
-}
-
-.mb-1 tbody td {
-    font-family: 'SUIT-Regular';
-    color: #050505;
-    font-size: 0.9rem;
-    padding: 1rem 2rem;
-}
-
-table tbody tr:last-child {
-    border-bottom: none;
-}
 
 .thumbnail {
     flex: 1;
@@ -120,104 +117,125 @@ table tbody tr:last-child {
     align-items: center;
     border: 1px solid #ccc;
     border-radius: 8px;
-    width: 100px;
-    height: 100px;
+    width: 100px; /* 정사각형 크기 */
+    height: 100px; /* 정사각형 크기 */
     overflow: hidden; /* 내용이 넘칠 때 숨김 */
     text-align: center; /* 텍스트 중앙 정렬 */
-    line-height: 100px; /* 텍스트를 수직 중앙에 배치 */
+    line-height: 100px; /* 텍스트 수직 중앙 정렬 */
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 정사각형을 채우도록 조정 */
+}
+
+.list-unstyled li{
+	border-top: 1px solid #ccc;
 }
 
 .post {
-    flex: 4;
-    display: flex;
-    margin-left: 1rem;
-    align-items: left;
-    flex-direction: column; /* 수직 방향으로 배치 */
+	flex: 4;
+	display: flex;
+	margin-left: 1rem;
+	align-items: left;
+	flex-direction: column; /* 수직 방향으로 배치 */
 }
 
 .custom-link {
-    font-family: 'SUIT-Regular';
-    color: black; /* 기본 색상을 검정색으로 설정 */
-    text-decoration: none; /* 밑줄 제거 */
-    font-size: 1rem;
-    font-weight: bold;
+	font-family: 'SUIT-Regular';
+	color: black; /* 기본 색상을 검정색으로 설정 */
+	text-decoration: none; /* 밑줄 제거 */
+	font-size: 1rem;
+	font-weight: bold;
 }
 
 .clock {
-    color: #575757 !important;
+	color: #575757 !important;
 }
 
 .custom-link:hover {
-    text-decoration: underline; /* 마우스 올렸을 때 밑줄 표시 */
+	text-decoration: underline; /* 마우스 올렸을 때 밑줄 표시 */
 }
 
 .ms-auto {
-    font-size: 1rem;
-    font-weight: bold;
+	font-size: 1rem;
+	font-weight: bold;
 }
 
-/* 모바일 영역 */
-.mobile-header {
-    display: none !important;
+
+/* Pagination 기본 스타일 */
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 1rem;
 }
+/* 페이지 아이템 기본 스타일 */
+.page-item {
+	margin: 0 0.25rem;
+}
+/* 페이지 링크 기본 스타일 */
+.page-link {
+	color: black !important; /* 글씨 색상 검정 */
+	font-family: 'SUIT-Regular';
+	font-size: 0.9rem; /* 글씨 크기 0.9rem */
+	text-decoration: none; /* 밑줄 제거 */
+	padding: 0.5rem 0.75rem; /* 패딩 조절 */
+	border: none !important; /* 테두리 색상 */
+	border-radius: 0.25rem; /* 모서리 둥글게 */
+}
+
+/* 비활성화된 페이지 아이템 스타일 */
+.page-item.disabled .page-link {
+	color: #fff; /* 비활성화된 텍스트 색상 */
+	pointer-events: none; /* 클릭 비활성화 */
+}
+
+/* 활성 페이지 아이템 스타일 */
+.page-item.active .page-link {
+	background-color: #B8E5E0; /* 활성화된 페이지 배경색 */
+	color: white; /* 활성화된 텍스트 색상 */
+	border-color: #B8E5E0; /* 활성화된 테두리 색상 */
+}
+
+
+
 
 @media ( max-width : 768px) {
-    body {
-        flex-direction: column;
-    }
-    .card {
-        margin-top: 85px;
-        width: 100%;
-        padding: 0px !important;
-    }
-    .card h2, h7 {
-        display: none !important;
-    }
-    .card-body {
-        padding: 0px !important;
-    }
-    .mobile-header {
-        display: block !important;
-        border-radius: 8px;
-        background-image: url('../images/review_img.png');
-        /* 배경 이미지 추가 */
-        background-size: cover; /* 이미지가 요소에 맞게 크기 조정 */
-        margin-bottom: 1rem;
-        padding: 20px 30px;
-        font-size: 1rem;
-    }
-    .mobile-header a {
-        font-weight: bold;
-        text-decoration: none; /* 밑줄 제거 */
-        color: black; /* 글씨 색상 검정 */
-    }
-    .mobile-header a:hover {
-        text-decoration: none; /* 호버 시에도 밑줄 없음 */
-        color: black; /* 호버 시에도 글씨 색상 유지 */
-    }
-    .mobile-header span {
-        font-size: 14px;
-        color: #999999;
-    }
-    .card-body {
-        width: 100%;
-    }
-    .card {
-        border: none;
-    }
-    .review-header {
-        flex-direction: column;
-        align-items: stretch; /* 좌우로 퍼지게 변경 */
-    }
-    .search-container {
-        margin-bottom: 10px; /* 글쓰기 버튼과의 간격을 줌 */
-    }
-    #btnCreateMainPost {
-        margin-left: 0; /* 모바일에서 왼쪽 마진 제거 */
-        display: flex;
-        justify-content: center;
-    }
-    .hide-mobile {
-        display: none;
-    }
+	body {
+		flex-direction: column;
+	}
+	.container-fluid {
+		padding: 0px !important;
+		margin-top: 105px;
+	}
+	.menu-header {
+		height: 120px; /* 화면이 작은 경우 높이 줄이기 */
+		padding: 0.5rem; /* 패딩 줄이기 */
+	}
+	.menu-header h2 {
+		font-size: 1.5rem; /* 작은 화면에서 텍스트 크기 조정 */
+		margin: 0.25rem 0; /* 작은 화면에서 마진 줄이기 */
+	}
+	.menu-header h7 {
+		font-size: 0.875rem; /* 작은 화면에서 텍스트 크기 조정 */
+	}
+	.card {
+		width: 100%;
+		padding: 0px !important;
+	}
+	.card-body {
+		padding: 0px !important;
+	}
+	.search-container {
+		margin-bottom: 10px; /* 글쓰기 버튼과의 간격을 줌 */
+	}
+	#btnCreateMainPost {
+		margin-left: 0; /* 모바일에서 왼쪽 마진 제거 */
+		display: flex;
+		justify-content: center;
+	}
+	.hide-mobile {
+		display: none;
+	}
 }
