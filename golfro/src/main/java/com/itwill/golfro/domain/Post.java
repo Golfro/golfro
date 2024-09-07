@@ -2,6 +2,9 @@ package com.itwill.golfro.domain;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,6 +23,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE) @Builder
 @Getter
@@ -49,6 +54,7 @@ public class Post extends BaseTimeEntity {
 	@JoinColumn(name = "USERID", referencedColumnName = "USERID")
     private User user;
     
+    @JsonIgnore
     @Basic(optional = false)
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CATEGORY_ID")

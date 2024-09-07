@@ -195,14 +195,15 @@ public class ReviewPostService {
 		return list;
 	}
 
+	// 리뷰 게시판 댓글 작성 메서드
 	@Transactional
 	public Comment insertComment(CommentCreateDto dto) {
 		log.info("insertComment(dto={})", dto);
 		
-		User user = userRepo.findByUserid(dto.getUserid());
-		dto.setUser(user);
-		Post post = postRepo.findById(dto.getId()).orElseThrow();
-		dto.setPost(post);
+//		User user = userRepo.findByUserid(dto.getUserid());
+//		dto.setUser(user);
+//		Post post = postRepo.findById(dto.getId()).orElseThrow();
+//		dto.setPost(post);
 		
 		return cmtRepo.save(dto.toEntity());
 	}

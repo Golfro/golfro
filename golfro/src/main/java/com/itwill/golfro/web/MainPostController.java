@@ -139,7 +139,7 @@ public class MainPostController {
 	}
 
 	@GetMapping("/details/{id}")
-	public String mainPostDetails(@PathVariable(name = "id") long id,
+	public String mainPostDetails(@PathVariable(name = "id") Long id,
 		Model model, HttpSession session, RedirectAttributes redirectAttributes
 		, @RequestParam(required = false) Long commentId ) {
 		log.debug("mainPostDetails(id={})", id);

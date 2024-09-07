@@ -846,7 +846,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
         JPQLQuery<Post> query = from(post)
             .join(user).on(post.user.userid.eq(user.userid))
-            .where(post.category.id.in("P003"))
+            .where(post.category.id.in("P003", "F001", "F002", "F003"))
             .orderBy(post.teeoff.desc());
 
         List<Post> list = query.fetch();

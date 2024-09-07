@@ -7,18 +7,17 @@ import com.itwill.golfro.domain.User;
 import lombok.Data;
 
 @Data
-public class CommentCreateDto {
-	private Long id;
-    private Post post;
+public class CommentCreateDto {	
+    private Long postId;
     private String content;
-    private String userid;
-    private User user;
+    private Long userid;
+    
     
     public Comment toEntity() {
         return Comment.builder()
-                .post(post)
+                .post(Post.builder().id(postId).build())
                 .content(content)
-                .user(user)
+                .user(User.builder().id(userid).build())
                 .build();
     }
 }
