@@ -34,8 +34,8 @@ window.addEventListener('scroll', function() {
 	const rightSectionButton = document.querySelector('.right-section button');
 	const loginButton = document.querySelector('.login .login-button svg');
 
-	if (window.scrollY > 800) {
-		// 스크롤 위치가 960px 이상일 때
+	if (window.scrollY > 720) {
+		// 스크롤 위치가 720px 이상일 때
 		header.style.backgroundColor = 'white';
 		header.style.borderBottom = '1px solid #e4e4e4'; // 하단 테두리 추가
 		navItems.forEach(function(item) {
@@ -48,7 +48,7 @@ window.addEventListener('scroll', function() {
 		rightSectionButton.style.color = 'black'; // 버튼 텍스트 색상 변경
 		loginButton.style.fill = 'black'; // 로그인 버튼 아이콘 색상 변경 (SVG fill 속성)
 	} else {
-		// 스크롤 위치가 960px 미만일 때
+		// 스크롤 위치가 720px 미만일 때
 		header.style.backgroundColor = 'rgba(0, 0, 0, 0)';
 		header.style.borderBottom = 'none'; // 하단 테두리 제거
 		navItems.forEach(function(item) {
