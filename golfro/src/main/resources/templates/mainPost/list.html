@@ -267,7 +267,7 @@
 
 
 							<div th:each="post:${posts} " th:object="${post}">
-								<li class="py-3.5 sm:py-4">
+								<li class="py-4 px-4">
 									<div class="mx-3">
 										<div class="selection"
 											th:value="*{selection == 1 ? '해결완료' : '해결중'}">
@@ -291,8 +291,8 @@
 										<div
 											class="main-list-view-like d-flex justify-content-between align-items-center pt-1">
 											<span class="club-type-link" th:text="${post.club.name}"></span>
-											<span><i class="bi bi-eye" th:text="|조회수 : *{views}|">
-											</i> <i class="bi bi-heart" th:text="|좋아요 : *{likes}"></i> </span>
+											<span><i class="bi bi-eye" th:text="| *{views}|">
+											</i> <i class="bi bi-heart" th:text="| *{likes}"></i> </span>
 										</div>
 									</div>
 								</li>
