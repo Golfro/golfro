@@ -80,12 +80,12 @@
 			</div>
 			<div class="center">
 				<ul class="nav">
-					<li class="nav-item"><span class="mainFolder" type="button"
-						onclick="navigateTo('MAIN')" aria-label="레슨 탭">레슨</span>
+					<li class="nav-item"><a class="mainFolder"
+						th:href="@{/mainPost/list}">레슨</a>
 						<ul class="submenu">
 							<li><a class="nav-link" th:href="@{/mainPost/list}">전체
 									클럽</a></li>
-							<li><a
+							<li><a 
 								th:href="@{/gaebokchi/mainPost/search(userid='',searchCategory='searchClubs',clubSelect='PT',textSearchSelect='',selectSelection='selectFalse')}">퍼터</a></li>
 							<li><a
 								th:href="@{/gaebokchi/mainPost/search(userid='',searchCategory='searchClubs',clubSelect='WG',textSearchSelect='',selectSelection='selectFalse')}">웨지</a></li>
@@ -98,17 +98,12 @@
 							<li><a
 								th:href="@{/gaebokchi/mainPost/search(userid='',searchCategory='searchClubs',clubSelect='DR',textSearchSelect='',selectSelection='selectFalse')}">드라이버</a></li>
 						</ul></li>
-					<li class="nav-item" role="presentation"><span role="tab"
-						tabindex="0" aria-controls="tab-panel-meet" aria-selected="false"
-						onclick="navigateTo('MEET')" aria-label="모임 탭">모임</span></li>
-					<li class="nav-item" role="presentation"><span role="tab"
-						tabindex="0" aria-controls="tab-panel-review"
-						aria-selected="false" onclick="navigateTo('REVIEW')"
-						aria-label="리뷰 탭">리뷰</span></li>
-					<li class="nav-item" role="presentation"><span role="tab"
-						tabindex="0" aria-controls="tab-panel-community"
-						aria-selected="false" onclick="navigateTo('COMMUNITY')"
-						aria-label="커뮤니티 탭">커뮤니티</span></li>
+					<li class="nav-item"><a th:href="@{/join/join_main}" class="mainFolder">모임</a>
+					</li>
+					<li class="nav-item"><a th:href="@{/review/review_main}"
+						class="mainFolder">리뷰</a></li>
+					<li class="nav-item"><a th:href="@{/community/comm_main}"
+						class="mainFolder">커뮤니티</a></li>
 				</ul>
 			</div>
 			<div class="right-section">

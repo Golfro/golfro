@@ -56,17 +56,6 @@ document.addEventListener("DOMContentLoaded", function() {
    };
 });
 
-function navigateTo(section) {
-   if (section === 'MAIN') {
-      window.location.href = '/mainPost/list';
-   } else if (section === 'MEET') {
-      window.location.href = '/join/join_main';
-   } else if (section === 'REVIEW') {
-      window.location.href = '/review/review_main';
-   } else if (section === 'COMMUNITY') {
-      window.location.href = '/community/comm_main';
-   }
-}
 
 
 
