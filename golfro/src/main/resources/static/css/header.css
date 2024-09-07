@@ -76,7 +76,7 @@ body {
     margin-right: 0;
 }
 
-.center .nav-item>span {
+.center .nav-item a {
     font-family: 'SUIT-Regular';
     color: black;
     cursor: pointer;
@@ -84,11 +84,13 @@ body {
     text-align: center;
     background: none;
     border: none;
+    text-decoration: none; /* 밑줄 제거 */
 }
 
-.center .nav-item>span:hover, .center .nav-item>span:focus {
+.center .nav-item a:hover, .center .nav-item a:focus {
     color: #000;
     font-weight: bold;
+    text-decoration: none; /* 호버 및 포커스 상태에서도 밑줄 제거 */
 }
 
 .center .submenu {
@@ -117,6 +119,7 @@ body {
     text-align: center;
     display: block;
 }
+
 
 .center .submenu a:hover {
     background-color: #f1f1f1;
