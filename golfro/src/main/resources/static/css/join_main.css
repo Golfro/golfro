@@ -257,7 +257,7 @@ footer.custom-footer {
 /* 반응형 스타일: 화면이 768px 이하일 때 */
 @media ( max-width : 768px) {
     .container-fluid{
-    margin-top: 115px;
+    margin-top: 105px;
     }
     .menu-header {
         height: 120px; /* 화면이 작은 경우 높이 줄이기 */
