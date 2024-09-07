@@ -2,269 +2,262 @@
 
 /* 폰트 */
 @font-face {
-    font-family: 'Freesentation-9Black';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
-        format('woff2');
-    font-weight: 900;
-    font-style: normal;
+	font-family: 'Freesentation-9Black';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+		format('woff2');
+	font-weight: 900;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'SUIT-Regular';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
-        format('woff2');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 body {
-    font-family: 'SUIT-Regular', SUIT-Regular;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	margin: 0;
 }
 
 .container-fluid {
-    background-color: white;
-    padding: 20px;
-    max-width: 960px;
-    margin: 0 auto;
-    margin-top: 85px;
-    flex-grow: 1;
+	background-color: white;
+	padding: 0px !important;
+	margin: 0 auto;
+	margin-top: 85px;
+	flex-grow: 1;
 }
 
 /* 나머지 스타일은 그대로 유지 */
-
-.card-header {
-    display: flex;
-    flex-direction: column; /* 세로로 배치 */
-    align-items: center; /* 수평 중앙 정렬 */
-    justify-content: center; /* 수직 중앙 정렬 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    background-color: white !important;
+.menu-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	background-image: url('../images/lesson_title.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 180px; /* 기본 높이 설정 */
+	padding: 1rem; /* 기본 패딩 설정 */
 }
 
-.card-header h2 {
-    font-family: 'Freesentation-9Black';
-    text-align: center;
+.menu-header h2 a {
+	font-family: 'Freesentation-9Black';
+	text-align: center;
+	text-decoration: none;
+	color: black;
 }
 
-.card-header h7 {
-    font-family: 'SUIT-Regular';
-    color: #808080;
-    text-align: center;
+.menu-header h7 {
+	font-size: 1rem;
+	color: #666;
+}
+
+.card {
+	max-width: 960px;
+	width: 100%;
+	padding: 0 !important;
 }
 
 #btnAllRead, #btnCreateMainPost {
-    font-family: 'SUIT-Regular';
-    width: 100%;
-    font-size: 0.9rem;
+	font-family: 'SUIT-Regular';
+	width: 100%;
+	font-size: 0.9rem;
 }
 
 #btnCreateMainPost {
-    color: white;
-    background: #2FA599;
+	color: white;
+	background: #2FA599;
 }
 
 #all-create {
-    border-bottom: 1px solid #ccc !important;
+	border-bottom: 1px solid #ccc !important;
 }
 
 .search-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 40%;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 40%;
 }
 
 .search-input {
-    flex: 2;
-    display: flex;
-    border: none !important;
-    width: 50%;
+	flex: 2;
+	display: flex;
+	border: none !important;
+	width: 50%;
 }
 
 .search-field {
-    flex: 2;
+	flex: 2;
 }
 
 .search-button {
-    flex: 0 0 auto;
+	flex: 0 0 auto;
 }
 
 #searchCategory {
-    width: 100%;
-    font-size: 0.9rem;
+	width: 100%;
+	font-size: 0.9rem;
 }
 
 #searchButton {
-    background: #ffffff;
-    color: #000000;
-    text-align: center;
-    border: none !important;
-    padding: 0px;
+	background: #ffffff;
+	color: #000000;
+	text-align: center;
+	border: none !important;
+	padding: 0px;
 }
 
 .card-body {
-    font-family: 'SUIT-Regular', SUIT-Regular;
+	font-family: 'SUIT-Regular', SUIT-Regular;
 }
 
 ul {
-    padding-left: 0 !important;
+	padding-left: 0 !important;
 }
 
 .divide-y li {
-    display: flex;
-    align-items: flex-start;
-    padding: 1rem;
-    border-top: 1px solid #c0c0c0;
+	display: flex;
+	align-items: flex-start;
+	padding: 1rem;
+	border-top: 1px solid #c0c0c0;
 }
 
 .notice {
-    background-color: #E7EFEE;
+	background-color: #E7EFEE;
 }
 
 .notice-link {
-    padding-left: 20px;
-    text-decoration: none;
-    color: black;
+	padding-left: 20px;
+	text-decoration: none;
+	color: black;
 }
 
 .notice-link:hover {
-    color: #2FA599;
+	color: #2FA599;
 }
 
 .selection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    border: 1px solid #808080;
-    border-radius: 8px;
-    width: 70px;
-    height: 70px;
-    box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5px;
+	border: 1px solid #808080;
+	border-radius: 8px;
+	width: 70px;
+	height: 70px;
+	box-sizing: border-box;
 }
 
 .selection span {
-    font-family: 'SUIT-Regular';
-    font-size: 0.9rem;
+	font-family: 'SUIT-Regular';
+	font-size: 0.9rem;
 }
 
 .resolved-border {
-    margin-top: 10px;
-    border: 2px solid #2FA599;
-    background-color: #f4f9f9;
+	margin-top: 10px;
+	border: 2px solid #2FA599;
+	background-color: #f4f9f9;
 }
 
 .main-list-info {
-    font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 .main-list-title a {
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
+	text-decoration: none;
+	font-weight: bold;
+	color: black;
 }
 
 .main-list-title a:hover {
-    text-decoration: underline;
-    color: black;
+	text-decoration: underline;
+	color: black;
 }
 
 .main-list-view-like {
-    margin: 0px !important;
+	margin: 0px !important;
 }
 
 .main-list-view-like i {
-    margin-left: 10px;
+	margin-left: 10px;
 }
 
 .main-list-view-like span {
-    font-size: 1rem;
-    font-weight: bold;
+	font-size: 1rem;
+	font-weight: bold;
 }
 
 span.club-type-link {
-    padding: 5px 10px;
-    font-size: 0.8rem;
-    background-color: #e9e9e9;
-    border-radius: 15px;
+	padding: 5px 10px;
+	font-size: 0.8rem;
+	background-color: #e9e9e9;
+	border-radius: 15px;
 }
 
-footer{
-    margin: 0px; 
-}
-/* 모바일 영역 */
-.mobile-header {
-    display: none !important;
+footer {
+	margin: 0px;
 }
 
 @media ( max-width : 768px) {
-    body {
-        flex-direction: column;
-    }
-    .container-fluid {
-        padding: 0px !important;
-    }
-    .card {
-        margin-top: 20px;
-        width: 100%;
-        padding: 0px !important;
-    }
-    .card-body {
-        padding: 0px !important;
-    }
-    .card-header h2, .card-header h7 {
-        display: none !important;
-    }
-    .mobile-header {
-        display: block !important;
-        background-image: url('../images/lesson_header.png');
-        /* 배경 이미지 추가 */
-        background-size: 90%; /* 이미지가 요소에 맞게 크기 조정 */
-        margin-bottom: 1rem;
-        padding: 30px 20px;
-        font-size: 1rem;
-    }
-    .mobile-header a {
-        font-weight: bold;
-        text-decoration: none; /* 밑줄 제거 */
-        color: black; /* 글씨 색상 검정 */
-    }
-    .mobile-header a:hover {
-        text-decoration: none; /* 호버 시에도 밑줄 없음 */
-        color: black; /* 호버 시에도 글씨 색상 유지 */
-    }
-    .mobile-header span {
-        font-size: 14px;
-        color: #999999;
-    }
-    #all-create {
-        padding: 0px 20px;
-    }
-    .search-box {
-        flex-direction: column;
-        width: 90%;
-    }
-    .search-category, .search-input {
-        width: 100%; /* 가로로 꽉 차게 설정 */
-    }
-    .divide-y li {
-        padding: 10px 5px;
-        font-size: 90%;
-    }
-    .main-list-view-like span {
-        font-size: 90%;
-        font-weight: normal;
-    }
-    .selection {
-        margin-top: 10px;
-    }
-    #topButton {
-        display: none !important;
-    }
+	body {
+		flex-direction: column;
+	}
+	.container-fluid {
+		padding: 0px !important;
+		margin-top: 105px;
+	}
+	.menu-header {
+		height: 120px; /* 화면이 작은 경우 높이 줄이기 */
+		padding: 0.5rem; /* 패딩 줄이기 */
+	}
+	.menu-header h2 {
+		font-size: 1.5rem; /* 작은 화면에서 텍스트 크기 조정 */
+		margin: 0.25rem 0; /* 작은 화면에서 마진 줄이기 */
+	}
+	.menu-header h7 {
+		font-size: 0.875rem; /* 작은 화면에서 텍스트 크기 조정 */
+	}
+	.card {
+		margin-top: 20px;
+		width: 100%;
+		padding: 0px !important;
+	}
+	.card-body {
+		padding: 0px !important;
+	}
+	#all-create {
+		padding: 0px 20px;
+	}
+	.search-box {
+		flex-direction: column;
+		width: 90%;
+	}
+	.search-category, .search-input {
+		width: 100%; /* 가로로 꽉 차게 설정 */
+	}
+	.divide-y li {
+		padding: 10px 5px;
+		font-size: 90%;
+	}
+	.main-list-view-like span {
+		font-size: 90%;
+		font-weight: normal;
+	}
+	.selection {
+		margin-top: 10px;
+	}
+	#topButton {
+		display: none !important;
+	}
 }
