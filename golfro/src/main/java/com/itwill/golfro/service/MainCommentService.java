@@ -87,7 +87,7 @@ public class MainCommentService {
 	public int editCommentById(CommentUpdateDto dto) {
 		log.info("editCommentById(dto={})", dto);
     	
-		Comment entity = cmtRepo.findById(dto.getId()).orElseThrow();
+		Comment entity = cmtRepo.findById(dto.getCommentId()).orElseThrow();
 		
         try {
         	entity.update(dto.getContent());

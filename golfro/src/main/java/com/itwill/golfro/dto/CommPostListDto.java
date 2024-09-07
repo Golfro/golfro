@@ -10,7 +10,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,14 +62,22 @@ public class CommPostListDto {
 
 	// 이미지 파일 경로를 바이트 배열로 변환하는 메서드 (실제 구현 필요)
 	private static byte[] loadMediaBytes(String mediaPath) {
-		try {
-			Path path = Paths.get(mediaPath);
-			return Files.readAllBytes(path);
-		} catch (IOException e) {
-			// 예외 처리: 파일을 읽을 수 없는 경우 등
-			e.printStackTrace();
-			return new byte[0]; // 빈 바이트 배열 리턴
-		}
+	    try {
+	        URL url = new URL(mediaPath); // URL 객체 생성
+	        try (InputStream inputStream = url.openStream(); // URL에서 InputStream을 열고
+	             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) { // 바이트 배열로 변환할 OutputStream 생성
+	             
+	            byte[] buffer = new byte[1024];
+	            int length;
+	            while ((length = inputStream.read(buffer)) != -1) {
+	                outputStream.write(buffer, 0, length);
+	            }
+	            return outputStream.toByteArray(); // 바이트 배열 반환
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return new byte[0]; // 빈 바이트 배열 리턴
+	    }
 	}
 	
 	// LocalDateTime을 포맷팅하여 문자열로 변환하는 메서드

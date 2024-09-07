@@ -1,5 +1,7 @@
 package com.itwill.golfro.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,6 +19,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE) @Builder
 @Getter @ToString @EqualsAndHashCode(callSuper = true)
@@ -38,7 +42,7 @@ public class Comment extends BaseTimeEntity {
 	@Basic(optional = false)
 	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID", referencedColumnName = "USERID")
+	@JoinColumn(name = "USERID")
 	private User user;
 	
 	@Builder.Default

@@ -149,21 +149,17 @@
                                     value="검색" />
                             </div>
                             <div class="col-2">
-                                <c:url var="createPostUrl"
-                                    value="/community/comm_create" />
-                                <c:url var="signinUrl"
-                                    value="/user/signin" />
+                                <c:url var="createPostUrl" value="/community/comm_create" />
+                                <c:url var="signinUrl" value="/user/signin" />
                                 <c:choose>
                                     <c:when
                                         test="${not empty signedInUser}">
                                         <!-- signedInUser가 있는 경우: 글쓰기 링크 -->
-                                        <a href="${createPostUrl}"
-                                            class="form-control btn btn-outline-secondary">글쓰기</a>
+                                        <a href="${createPostUrl}" class="form-control btn btn-outline-secondary">글쓰기</a>
                                     </c:when>
                                     <c:otherwise>
                                         <!-- signedInUser가 없는 경우: 로그인 링크 -->
-                                        <a href="${signinUrl}"
-                                            class="form-control btn btn-outline-secondary">글쓰기</a>
+                                        <a href="${signinUrl}" class="form-control btn btn-outline-secondary">글쓰기</a>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -184,25 +180,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="p" items="${pinnedPosts}">
-                                <tr class="table table-secondary ">
-                                    <td>${category_name[p.category]}</td>
-                                    <td class="left-align-bold"><c:url
-                                            var="commPostDetailsPage"
-                                            value="/community/comm_details">
-                                            <c:param name="id"
-                                                value="${p.id}"></c:param>
-                                        </c:url> <a
-                                        href="${commPostDetailsPage}"
-                                        class="custom-link">${p.title}</a>
+                            <th:block th:each="posts:${posts}" th:object="${posts}">
+                                <tr th:if="*{categoryId == 'F001' or categoryId == 'F002' or categoryId == 'F003'}" class="table table-secondary">
+                                    <td th:text="*{categoryId == 'F001' ? '잡담' : (categoryId == 'F002' ? '팁/노하우' : (categoryId == 'F003' ? '라운드후기' : '알 수 없음'))}"></td>
+                                    <td class="left-align-bold">
+                                        <a th:text="*{title}" th:href="@{/community/details/{id}(id=*{id})}" class="custom-link"></a>
                                     </td>
-                                    <td>${userNicknames[p.author]}</td>
-                                    <td>${p.formattedCreatedTime}</td>
-                                    <td>${p.views}</td>
-                                    <td>${p.likes}</td>
+                                    <td th:text="*{userid}"></td>
+                                    <td th:text="*{createdTime}"></td>
+                                    <td th:text="*{views}"></td>
+                                    <td th:text="*{likes}"></td>
                                 </tr>
-                            </c:forEach>
-                            <c:forEach var="p" items="${posts}">
+                            </th:block>
+                            
+                            
+<!--                             <c:forEach var="p" items="${posts}">
                                 <tr class="table">
                                     <td>${category_name[p.category]}</td>
                                     <td class="left-align-bold"><c:url
@@ -219,7 +211,7 @@
                                     <td>${p.views}</td>
                                     <td>${p.likes}</td>
                                 </tr>
-                            </c:forEach>
+                            </c:forEach>  -->
                         </tbody>
                     </table>
                 </div>

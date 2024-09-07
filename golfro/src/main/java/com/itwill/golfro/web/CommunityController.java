@@ -36,6 +36,7 @@ import com.itwill.golfro.service.MediaService;
 import com.itwill.golfro.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -62,12 +63,16 @@ public class CommunityController {
 
 	private Map<String, Set<Integer>> userLikedPosts = new HashMap<>();
 	
+	
+	
 	@ModelAttribute("loggedInUser")
 	public User addLoggedInUserToModel(HttpSession session) {
 		String userid = SESSION_ATTR_USER;
 		return commPostService.getLoggedInUser(userid);
 	}
 
+	
+	
 	@GetMapping("/comm_create")
 	public String createCommPost(@ModelAttribute("loggedInUser") User loggedInUser, Model model) {
 		if (loggedInUser != null) {
@@ -95,6 +100,7 @@ public class CommunityController {
 		return "redirect:/community/comm_main";
 	}
 
+	
 	@GetMapping("/comm_main")
 	public String viewCommunityMain(@RequestParam(name = "post-cate", required = false) String category,
 			@RequestParam(name = "search-category", required = false) String searchCategory,
@@ -103,14 +109,17 @@ public class CommunityController {
 		log.info("GET: viewCommunityMain(category={}, searchCategory={}, keyword={}, pageNo={})", category, searchCategory, keyword, pageNo);
 
 		Page<CommPostListDto> posts;
-
+		
+		// 검색 조건을 넣었을 경우
 		if ((category != null && !category.isEmpty()) || (searchCategory != null && keyword != null && !keyword.isEmpty())) {
 			CommPostSearchDto searchDto = new CommPostSearchDto();
 			searchDto.setCategoryId(category);
 			searchDto.setSearchCategory(searchCategory);
 			searchDto.setKeyword(keyword);
 			posts = commPostService.searchByCategoryAndKeyword(searchDto, pageNo, Sort.by("id").descending());
+			
 		} else {
+			// 검색 조건이 없을 경우
 			posts = commPostService.getPagedPosts(pageNo, Sort.by("id").descending());
 		}
 
@@ -143,30 +152,25 @@ public class CommunityController {
 		return "community/comm_main";
 	}
 
-	@GetMapping("/comm_details")
+	@GetMapping("/details/{id}")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
-			@RequestParam("id") long id, @RequestParam(name = "commentId", required = false) long commentId,
+			@PathVariable(name="id") Long id, @RequestParam(name = "commentId", required = false) Long commentId,
 			Model model, HttpSession session) {
-		if (loggedInUser != null) {
-			log.info("user={}", loggedInUser);
-			
-			model.addAttribute("user", loggedInUser);
+		
+		
+		if (session.getAttribute(SESSION_ATTR_USER) != null) {
+		    @SuppressWarnings("unchecked")
+		    Set<Long> viewedPosts = (Set<Long>) session.getAttribute("viewedPosts");
+		    if (viewedPosts == null) {
+		        viewedPosts = new HashSet<>();
+		        session.setAttribute("viewedPosts", viewedPosts);
+		    }
 
-			@SuppressWarnings("unchecked")
-			Set<Long> viewedPosts = (Set<Long>) session.getAttribute("viewedPosts");
-			if (viewedPosts == null) {
-				viewedPosts = new HashSet<>();
-			}
-
-			if (!viewedPosts.contains(id)) {
-				commPostService.increaseViews(id); // 조회수 증가
-				viewedPosts.add(id);
-				session.setAttribute("viewedPosts", viewedPosts);
-			} else {
-				log.info("이미 조회한 게시물입니다.");
-			}
-		} else {
-			log.info("로그인하지 않은 사용자는 조회수가 증가하지 않습니다.");
+		    // 게시글이 세션에 없으면 조회수를 증가시키고 세션에 추가
+		    if (!viewedPosts.contains(id)) {
+		    	commPostService.increaseViews(id);
+		        viewedPosts.add(id);
+		    }
 		}
 
 		// 게시물 조회
@@ -192,6 +196,10 @@ public class CommunityController {
 		model.addAttribute("commentcount", commentcount);
 		model.addAttribute("commentId", commentId);
 		
+		System.out.println(previousPost);
+		System.out.println(nextPost);
+		System.out.println(commentlist);
+		
 		return "community/comm_details";
 	}
 
@@ -216,7 +224,7 @@ public class CommunityController {
 	}
 
 	@GetMapping("/delete")
-	public String delete(@RequestParam(name = "id") long id) {
+	public String delete(@RequestParam(name = "commentId") Long id) {
 		log.info("delete(id={})", id);
 
 		commPostService.delete(id);
@@ -263,7 +271,7 @@ public class CommunityController {
 
 	// 댓글 목록 조회
 	@GetMapping("/comments/{postId}")
-	public String getCommentsByPostId(@PathVariable long postId, Model model) {
+	public String getCommentsByPostId(@PathVariable Long postId, Model model) {
 		List<Comment> comments = cmtRepo.selectByPostId(postId);
 		
 		Map<String, String> userNicknames = userService.getUserNicknames();
@@ -276,46 +284,49 @@ public class CommunityController {
 
 	@PostMapping("/comments")
 	@ResponseBody
-	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto, @ModelAttribute("loggedInUser") User loggedInUser) {
-		if (loggedInUser != null) {
-			Comment comment = Comment.builder()
-					.user(User.builder().userid(loggedInUser.getUserid()).build())
-					.post(Post.builder().id(commentCreateDto.getId()).build())
-					.content(commentCreateDto.getContent())
-					.build();
-			
-			// 댓글을 데이터베이스에 저장하고 자동 생성된 id를 받아옴
-			Comment result = cmtRepo.save(comment);
-
-			// 저장된 댓글 객체를 반환하여 클라이언트에게 전달
-			if (result != null) {
-				return comment;
-			} else {
-				// 저장에 실패한 경우 처리
-				return null;
-			}
-		} else {
-			// 로그인 되지 않은 경우 처리
-			return null;
-		}
+	public ResponseEntity<?> addComment(@RequestBody CommentCreateDto commentCreateDto) {
+		log.info("************={}",commentCreateDto);
+		
+	   
+	        Comment comment = Comment.builder()
+	                .user(User.builder().id(commentCreateDto.getUserid()).build())
+	                .post(Post.builder().id(commentCreateDto.getPostId()).build())
+	                .content(commentCreateDto.getContent())
+	                .build();
+	        log.info("여기까지 되는지 확인중");
+	        
+	        Comment result = cmtRepo.save(comment);
+	        log.info("리절트리절트리절트리절트리절트={}",result);
+	        
+	        return ResponseEntity.ok(result);
+	    
 	}
-
+	
 	@PutMapping("/comments")
 	@ResponseBody
-	public Comment updateComment(@RequestBody CommentUpdateDto commentUpdateDto) {
-		Comment comment = cmtRepo.selectCommentById(commentUpdateDto.getId());
-		
-		if (comment != null) {
-			comment.update(commentUpdateDto.getContent());
-			Comment result = cmtRepo.save(comment);
-			
-			if (result != null) {
-				return comment; // 수정된 댓글 객체 반환
-			}
-		}
-		
-		return null;
+	@Transactional
+	public ResponseEntity<Comment> updateComment(@RequestBody CommentUpdateDto commentUpdateDto) {
+	    log.info("여기 실행되는거 맞지???????");
+	    log.info("{}", commentUpdateDto);
+
+	    // 댓글을 ID로 찾기
+	    Comment comment = cmtRepo.selectCommentById(commentUpdateDto.getCommentId());
+	    if (comment == null) {
+	        return ResponseEntity.notFound().build();
+	    }
+
+	    // 댓글 내용 업데이트
+	    comment.update(commentUpdateDto.getContent());
+
+	    // 업데이트된 댓글 저장
+	    Comment updatedComment = cmtRepo.save(comment);
+
+	    log.info("업데이트 된 것 :{}", updatedComment);
+
+	    // 수정된 댓글 객체 반환
+	    return ResponseEntity.ok(updatedComment);
 	}
+
 
 	// DELETE 요청의 URL 수정
 	@DeleteMapping("/comments/{id}")
