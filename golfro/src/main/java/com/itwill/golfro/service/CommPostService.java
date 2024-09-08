@@ -202,12 +202,10 @@ public class CommPostService {
 		
 		
 		
-		
-		
-		
 		Category category = ctgRepo.findById(dto.getCategoryId()).orElseThrow();
 		Post entity = postRepo.findById(dto.getId()).orElseThrow();
 		
+		log.info("파일경로={}", dto.getMediaPath());
 		entity.update(dto.getTitle(),dto.getContent(),category,dto.getMediaPath());
 	}
 
@@ -245,7 +243,7 @@ public class CommPostService {
 		log.info("getPreviousPost(createdTime={})", createdTime);
 		String[] categories = {"F001", "F002", "F003"};
 		
-		return postRepo.findPreviousPost(categories, createdTime);
+		return postRepo.findPreviousPostComm(categories, createdTime);
 	}
 	
 	@Transactional(readOnly = true)
@@ -253,7 +251,7 @@ public class CommPostService {
 		log.info("getNextPost(createdTime={})", createdTime);
 		String[] categories = {"F001", "F002", "F003"};
 		
-		return postRepo.findNextPost(categories, createdTime);
+		return postRepo.findNextPostComm(categories, createdTime);
 	}
 
 	@Transactional
@@ -313,7 +311,7 @@ public class CommPostService {
 		Pageable pageable = PageRequest.of(pageNo, 5, sort);
 		
 		// 영속성(persistence/repository) 계층의 메서드를 호출해서 엔터티들의 리스트를 가져옴.
-		Page<Post> list = postRepo.selectPagedPosts(pageable);
+		Page<Post> list = postRepo.selectPagedPostsComm(pageable);
 		log.info("page.totalPages = {}", list.getTotalPages()); // 전체 페이지 개수
 		log.info("page.number = {}", list.getNumber()); // 현재 페이지 번호
 		log.info("page.hasPrevious = {}", list.hasPrevious()); // 이전 페이지가 있는 지 여부

@@ -108,57 +108,55 @@ public class CommunityController {
 	
 	@GetMapping("/comm_main")
 	public String viewCommunityMain(@RequestParam(name = "post-cate", required = false) String category,
-			@RequestParam(name = "search-category", required = false) String searchCategory,
-			@RequestParam(name = "keyword", required = false) String keyword,
-			@RequestParam(name = "p", defaultValue = "0") int pageNo, Model model) {
-		
-		
-		log.info("GET: viewCommunityMain(category={}, searchCategory={}, keyword={}, pageNo={})", category, searchCategory, keyword, pageNo);
+	        @RequestParam(name = "search-category", required = false) String searchCategory,
+	        @RequestParam(name = "keyword", required = false) String keyword,
+	        @RequestParam(name = "p", defaultValue = "0") int pageNo, Model model) {
 
-		Page<CommPostListDto> posts;
-		
-		// 검색 조건을 넣었을 경우
-		if ((category != null && !category.isEmpty()) || (searchCategory != null && keyword != null && !keyword.isEmpty())) {
-			CommPostSearchDto searchDto = new CommPostSearchDto();
-			searchDto.setCategoryId(category);
-			searchDto.setSearchCategory(searchCategory);
-			searchDto.setKeyword(keyword);
-			posts = commPostService.searchByCategoryAndKeyword(searchDto, pageNo, Sort.by("id").descending());
-			
-		} else {
-			// 검색 조건이 없을 경우
-			posts = commPostService.getPagedPosts(pageNo, Sort.by("id").descending());
-		}
+	    log.info("GET: viewCommunityMain(category={}, searchCategory={}, keyword={}, pageNo={})", category, searchCategory, keyword, pageNo);
 
-		List<Post> pinnedPosts = commPostService.Fixingthetop();
+	    Page<CommPostListDto> posts;
 
-		List<Long> pinnedPostIds = pinnedPosts.stream().map(Post::getId).collect(Collectors.toList());
+	    // 검색 조건을 넣었을 경우
+	    if ((category != null && !category.isEmpty()) || (searchCategory != null && keyword != null && !keyword.isEmpty())) {
+	        CommPostSearchDto searchDto = new CommPostSearchDto();
+	        searchDto.setCategoryId(category);
+	        searchDto.setSearchCategory(searchCategory);
+	        searchDto.setKeyword(keyword);
+	        posts = commPostService.searchByCategoryAndKeyword(searchDto, pageNo, Sort.by("id").descending());
 
-		List<CommPostListDto> filteredPostsList = posts.getContent().stream()
+	    } else {
+	        // 검색 조건이 없을 경우
+	        posts = commPostService.getPagedPosts(pageNo, Sort.by("id").descending());
+	    }
+
+	    List<Post> pinnedPosts = commPostService.Fixingthetop();
+
+	    List<Long> pinnedPostIds = pinnedPosts.stream().map(Post::getId).collect(Collectors.toList());
+
+	    List<CommPostListDto> filteredPostsList = posts.getContent().stream()
 	            .filter(post -> !pinnedPostIds.contains(post.getId()))
 	            .collect(Collectors.toList());
 
-		posts = new PageImpl<>(filteredPostsList, posts.getPageable(), posts.getTotalElements());
+	    posts = new PageImpl<>(filteredPostsList, posts.getPageable(), posts.getTotalElements());
 
+	    model.addAttribute("pinnedPosts", pinnedPosts);
+	    model.addAttribute("top5ByF001", commPostService.getTop5ByF001());
+	    model.addAttribute("top5ByF002", commPostService.getTop5ByF002());
+	    
+	    Map<String, String> category_name = commPostService.catrgoryname(); // 카테고리 ID / Name 매핑
+	    Map<String, String> userNicknames = userService.getUserNicknames(); // 유저 UserId / Nickname 매핑
+	    
+	    model.addAttribute("category_name", category_name);
+	    model.addAttribute("userNicknames", userNicknames);
+	    model.addAttribute("selectedCategory", category);
+	    model.addAttribute("selectedSearchCategory", searchCategory);
+	    model.addAttribute("keyword", keyword);
+	    model.addAttribute("posts", posts);
 
-
-		model.addAttribute("pinnedPosts", pinnedPosts);
-		model.addAttribute("top5ByF001", commPostService.getTop5ByF001());
-		model.addAttribute("top5ByF002", commPostService.getTop5ByF002());
-		
-		Map<String, String> category_name = commPostService.catrgoryname(); // 카테고리 ID / Name 매핑
-		Map<String, String> userNicknames = userService.getUserNicknames(); // 유저 UserId / Nickname 매핑
-		
-		model.addAttribute("category_name", category_name);
-		model.addAttribute("userNicknames", userNicknames);
-		model.addAttribute("category_name", category_name);
-		model.addAttribute("selectedCategory", category);
-		model.addAttribute("selectedSearchCategory", searchCategory);
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("posts", posts);
-
-		return "community/comm_main";
+	    return "community/comm_main";
 	}
+
+
 
 	@GetMapping("/details/{id}")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,

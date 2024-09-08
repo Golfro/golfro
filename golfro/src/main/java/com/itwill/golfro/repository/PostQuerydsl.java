@@ -21,6 +21,14 @@ public interface PostQuerydsl {
 	
 	Post findNextPost(String[] category, LocalDateTime teeoff);
 	
+	
+	Post findPreviousPostComm(String[] category, LocalDateTime createdTime);
+	
+	Post findNextPostComm(String[] category, LocalDateTime createdTime);
+	
+	
+	
+	
 	Post selectById(Long id);
 	
 	Tuple selectByPostId(Long id);
@@ -54,6 +62,8 @@ public interface PostQuerydsl {
 	Page<Tuple> getPostListByUserid(String userid, Pageable pageable);
 	
 	List<Post> getUsersLikesRank();
+	
+	Page<Post> selectPagedPostsComm(Pageable pageable);
 	
 	Page<Post> selectPagedPosts(Pageable pageable);
 	
