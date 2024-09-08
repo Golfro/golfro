@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+body {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+}
+
+.container-fluid {
+    background-color: white;
+    max-width: 960px;
+    margin: 0 auto;
+    margin-top: 85px;
+    margin-bottom: 50px;
+}
+
+.card {
+    border: none !important;
+}
+
+.card-header {
+    background-color: white !important;
+    border: none !important;
+}
+
+.card-header h3 {
+    font-family: 'Freesentation-9Black', Freesentation-9Black;
+}
+
+.card-header h7 {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+}
+
+.cancelBtn {
+    background-color: #EEEEEE !important;
+}
+
+.submitBtn {
+    color: white !important;
+    background-color: #2FA599 !important;
+}
+
+.toolbar {
+    margin-bottom: 20px;
+}
+
+#editor-container {
+    height: 400px; /* 에디터 높이 조정 */
+}
+
+#imagePreview {
+    max-width: 100%;
+    max-height: 300px;
+    display: none;
+}
+/* 모바일 영역 */
+.mobile-header {
+    display: none !important;
+}
+
+@media screen and (max-width: 768px) {
+    .card h3, h7 {
+        display: none !important;
+    }
+    .mobile-header {
+        display: block !important;
+        border-radius: 8px;
+        background-image: url('../images/review_header.png'); /* 배경 이미지 추가 */
+        background-size: cover; /* 이미지가 요소에 맞게 크기 조정 */
+        margin: 10px;
+        padding: 20px 30px;
+        font-size: 1rem;
+    }
+    .mobile-header a {
+        font-weight: bold;
+        text-decoration: none; /* 밑줄 제거 */
+        color: black; /* 글씨 색상 검정 */
+    }
+    .mobile-header a:hover {
+        text-decoration: none; /* 호버 시에도 밑줄 없음 */
+        color: black; /* 호버 시에도 글씨 색상 유지 */
+    }
+    .mobile-header span {
+        font-size: 14px;
+        color: #999999;
+    }
+}

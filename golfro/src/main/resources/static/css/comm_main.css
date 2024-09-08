@@ -1,15 +1,32 @@
 @charset "UTF-8";
 
-/* Body 스타일 */
-body {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+@charset "UTF-8";
+
+/* 폰트 */
+@font-face {
+	font-family: 'Freesentation-9Black';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+		format('woff2');
+	font-weight: 900;
+	font-style: normal;
 }
 
-main {
-    margin-bottom: 75px;
+@font-face {
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+body {
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .container-fluid {
@@ -18,12 +35,11 @@ main {
 	margin: 0 auto;
 	margin-top: 85px;
 	flex-grow: 1;
-	width: 1080px;
+	
 }
-.ad img {
-    max-width: 1080px; /* 최대 가로 너비를 1080px로 설정 */
-    width: 100%; /* 부모 요소에 맞게 이미지 너비를 조정 */
-    height: auto; /* 비율에 맞게 높이를 자동 조정 */
+
+.container{
+	max-width: 1080px;
 }
 
 /* 헤더 스타일 */
@@ -48,10 +64,14 @@ main {
 	border: 1px solid #e5e5e5;
 	border-radius: 10px;
 	margin-bottom: 20px;
+	max-width: 1080px;
+	height: auto;
 }
+
 /* 테이블 스타일 */
 table {
     background-color: white; /* 테이블 전체 배경색 흰색 */
+border: 1px solid #ccc;
 }
 
 table thead {
@@ -67,6 +87,7 @@ table thead {
 	margin-top: 30px;
 	font-size: 20px;
 }
+
 table thead tr th.text-center {
     border-bottom: 2px solid #0073e6 !important;
     color: #0073e6;
@@ -91,59 +112,25 @@ th, td {
 
 
 
-/* 타이틀 스타일 */
-.title {
-    margin-bottom: 30px;
+
+.card-header{
+	background-color: #fff;
+	margin-top: 10px;
 }
 
-/* 카드 헤더 스타일 */
-main .card {
-    font-family: 'SUIT-Regular', SUIT-Regular;
-    margin-top: 30px !important;
-    border: 1px solid #c0c0c0;
+.category-button a{
+	border-radius: 50px;
 }
 
-.card-header {
-    background-color: #0080ff;
+.search-container .col-auto{
+	font-size: 0.9rem;
 }
 
-.card-body {
-    font-family: 'Pretendard-Regular', Pretendard-Regular;
-    font-size: 15px;
+#search-create{
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ccc;
 }
 
-/* 버튼 스타일 */
-.btn-outline-secondary {
-    color: #28a745;
-    border-color: #28a745;
-}
-
-.btn-outline-secondary:hover {
-    background-color: #28a745;
-    color: white;
-}
-
-.all {
-     font-family: 'Pretendard-Regular', Pretendard-Regular;
-     margin-top: 50px;
-     font-weight: bold;
-}
-/* 커스텀 링크 스타일 */
-.custom-link {
-    color: black;
-    text-decoration: none;
-}
-
-.custom-link:hover {
-    text-decoration: underline; /* 호버 시 밑줄 추가 */
-}
-
-
-
-
-/* 푸터 스타일 */
-footer.text-center {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; /* 필요에 따라 상단 마진을 조정할 수 있습니다. */
+.category-button{
+	margin-bottom: 20px;
 }
