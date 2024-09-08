@@ -204,6 +204,9 @@ public class CommunityController {
 		model.addAttribute("commentcount", commentcount);
 		model.addAttribute("commentId", commentId);
 		
+		model.addAttribute("top5ByF001", commPostService.getTop5ByF001());
+		model.addAttribute("top5ByF002", commPostService.getTop5ByF002());
+		
 		System.out.println(previousPost);
 		System.out.println(nextPost);
 		System.out.println(commentlist);
