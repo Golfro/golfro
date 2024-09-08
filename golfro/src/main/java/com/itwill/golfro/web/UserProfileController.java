@@ -1,7 +1,6 @@
 package com.itwill.golfro.web;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -31,8 +30,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.itwill.golfro.domain.Comment;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
@@ -67,15 +64,15 @@ public class UserProfileController {
 	@GetMapping({ "/profile", "/privacy" })
 	public void privacy(@RequestParam(required = false) String account, HttpSession session,
 			Model model) {
-		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
-		String grade = (String) session.getAttribute(SESSION_USER_GRADE);
+		Object userid = session.getAttribute(SESSION_ATTR_USER);
+		Object grade = session.getAttribute(SESSION_USER_GRADE);
 
 		if (grade.equals("G10")) {
-			User pro = userService.readPro(userid);
+			User pro = userService.readPro((String) userid);
 			model.addAttribute("user", pro);
 			log.info("user={}", pro);
 		} else {
-			User user = userService.read(userid);
+			User user = userService.read((String) userid);
 			model.addAttribute("user", user);
 			log.info("user={}", user);
 		}
@@ -137,44 +134,11 @@ public class UserProfileController {
 	}
 
 	@PostMapping("/file/image")
-	public ResponseEntity<String> saveUserImage(HttpSession session, @RequestParam MultipartFile file) {
+	public ResponseEntity<String> saveUserImage(HttpSession session, @RequestParam("file") MultipartFile mediaFile) {
 		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
 
-		// 파일이 비어있는지 체크
-		if (file.isEmpty()) {
-			log.info("Please select a file to upload.");
-		}
-
-		try {
-			// ObjectMetadata를 사용하여 파일의 Content-Length 설정
-            ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentLength(file.getSize());
-            metadata.setContentType(file.getContentType()); // 파일의 Content-Type을 설정
-			
-			// 파일을 S3에 업로드
-            amazonS3.putObject(new PutObjectRequest(bucketName, file.getOriginalFilename(), file.getInputStream(), metadata));
-			
-            // S3에 저장된 파일의 URL을 생성
-            String filePath = amazonS3.getUrl(bucketName, file.getOriginalFilename()).toString();
-			File dest = new File(filePath);
-
-			// 파일을 지정된 경로로 복사
-			file.transferTo(dest);
-
-			UserProfileDto dto = new UserProfileDto();
-			dto.setUserid(userid);
-			dto.setImage(filePath);
-
-			userService.updateImage(dto);
-
-			// 업로드 성공 메시지 전달
-			log.info("File uploaded successfully: {}", file.getOriginalFilename());
-		} catch (IOException e) {
-			e.printStackTrace();
-			// 업로드 실패 메시지 전달
-			log.info("Failed to upload file: {}", file.getOriginalFilename());
-		}
-
+		userService.uploadImage(userid, mediaFile);
+		
 		return ResponseEntity.ok().build();
 	}
 
@@ -183,8 +147,7 @@ public class UserProfileController {
 	    try {
 	        // URL 유효성 검사
 	        if (file == null || !file.startsWith("http://") && !file.startsWith("https://")) {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-	                                 .body(null); // 유효하지 않은 URL에 대한 처리
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // 유효하지 않은 URL에 대한 처리
 	        }
 
 	        // URI 객체 생성
@@ -259,7 +222,7 @@ public class UserProfileController {
 
 		log.info("myLessonList(userid={})", userid);
 
-		return "redirect: ../mainPost/list?userid=" + sessionUserid;
+		return "redirect:/mainPost/list?userid=" + sessionUserid;
 	}
 
 	@GetMapping("/myposts")

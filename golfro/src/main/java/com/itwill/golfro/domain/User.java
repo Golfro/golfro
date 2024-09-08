@@ -59,7 +59,7 @@ public class User implements Serializable {
 	private String password;
 	
 	@Basic(optional = false)
-	@NaturalId
+	@Column(unique = true)
 	private String nickname;
 	
 	@Basic(optional = false)

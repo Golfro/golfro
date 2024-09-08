@@ -808,7 +808,8 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	                new CaseBuilder()
 	                    .when(existsSubquery)
 	                    .then("해결 완료")
-	                    .otherwise("해결 중")
+	                    .otherwise("해결 중"),
+	                post.selection
 	            )
 	            .from(post)
 	            .join(club).on(post.club.id.eq(club.id))
