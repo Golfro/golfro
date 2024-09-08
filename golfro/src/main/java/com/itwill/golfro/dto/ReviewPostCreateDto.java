@@ -26,7 +26,7 @@ public class ReviewPostCreateDto {
 				.title(title)
 				.content(content)
 				.user(user)
-				.category(category)
+				.category(Category.builder().id(categoryId).build())
 				.media(mediaPath)
 				.build();
 	}

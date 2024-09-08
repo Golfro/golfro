@@ -176,9 +176,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		btnRegisterComment.addEventListener('click', event => {
 			event.preventDefault();
 
-			const postId = postIdElement.value;
+			const postId = document.querySelector('#postId').value;
 			const userid = document.querySelector('input[name="userid"]').value;
 			const content = document.querySelector('textarea[name="content"]').value;
+			console.log(`포스트아이디 : ${postId}`);
+			console.log(`유저아이디(PK) : ${userid}`);
+			console.log(`내용 : ${content}`);
 
 			if (content.trim() === '') {
 				alert('댓글 내용을 입력하세요.');
@@ -199,15 +202,26 @@ document.addEventListener('DOMContentLoaded', () => {
 				body: JSON.stringify(data)
 			})
 				.then(response => {
-					if (response.data === 'Y') {
-						alert('댓글이 등록되었습니다.');
-						location.reload();
+					if (response.ok) {
+						return response.text();  // JSON 대신 텍스트로 응답 처리
 					} else {
 						throw new Error('댓글 등록에 실패했습니다.');
 					}
 				})
+				.then(text => {
+					if (text) {
+						return JSON.parse(text);  // 텍스트가 있으면 JSON으로 파싱
+					}
+					throw new Error('서버에서 빈 응답을 받았습니다.');
+				})
+				.then(response => {
+					alert('댓글이 등록되었습니다.');
+					location.reload();
+
+				})
 				.catch(error => {
 					console.error('Error:', error);
+					alert(error.message);  // 에러 메시지를 사용자에게 표시
 				});
 		});
 	}

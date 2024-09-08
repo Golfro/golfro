@@ -937,22 +937,26 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	
 	@Override
 	public Page<Post> selectPagedPostsReview(Pageable pageable) {
-		log.info("selectPagedPosts(pageable={})", pageable);
+	    log.info("selectPagedPosts(pageable={})", pageable);
 
-        QPost post = QPost.post;
-        QUser user = QUser.user;
+	    QPost post = QPost.post;
+	    QUser user = QUser.user;
 
-        JPQLQuery<Post> query = from(post)
-            .join(user).on(post.user.userid.eq(user.userid))
-            .where(post.category.id.in("P004"))
-            .orderBy(post.teeoff.desc());
+	    JPQLQuery<Post> query = from(post)
+	        .join(user).on(post.user.userid.eq(user.userid))
+	        .where(post.category.id.in("P004"))
+	        .orderBy(post.id.desc());
 
-        List<Post> list = query.fetch();
+	    // 오프셋과 리밋 적용
+	    query.offset(pageable.getOffset());
+	    query.limit(pageable.getPageSize());
 
-        long count = query.fetchCount();
+	    List<Post> list = query.fetch();
+	    long count = query.fetchCount();
 
-        return new PageImpl<>(list, pageable, count);
+	    return new PageImpl<>(list, pageable, count);
 	}
+
 	
 	
 	

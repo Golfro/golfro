@@ -312,6 +312,9 @@ public class CommunityController {
 	    
 	}
 	
+	
+	
+	
 	@PutMapping("/comments")
 	@ResponseBody
 	@Transactional
