@@ -18,6 +18,7 @@ main {
 	margin: 0 auto;
 	margin-top: 85px;
 	flex-grow: 1;
+	width: 1080px;
 }
 .ad img {
     max-width: 1080px; /* 최대 가로 너비를 1080px로 설정 */

@@ -1,30 +1,30 @@
 @charset "UTF-8";
 /* Font Definitions */
 @font-face {
-    font-family: 'Freesentation-9Black';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
-        format('woff2');
-    font-weight: 900;
-    font-style: normal;
+	font-family: 'Freesentation-9Black';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+		format('woff2');
+	font-weight: 900;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'SUIT-Regular';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
-        format('woff2');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'ChosunGu';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
-        format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'ChosunGu';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 body {
@@ -42,9 +42,19 @@ body {
 	margin-top: 85px;
 	max-width: 1280px;
 	flex-grow: 1;
+	flex-grow: 1;
 }
+
 .bi {
-    font-style: normal; /* 기울임꼴 없애기 */
+	font-style: normal; /* 기울임꼴 없애기 */
+}
+
+.top-ad-banner {
+	flex-grow: 1;
+}
+
+.bi {
+	font-style: normal; /* 기울임꼴 없애기 */
 }
 
 .top-ad-banner {
@@ -142,12 +152,11 @@ a.form-control {
 	color: #478a82;
 }
 
-
-.all-post-btn:hover {
+.all-post-btn:hover, .cate-post-btn:hover {
 	text-decoration: underline;
 }
 
-.cate-post-btn{
+.cate-post-btn {
 	padding: 0px;
 	width: 100%;
 	padding-top: 10px;
@@ -157,12 +166,18 @@ a.form-control {
 	font-weight: bold;
 }
 
-div.cate-post-btn{
+div.cate-post-btn {
 	font-size: 1rem;
 }
-i.bi.bi-dot{
+
+div.cate-post-btn:hover {
+	text-decoration: none;
+}
+
+i.bi.bi-dot {
 	color: #949494;
 }
+
 .pre-next a {
 	font-size: 0.9rem;
 	font-weight: bold;
@@ -193,9 +208,10 @@ i.bi.bi-dot{
 	color: #0080ff;
 }
 
-#modifyDelete:hover, #btnDelete:hover{
-background-color: #f3f3f3;
-	}
+#modifyDelete:hover, #btnDelete:hover {
+	background-color: #f3f3f3;
+}
+
 small.card-category {
 	color: #2FA599;
 	font-weight: bold;
@@ -232,11 +248,47 @@ button.btn-like {
 	color: #808080;
 	transition: transform 0.3s ease, background-color 0.3s ease;
 	background-color: white;
+	background-color: white;
 }
 
 button.btn-like:hover {
 	border: 2px solid #3c3c3c;
 	color: #3c3c3c;
+}
+
+.comment-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* 폼 전체를 수평으로 중앙 정렬 */
+}
+
+.text-left {
+	align-self: flex-start; /* 상단에서 왼쪽 정렬 */
+	width: 100%; /* 전체 너비를 차지하도록 설정 */
+}
+
+.input-group-container {
+	width: 100%;
+	display: flex;
+	justify-content: center; /* input-group을 수평으로 중앙 정렬 */
+	margin-top: 16px; /* 적절한 상단 여백을 추가 */
+}
+
+.input-group {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.content-area {
+	display: flex;
+	flex-direction: column;
+}
+
+.submit-btn {
+	display: flex;
+	justify-content: flex-end; /* 버튼을 오른쪽 끝으로 위치시키기 */
 }
 
 .comment-form {
@@ -250,23 +302,18 @@ button.btn-like:hover {
 	padding: 10px;
 }
 
-.comment-list {
-	min-height: 150px;
-	overflow-y: auto;
-	max-height: 1000px;
-	padding: 5 0px;
-}
-
 .comment {
 	padding: 20px;
 	border-top: 1px solid #dee2e6;
-	border-bottom: 1px solid #dee2e6;
 }
 
 .comment:last-child {
 	border-bottom: none;
 }
 
+.comment p {
+	margin-top: 1rem !important;
+}
 
 .position-relative {
 	position: relative;
@@ -289,16 +336,72 @@ button.btn-like:hover {
 }
 
 .comment-form .btn-register-comment {
-	height: 75px; /* 버튼 높이 조정 */
-	width: 75px;
-	padding: 10px 20px; /* 버튼 안쪽 여백 조정 */
+	background-color: #ccc;
+	border-radius: 50px;
+	padding-top: 8px;
+	color: white;
 }
 
-.input-group {
-	margin-left: 20px;
-	width: 100%;
+.comment-form .btn-register-comment:hover {
+	background-color: #2FA599;
+}
+
+.comment-form span {
+	padding-bottom: 10px;
+}
+
+#btnUpdateComment, #btnDeleteComment, #btnSubmitUpdate, #btnCancelUpdate
+	{
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #a1a1a1;
+	border: 2px solid #a1a1a1;
+	border-radius: 50px;
+}
+
+#btnUpdateComment:hover, #btnDeleteComment:hover, #btnSubmitUpdate:hover,
+	#btnCancelUpdate:hover {
+	border: 2px solid #2FA599;
+	color: #2FA599;
+}
+
+.hidden {
+	display: none;
+}
+
+.update-form textarea {
+	width: 100%; /* 부모 요소의 가로 너비에 맞게 설정 */
+	height: auto; /* 높이 자동 조정 */
+	min-height: 100px; /* 최소 높이 설정 */
+	box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
+	resize: vertical; /* 세로로만 크기 조절 가능 */
+}
+
+.btnF5 {
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	width: 25px; /* 가로 길이 */
+	height: 25px; /* 세로 길이 */
+	padding: 0; /* 패딩 제거 */
+	text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.btnF5:hover {
+	background-color: #f3f3f3;
+}
+
+.content-area {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+}
+
+.content-input {
+	flex: 1;
+}
+
+.submit-btn {
+	margin-top: 10px; /* textarea와 버튼 사이의 간격 조정 */
+	align-self: flex-end; /* 버튼을 오른쪽 끝에 위치시킵니다. */
 }
 
 .image-container {
@@ -345,7 +448,6 @@ div.best-posts {
 	display: flex;
 	justify-content: center; /* 가로 가운데 정렬 */
 	align-items: center; /* 세로 가운데 정렬 */
-	
 }
 
 /* 테이블 스타일 */
@@ -363,10 +465,9 @@ div.best-posts {
 	padding: 0px;
 }
 
-.table-container .text-center{
+.table-container .text-center {
 	font-family: 'ChosunGu';
 }
-
 
 /* 링크 스타일 */
 .custom-link {
@@ -383,16 +484,16 @@ div.best-posts {
 }
 
 .comm-left, .comm-right {
-    position: sticky;
-    top: 90px; /* Adjust if needed */
-    width: 250px; /* Adjust based on your design */
-    z-index: 1000; /* Ensure it stays on top of other content */
+	position: sticky;
+	top: 90px; /* Adjust if needed */
+	width: 250px; /* Adjust based on your design */
+	z-index: 1000; /* Ensure it stays on top of other content */
 }
 
 .comm-left {
-    left: 0;
+	left: 0;
 }
 
 .comm-right {
-    right: 0;
+	right: 0;
 }

@@ -46,9 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
 						console.error('Error:', error);
 					});
 			} else {
-				
+
 				window.location.href = `/community/details/${id}`; // 취소 후 이동할 페이지
-				
+
 			}
 		});
 	}
@@ -78,17 +78,20 @@ document.addEventListener('DOMContentLoaded', () => {
 			const commentId = commentDiv.querySelector('input[name="commentId"]').value;
 			const commentContent = commentDiv.querySelector('p').textContent;
 
+			commentDiv.querySelector('.mainComment').classList.add('hidden');
 			event.target.disabled = true;
 
 			const updateForm = document.createElement('form');
 			updateForm.classList.add('update-form');
 			updateForm.innerHTML = `
-                <div class="input-group mb-3">
-                    <textarea id="updatedContent" class="form-control" rows="2">${commentContent}</textarea>
-                    <div class="input-group-append">
-                        <button id="btnSubmitUpdate" class="btn btn-outline-secondary" type="button">수정 완료</button>
-                        <button id="btnCancelUpdate" class="btn btn-outline-secondary ml-2" type="button">취소</button>
-                    </div>
+                <div class="input-group-modify row px-3 py-1">
+                    <textarea id="updatedContent" class="form-control col-12 mt-2 mx-2" rows="3">${commentContent}</textarea>
+                    <div class="d-flex justify-content-end">
+                 	   <div class="input-group-append mt-2">
+                      	    <button id="btnSubmitUpdate" class="btn" type="button">수정 완료</button>
+                    		<button id="btnCancelUpdate" class="btn ml-2" type="button">취소</button>
+                   		 </div>
+                   	</div>
                 </div>
             `;
 			commentDiv.appendChild(updateForm);
@@ -96,6 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			const btnCancelUpdate = updateForm.querySelector('#btnCancelUpdate');
 			btnCancelUpdate.addEventListener('click', () => {
 				updateForm.remove();
+
+				commentDiv.querySelector('.mainComment').classList.remove('hidden'); // 수정된 부분!!!
+				event.target.disabled = false;
 				event.target.disabled = false;
 			});
 
@@ -124,6 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
 						alert('댓글이 수정되었습니다.');
 						commentDiv.querySelector('p').textContent = updatedComment.content;  // 서버에서 받은 수정된 댓글 내용 사용
 						updateForm.remove();
+
+						commentDiv.querySelector('.mainComment').classList.remove('hidden'); // 수정된 부분!!!
+						event.target.disabled = false;
 						event.target.disabled = false;
 					})
 					.catch(error => {
@@ -257,4 +266,5 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 		commentList.appendChild(commentDiv);
 	}
+
 });
