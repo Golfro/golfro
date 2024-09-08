@@ -1,12 +1,30 @@
 @charset "UTF-8";
+/* Font Definitions */
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
 
 @font-face {
-	font-family: 'Freesentation-9Black';
-	src:
-		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
-		format('woff2');
-	font-weight: 900;
-	font-style: normal;
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ChosunGu';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
@@ -116,11 +134,13 @@ a.form-control {
 	padding-top: 10px;
 	color: black;
 	font-size: 0.9rem;
-	text-decoration: none;font-weight: bold;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 .all-post-btn:hover {
-	color: #2FA599;}
+	color: #2FA599;
+}
 
 .pre-next a {
 	font-size: 0.9rem;
@@ -151,18 +171,20 @@ a.form-control {
 	color: #0080ff;
 }
 
-small.card-category{
+small.card-category {
 	color: #2FA599;
 	font-weight: bold;
 }
+
 .card-title {
 	font-family: 'Pretendard-Regular', Pretendard-Regular;
 	padding-top: 10px;
 }
 
-.title-info{
+.title-info {
 	color: #444444;
 }
+
 .post-info {
 	font-size: 0.9rem;
 	color: #6c757d;
@@ -293,4 +315,48 @@ button.btn-like:hover {
 	background-color: #ffffff; /* 배경색 초기화 */
 	color: #2a7e50; /* 글자색 초기화 */
 	border-color: #c0c0c0; /* 테두리 색 초기화 */
+}
+
+div.best-posts {
+	font-family: 'Freesentation-9Black';
+	padding: 8px 16px;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: center; /* 가로 가운데 정렬 */
+	align-items: center; /* 세로 가운데 정렬 */
+	
+}
+
+/* 테이블 스타일 */
+.table-container {
+	margin-bottom: 20px;
+	padding: 0px;
+}
+
+.table {
+	border: none; /* 테이블의 기본 테두리 제거 */
+}
+
+.table th, .table td {
+	border: none; /* 각 셀의 테두리 제거 */
+	padding: 0px;
+}
+
+.table-container .text-center{
+	font-family: 'ChosunGu';
+}
+
+
+/* 링크 스타일 */
+.custom-link {
+	font-size: 0.9rem; /* 글자 크기 */
+	color: black; /* 글자 색상 */
+	text-decoration: none; /* 밑줄 제거 */
+	padding-left: 10px;
+}
+
+/* 마우스를 올렸을 때 밑줄 추가 */
+.custom-link:hover {
+	text-decoration: underline; /* 밑줄 생기게 */
+	font-weight: bold; /* 마우스 올렸을 때 글자 굵게 */
 }

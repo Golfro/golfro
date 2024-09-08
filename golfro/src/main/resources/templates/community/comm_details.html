@@ -197,62 +197,58 @@
 							</div>
 						</div>
 					</div>
-					<div class="comm-right">인기글 리스트
-					<table class="table">
-			<colgroup>
-				<col style="width: 50%;">
-				<col style="width: 50%;">
-			</colgroup>
-			<tr>
-				<div class="best-posts">BEST 실시간 인기글</div>
-				<td>
-					<table class="table">
-						<thead>
-							<th class="text-center" colspan="3">잡담</th>
+					<div class="comm-right">
 
-						</thead>
-						<tbody>
-							<th:block th:each="F001 : ${top5ByF001}">
-								<tr class="table">
-									<td class="left-align-bold"><a
-										th:href="@{{id}(id=${F001.id})}"
-										class="custom-link" th:text="${F001.title}"></a></td>
-									<td><i class="bi bi-eye" th:text="|조회수 : ${F001.views}|"></i></td>
-									<td><i class="bi bi-hand-thumbs-up"
-										th:text="|추천수 : ${F001.likes}|"></i></td>
-								</tr>
-							</th:block>
-						</tbody>
-					</table>
-				</td>
-				<td>
-					<table class="table table.no-boder">
-						<thead>
+						<div class="best-posts">BEST 실시간 인기글</div>
 
-							<tr>
-								<th class="text-center" colspan="3">팁/노하우</th>
-							</tr>
-						</thead>
-						<tbody>
-							<th:block th:each="F002 : ${top5ByF002}">
-								<tr class="table">
-									<td class="left-align-bold"><a th:text="${F002.title}"
-										th:href="@{{id}(id=${F002.id})}"
-										class="custom-link"></a></td>
-									<td><i class="bi bi-eye" th:text="|조회수 : ${F002.views}|"></i></td>
-									<td><i class="bi bi-hand-thumbs-up"
-										th:text="|추천수 : ${F002.likes}|"></i></td>
-								</tr>
-							</th:block>
-						</tbody>
-					</table>
-				</td>
-			</tr>
-		</table>
-					
-					
-					
-					
+						<!-- 첫 번째 테이블 (잡담) -->
+						<div class="table-container">
+							<table class="table">
+								<thead>
+									<th class="text-center" colspan="3">잡담</th>
+								</thead>
+								<tbody>
+									<th:block th:each="F001 : ${top5ByF001}">
+										<tr class="table">
+											<td class="left-align-bold"><a
+												th:href="@{{id}(id=${F001.id})}" class="custom-link"
+												th:text="${F001.title}"></a></td>
+
+											<td><i class="bi bi-hand-thumbs-up"
+												th:text="| ${F001.likes}|"></i></td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+
+						<!-- 두 번째 테이블 (팁/노하우) -->
+						<div class="table-container">
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="text-center" colspan="3">팁/노하우</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="F002 : ${top5ByF002}">
+										<tr class="table">
+											<td class="left-align-bold"><a
+												th:href="@{{id}(id=${F002.id})}" class="custom-link"
+												th:text="${F002.title}"></a></td>
+
+											<td><i class="bi bi-hand-thumbs-up"
+												th:text="| ${F002.likes}| + '&nbsp;&nbsp;&nbsp;'"></i></td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+
+
+
+
+
 					</div>
 				</div>
 			</div>
