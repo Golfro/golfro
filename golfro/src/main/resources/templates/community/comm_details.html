@@ -47,7 +47,7 @@
 						</div>
 
 						<a th:href="@{/community/comm_main}" class="all-post-btn px-2">
-							<i class="bi bi-list"></i> 전체 게시글
+							<i class="bi bi-list"> </i>전체 게시글
 						</a>
 						<div class="cate-post-btn px-2">카테고리</div>
 						<a
@@ -152,8 +152,7 @@
 														<button type="submit" id="modifyDelete"
 															class="btn btn-custom ms-2">수정하기</button>
 													</form>
-													<button id="btnDelete"
-														class="btn btn-custom ms-2">삭제하기</button>
+													<button id="btnDelete" class="btn btn-custom ms-2">삭제하기</button>
 												</th:block>
 											</ul>
 										</div>
@@ -214,21 +213,28 @@
 
 
 								<!-- 댓글 작성 영역 -->
+
 								<th:block th:if="${session.signedInUser != null}">
 									<form class="comment-form">
-										<div class="input-group mb-3">
-											<div class="col-2">
-												<input name="author" id="author" type="hidden"
-													class="form-control" th:value="${session.signedInUserId}">
-											</div>
-											<div class="col-8">
-												<textarea name="content" id="content" class="form-control"
-													rows="2" placeholder="댓글을 입력하세요"></textarea>
-											</div>
-											<div class="col-2">
-												<input type="hidden" name="postId" th:value="*{id}">
-												<button id="btnRegisterComment"
-													class="btn btn-success btn-register-comment" type="submit">등록</button>
+										<div class="text-left">
+											<span><i class="bi bi-chat-dots"></i> 댓글 목록</span> <span>|
+												<span th:text="${commentcount}"></span>개의 답변
+											</span>
+										</div>
+										<div class="input-group row mt-2">
+											<input name="author" id="author" type="hidden"
+												class="form-control" th:value="${session.signedInUserId}">
+
+											<div class="content-area justify-content-center col-12">
+												<div class="content-input">
+													<textarea name="content" id="content" class="form-control"
+														rows="3" placeholder="댓글을 입력하세요"></textarea>
+												</div>
+												<div class="submit-btn">
+													<input type="hidden" name="postId" th:value="*{id}">
+													<button id="btnRegisterComment"
+														class="btn btn-register-comment" type="submit">등록</button>
+												</div>
 											</div>
 										</div>
 									</form>
@@ -239,31 +245,37 @@
 
 								<!-- 포커싱할 댓글 id -->
 								<input type="hidden" id="commentId" value="${commentId}" />
-								<div class="comment-list">
+								<div class="comment-list row">
 									<th:block th:each="commentlist:${commentlist}"
 										th:object="${commentlist}">
-										<div class="comment" th:id="|comment-${commentlist.id}|">
+										<div class="comment col-12"
+											th:id="|comment-${commentlist.id}|">
 											<!-- 댓글 작성자, 내용영역 -->
 											<b th:text="${commentlist.user.nickname}"></b>
-											<p th:text="*{content}"></p>
-											<div>
-												<small class="text-muted"
-													th:text="*{#temporals.format(createdTime, 'yyyy-MM-dd HH:mm:ss')}"></small>
-												<input type="hidden" name="commentId"
-													th:value="${commentlist.id}">
-
-												<!-- 댓글 수정/삭제 버튼 영역 -->
-												<th:block
-													th:if="${commentlist.user.userid == session.signedInUser or session.signedInUser == 'admin'}">
-													<button id="btnUpdateComment"
-														class="btn btn-success btn-register-comment" type="submit">수정</button>
+											<div class="mainComment">
+												<p th:text="*{content}"></p>
+												<div
+													class="d-flex justify-content-between align-items-center">
+													<small class="text-muted"
+														th:text="*{#temporals.format(createdTime, 'yyyy-MM-dd HH:mm:ss')}"></small>
 													<input type="hidden" name="commentId"
 														th:value="${commentlist.id}">
-													<input type="hidden" id="userid"
-														th:value="${commentlist.user.id}">
-													<button id="btnDeleteComment"
-														class="btn btn-success btn-register-comment" type="submit">삭제</button>
-												</th:block>
+
+													<!-- 댓글 수정/삭제 버튼 영역 -->
+													<div>
+														<th:block
+															th:if="${commentlist.user.userid == session.signedInUser or session.signedInUser == 'admin'}">
+															<button id="btnUpdateComment"
+																class="btn btn-register-comment" type="submit">수정</button>
+															<input type="hidden" name="commentId"
+																th:value="${commentlist.id}">
+															<input type="hidden" id="userid"
+																th:value="${commentlist.user.id}">
+															<button id="btnDeleteComment"
+																class="btn btn-register-comment" type="submit">삭제</button>
+														</th:block>
+													</div>
+												</div>
 											</div>
 										</div>
 									</th:block>
