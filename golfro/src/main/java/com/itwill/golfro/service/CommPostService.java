@@ -188,26 +188,17 @@ public class CommPostService {
 	        }
 	    }
 		
-		
-		
-
-//		if (dto.getMedia() != null && !dto.getMedia().isEmpty()) {
-//			String fileName = mediaService.storeFile(dto.getMedia());
-//			dto.setMediaPath(fileName);
-//		}
-//		
-//		
-		
-		
-		
-		
-		
+				
 		Category category = ctgRepo.findById(dto.getCategoryId()).orElseThrow();
 		Post entity = postRepo.findById(dto.getId()).orElseThrow();
 		
 		log.info("파일경로={}", dto.getMediaPath());
 		entity.update(dto.getTitle(),dto.getContent(),category,dto.getMediaPath());
 	}
+	
+	
+	
+	
 
 	@Transactional(readOnly = true)
 	public List<Post> getTop5ByF001() {
