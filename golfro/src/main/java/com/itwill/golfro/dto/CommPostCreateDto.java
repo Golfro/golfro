@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 public class CommPostCreateDto {
 	private String userid;
+	private User user;
 	private String title;
 	private String content;
 	private String categoryId;
@@ -21,7 +22,7 @@ public class CommPostCreateDto {
 		return Post.builder()
 				.category(Category.builder().id(categoryId).build())
 				.media(mediaPath)
-				.user(User.builder().userid(userid).build())
+				.user(user)
 				.title(title)
 				.content(content)
 				.build();

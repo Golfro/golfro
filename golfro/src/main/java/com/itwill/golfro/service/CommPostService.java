@@ -3,6 +3,7 @@ package com.itwill.golfro.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -11,7 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.itwill.golfro.domain.Category;
 import com.itwill.golfro.domain.Club;
 import com.itwill.golfro.domain.Comment;
@@ -37,7 +42,11 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 public class CommPostService {
-
+	
+	
+	private final AmazonS3 amazonS3;
+	private final String bucketName = "golfro-bucket";
+	
 	private final PostRepository postRepo;
 	private final CommentRepository cmtRepo;
 	private final UserRepository userRepo;
@@ -62,19 +71,78 @@ public class CommPostService {
 		log.info("read(id={})", id);
 		return postRepo.selectById(id);
 	}
+	
+	
+	
+	
 
-	public Post Create(CommPostCreateDto dto) {
-		log.info("CommPostCreate(dto={})", dto);
+	public void Create(CommPostCreateDto dto) {
+	    log.info("mainCreate(dto={})", dto);
+	    String uuid = UUID.randomUUID().toString(); // 랜덤 스트링 생성 (파일명 중복되지 않게 파일명에 부착해주는 스트링)
+	    MultipartFile media = dto.getMedia(); // input media 네임의 값을 MultipartFile 타입으로 저장
 
-		if (dto.getMedia() != null && !dto.getMedia().isEmpty()) {
-			String fileName = mediaService.storeFile(dto.getMedia());
-			dto.setMediaPath(fileName);
-		}
+	    if (media != null && !media.isEmpty()) { // 만약 media의 값이 null이 아니면
+	        String mediaName = media.getOriginalFilename(); // mediaName 변수에 media 이름을 값을 가지고 오고
+	        mediaName = mediaName.replaceAll(" ", ""); // 가지고 온 media 이름에 공백을 모두 삭제
+	        int idx = mediaName.lastIndexOf("."); // 이름에서 마지막 . index를 찾아서
 
-		postRepo.save(dto.toEntity());
+	        if (idx > 0) { // idx가 유효한지 확인
+	            String orgMediaName = mediaName.substring(0, idx); // 파일 이름의 첫 번째 인덱스부터 . 인덱스 전까지 저장
+	            String orgMediaType = mediaName.substring(idx); // 파일 이름의 . 다음 인덱스부터 확장자까지 저장
+	            String s3FileName = orgMediaName + uuid + orgMediaType; // 파일 순수 이름 + 랜덤 UUID + 확장자를 합쳐서 저장
+
+	            try {
+	            	// ObjectMetadata를 사용하여 파일의 Content-Length 설정
+	                ObjectMetadata metadata = new ObjectMetadata();
+	                metadata.setContentLength(media.getSize());
+	                metadata.setContentType(media.getContentType()); // 파일의 Content-Type을 설정
+	            	
+	                // 파일을 S3에 업로드
+	                amazonS3.putObject(new PutObjectRequest(bucketName, s3FileName, media.getInputStream(), metadata));
+
+	                // S3에 저장된 파일의 URL을 생성
+	                String mediaPath = amazonS3.getUrl(bucketName, s3FileName).toString();
+	                dto.setMediaPath(mediaPath); // DTO에 S3 URL을 저장
+	            } catch (Exception e) {
+	                log.error("Failed to save media file", e);
+	                throw new RuntimeException("Failed to save media file", e);
+	            }
+	        } else {
+	            log.error("Invalid media file name: {}", mediaName);
+	            throw new IllegalArgumentException("Invalid media file name: " + mediaName);
+	        }
+	    }
+	    
+	    User user = userRepo.findByUserid(dto.getUserid());
+	    if(user == null) {
+            throw new RuntimeException("User not found: " + dto.getUserid());
+	    }
+	    
+	    dto.setUser(user);
+	    
+	    postRepo.save(dto.toEntity());
 		
-		return dto.toEntity();
+		
+//		log.info("CommPostCreate(dto={})", dto);
+//
+//		if (dto.getMedia() != null && !dto.getMedia().isEmpty()) {
+//			String fileName = mediaService.storeFile(dto.getMedia());
+//			dto.setMediaPath(fileName);
+//		}
+//
+//		postRepo.save(dto.toEntity());
+//		
+//		return dto.toEntity();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public void delete(long id) {
 		log.info("delete(id={})", id);
@@ -84,17 +152,63 @@ public class CommPostService {
 	@Transactional
 	public void update(CommPostUpdateDto dto) {
 		log.info("update(dto={})", dto);
+		
+	    String uuid = UUID.randomUUID().toString(); // 랜덤 스트링 생성 (파일명 중복되지 않게 파일명에 부착해주는 스트링)
+	    MultipartFile media = dto.getMedia(); // input media 네임의 값을 MultipartFile 타입으로 저장
 
-		if (dto.getMedia() != null && !dto.getMedia().isEmpty()) {
-			String fileName = mediaService.storeFile(dto.getMedia());
-			dto.setMediaPath(fileName);
-		}
+	    if (media != null && !media.isEmpty()) { // 만약 media의 값이 null이 아니면
+	        String mediaName = media.getOriginalFilename(); // mediaName 변수에 media 이름을 값을 가지고 오고
+	        mediaName = mediaName.replaceAll(" ", ""); // 가지고 온 media 이름에 공백을 모두 삭제
+	        int idx = mediaName.lastIndexOf("."); // 이름에서 마지막 . index를 찾아서
+
+	        if (idx > 0) { // idx가 유효한지 확인
+	            String orgMediaName = mediaName.substring(0, idx); // 파일 이름의 첫 번째 인덱스부터 . 인덱스 전까지 저장
+	            String orgMediaType = mediaName.substring(idx); // 파일 이름의 . 다음 인덱스부터 확장자까지 저장
+	            String s3FileName = orgMediaName + uuid + orgMediaType; // 파일 순수 이름 + 랜덤 UUID + 확장자를 합쳐서 저장
+
+	            try {
+	            	// ObjectMetadata를 사용하여 파일의 Content-Length 설정
+	                ObjectMetadata metadata = new ObjectMetadata();
+	                metadata.setContentLength(media.getSize());
+	                metadata.setContentType(media.getContentType()); // 파일의 Content-Type을 설정
+	            	
+	                // 파일을 S3에 업로드
+	                amazonS3.putObject(new PutObjectRequest(bucketName, s3FileName, media.getInputStream(), metadata));
+
+	                // S3에 저장된 파일의 URL을 생성
+	                String mediaPath = amazonS3.getUrl(bucketName, s3FileName).toString();
+	                dto.setMediaPath(mediaPath); // DTO에 S3 URL을 저장
+	            } catch (Exception e) {
+	                log.error("Failed to save media file", e);
+	                throw new RuntimeException("Failed to save media file", e);
+	            }
+	        } else {
+	            log.error("Invalid media file name: {}", mediaName);
+	            throw new IllegalArgumentException("Invalid media file name: " + mediaName);
+	        }
+	    }
+		
+		
+		
+
+//		if (dto.getMedia() != null && !dto.getMedia().isEmpty()) {
+//			String fileName = mediaService.storeFile(dto.getMedia());
+//			dto.setMediaPath(fileName);
+//		}
+//		
+//		
+		
+		
+		
+		
+		
+		
+		
 		
 		Category category = ctgRepo.findById(dto.getCategoryId()).orElseThrow();
 		Post entity = postRepo.findById(dto.getId()).orElseThrow();
 		
-//		entity.update(dto.getTitle(), dto.getContent()
-//				, category, dto.getMediaPath());
+		entity.update(dto.getTitle(),dto.getContent(),category,dto.getMediaPath());
 	}
 
 	@Transactional(readOnly = true)
