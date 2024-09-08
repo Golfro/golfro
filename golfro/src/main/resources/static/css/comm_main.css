@@ -137,6 +137,9 @@ main .card {
     text-decoration: underline; /* 호버 시 밑줄 추가 */
 }
 
+
+
+
 /* 푸터 스타일 */
 footer.text-center {
     display: flex;
