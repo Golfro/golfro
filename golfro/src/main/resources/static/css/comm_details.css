@@ -151,11 +151,18 @@ a.form-control {
 	color: #0080ff;
 }
 
+small.card-category{
+	color: #2FA599;
+	font-weight: bold;
+}
 .card-title {
 	font-family: 'Pretendard-Regular', Pretendard-Regular;
 	padding-top: 10px;
 }
 
+.title-info{
+	color: #444444;
+}
 .post-info {
 	font-size: 0.9rem;
 	color: #6c757d;

@@ -70,16 +70,19 @@
 						</div>
 						<div class="card">
 							<div class="card-header">
-								<small class="text-black" th:text="*{category.name}"></small> <input
-									type="hidden" id="postId" th:value="*{id}" />
+								<small class="card-category" th:text="*{category.name}"></small>
+								<input type="hidden" id="postId" th:value="*{id}" />
 								<h3 class="card-title" th:text="*{title}"></h3>
-								<span><i class="bi bi-person" th:text="*{user.nickname}"></i></span>
-								<i class="bi bi-clock"></i> <small class="text-black"
-									th:text="*{#temporals.format(createdTime, 'yyyy-MM-dd HH:mm:ss')}"></small>
-								<span><i class="bi bi-eye" th:text="*{views}"></i></span> <span><i
-									class="bi bi-hand-thumbs-up" th:text="*{likes}"></i> <span
-									id="likesCount"></span></span> <span><i class="bi bi-chat-dots"
-									th:text="${commentcount}"></i></span>
+								<span><i class="bi bi-person" th:text="*{user.nickname}"></i></span></br>
+								<div class="title-info mt-2">
+									<i class="bi bi-clock"></i> <small class="text-black"
+										th:text="*{#temporals.format(createdTime, 'yyyy-MM-dd HH:mm:ss')}"></small>
+									<span><i class="bi bi-eye" th:text="*{views}"></i></span> <span><i
+										class="bi bi-hand-thumbs-up" th:text="*{likes}"></i> <span
+										id="likesCount"></span></span> <span><i
+										class="bi bi-chat-dots" th:text="${commentcount}"></i></span>
+
+								</div>
 							</div>
 
 							<div class="card-body">
@@ -120,10 +123,13 @@
 								<div class="d-flex justify-content-end mt-2">
 									<th:block
 										th:if="${session.signedInUser == post.user.userid or session.signedInUser == 'admin'}">
-										<form th:action="@{/community/comm_modify/{id}(id=*{id})}" method="get" style="display: inline;">
-											<button type="submit" class="btn btn-outline-primary btn-custom ms-2">✏️수정</button>
+										<form th:action="@{/community/comm_modify/{id}(id=*{id})}"
+											method="get" style="display: inline;">
+											<button type="submit"
+												class="btn btn-outline-primary btn-custom ms-2">✏️수정</button>
 										</form>
-										<button id="btnDelete" class="btn btn-outline-danger btn-custom ms-2">🗑️삭제</button>
+										<button id="btnDelete"
+											class="btn btn-outline-danger btn-custom ms-2">🗑️삭제</button>
 									</th:block>
 								</div>
 
@@ -179,7 +185,8 @@
 														class="btn btn-success btn-register-comment" type="submit">수정</button>
 													<input type="hidden" name="commentId"
 														th:value="${commentlist.id}">
-													<input type="hidden" id="userid" th:value="${commentlist.user.id}">
+													<input type="hidden" id="userid"
+														th:value="${commentlist.user.id}">
 													<button id="btnDeleteComment"
 														class="btn btn-success btn-register-comment" type="submit">삭제</button>
 												</th:block>
