@@ -102,7 +102,10 @@ public class Post extends BaseTimeEntity {
         this.title = title;
         this.content = content;
         this.category = category;
-        this.media = MediaPath;
+        
+        if (MediaPath != null && !MediaPath.isEmpty()) {
+            this.media = MediaPath;
+        }
 //        this.club = string;
         
         return this;

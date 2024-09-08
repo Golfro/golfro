@@ -50,6 +50,7 @@ body {
     height: 500px; /* 에디터 높이 조정 */
 }
 </style>
+<link rel="stylesheet" th:href="@{/css/header.css}" />
 </head>
 <body>
     <div class="container-fluid">
@@ -57,16 +58,16 @@ body {
         <main>
             <div class="mt-2 card">
                 <div class="card-header mb-3">
-                    <h3>리뷰 작성</h3>
-                    <h7>여러분의 후기를 남겨주세요.</h7>
+                    <h3>리뷰 수정하기</h3>
+                    <h7>작성된 리뷰를 수정해주세요.</h7>
                 </div>
 
                 <div class="mobile-header">
-                    <a href="review_main">REVIEW > </a> <span>여러분의 후기를 남겨주세요.</span>
+                    <a th:href="@{/review/review_main}">리뷰목록</a> <span>리뷰 게시글 수정 페이지</span>
                 </div>
 
                 <div class="card-body">
-                    <form th:action="@{/review/review_create}" method="post" enctype="multipart/form-data" id="postForm">
+                    <form th:action="@{/review/update}" method="post" enctype="multipart/form-data" id="postForm">
                         <div class="row mb-3">
                             <div class="col-auto">
                                 <select class="form-control" name="category" id="categorySelect" required>
@@ -74,13 +75,15 @@ body {
                                 </select>
                             </div>
                             <div class="col">
-                                <input class="form-control mb-2" type="text" name="title" placeholder="제목을 입력하세요." required autofocus />
+                                <input class="form-control mb-2" th:value="${post.title}" type="text" name="title" placeholder="제목을 입력하세요." required autofocus />
                                 <input class="form-control mb-2" type="hidden" name="author" th:value="${session.signedInUser}" />
+                                <input name="categoryId" type="text" th:value="${post.category.id}"/>
+                                <input name="id" type="text" th:value="${post.id}"/>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <div id="editor-container"></div>
-                            <textarea name="content" id="content" style="display: none;"></textarea>
+                            <div id="editor-container" th:text=${post.content}></div>
+                            <textarea name="content" id="content" style="display: none;" ></textarea>
                         </div>
                         <div>
                             <div class="row mb-3">
@@ -152,11 +155,17 @@ body {
             const form = document.getElementById('postForm');
 
             form.addEventListener('submit', function(event) {
+                // Quill 에디터의 현재 내용 가져오기
                 var quillContent = quill.root.innerHTML;
+
+                // <p> 태그 제거
+                quillContent = quillContent.replace(/<\/?p>/g, '');
+
                 if (quillContent.length > 1000) {
                     alert('내용은 1000자 이내로 입력해주세요!');
-                    event.preventDefault();
+                    event.preventDefault(); // 제출을 막음
                 }
+                // 숨겨진 textarea에 콘텐츠 할당
                 document.getElementById('content').value = quillContent;
             });
 

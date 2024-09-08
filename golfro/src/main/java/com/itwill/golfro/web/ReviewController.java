@@ -50,11 +50,13 @@ import lombok.extern.slf4j.Slf4j;
 public class ReviewController {
 
 	public static final String SESSION_ATTR_USER = "signedInUser";
-
+	private final CommentRepository cmtRepo;
 	private final ReviewPostService reviewPostService;
 
 	private Map<String, Set<Integer>> userLikedPosts = new HashMap<>();
 
+	
+	
 	@GetMapping("/review_create")
 	public String createReviewPost() {
 
@@ -62,10 +64,9 @@ public class ReviewController {
 	}
 
 	@PostMapping("/review_create")
-	public String create(ReviewPostCreateDto dto,
-			@RequestParam(value = "media", required = false) MultipartFile mediaFile) {
+	public String create(ReviewPostCreateDto dto) {
 
-		reviewPostService.Create(dto, mediaFile);
+		reviewPostService.Create(dto);
 		
 		return "redirect:/review/review_main";
 	}
@@ -139,7 +140,7 @@ public class ReviewController {
 	}
 
 	@GetMapping("/review_modify")
-	public String modifyReviewPost(@RequestParam("id") long id, Model model) {
+	public String modifyReviewPost(@RequestParam("id") Long id, Model model) {
 		log.info("modifyReviewPost(id={})", id);
 
 		Post post = reviewPostService.read(id);
@@ -199,10 +200,21 @@ public class ReviewController {
 
 	@PostMapping("/comment_add")
 	@ResponseBody
-	public ResponseEntity<String> addComment(@RequestBody CommentCreateDto commentCreateDto) {
-		reviewPostService.insertComment(commentCreateDto);
+	public ResponseEntity<Comment> addComment(@RequestBody CommentCreateDto commentCreateDto) {
+		log.info("************={}",commentCreateDto);
 		
-		return ResponseEntity.ok("Y");
+		   
+        Comment comment = Comment.builder()
+                .user(User.builder().id(commentCreateDto.getUserid()).build())
+                .post(Post.builder().id(commentCreateDto.getPostId()).build())
+                .content(commentCreateDto.getContent())
+                .build();
+        log.info("여기까지 되는지 확인중");
+        
+        Comment result = cmtRepo.save(comment);
+        log.info("리절트리절트리절트리절트리절트={}",result);
+        
+        return ResponseEntity.ok(result);
 	}
 
 //	@PutMapping("/comments")
