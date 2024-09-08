@@ -81,24 +81,29 @@ public class CommunityController {
 		
 		return "community/comm_create";
 	}
+	
+	
+	
+	
 
 	@PostMapping("/comm_create")
-	public String create(@ModelAttribute CommPostCreateDto dto,
-			@RequestParam(value = "media", required = false) MultipartFile mediaFile,
-			@ModelAttribute("loggedInUser") User loggedInUser) {
-		if (loggedInUser != null) {
-			log.info("user={}", loggedInUser);
-		}
+	public String create(@ModelAttribute CommPostCreateDto dto) {
 
-		if (mediaFile != null && !mediaFile.isEmpty()) {
-			String fileName = mediaService.storeFile(mediaFile);
-			dto.setMediaPath(fileName);
-		}
+//
+//		if (mediaFile != null && !mediaFile.isEmpty()) {
+//			String fileName = mediaService.storeFile(mediaFile);
+//			dto.setMediaPath(fileName);
+//		}
 
 		commPostService.Create(dto);
 		
 		return "redirect:/community/comm_main";
 	}
+	
+	
+	
+	
+	
 
 	
 	@GetMapping("/comm_main")
@@ -106,6 +111,8 @@ public class CommunityController {
 			@RequestParam(name = "search-category", required = false) String searchCategory,
 			@RequestParam(name = "keyword", required = false) String keyword,
 			@RequestParam(name = "p", defaultValue = "0") int pageNo, Model model) {
+		
+		
 		log.info("GET: viewCommunityMain(category={}, searchCategory={}, keyword={}, pageNo={})", category, searchCategory, keyword, pageNo);
 
 		Page<CommPostListDto> posts;
@@ -131,7 +138,8 @@ public class CommunityController {
 	            .filter(post -> !pinnedPostIds.contains(post.getId()))
 	            .collect(Collectors.toList());
 
-		posts = new PageImpl<>(filteredPostsList, posts.getPageable(), posts.getTotalElements() - pinnedPosts.size());
+		posts = new PageImpl<>(filteredPostsList, posts.getPageable(), posts.getTotalElements());
+
 
 
 		model.addAttribute("pinnedPosts", pinnedPosts);
@@ -203,8 +211,8 @@ public class CommunityController {
 		return "community/comm_details";
 	}
 
-	@GetMapping("/comm_modify")
-	public String modifyCommunityPost(@RequestParam("id") long id, Model model) {
+	@GetMapping("/comm_modify/{id}")
+	public String modifyCommunityPost(@PathVariable Long id, Model model) {
 		Post post = commPostService.read(id);
 
 		// 모델에 속성 추가
@@ -220,11 +228,12 @@ public class CommunityController {
 		// 서비스 컴포넌트의 메서드를 호출해서 데이터베이스 테이블 업데이트를 수행.
 		commPostService.update(dto);
 
-		return "redirect:/community/comm_details?id=" + dto.getId();
+		return "redirect:/community/details/" + dto.getId();
 	}
-
-	@GetMapping("/delete")
-	public String delete(@RequestParam(name = "commentId") Long id) {
+	
+	
+	@GetMapping("/delete/{id}")
+	public String delete(@PathVariable(name = "id") Long id) {
 		log.info("delete(id={})", id);
 
 		commPostService.delete(id);
@@ -284,7 +293,7 @@ public class CommunityController {
 
 	@PostMapping("/comments")
 	@ResponseBody
-	public ResponseEntity<?> addComment(@RequestBody CommentCreateDto commentCreateDto) {
+	public ResponseEntity<Comment> addComment(@RequestBody CommentCreateDto commentCreateDto) {
 		log.info("************={}",commentCreateDto);
 		
 	   

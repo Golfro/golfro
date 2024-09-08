@@ -28,16 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 게시물 삭제 버튼 클릭 이벤트 처리
 	if (btnDeletePost) {
 		btnDeletePost.addEventListener('click', () => {
-			const postId = postIdElement.value;
+			const id = postIdElement.value;
 			const result = confirm('게시물을 삭제하시겠습니까?');
 			if (result) {
-				fetch(`/gaebokchi/community/delete?id=${postId}`, {
+				fetch(`/community/delete/${id}`, {
 					method: 'GET'
 				})
 					.then(response => {
 						if (response.ok) {
 							alert('게시물이 삭제되었습니다.');
-							window.location.href = '/gaebokchi/community/comm_main';
+							window.location.href = '/community/comm_main';
 						} else {
 							throw new Error('게시물 삭제에 실패했습니다.');
 						}
@@ -45,6 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
 					.catch(error => {
 						console.error('Error:', error);
 					});
+			} else {
+				
+				window.location.href = `/community/details/${id}`; // 취소 후 이동할 페이지
+				
 			}
 		});
 	}
@@ -185,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const postId = document.querySelector('#postId').value;
 			console.log(`postid = ${postId}`);
 
-			const userid = document.querySelector('#userid').value;
+			const author = document.querySelector('#author').value;
 			console.log(`author = ${author}`);
 
 			const content = document.querySelector('#content').value;
@@ -198,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			const data = {
 				postId: postId,
-				userid: userid,
+				userid: author,
 				content: content
 			};
 

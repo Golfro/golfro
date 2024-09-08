@@ -120,14 +120,10 @@
 								<div class="d-flex justify-content-end mt-2">
 									<th:block
 										th:if="${session.signedInUser == post.user.userid or session.signedInUser == 'admin'}">
-										<form th:action="@{/community/comm_modify/{id}(id=*{id})}"
-											method="get" style="display: inline;">
-											<button type="submit"
-												class="btn btn-outline-primary btn-custom ms-2">✏️수정</button>
+										<form th:action="@{/community/comm_modify/{id}(id=*{id})}" method="get" style="display: inline;">
+											<button type="submit" class="btn btn-outline-primary btn-custom ms-2">✏️수정</button>
 										</form>
-										<button id="btnDelete"
-											th:attr="onclick=|location.href='@{/community/comm_delete/{id}(id=*{id})}'|"
-											class="btn btn-outline-danger btn-custom ms-2">🗑️삭제</button>
+										<button id="btnDelete" class="btn btn-outline-danger btn-custom ms-2">🗑️삭제</button>
 									</th:block>
 								</div>
 
@@ -183,8 +179,7 @@
 														class="btn btn-success btn-register-comment" type="submit">수정</button>
 													<input type="hidden" name="commentId"
 														th:value="${commentlist.id}">
-													<input type="hidden" id="userid"
-														th:value="${commentlist.user.id}">
+													<input type="hidden" id="userid" th:value="${commentlist.user.id}">
 													<button id="btnDeleteComment"
 														class="btn btn-success btn-register-comment" type="submit">삭제</button>
 												</th:block>
