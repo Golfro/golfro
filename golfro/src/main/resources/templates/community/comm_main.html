@@ -97,7 +97,7 @@
 							<div class="col-2">
 								<select class="form-control" name="post-cate"
 									id="categorySelect" th:onchange="this.form.submit()">
-									<option value="">카테고리</option>
+									<option value="">전체보기</option>
 									<option value="F001"
 										th:selected="${selectedCategory == 'F001'}">잡담</option>
 									<option value="F002"
@@ -152,7 +152,7 @@
 								<th class="col-2">카테고리</th>
 								<th class="col-4">제목</th>
 								<th class="col-2">작성자</th>
-								<th class="col-2">작성일</th>
+								<th class="col-2">작성시간</th>
 								<th class="col-1">조회</th>
 								<th class="col-1">추천</th>
 							</tr>
@@ -168,7 +168,7 @@
 										th:href="@{/community/details/{id}(id=*{id})}"
 										class="custom-link"></a></td>
 									<td th:text="*{userid}"></td>
-									<td th:text="*{createdTime}"></td>
+									<td th:text="*{#temporals.format(createdTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
 									<td th:text="*{views}"></td>
 									<td th:text="*{likes}"></td>
 								</tr>
@@ -201,31 +201,31 @@
 		<footer class="text-center">
 
 			<nav>
-				<ul class="pagination justify-content-center mt-3">
-					<!-- 이전 페이지 버튼 -->
-					<li class="page-item"
-						th:classappend="${!posts.hasPrevious()} ? 'disabled'"><a
-						class="page-link"
-						th:href="@{/community/comm_main(p=${posts.number - 1}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}">이전</a>
-					</li>
+    <ul class="pagination justify-content-center mt-3">
+        <!-- 이전 페이지 버튼 -->
+        <li class="page-item" th:classappend="${!posts.hasPrevious()} ? 'disabled'">
+            <a class="page-link" 
+               th:href="@{/community/comm_main(p=${posts.number - 1}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}">이전</a>
+        </li>
 
-					<!-- 페이지 번호 목록 -->
-					<li class="page-item"
-						th:each="pageNo : ${#numbers.sequence(0, posts.totalPages - 1, 1)}"
-						th:if="${pageNo >= posts.number - 2 && pageNo <= posts.number + 2}"
-						th:classappend="${pageNo == posts.number} ? 'active'"><a
-						class="page-link"
-						th:href="@{/community/comm_main(p=${pageNo}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}"
-						th:text="${pageNo + 1}"> </a></li>
+        <!-- 페이지 번호 목록 -->
+        <li class="page-item" 
+            th:each="pageNo : ${#numbers.sequence(0, posts.totalPages - 1)}"
+            th:if="${pageNo >= posts.number - 2 && pageNo <= posts.number + 2}"
+            th:classappend="${pageNo == posts.number} ? 'active'">
+            <a class="page-link" 
+               th:href="@{/community/comm_main(p=${pageNo}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}"
+               th:text="${pageNo + 1}"> </a>
+        </li>
 
-					<!-- 다음 페이지 버튼 -->
-					<li class="page-item"
-						th:classappend="${!posts.hasNext()} ? 'disabled'"><a
-						class="page-link"
-						th:href="@{/community/comm_main(p=${posts.number + 1}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}">다음</a>
-					</li>
-				</ul>
-			</nav>
+        <!-- 다음 페이지 버튼 -->
+        <li class="page-item" th:classappend="${!posts.hasNext()} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{/community/comm_main(p=${posts.number + 1}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}">다음</a>
+        </li>
+    </ul>
+</nav>
+
 
 
 

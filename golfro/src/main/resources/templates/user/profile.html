@@ -23,29 +23,11 @@
                 <h3 class="bold_title">프로필 관리</h3>
                 <div class="bottom_line">
                     <div class="info_card">
-                        <input type="hidden" id="grade" th:value="*{grade}" />
                         <div class="user_image m-4">
-                            <input type="hidden" id="imagePath" value="*{image}" />
-                            <img id="image" src="" alt="Uploaded Image">
-                                
-                            <script>
-                            	// 이미지 URL을 가져와서 이미지 태그에 설정
-                                var file = document.getElementById('imagePath').value;
-                                var imageUrl = '/user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
-                                    
-                                fetch(imageUrl)
-                                	.then(response => response.blob())
-                                    .then(blob => {
-                                        var reader = new FileReader();
-                                        reader.onload = function() {
-                                            document.getElementById('image').src = reader.result;
-                                        };
-                                        reader.readAsDataURL(blob);
-                                    })
-                                    .catch(error => {
-                                        console.error('Error fetching image:', error);
-                                 	});
-    						</script>
+                            <input type="hidden" id="userid" th:value="${session.signedInUser}" />
+                            <input type="hidden" id="grade" th:value="${session.signedInUserGrade.id}" />
+                            <input type="hidden" class="imagePath" th:value="*{image}" />
+                            <img class="image" src="" alt="Uploaded Image">
                         </div>
                         <div>
                             <h5 id="titleNickname" th:text="*{nickname}" class="user_data m-0"></h5>
@@ -76,13 +58,13 @@
                         </div>
                     </div>
                 </div>
-                <th:if test="${session.signedInUserGrade eq 'G10'}">
+                <th:block th:if="${session.signedInUserGrade.id eq 'G10'}">
                     <div class="mt-5">
                         <h6 class="small_title">수상 경력</h6>
                         <div class="container">
                             <div class="row">
                                 <div class="bottom_line col-6 p-0">
-                                    <input id="introduce" type="text" class="input_none basic_font" value="*{career}" placeholder="나를 소개하세요" readonly />
+                                    <input id="introduce" type="text" class="input_none basic_font" th:value="${user.pro.career}" placeholder="나를 소개하세요" readonly />
                                 </div>
                                 <div class="col-5">
                                     <button type="button" id="btnIntroduceMyself" class="btn active">변경</button>
@@ -94,17 +76,56 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <script th:src="@{/js/profile_management_introduce.js}"></script>
-                </th:if>
+                </th:block>
             </div>
         </div>
     </div>
     
+    <script th:src="@{/js/profile_management.js}"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 모든 .imagePath와 .image 클래스를 가진 요소를 찾습니다.
+            var imagePaths = document.querySelectorAll('.imagePath');
+            var images = document.querySelectorAll('.image');
+    
+            // .imagePath와 .image를 순회하면서 각각의 요소에 대해 작업합니다.
+            imagePaths.forEach(function(input, index) {
+                var file = input.value;
+                var imageUrl = '/user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
+    
+                if (file) {
+                    fetch(imageUrl)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok.');
+                            }
+                            return response.blob();
+                        })
+                        .then(blob => {
+                            var reader = new FileReader();
+                            reader.onload = function() {
+                                // .image 요소를 올바르게 업데이트합니다.
+                                if (images[index]) {
+                                    images[index].src = reader.result;
+                                } else {
+                                    console.error('No image element found for index:', index);
+                                }
+                            };
+                            reader.readAsDataURL(blob);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching image:', error);
+                        });
+                } else {
+                    console.error('No file path found for index:', index);
+                }
+            });
+        });
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-    
-    <script th:src="@{/js/profile_management.js}"></script>
 </body>
 </html>

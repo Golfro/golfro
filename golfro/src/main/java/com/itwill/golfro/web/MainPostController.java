@@ -83,7 +83,7 @@ public class MainPostController {
 
 		Page<Tuple> posts;
 
-		String sessionUserid = SESSION_ATTR_USER;
+		String sessionUserid = (String) session.getAttribute(SESSION_ATTR_USER);
 
 		if (userid == null) {
 			posts = mainPostService.getPagedPosts(pageNo, Sort.by("id").descending());

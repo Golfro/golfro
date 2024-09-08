@@ -142,7 +142,7 @@ public class ReviewPostService {
 	public Page<ReviewPostListDto> search(ReviewPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("search(dto={})", dto);
 		
-		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Pageable pageable = PageRequest.of(pageNo, 10, sort);
 		Page<Post> list = postRepo.search(dto, pageable);
 		Page<ReviewPostListDto> posts = list.map(ReviewPostListDto::fromEntity);
 		
@@ -222,8 +222,8 @@ public class ReviewPostService {
 	public Page<ReviewPostListDto> getPagedPosts(int pageNo, Sort sort) {
 		log.info("getPagedPosts(pageNo={}, sort={})", pageNo, sort);
 		
-		Pageable pageable = PageRequest.of(pageNo, 5, sort);
-		Page<Post> list = postRepo.selectPagedPosts(pageable);
+		Pageable pageable = PageRequest.of(pageNo, 10, sort);
+		Page<Post> list = postRepo.selectPagedPostsReview(pageable);
 		Page<ReviewPostListDto> posts = list.map(ReviewPostListDto::fromEntity);
 		
 		return posts;

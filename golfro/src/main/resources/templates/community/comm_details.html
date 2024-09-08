@@ -64,21 +64,22 @@
 					<div class="comm-middle ">
 						<!-- 이전글, 다음글, 목록보기 버튼 영역 -->
 						<div class="pre-next d-flex justify-content-end mb-3">
-
-							<input th:value="|이전글 유무: ${previousPost}|" /> <input
-								th:value="|다음글 유무: ${nextPost}|" /> <a
-								th:href="@{${previousPost == null ? '#' : '/community/details/{id}(id=${previousPost.id})'}}"
+							<a
+								th:href="${previousPost == null ? '#' : '/community/details/' + previousPost.id}"
 								class="btn btn-outline-secondary"
 								th:classappend="${previousPost == null ? 'disabled' : ''}">
 								<i class="bi bi-chevron-up"></i> 이전글
 							</a> <a
-								th:href="@{${nextPost == null ? '#' : '/community/details/{id}(id=${nextPost.id})'}}"
+								th:href="${nextPost == null ? '#' : '/community/details/' + nextPost.id}"
 								class="btn btn-outline-secondary"
 								th:classappend="${nextPost == null ? 'disabled' : ''}"> 다음글
 								<i class="bi bi-chevron-down"></i>
 							</a>
-
 						</div>
+
+
+
+
 						<div class="card">
 							<div class="card-header">
 								<small class="card-category" th:text="*{category.name}"></small>
@@ -173,8 +174,6 @@
 										</div>
 									</th:block>
 									<div th:text="*{content}"></div>
-									<div th:text="|세션 유저: ${session.signedInUser}|"></div>
-									<div th:text="|게시글 작성자: ${post.user.userid}|"></div>
 								</div>
 
 								<!-- 게시글 좋아요 버튼 영역(이걸 왜 로그인 세션에 대한 조건부 걸어놨는지 이해가 1도 안 됨) -->
@@ -220,7 +219,7 @@
 										<div class="input-group mb-3">
 											<div class="col-2">
 												<input name="author" id="author" type="hidden"
-													class="form-control" th:value="${session.signedInUser}">
+													class="form-control" th:value="${session.signedInUserId}">
 											</div>
 											<div class="col-8">
 												<textarea name="content" id="content" class="form-control"

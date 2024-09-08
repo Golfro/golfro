@@ -83,6 +83,76 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
         return result;
 	}
 	
+	
+	
+	
+	
+	// 커뮤니티 게시판 이전글 찾기
+	@Override
+	public Post findPreviousPostComm(String[] category, LocalDateTime createdTime) {
+	    log.info("findPreviousPost(category={}, createdTime={})", category, createdTime);
+	    
+	    QPost post = QPost.post;
+	    
+	    JPQLQuery<Post> query = from(post)
+	            .where(post.createdTime.lt(createdTime)
+	                    .and(post.category.id.in(category)))
+	            .orderBy(post.createdTime.desc())
+	            .limit(1);
+	    
+	    Post result = query.fetchOne();
+
+	    return result;
+	}
+
+	
+	
+	// 커뮤니티 게시판 다음글 찾기
+	@Override
+	public Post findNextPostComm(String[] category, LocalDateTime createdTime) {
+	    log.info("findNextPost(category={}, createdTime={})", category, createdTime);
+
+	    QPost post = QPost.post;
+	    
+	    JPQLQuery<Post> query = from(post)
+	            .where(post.createdTime.gt(createdTime)
+	                    .and(post.category.id.in(category)))
+	            .orderBy(post.createdTime.asc())
+	            .limit(1);
+	    
+	    Post result = query.fetchOne();
+
+	    return result;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public Post selectById(Long id) {
 		log.info("selectById(id={})", id);
@@ -221,7 +291,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
 	@Override
 	public Page<Post> selectByCategoryAndKeyword(CommPostSearchDto dto, Pageable pageable) {
-		log.info("selectByCategoryAndKeyword(dto={}, pageable={})", dto, pageable);
+	    log.info("selectByCategoryAndKeyword(dto={}, pageable={})", dto, pageable);
 
 	    QPost post = QPost.post;
 	    
@@ -235,9 +305,9 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    
 	    // 검색 키워드와 검색 카테고리 조건 추가
 	    if (dto.getSearchCategory() != null
-	    		&& !dto.getSearchCategory().isEmpty()
-	    		&& dto.getKeyword() != null
-	    		&& !dto.getKeyword().isEmpty()) {
+	            && !dto.getSearchCategory().isEmpty()
+	            && dto.getKeyword() != null
+	            && !dto.getKeyword().isEmpty()) {
 	        String searchKeyword = "%" + dto.getKeyword().toUpperCase() + "%"; // 대소문자 구분 없이 검색
 
 	        switch (dto.getSearchCategory()) {
@@ -277,6 +347,13 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    // 페이지 반환
 	    return new PageImpl<>(list, pageable, count);
 	}
+
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public List<Post> selectOrderByTeeoffDesc() {
@@ -731,7 +808,8 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	                new CaseBuilder()
 	                    .when(existsSubquery)
 	                    .then("해결 완료")
-	                    .otherwise("해결 중")
+	                    .otherwise("해결 중"),
+	                post.selection
 	            )
 	            .from(post)
 	            .join(club).on(post.club.id.eq(club.id))
@@ -846,7 +924,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
         JPQLQuery<Post> query = from(post)
             .join(user).on(post.user.userid.eq(user.userid))
-            .where(post.category.id.in("P003", "F001", "F002", "F003"))
+            .where(post.category.id.in("P003"))
             .orderBy(post.teeoff.desc());
 
         List<Post> list = query.fetch();
@@ -855,6 +933,30 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
         return new PageImpl<>(list, pageable, count);
 	}
+	
+	
+	@Override
+	public Page<Post> selectPagedPostsReview(Pageable pageable) {
+		log.info("selectPagedPosts(pageable={})", pageable);
+
+        QPost post = QPost.post;
+        QUser user = QUser.user;
+
+        JPQLQuery<Post> query = from(post)
+            .join(user).on(post.user.userid.eq(user.userid))
+            .where(post.category.id.in("P004"))
+            .orderBy(post.teeoff.desc());
+
+        List<Post> list = query.fetch();
+
+        long count = query.fetchCount();
+
+        return new PageImpl<>(list, pageable, count);
+	}
+	
+	
+	
+	
 	
 	@Override
 	public Page<Post> selectPagedPosts(String userid, Pageable pageable) {
@@ -1042,6 +1144,29 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 		        .fetchCount();
 
 	    return count;
+	}
+
+	@Override
+	public Page<Post> selectPagedPostsComm(Pageable pageable) {
+	    log.info("selectPagedPosts(pageable={})", pageable);
+
+	    QPost post = QPost.post;
+	    QUser user = QUser.user;
+
+	    JPQLQuery<Post> query = from(post)
+	        .join(user).on(post.user.userid.eq(user.userid))
+	        .where(post.category.id.in("F001", "F002", "F003"))
+	        .orderBy(post.id.desc());
+
+	    // Offset과 Limit을 설정하여 실제 페이징 적용
+	    List<Post> list = query
+	        .offset(pageable.getOffset())
+	        .limit(pageable.getPageSize())
+	        .fetch();
+
+	    long count = query.fetchCount(); // 전체 데이터 수를 가져와 페이지 총 개수를 계산합니다.
+
+	    return new PageImpl<>(list, pageable, count);
 	}
 
 }
