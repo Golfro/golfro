@@ -67,6 +67,8 @@ public interface PostQuerydsl {
 	
 	Page<Post> selectPagedPosts(Pageable pageable);
 	
+	Page<Post> selectPagedPostsReview(Pageable pageable);
+	
 	Page<Post> selectPagedPosts(String userid, Pageable pageable);
 	
 	Page<Post> search(MyPostListSearchDto dto, Pageable pageable);

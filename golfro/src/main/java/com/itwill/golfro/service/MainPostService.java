@@ -177,7 +177,7 @@ public class MainPostService {
 	public Page<Post> searchRead(MainPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("searchRead(dto={})", dto);
 		
-		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Pageable pageable = PageRequest.of(pageNo, 10, sort);
 		
 		Page<Post> posts = postRepo.search(dto, pageable);
 		
@@ -188,7 +188,7 @@ public class MainPostService {
 	public Page<Post> searchReadByUserid(MyPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("search(dto={})", dto);
 		
-		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Pageable pageable = PageRequest.of(pageNo, 10, sort);
 		
 		Page<Post> posts = postRepo.searchMyPost(dto, pageable);
 		
@@ -199,7 +199,7 @@ public class MainPostService {
 	public Page<Tuple> getPagedPosts(int pageNo, Sort sort) {
 		log.info("getPagedPosts(pageNo={}, sort={})", pageNo, sort);
 		
-		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Pageable pageable = PageRequest.of(pageNo, 10, sort);
 		
 		Page<Tuple> list = postRepo.getPostList(pageable);
 		
@@ -210,7 +210,7 @@ public class MainPostService {
 	public Page<Tuple> getPagedPostsByUserid(String userid, int pageNo, Sort sort) {
 		log.info("getPagedPostsByUserid(userid={}, pageNo={}, sort={})", userid, pageNo, sort);
 		
-		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Pageable pageable = PageRequest.of(pageNo, 10, sort);
 		
 		Page<Tuple> list = postRepo.getPostListByUserid(userid, pageable);
 		

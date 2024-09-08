@@ -58,7 +58,7 @@ public class CommPostService {
 	public Page<Post> read(int pageNo, Sort sort) {
 		log.info("read()");
 		
-		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Pageable pageable = PageRequest.of(pageNo, 10, sort);
 		
 		String[] categories = {"F001", "F002", "F003"};
 		Page<Post> posts = postRepo.selectOrderByIdDesc(categories, pageable);
@@ -231,7 +231,7 @@ public class CommPostService {
 	public Page<CommPostListDto> searchByCategoryAndKeyword(CommPostSearchDto dto, int pageNo, Sort sort) {
 		log.info("searchByCategoryAndKeyword(dto={}, pageNo, sort)", dto, pageNo, sort);
 		
-		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Pageable pageable = PageRequest.of(pageNo, 10, sort);
 		Page<Post> list = postRepo.selectByCategoryAndKeyword(dto, pageable);
 		Page<CommPostListDto> posts = list.map(CommPostListDto::fromEntity);
 		
@@ -308,7 +308,7 @@ public class CommPostService {
 		log.info("read(pageNo={}, sort={})", pageNo, sort);
 		
 		// Pageable 객체 생성
-		Pageable pageable = PageRequest.of(pageNo, 5, sort);
+		Pageable pageable = PageRequest.of(pageNo, 10, sort);
 		
 		// 영속성(persistence/repository) 계층의 메서드를 호출해서 엔터티들의 리스트를 가져옴.
 		Page<Post> list = postRepo.selectPagedPostsComm(pageable);
