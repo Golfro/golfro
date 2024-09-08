@@ -273,7 +273,7 @@
 											th:value="*{selection == 1 ? '해결완료' : '해결중'}">
 											<div
 												class="hidden flex-col item-center sm:flex sm:-space-y-2.5">
-												<span th:text="*{selection}">채택여부</span>
+												<span th:text="*{selection == 1 ? '해결완료' : '해결중'}">채택여부</span>
 											</div>
 										</div>
 									</div>
