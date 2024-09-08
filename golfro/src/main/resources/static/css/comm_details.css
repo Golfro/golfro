@@ -43,6 +43,9 @@ body {
 	max-width: 1280px;
 	flex-grow: 1;
 }
+.bi {
+    font-style: normal; /* 기울임꼴 없애기 */
+}
 
 .top-ad-banner {
 	display: flex;
@@ -129,7 +132,23 @@ a.form-control {
 .all-post-btn {
 	padding: 0px;
 	margin-top: 10px;
-	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	width: 100%;
+	padding-bottom: 10px;
+	color: black;
+	font-size: 0.9rem;
+	text-decoration: none;
+	font-weight: bold;
+	color: #478a82;
+}
+
+
+.all-post-btn:hover {
+	text-decoration: underline;
+}
+
+.cate-post-btn{
+	padding: 0px;
 	width: 100%;
 	padding-top: 10px;
 	color: black;
@@ -138,10 +157,12 @@ a.form-control {
 	font-weight: bold;
 }
 
-.all-post-btn:hover {
-	color: #2FA599;
+div.cate-post-btn{
+	font-size: 1rem;
 }
-
+i.bi.bi-dot{
+	color: #949494;
+}
 .pre-next a {
 	font-size: 0.9rem;
 	font-weight: bold;
@@ -164,13 +185,17 @@ a.form-control {
 	background-color: white !important;
 	color: black;
 	border-bottom: 1px solid #cbcbcb;
-	padding: 20px;
+	padding: 16px 20px;
+	padding-bottom: 10px;
 }
 
 .card-header small {
 	color: #0080ff;
 }
 
+#modifyDelete:hover, #btnDelete:hover{
+background-color: #f3f3f3;
+	}
 small.card-category {
 	color: #2FA599;
 	font-weight: bold;
@@ -199,20 +224,19 @@ small.card-category {
 }
 
 button.btn-like {
-	font-family: 'Pretendard-Regular', Pretendard-Regular;
-	font-size: 1rem;
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
+	font-size: 0.9rem;
+	padding: 8px 16px;
 	background-color: white;
-	border: 1px solid #31a2f4;
-	color: #31a2f4;
+	border: 2px solid #808080;
+	color: #808080;
 	transition: transform 0.3s ease, background-color 0.3s ease;
 	background-color: white;
 }
 
 button.btn-like:hover {
-	font-family: 'Pretendard-Regular', Pretendard-Regular;
-	font-weight: bold;
-	border: 2px solid #31a2f4;
-	color: #31a2f4;
+	border: 2px solid #3c3c3c;
+	color: #3c3c3c;
 }
 
 .comment-form {
@@ -243,9 +267,6 @@ button.btn-like:hover {
 	border-bottom: none;
 }
 
-.btn-custom {
-	padding: 10px 20px;
-}
 
 .position-relative {
 	position: relative;
@@ -359,4 +380,19 @@ div.best-posts {
 .custom-link:hover {
 	text-decoration: underline; /* 밑줄 생기게 */
 	font-weight: bold; /* 마우스 올렸을 때 글자 굵게 */
+}
+
+.comm-left, .comm-right {
+    position: sticky;
+    top: 90px; /* Adjust if needed */
+    width: 250px; /* Adjust based on your design */
+    z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+.comm-left {
+    left: 0;
+}
+
+.comm-right {
+    right: 0;
 }
