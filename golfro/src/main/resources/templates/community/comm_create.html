@@ -12,110 +12,26 @@
 	crossorigin="anonymous" />
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
 	rel="stylesheet">
-<style>
-body {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}
 
-.container-fluid {
-    background-color: white;
-    padding: 20px;
-    max-width: 960px;
-    margin: 0 auto;
-    margin-top: 85px;
-}
-
-.card {
-    border: none !important;
-}
-
-.card-header {
-    background-color: white !important;
-    border: none !important;
-}
-
-.card-header h3 {
-    font-family: 'Freesentation-9Black', Freesentation-9Black;
-}
-
-.card-header h7 {
-    font-family: 'SUIT-Regular', SUIT-Regular;
-}
-
-.cancelBtn {
-    background-color: #EEEEEE !important;
-}
-
-.submitBtn {
-    color: white !important;
-    background-color: #2FA599 !important;
-}
-
-.toolbar {
-    margin-bottom: 20px;
-}
-
-#editor-container {
-    height: 400px; /* 에디터 높이 조정 */
-}
-
-#imagePreview {
-    max-width: 100%;
-    max-height: 300px;
-    display: none;
-}
-/* 모바일 영역 */
-.mobile-header {
-    display: none !important;
-}
-
-@media screen and (max-width: 768px) {
-    .card h3, h7 {
-        display: none !important;
-    }
-    .mobile-header {
-        display: block !important;
-        border-radius: 8px;
-        background-image: url('../images/review_header.png'); /* 배경 이미지 추가 */
-        background-size: cover; /* 이미지가 요소에 맞게 크기 조정 */
-        margin: 10px;
-        padding: 20px 30px;
-        font-size: 1rem;
-    }
-    .mobile-header a {
-        font-weight: bold;
-        text-decoration: none; /* 밑줄 제거 */
-        color: black; /* 글씨 색상 검정 */
-    }
-    .mobile-header a:hover {
-        text-decoration: none; /* 호버 시에도 밑줄 없음 */
-        color: black; /* 호버 시에도 글씨 색상 유지 */
-    }
-    .mobile-header span {
-        font-size: 14px;
-        color: #999999;
-    }
-}
-</style>
 <link rel="stylesheet" href="/css/header.css" />
+<link rel="stylesheet" href="/css/review_comm_create.css" />
 </head>
 <body>
-<header th:replace="~{fragments/header :: header}"></header>
+	<header th:replace="~{fragments/header :: header}"></header>
 	<div class="container-fluid">
 		<main>
 			<div class="mt-2 card">
 				<div class="card-header">
-					<h2></h2>
+					<h3>글쓰기</h3>
 				</div>
+
 				<div class="card-body">
-					<form method="post" th:action="@{/community/comm_create}" enctype="multipart/form-data" id="postForm">
+					<form method="post" th:action="@{/community/comm_create}"
+						enctype="multipart/form-data" id="postForm">
 						<div class="row mb-3">
 							<div class="col-auto">
-								<select class="form-control" name="categoryId" id="categorySelect"
-									required>
+								<select class="form-control" name="categoryId"
+									id="categorySelect" required>
 									<option value="">카테고리 선택</option>
 									<option value="F001">잡담</option>
 									<option value="F002">팁/노하우</option>
@@ -133,21 +49,23 @@ body {
 							<div id="editor-container"></div>
 							<textarea name="content" id="content" style="display: none;"></textarea>
 						</div>
-						<div>
-							<div class="row mb-3">
-								<div class="col">
-									<input class="form-control" type="file" name="media"
-										id="mediaFile" accept="image/*" onchange="previewImage(event)" />
-								</div>
+
+						<div class="row mb-3">
+							<div class="col">
+								<input class="form-control" type="file" name="media"
+									id="mediaFile" accept="image/*" onchange="previewImage(event)" />
 							</div>
-							<div class="row mb-3">
-								<div class="col">
-									<img id="imagePreview" alt="사진 미리보기" />
-								</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col">
+								<img id="imagePreview" alt="사진 미리보기" />
 							</div>
-							<div class="d-grid gap-2">
-								<input class="btn btn-outline-success" type="submit" value="저장" />
-							</div>
+						</div>
+						<div class="d-flex justify-content-end gap-2">
+							<a href="/community/comm_main"
+								class="cancelBtn btn m-1 px-4 py-2">취소</a> <input
+								class="m-1 px-4 py-2 btn submitBtn" type="submit" value="등록" />
+						</div>
 					</form>
 				</div>
 			</div>
@@ -158,7 +76,7 @@ body {
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-	
+
 	<script>
     var quill = new Quill('#editor-container', {
         theme: 'snow',
