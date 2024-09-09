@@ -160,7 +160,7 @@ public class CommunityController {
 
 	@GetMapping("/details/{id}")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
-			@PathVariable(name="id") Long id, @RequestParam(name = "commentId", required = false) Long commentId,
+			@PathVariable(name="id") Long id, @RequestParam(name = "focusComment", required = false) Long focusComment,
 			Model model, HttpSession session) {
 		
 		
@@ -200,7 +200,7 @@ public class CommunityController {
 		model.addAttribute("nextPost", nextPost); // 다음 글
 		model.addAttribute("commentlist", commentlist); // 댓글 목록 추가하기
 		model.addAttribute("commentcount", commentcount);
-		model.addAttribute("commentId", commentId);
+		model.addAttribute("focusComment", focusComment);
 		
 		model.addAttribute("top5ByF001", commPostService.getTop5ByF001());
 		model.addAttribute("top5ByF002", commPostService.getTop5ByF002());

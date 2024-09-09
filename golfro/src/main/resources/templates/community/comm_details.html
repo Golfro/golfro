@@ -223,8 +223,8 @@
                                                 추천하기</i>
                                         </button>
                                     </th:block>
-                                    
-                                    
+
+
                                     <th:block
                                         th:if="${session.signedInUser == null}">
                                         <!-- 로그인한 사용자가 없을 때의 처리 -->
@@ -308,8 +308,7 @@
 
 
                                 <!-- 포커싱할 댓글 id -->
-                                <input type="hidden" id="commentId"
-                                    value="${commentId}" />
+                                <input type="hidden" id="focusComment" th:value="${focusComment}" />
                                 <div class="comment-list row">
                                     <th:block
                                         th:each="commentlist:${commentlist}"
@@ -426,9 +425,75 @@
         </div>
     </main>
     <footer th:replace="~{fragments/footer :: footer}"></footer>
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 모든 .imagePath와 .image 클래스를 가진 요소를 찾습니다.
+            var imagePaths = document.querySelectorAll('.imagePath');
+            var images = document.querySelectorAll('.image');
+            var imagePromises = [];
+    
+            // .imagePath와 .image를 순회하면서 각각의 요소에 대해 작업합니다.
+            imagePaths.forEach(function(input, index) {
+                var file = input.value;
+                var imageUrl = '/user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
+    
+                if (file) {
+                    var imagePromise = fetch(imageUrl)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok.');
+                            }
+                            return response.blob();
+                        })
+                        .then(blob => {
+                            return new Promise((resolve, reject) => {
+                                var reader = new FileReader();
+                                reader.onload = function() {
+                                    if (images[index]) {
+                                        images[index].src = reader.result;
+                                        resolve(); // 이미지 로드 완료
+                                    } else {
+                                        reject('No image element found for index: ' + index);
+                                    }
+                                };
+                                reader.readAsDataURL(blob);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching image:', error);
+                        });
+    
+                    imagePromises.push(imagePromise);
+                } else {
+                    console.error('No file path found for index:', index);
+                }
+            });
+    
+            // 모든 이미지가 로드된 후 실행될 코드
+            Promise.all(imagePromises)
+                .then(() => {
+                    // focusCommentId 체크
+                    const focusCommentIdElement = document.querySelector('input#focusComment');
+                    if (focusCommentIdElement) {
+                        const focusCommentId = focusCommentIdElement.value;
+                        if (focusCommentId) {
+                            const commentElement = document.getElementById(`comment-${focusCommentId}`);
+                            if (commentElement) {
+                                commentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            } else {
+                                console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+                            }
+                        } else {
+                            console.error('focusCommentId is null or undefined.');
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during image loading:', error);
+                });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script th:src="@{/js/comm_details.js}"></script>
     <script th:src="@{/js/script.js}"></script>
 </body>
