@@ -27,19 +27,19 @@
 
 				<h2>LESSON</h2>
 				<h7>골프에 대해 궁금한 점들을 물어보세요.</h7>
-				<p>
-					현재 로그인 세션 PK : <input id="sessionUserId" type="text"
+				<p class="d-none">
+					현재 로그인 세션 PK : <input id="sessionUserId" type="hidden"
 						th:value="${session.signedInUserId}" />
 				</p>
-				<p>
-					현재 로그인 세션 아이디: <input id="sessionUser" type="text"
+				<p class="d-none">
+					현재 로그인 세션 아이디: <input id="sessionUser" type="hidden"
 						th:value="${session.signedInUser}" />
 				</p>
-				<p>
-					현재 로그인 세션 닉네임: <input id="sessionNickName" type="text"
+				<p class="d-none">
+					현재 로그인 세션 닉네임: <input id="sessionNickName" type="hidden"
 						th:value="${session.signedInUserNickName}" />
 				</p>
-				<p>
+				<p class="d-none">
 					글 작성자 아이디 : <input id="postAuthor" type="text"
 						th:value="${post.userid}" />
 				</p>

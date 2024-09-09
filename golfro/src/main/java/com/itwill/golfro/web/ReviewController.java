@@ -212,33 +212,30 @@ public class ReviewController {
         return ResponseEntity.ok(result);
 	}
 
-//	@PutMapping("/comments")
-//	@ResponseBody
-//	public Comment updateComment(@RequestBody CommentUpdateDto commentUpdateDto) {
-//		Comment comment = cmtRepo.selectCommentById(commentUpdateDto.getId());
-//		if (comment != null) {
-//			comment.update(commentUpdateDto.getContent());
-//			Comment result = cmtRepo.save(comment);
-//
-//			if (result != null) {
-//				return comment; // 수정된 댓글 객체 반환
-//			}
-//		}
-//
-//		return null;
-//	}
+	@PutMapping("/comments")
+	@ResponseBody
+	public ResponseEntity<Comment> updateComment(@RequestBody CommentUpdateDto dto) {
+		log.info("************={}",dto);
+		Comment comment = cmtRepo.selectCommentById(dto.getCommentId());
+		if (comment != null) {
+			comment.update(dto.getContent());
+			cmtRepo.save(comment);
+		}
 
-//	// DELETE 요청의 URL 수정
-//	@DeleteMapping("/comments/{id}")
-//	@ResponseBody
-//	public String deleteComment(@PathVariable("id") long id) {
-//		try {
-//			cmtRepo.deleteById(id);
-//			return "Deleted comment with id: " + id;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return "Failed to delete comment with id: " + id;
-//		}
-//	}
+		return ResponseEntity.ok(comment);
+	}
+
+	// DELETE 요청의 URL 수정
+	@DeleteMapping("/comments/{commentId}")
+	@ResponseBody
+	public String deleteComment(@PathVariable(name="commentId") Long id) {
+		try {
+			cmtRepo.deleteById(id);
+			return "Deleted comment with id: " + id;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Failed to delete comment with id: " + id;
+		}
+	}
 
 }

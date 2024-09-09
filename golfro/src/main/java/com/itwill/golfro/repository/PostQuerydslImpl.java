@@ -106,6 +106,45 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
 		return result;
 	}
+	
+	
+	// 리뷰 게시판 이전글 찾기
+	@Override
+	public Post findPreviousPostReview(String[] category, LocalDateTime createdTime) {
+	    log.info("findPreviousPost(category={}, createdTime={})", category, createdTime);
+	    
+	    QPost post = QPost.post;
+	    
+	    JPQLQuery<Post> query = from(post)
+	            .where(post.createdTime.lt(createdTime)
+	                    .and(post.category.id.in(category)))
+	            .orderBy(post.createdTime.desc())
+	            .limit(1);
+	    
+	    Post result = query.fetchOne();
+
+	    return result;
+	}
+
+	
+	
+	// 리뷰 게시판 다음글 찾기
+	@Override
+	public Post findNextPostReview(String[] category, LocalDateTime createdTime) {
+	    log.info("findNextPost(category={}, createdTime={})", category, createdTime);
+
+	    QPost post = QPost.post;
+	    
+	    JPQLQuery<Post> query = from(post)
+	            .where(post.createdTime.gt(createdTime)
+	                    .and(post.category.id.in(category)))
+	            .orderBy(post.createdTime.asc())
+	            .limit(1);
+	    
+	    Post result = query.fetchOne();
+
+	    return result;
+	}
 
 	@Override
 	public Post selectById(Long id) {
@@ -811,52 +850,55 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	public Page<Post> search(ReviewPostSearchDto dto, Pageable pageable) {
 		log.info("search(dto={})", dto);
 
-		QPost post = QPost.post;
-		QUser user = QUser.user;
 
-		// 검색어 바인딩
-		String searchKeyword = "%" + dto.getKeyword() + "%";
+	    QPost post = QPost.post;
+	    QUser user = QUser.user;
 
-		// 기본 쿼리 생성
-		JPQLQuery<Post> query = from(post).join(user).on(post.user.userid.eq(user.userid))
-				.where(post.category.id.eq("P004"));
+	    // 검색어 바인딩
+	    String searchKeyword = dto.getKeyword();
 
-		// 조건 추가
-		if (dto.getCategory() == null) {
-			query.where(
-					post.title.containsIgnoreCase(searchKeyword).or(post.content.containsIgnoreCase(searchKeyword)));
-		} else {
-			switch (dto.getCategory()) {
-			case "t":
-				query.where(post.title.containsIgnoreCase(searchKeyword));
-				break;
-			case "c":
-				query.where(post.content.containsIgnoreCase(searchKeyword));
-				break;
-			case "tc":
-				query.where(post.title.containsIgnoreCase(searchKeyword)
-						.or(post.content.containsIgnoreCase(searchKeyword)));
-				break;
-			case "n":
-				query.where(user.nickname.containsIgnoreCase(searchKeyword));
-				break;
-			default:
-				throw new IllegalArgumentException("Invalid category: " + dto.getCategory());
-			}
-		}
+	    // 기본 쿼리 생성
+	    JPQLQuery<Post> query = from(post)
+	        .join(user).on(post.user.userid.eq(user.userid)) 
+	        .where(post.category.id.eq("P004"));
 
-		// 정렬
-		query.orderBy(post.id.desc());
+	    // 조건 추가
+	    if (dto.getCategory() == null) {
+	        query.where(post.title.containsIgnoreCase(searchKeyword)
+	                .or(post.content.containsIgnoreCase(searchKeyword)));
+	    } else {
+	        switch (dto.getCategory()) {
+	            case "t":
+	                query.where(post.title.containsIgnoreCase(searchKeyword));
+	                break;
+	            case "c":
+	                query.where(post.content.containsIgnoreCase(searchKeyword));
+	                break;
+	            case "tc":
+	                query.where(post.title.containsIgnoreCase(searchKeyword)
+	                        .or(post.content.containsIgnoreCase(searchKeyword)));
+	                break;
+	            case "n":
+	                query.where(user.nickname.containsIgnoreCase(searchKeyword));
+	                break;
+	            default:
+	                throw new IllegalArgumentException("Invalid category: " + dto.getCategory());
+	        }
+	    }
 
-		getQuerydsl().applyPagination(pageable, query);
+	    // 정렬
+	    query.orderBy(post.id.desc());
 
-		List<Post> list = query.fetch();
+	    getQuerydsl().applyPagination(pageable, query);
+ 		
+ 		List<Post> list = query.fetch();
+ 		
+ 		long count = query.fetchCount();
+ 		
+ 		Page<Post> page = new PageImpl<>(list, pageable, count);
+ 		
+ 		return page;
 
-		long count = query.fetchCount();
-
-		Page<Post> page = new PageImpl<>(list, pageable, count);
-
-		return page;
 	}
 
 	@Override

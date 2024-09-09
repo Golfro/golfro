@@ -35,8 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	commentList.addEventListener('click', event => {
 		if (event.target.id === 'btnDeleteComment') {
-			const commentId = event.target.previousElementSibling.value;
+
+			const commentId = document.querySelector('#commentId').value;
 			const result = confirm('댓글을 삭제하시겠습니까?');
+			console.log(`comment id : ${commentId}`);
 			if (result) {
 				fetch(`/review/comments/${commentId}`, {
 					method: 'DELETE'
@@ -82,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			updateForm.querySelector('#btnSubmitUpdate').addEventListener('click', () => {
 				const updatedContent = updateForm.querySelector('#updatedContent').value;
 				const data = {
-					id: commentId,
+					commentId: commentId,
 					content: updatedContent
 				};
 

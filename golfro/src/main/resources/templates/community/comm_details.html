@@ -210,10 +210,11 @@
                                 </div>
 
                                 <!-- 게시글 좋아요 버튼 영역(이걸 왜 로그인 세션에 대한 조건부 걸어놨는지 이해가 1도 안 됨) -->
+
                                 <div
                                     class="position-relative mb-4 text-end">
                                     <th:block
-                                        th:if="${session.signedInUser eq {post.user.userid}}">
+                                        th:if="${session.signedInUser != null}">
                                         <!-- 로그인한 사용자가 있을 때의 버튼 -->
                                         <button id="btnLikes"
                                             class="btn btn-like btn-lg btn-custom">
@@ -222,8 +223,10 @@
                                                 추천하기</i>
                                         </button>
                                     </th:block>
+                                    
+                                    
                                     <th:block
-                                        th:if="${session.signedInUser != {post.user.userid}}">
+                                        th:if="${session.signedInUser == null}">
                                         <!-- 로그인한 사용자가 없을 때의 처리 -->
                                         <button
                                             id="btnLikes-notloggedIn"
