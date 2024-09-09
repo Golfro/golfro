@@ -279,9 +279,7 @@ h5.tit_type {
 /* Hot Posts */
 .hot-posts {
     font-family: 'SUIT-Regular';
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    padding: 30px;
     height: 600px;
 }
 

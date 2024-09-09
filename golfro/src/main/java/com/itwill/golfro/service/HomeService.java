@@ -37,4 +37,10 @@ public class HomeService {
 		return likesRank;
 	}
 	
+	public List<Post> commRank(){
+		
+		List<Post> commRank = postRepo.getCommRank();
+		return commRank;
+	}
+	
 }

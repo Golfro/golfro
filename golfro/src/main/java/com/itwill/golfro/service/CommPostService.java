@@ -305,7 +305,7 @@ public class CommPostService {
 		log.info("read(pageNo={}, sort={})", pageNo, sort);
 		
 		// Pageable 객체 생성
-		Pageable pageable = PageRequest.of(pageNo, 10, sort);
+		Pageable pageable = PageRequest.of(pageNo, 16, sort);
 		
 		// 영속성(persistence/repository) 계층의 메서드를 호출해서 엔터티들의 리스트를 가져옴.
 		Page<Post> list = postRepo.selectPagedPostsComm(pageable);
