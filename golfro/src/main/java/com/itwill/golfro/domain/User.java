@@ -108,6 +108,10 @@ public class User implements Serializable {
         if (this.point == null) {
         	this.point = 0L;
         }
+        
+        if (this.image == null) {
+        	this.image = "https://golfro-bucket.s3.ap-northeast-2.amazonaws.com/basic_profile.png";
+        }
     }
 	
 	public User update(String password, String phone, String address, String proId, String account) {
@@ -128,12 +132,6 @@ public class User implements Serializable {
 	
 	public User updateNickname(String nickname) {
         this.nickname = nickname;
-        
-        return this;
-    }
-	
-	public User updateProCareer(String career) {
-        this.pro = Pro.builder().career(career).build();
         
         return this;
     }

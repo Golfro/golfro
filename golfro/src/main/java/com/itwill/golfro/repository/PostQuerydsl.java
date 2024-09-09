@@ -41,6 +41,8 @@ public interface PostQuerydsl {
 	
 	List<Post> Fixingthetop();
 	
+	List<Post> Fixingthetop2();
+	
 	Page<Post> selectByCategoryAndKeyword(CommPostSearchDto dto, Pageable pageable);
 	
 	List<Post> selectOrderByTeeoffDesc();

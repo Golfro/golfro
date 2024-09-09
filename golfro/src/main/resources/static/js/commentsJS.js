@@ -167,9 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
             htmlString += `
             <div class="comment ${highlightClass}" id="comment-${mainComment.id}">
                <div class="comment-thumb">
-                  <img id="image-${mainComment.id}" class="profile-image"
-                     src="../user/file/image?file=${encodeURIComponent(mainComment.image)}"
-                     alt="Uploaded Image">
+                  	<input type="hidden" class="imagePath" value="${mainComment.image}" />
+			   		<img id="image-${mainComment.id}" class="image" src="" alt="Uploaded Image" />
                </div>
 
 
@@ -207,6 +206,42 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       divComments.innerHTML = htmlString;
 
+	  var imagePaths = document.querySelectorAll('.imagePath');
+      var images = document.querySelectorAll('.image');
+  
+      // .imagePath와 .image를 순회하면서 각각의 요소에 대해 작업합니다.
+      imagePaths.forEach(function(input, index) {
+	      var file = input.value;
+	      var imageUrl = '/user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
+	  
+	      if (file) {
+			fetch(imageUrl)
+	        	.then(response => {
+	            	if (!response.ok) {
+	                	throw new Error('Network response was not ok.');
+	             	}
+	             	return response.blob();
+	          	})
+	          	.then(blob => {
+	            	var reader = new FileReader();
+	              	reader.onload = function() {
+	               		// .image 요소를 올바르게 업데이트합니다.
+	                  	if (images[index]) {
+	                    	images[index].src = reader.result;
+	                  	} else {
+	                  		console.error('No image element found for index:', index);
+	                	}
+	               	};
+	               	reader.readAsDataURL(blob);
+	           	})
+	          	.catch(error => {
+	         		console.error('Error fetching image:', error);
+	         	});
+	  	} else {
+	   		console.error('No file path found for index:', index);
+	  	}
+	});
+	
   /*    const focusCommentId = document.querySelector('input#commentId').value;
 
       if (focusCommentId) {

@@ -1,5 +1,7 @@
 package com.itwill.golfro.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -10,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE) @Builder
 @Getter @ToString
@@ -20,5 +23,11 @@ public class Pro {
 	private String id;
 	
 	private String career;
+	
+	public Pro updateProCareer(String career) {
+        this.career = career;
+        
+        return this;
+    }
 	
 }

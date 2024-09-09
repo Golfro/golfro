@@ -288,6 +288,22 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
         return result;
 	}
+	
+	@Override
+	public List<Post> Fixingthetop2() {
+		log.info("Fixingthetop()");
+
+		QPost post = QPost.post;
+	    
+	    JPQLQuery<Post> query = from(post)
+	            .where(post.user.userid.eq("admin"))
+	    		.orderBy(post.createdTime.desc()) // 최신 포스트 먼저 정렬
+	    		.limit(2); // 상위 2개 결과만 가져오기
+		
+		List<Post> result = query.fetch();
+
+        return result;
+	}
 
 	@Override
 	public Page<Post> selectByCategoryAndKeyword(CommPostSearchDto dto, Pageable pageable) {
@@ -815,8 +831,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	            .join(club).on(post.club.id.eq(club.id))
 	            .join(user).on(post.user.userid.eq(user.userid))
 	            .where(post.user.userid.eq(userid)
-	                   .and(post.category.id.in("P001")))
-	            .orderBy(post.id.desc());
+	                   .and(post.category.id.in("P001")));
 
 	    // 페이징 적용
 	    getQuerydsl().applyPagination(pageable, query);

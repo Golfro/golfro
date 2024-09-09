@@ -211,6 +211,12 @@ public class CommPostService {
 		log.info("Fixingthetop()");
 		return postRepo.Fixingthetop();
 	}
+	
+	@Transactional(readOnly = true)
+	public List<Post> Fixingthetop2() {
+		log.info("Fixingthetop2()");
+		return postRepo.Fixingthetop2();
+	}
 
 	@Transactional(readOnly = true)
 	public List<Post> getTop5ByF002() {

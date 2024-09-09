@@ -39,6 +39,7 @@ import com.itwill.golfro.dto.MainPostListDto;
 import com.itwill.golfro.dto.MainPostSearchDto;
 import com.itwill.golfro.dto.MainPostUpdateDto;
 import com.itwill.golfro.dto.MyPostSearchDto;
+import com.itwill.golfro.service.CommPostService;
 import com.itwill.golfro.service.MainPostService;
 import com.querydsl.core.Tuple;
 
@@ -55,7 +56,8 @@ public class MainPostController {
 	public static final String SESSION_ATTR_USER = "signedInUser";
 	
 	private final MainPostService mainPostService;
-
+	private final CommPostService commPostService;
+	
 	@GetMapping("/create")
 	public void mainPostCreate(Model model) {
 		List<Club> clubs = mainPostService.clubTypes();
@@ -130,7 +132,10 @@ public class MainPostController {
 	    model.addAttribute("clubSelect", clubSelect);
 	    model.addAttribute("textSearchSelect", textSearchSelect);
 	    model.addAttribute("selectSelection", selectSelection);
-
+	    
+	    List<Post> pinnedPosts = commPostService.Fixingthetop2();
+	    model.addAttribute("announcement", pinnedPosts);
+	    
 		if (userid != null) {
 			return "/user/myLessonList"; // 사용자가 로그인한 상태에서는 다른 뷰로 이동
 		}

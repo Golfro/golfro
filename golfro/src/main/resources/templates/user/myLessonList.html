@@ -74,15 +74,15 @@
 
                             <!-- 메인 게시판 목록 생성 영역 -->
                             <tbody>
-                                <tr th:each="p : ${post}">
+                                <tr th:each="p : ${posts}">
                                     <td class="text-center" id="club" th:text="${p.club.name}"></td>
-                                    <td id="post">
-                                        <a th:href="@{/mainPost/details(id=${p.id})}" th:text="${p.title}"></a>
+                                    <td>
+                                        <a th:href="@{/mainPost/details/{id}(id=${p.id})}" th:text="${p.title}"></a>
                                     </td>
                                     <td class="text-center" th:text="${p.views}"></td>
                                     <td class="text-center" th:text="${p.likes}"></td>
                                     <td class="text-center" th:text="${p.createdTime}"></td>
-                                    <td class="text-center" th:text="${p.selection}"></td>
+                                    <td class="text-center" th:text="${p.status}"></td>
                                 </tr>
                             </tbody>
                         </table>
