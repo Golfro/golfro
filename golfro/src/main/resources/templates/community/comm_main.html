@@ -38,35 +38,35 @@
 				</div>
 
 			</header>
-			<table class="table">
+			<table class="table px-3">
 				<colgroup>
 					<col style="width: 50%;">
 					<col style="width: 50%;">
 				</colgroup>
 				<tr>
-					<div class="best-posts">BEST 실시간 인기글</div>
+					<div class="best-posts text-center">BEST 실시간 인기글</div>
 					<td>
-						<table class="table">
+						<table class="table" id="table-1">
 							<thead>
-								<th class="text-center" colspan="3">잡담</th>
+								<th class="text-center" colspan="5">잡담</th>
 
 							</thead>
 							<tbody>
 								<th:block th:each="F001 : ${top5ByF001}">
-									<tr class="table">
-										<td class="left-align-bold"><a
+									<tr>
+										<td class="left-align-bold text-start">&nbsp;&nbsp;<a
 											th:href="@{community/details/{id}(id=${F001.id})}"
 											class="custom-link" th:text="${F001.title}"></a></td>
-										<td><i class="bi bi-eye" th:text="|조회수 : ${F001.views}|"></i></td>
+										<td><i class="bi bi-eye" th:text="| ${F001.views}|"></i></td>
 										<td><i class="bi bi-hand-thumbs-up"
-											th:text="|추천수 : ${F001.likes}|"></i></td>
+											th:text="| ${F001.likes}|"></i></td>
 									</tr>
 								</th:block>
 							</tbody>
 						</table>
 					</td>
 					<td>
-						<table class="table table.no-boder">
+						<table class="table" id="table-2">
 							<thead>
 
 								<tr>
@@ -76,7 +76,8 @@
 							<tbody>
 								<th:block th:each="F002 : ${top5ByF002}">
 									<tr class="table">
-										<td class="left-align-bold"><a th:text="${F002.title}"
+										<td class="left-align-bold text-start">&nbsp;&nbsp;<a
+											th:text="${F002.title}"
 											th:href="@{/community/details/{id}(id=${F002.id})}"
 											class="custom-link"></a></td>
 										<td><i class="bi bi-eye" th:text="|조회수 : ${F002.views}|"></i></td>
@@ -124,8 +125,9 @@
 									</div>
 
 									<div class="col-auto">
-										<input type="submit"
-											class="form-control btn btn-outline-secondary" value="검색" />
+										<button type="submit" class="btn" id="searchButton">
+											<i class="bi bi-search"></i>
+										</button>
 									</div>
 								</div>
 
@@ -145,16 +147,16 @@
 								class="category-button d-flex justify-content-center align-items-center gap-2">
 
 								<a th:href="@{/community/comm_main(post-cate='')}"
-									class="btn btn-outline-secondary"
+									class="btn btn-outline-dark border-2"
 									th:classappend="${selectedCategory == ''} ? 'active'">전체보기</a>
 								<a th:href="@{/community/comm_main(post-cate='F001')}"
-									class="btn btn-outline-secondary px-4"
+									class="btn btn-outline-dark px-4 border-2"
 									th:classappend="${selectedCategory == 'F001'} ? 'active'">잡담</a>
 								<a th:href="@{/community/comm_main(post-cate='F002')}"
-									class="btn btn-outline-secondary"
+									class="btn btn-outline-dark border-2"
 									th:classappend="${selectedCategory == 'F002'} ? 'active'">팁/노하우</a>
 								<a th:href="@{/community/comm_main(post-cate='F003')}"
-									class="btn btn-outline-secondary"
+									class="btn btn-outline-dark border-2"
 									th:classappend="${selectedCategory == 'F003'} ? 'active'">라운드
 									후기</a>
 							</div>
@@ -165,16 +167,17 @@
 
 
 				<div class="card-body">
-					<ul class="list-group d-flex flex-row flex-wrap">
+					<ul
+						class="list-group d-flex justify-content-between flex-row flex-wrap">
 						<th:block th:each="posts:${posts}" th:object="${posts}">
 							<li
 								th:if="*{categoryId == 'F001' or categoryId == 'F002' or categoryId == 'F003'}"
 								class="list-group-item flex-fill m-2" style="width: 48%;">
-								<div class="category">
+								<div class="category mb-2">
 									<span
 										th:text="*{categoryId == 'F001' ? '잡담' : (categoryId == 'F002' ? '팁/노하우' : (categoryId == 'F003' ? '라운드후기' : '알 수 없음'))}"></span>
 								</div>
-								<div class="title">
+								<div class="post-title mb-2 pt-2">
 									<a th:text="*{title}"
 										th:href="@{/community/details/{id}(id=*{id})}"
 										class="custom-link"></a>
@@ -184,10 +187,13 @@
 								</div>
 								<div class="post-info">
 									<div class="d-flex justify-content-between">
-										<span
-											th:text="*{#temporals.format(createdTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 										<div>
-											<i class="bi bi-eye"></i> <span th:text="*{views}"></span> &nbsp; <i class="bi bi-heart"></i> <span th:text="*{likes}"></span>
+											<small><i class="bi bi-clock"></i></small>&nbsp;<small
+												th:text="*{#temporals.format(createdTime, 'MM.dd HH:mm')}"></small>
+										</div>
+										<div>
+											<i class="bi bi-eye"></i> <span th:text="*{views}"></span>
+											&nbsp; <i class="bi bi-heart"></i> <span th:text="*{likes}"></span>
 										</div>
 									</div>
 								</div>

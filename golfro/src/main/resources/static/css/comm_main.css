@@ -21,7 +21,6 @@
 	font-style: normal;
 }
 
-
 body {
 	font-family: 'SUIT-Regular', SUIT-Regular;
 	display: flex;
@@ -35,29 +34,32 @@ body {
 	margin: 0 auto;
 	margin-top: 85px;
 	flex-grow: 1;
-	
 }
 
-.container{
+.container {
 	max-width: 1080px;
 }
 
 /* 헤더 스타일 */
 .container-fluid header {
-    text-align: center;
+	text-align: center;
 }
 
 .container-fluid header h2 a {
-    font-family: 'Freesentation-9Black';
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: black;
+	font-family: 'Freesentation-9Black';
+	margin-bottom: 10px;
+	text-decoration: none;
+	color: black;
 }
 
 .container-fluid header h7 {
-    font-family: 'SUIT-Regular', SUIT-Regular;
-    color: #808080;
-    margin-bottom: 30px;
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	color: #808080;
+	margin-bottom: 30px;
+}
+
+.title {
+	margin-bottom: 30px;
 }
 
 .ad img {
@@ -70,67 +72,93 @@ body {
 
 /* 테이블 스타일 */
 table {
-    background-color: white; /* 테이블 전체 배경색 흰색 */
-border: 1px solid #ccc;
+	background-color: white; /* 테이블 전체 배경색 흰색 */
+	border: 1px solid #ccc;
 }
 
 table thead {
-    font-family: 'Pretendard-Regular', Pretendard-Regular;
-    color: #1c1c1c;
-    text-align: center;
-    padding: 10px;
+	font-family: 'Pretendard-Regular', Pretendard-Regular;
+	color: #1c1c1c;
+	text-align: center;
+	padding: 10px;
 }
 
 .best-posts {
 	font-family: 'Pretendard-Regular', Pretendard-Regular;
-    font-weight: bold;
-	margin-top: 30px;
-	font-size: 20px;
+	font-weight: bold;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	font-size: 23px;
 }
 
 table thead tr th.text-center {
-    border-bottom: 2px solid #0073e6 !important;
-    color: #0073e6;
+	border-bottom: 2px solid #2FA599 !important;
+	color: #2FA599;
 }
 
 table tbody tr {
-    background-color: white; /* 테이블 행 배경색 흰색 */
+	background-color: white; /* 테이블 행 배경색 흰색 */
 }
 
 table tbody tr:hover {
-    background-color: #f1f1f1;
+	background-color: #f1f1f1;
 }
 
 th, td {
-    text-align: center;
-    background-color: white; /* 테이블 헤더 및 데이터 셀 배경색 흰색 */
+	text-align: center;
+	background-color: white; /* 테이블 헤더 및 데이터 셀 배경색 흰색 */
+
 }
 
 .left-align {
-    text-align: left important;
+	text-align: left important;
 }
 
-
-
-
-.card-header{
+.card-header {
 	background-color: #fff;
 	margin-top: 10px;
 }
 
-.category-button a{
+.category-button a {
 	border-radius: 50px;
 }
 
-.search-container .col-auto{
+.search-container .col-auto {
 	font-size: 0.9rem;
 }
 
-#search-create{
+#searchButton {
+	background: #ffffff;
+	color: #000000;
+	border: none !important;
+	padding: 0px;
+}
+
+#search-create {
 	padding-bottom: 20px;
 	border-bottom: 1px solid #ccc;
 }
 
-.category-button{
-	margin-bottom: 20px;
+.category-button {
+	padding-top: 16px;
+}
+
+
+.flex-fill{
+	flex: none !important;
+}
+
+.category span{
+	background-color: #60baaf;
+	padding: 5px;
+	color: #fff;
+	font-size: 0.8rem;
+	
+}
+
+.post-title a{
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+	 
 }
