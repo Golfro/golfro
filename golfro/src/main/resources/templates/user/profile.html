@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Golfro</title>
+    <title>프로필 관리｜GOLFRO</title>
     <link rel="stylesheet" href="../css/profile_style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -11,15 +11,88 @@
           crossorigin="anonymous">
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<style type="text/css">
+.container {
+    font-family: 'Pretendard-Regular';
+    width: 1080px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+footer {
+    margin-top: auto;
+}
+#mypage {
+    margin-top: 80px;
+    max-width: 1280px;
+    padding: 40px 40px 160px;
+}
+
+#login-info {
+    background-color: white;
+    padding: 0;
+    border: none;
+}
+
+.card-header {
+    background: white;
+}
+h3.bold_title {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #000000;
+}
+
+img.image{
+width: 100px;
+height: 100px;
+padding: 10px;
+border-radius: 50%;
+border: 1px solid #ccc;
+}
+
+tbody a {
+    text-decoration: none;
+    color: black;
+}
+
+tbody a:hover {
+    font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="../css/header.css" />
+<link rel="stylesheet" href="/css/footer.css" />
+<link rel="stylesheet" href="/css/menu.css" />
+</head>
+
 </head>
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
 
     <div class="container" id="mypage">
-        <div class="row">
-            <th:block th:replace="~{fragments/menu :: menu}"></th:block>
-            
-            <div class="col-8" th:object="${user}">
+        <div class="row d-flex">
+             <div class="menu col-12 col-md-3">
+                <th:block th:replace="~{fragments/menu :: menu}"></th:block>
+            </div>
+            <div class="col-12 col-md-9 mb-3" th:object="${user}">
                 <h3 class="bold_title">프로필 관리</h3>
                 <div class="bottom_line">
                     <div class="info_card">
@@ -45,7 +118,7 @@
                     <h6 class="small_title">프로필 이름</h6>
                     <div class="container">
                         <div class="row">
-                            <div class="bottom_line col-6 p-0">
+                            <div class="bottom_line col-3 p-0">
                                 <input id="nickname" type="text" class="input_none basic_font" th:value="*{nickname}" readonly />
                             </div>
                             <div class="col-5">
