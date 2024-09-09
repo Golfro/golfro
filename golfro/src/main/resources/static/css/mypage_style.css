@@ -132,7 +132,7 @@ a.icon:active  {
     #mypage .row {
         flex-direction: column-reverse; /* row 내에서 순서를 반대로 */
     }
-    #mypage .col-8 {
+    #mypage .col-12 {
         order: -1; /* 본문 내용을 위로 올림 */
     }
     #mypage .col-4 {
