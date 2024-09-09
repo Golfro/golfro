@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>커뮤니티｜GOLFRO</title>
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous">
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/footer.css" />
@@ -19,188 +19,218 @@
 
 <body>
 
-	<header th:replace="~{fragments/header :: header}"></header>
+    <header th:replace="~{fragments/header :: header}"></header>
 
-	<div class="container-fluid">
-		<div class="container">
-			<header>
-				<div class="title">
-					<h2>
-						<a th:href="@{/community/comm_main}">COMMUNITY</a>
-					</h2>
-					<h7>다양한 이야기들을 함께 나눠요.</h7>
-				</div>
+    <div class="container-fluid">
+        <div class="container">
+            <header>
+                <div class="title">
+                    <h2>
+                        <a th:href="@{/community/comm_main}">COMMUNITY</a>
+                    </h2>
+                    <h7>다양한 이야기들을 함께 나눠요.</h7>
+                </div>
 
-				<div class="ad">
-					<a href="/review/review_main"> <img
-						th:src="@{/images/ad-1.png}" alt="이벤트를 부탁해 광고 배너">
-					</a>
-				</div>
+                <div class="ad">
+                    <a href="/review/review_main"> <img
+                        th:src="@{/images/ad-1.png}"
+                        alt="이벤트를 부탁해 광고 배너">
+                    </a>
+                </div>
 
-			</header>
-			<table class="table px-3">
-				<colgroup>
-					<col style="width: 50%;">
-					<col style="width: 50%;">
-				</colgroup>
-				<tr>
-					<div class="best-posts text-center">BEST 실시간 인기글</div>
-					<td>
-						<table class="table" id="table-1">
-							<thead>
-								<th class="text-center" colspan="5">잡담</th>
+            </header>
+            <table class="table px-3">
+                <colgroup>
+                    <col style="width: 50%;">
+                    <col style="width: 50%;">
+                </colgroup>
+                <tr>
+                    <div class="best-posts text-center">BEST 실시간
+                        인기글</div>
+                    <td>
+                        <table class="table" id="table-1">
+                            <thead>
+                                <th class="text-center" colspan="5">잡담</th>
 
-							</thead>
-							<tbody>
-								<th:block th:each="F001 : ${top5ByF001}">
-									<tr>
-										<td class="left-align-bold text-start">&nbsp;&nbsp;<a
-											th:href="@{community/details/{id}(id=${F001.id})}"
-											class="custom-link" th:text="${F001.title}"></a></td>
-										<td><i class="bi bi-eye" th:text="| ${F001.views}|"></i></td>
-										<td><i class="bi bi-hand-thumbs-up"
-											th:text="| ${F001.likes}|"></i></td>
-									</tr>
-								</th:block>
-							</tbody>
-						</table>
-					</td>
-					<td>
-						<table class="table" id="table-2">
-							<thead>
+                            </thead>
+                            <tbody>
+                                <th:block th:each="F001 : ${top5ByF001}">
+                                    <tr>
+                                        <td
+                                            class="left-align-bold text-start">&nbsp;&nbsp;<a
+                                            th:href="@{community/details/{id}(id=${F001.id})}"
+                                            class="custom-link"
+                                            th:text="${F001.title}"></a></td>
+                                        <td><i class="bi bi-eye"
+                                            th:text="| ${F001.views}|"></i></td>
+                                        <td><i
+                                            class="bi bi-hand-thumbs-up"
+                                            th:text="| ${F001.likes}|"></i></td>
+                                    </tr>
+                                </th:block>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table" id="table-2">
+                            <thead>
 
-								<tr>
-									<th class="text-center" colspan="3">팁/노하우</th>
-								</tr>
-							</thead>
-							<tbody>
-								<th:block th:each="F002 : ${top5ByF002}">
-									<tr class="table">
-										<td class="left-align-bold text-start">&nbsp;&nbsp;<a
-											th:text="${F002.title}"
-											th:href="@{/community/details/{id}(id=${F002.id})}"
-											class="custom-link"></a></td>
-										<td><i class="bi bi-eye" th:text="|조회수 : ${F002.views}|"></i></td>
-										<td><i class="bi bi-hand-thumbs-up"
-											th:text="|추천수 : ${F002.likes}|"></i></td>
-									</tr>
-								</th:block>
-							</tbody>
-						</table>
-					</td>
-				</tr>
-			</table>
-
-
-			<main>
-
-
-				<div class="mt-2 card border-0">
-					<!-- 검색 및 글쓰기 버튼 영역 -->
-					<div class="card-header border-0">
-						<form method="get" th:action="@{/community/comm_main}">
-
-							<div
-								class="d-flex justify-content-between align-items-center mb-3"
-								id="search-create">
-								<!-- 글쓰기 버튼 영역 -->
-								<div
-									class="search-container d-flex align-items-center justify-content-end gap-2">
-									<div class="col-auto">
-										<select class="form-control" name="search-category">
-											<option value="t"
-												th:selected="${selectedSearchCategory == 't'}">제목</option>
-											<option value="c"
-												th:selected="${selectedSearchCategory == 'c'}">내용</option>
-											<option value="tc"
-												th:selected="${selectedSearchCategory == 'tc'}">제목+내용</option>
-											<option value="n"
-												th:selected="${selectedSearchCategory == 'n'}">닉네임</option>
-										</select>
-									</div>
-
-									<div class="col-auto">
-										<input type="text" class="form-control" name="keyword"
-											placeholder="검색어 입력" th:value="${keyword}" />
-									</div>
-
-									<div class="col-auto">
-										<button type="submit" class="btn" id="searchButton">
-											<i class="bi bi-search"></i>
-										</button>
-									</div>
-								</div>
-
-								<div class="col-auto">
-									<th:block th:if="${session.signedInUser != null}">
-										<a th:href="@{/community/comm_create}"
-											class="form-control btn btn-outline-secondary">글쓰기</a>
-									</th:block>
-									<th:block th:if="${session.signedInUser == null}">
-										<a th:href="@{/user/signin}"
-											class="form-control btn btn-outline-secondary">글쓰기</a>
-									</th:block>
-								</div>
-
-							</div>
-							<div
-								class="category-button d-flex justify-content-center align-items-center gap-2">
-
-								<a th:href="@{/community/comm_main(post-cate='')}"
-									class="btn btn-outline-dark border-2"
-									th:classappend="${selectedCategory == ''} ? 'active'">전체보기</a>
-								<a th:href="@{/community/comm_main(post-cate='F001')}"
-									class="btn btn-outline-dark px-4 border-2"
-									th:classappend="${selectedCategory == 'F001'} ? 'active'">잡담</a>
-								<a th:href="@{/community/comm_main(post-cate='F002')}"
-									class="btn btn-outline-dark border-2"
-									th:classappend="${selectedCategory == 'F002'} ? 'active'">팁/노하우</a>
-								<a th:href="@{/community/comm_main(post-cate='F003')}"
-									class="btn btn-outline-dark border-2"
-									th:classappend="${selectedCategory == 'F003'} ? 'active'">라운드
-									후기</a>
-							</div>
-
-						</form>
-					</div>
-				</div>
+                                <tr>
+                                    <th class="text-center" colspan="3">팁/노하우</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <th:block th:each="F002 : ${top5ByF002}">
+                                    <tr class="table">
+                                        <td
+                                            class="left-align-bold text-start">&nbsp;&nbsp;<a
+                                            th:text="${F002.title}"
+                                            th:href="@{/community/details/{id}(id=${F002.id})}"
+                                            class="custom-link"></a></td>
+                                        <td><i class="bi bi-eye"
+                                            th:text="| ${F002.views}|"></i></td>
+                                        <td><i
+                                            class="bi bi-hand-thumbs-up"
+                                            th:text="| ${F002.likes}|"></i></td>
+                                    </tr>
+                                </th:block>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
 
 
-				<div class="card-body">
-					<ul
-						class="list-group d-flex justify-content-between flex-row flex-wrap">
-						<th:block th:each="posts:${posts}" th:object="${posts}">
-							<li
-								th:if="*{categoryId == 'F001' or categoryId == 'F002' or categoryId == 'F003'}"
-								class="list-group-item flex-fill m-2" style="width: 48%;">
-								<div class="category mb-2">
-									<span
-										th:text="*{categoryId == 'F001' ? '잡담' : (categoryId == 'F002' ? '팁/노하우' : (categoryId == 'F003' ? '라운드후기' : '알 수 없음'))}"></span>
-								</div>
-								<div class="post-title mb-2 pt-2">
-									<a th:text="*{title}"
-										th:href="@{/community/details/{id}(id=*{id})}"
-										class="custom-link"></a>
-								</div>
-								<div class="author">
-									<span th:text="*{userid}"></span>
-								</div>
-								<div class="post-info">
-									<div class="d-flex justify-content-between">
-										<div>
-											<small><i class="bi bi-clock"></i></small>&nbsp;<small
-												th:text="*{#temporals.format(createdTime, 'MM.dd HH:mm')}"></small>
-										</div>
-										<div>
-											<i class="bi bi-eye"></i> <span th:text="*{views}"></span>
-											&nbsp; <i class="bi bi-heart"></i> <span th:text="*{likes}"></span>
-										</div>
-									</div>
-								</div>
-							</li>
-						</th:block>
+            <main>
 
-						<!--
+
+                <div class="mt-2 card border-0">
+                    <!-- 검색 및 글쓰기 버튼 영역 -->
+                    <div class="card-header border-0">
+                        <form method="get"
+                            th:action="@{/community/comm_main}">
+
+                            <div
+                                class="d-flex justify-content-between align-items-center mb-3"
+                                id="search-create">
+                                <!-- 글쓰기 버튼 영역 -->
+                                <div
+                                    class="search-container d-flex align-items-center justify-content-end gap-2">
+                                    <div class="col-auto">
+                                        <select class="form-control"
+                                            name="search-category">
+                                            <option value="t"
+                                                th:selected="${selectedSearchCategory == 't'}">제목</option>
+                                            <option value="c"
+                                                th:selected="${selectedSearchCategory == 'c'}">내용</option>
+                                            <option value="tc"
+                                                th:selected="${selectedSearchCategory == 'tc'}">제목+내용</option>
+                                            <option value="n"
+                                                th:selected="${selectedSearchCategory == 'n'}">닉네임</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-auto">
+                                        <input type="text"
+                                            class="form-control"
+                                            name="keyword"
+                                            placeholder="검색어 입력"
+                                            th:value="${keyword}" />
+                                    </div>
+
+                                    <div class="col-auto">
+                                        <button type="submit"
+                                            class="btn"
+                                            id="searchButton">
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-auto">
+                                    <th:block
+                                        th:if="${session.signedInUser != null}">
+                                        <a
+                                            th:href="@{/community/comm_create}"
+                                            class="form-control btn">글쓰기</a>
+                                    </th:block>
+                                    <th:block
+                                        th:if="${session.signedInUser == null}">
+                                        <a th:href="@{/user/signin}"
+                                            class="form-control btn">글쓰기</a>
+                                    </th:block>
+                                </div>
+
+                            </div>
+                            <div
+                                class="category-button d-flex justify-content-center align-items-center gap-3">
+
+                                <a
+                                    th:href="@{/community/comm_main(post-cate='')}"
+                                    class="btn btn-outline-dark"
+                                    th:classappend="${selectedCategory == ''} ? 'active'">전체보기</a>
+                                <a
+                                    th:href="@{/community/comm_main(post-cate='F001')}"
+                                    class="btn btn-outline-dark px-4"
+                                    th:classappend="${selectedCategory == 'F001'} ? 'active'">잡담</a>
+                                <a
+                                    th:href="@{/community/comm_main(post-cate='F002')}"
+                                    class="btn btn-outline-dark"
+                                    th:classappend="${selectedCategory == 'F002'} ? 'active'">팁/노하우</a>
+                                <a
+                                    th:href="@{/community/comm_main(post-cate='F003')}"
+                                    class="btn btn-outline-dark"
+                                    th:classappend="${selectedCategory == 'F003'} ? 'active'">라운드
+                                    후기</a>
+                            </div>
+
+                        </form>
+                    </div>
+
+
+
+                    <div class="card-body">
+                        <ul
+                            class="list-group d-flex justify-content-between flex-row flex-wrap">
+                            <th:block th:each="posts:${posts}"
+                                th:object="${posts}">
+                                <li
+                                    th:if="*{categoryId == 'F001' or categoryId == 'F002' or categoryId == 'F003'}"
+                                    class="list-group-item flex-fill m-2"
+                                    style="width: 48%;">
+                                    <div class="category mb-2">
+                                        <span
+                                            th:text="*{categoryId == 'F001' ? '잡담' : (categoryId == 'F002' ? '팁/노하우' : (categoryId == 'F003' ? '라운드후기' : '알 수 없음'))}"></span>
+                                    </div>
+                                    <div class="post-title mb-2 pt-2">
+                                        <a th:text="*{title}"
+                                            th:href="@{/community/details/{id}(id=*{id})}"
+                                            class="custom-link"></a>
+                                    </div>
+                                    <div class="author">
+                                        <span th:text="*{userid}"></span>
+                                    </div>
+                                    <div class="post-info">
+                                        <div
+                                            class="d-flex justify-content-between">
+                                            <div>
+                                                <small><i
+                                                    class="bi bi-clock"></i></small>&nbsp;<small
+                                                    th:text="*{#temporals.format(createdTime, 'MM.dd HH:mm')}"></small>
+                                            </div>
+                                            <div>
+                                                <i class="bi bi-eye"></i>
+                                                <span th:text="*{views}"></span>
+                                                &nbsp; <i
+                                                    class="bi bi-heart"></i>
+                                                <span th:text="*{likes}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </th:block>
+
+                            <!--
         <c:forEach var="p" items="${posts}">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>${category_name[p.category]}</span>
@@ -212,103 +242,50 @@
             </li>
         </c:forEach>
         -->
-					</ul>
-				</div>
-		</div>
-		</main>
-		<footer class="text-center">
+                        </ul>
+                    </div>
+                </div>
+            </main>
 
-			<nav>
-				<ul class="pagination justify-content-center mt-3">
-					<!-- 이전 페이지 버튼 -->
-					<li class="page-item"
-						th:classappend="${!posts.hasPrevious()} ? 'disabled'"><a
-						class="page-link"
-						th:href="@{/community/comm_main(p=${posts.number - 1}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}">이전</a>
-					</li>
+            <div class="text-center">
 
-					<!-- 페이지 번호 목록 -->
-					<li class="page-item"
-						th:each="pageNo : ${#numbers.sequence(0, posts.totalPages - 1)}"
-						th:if="${pageNo >= posts.number - 2 && pageNo <= posts.number + 2}"
-						th:classappend="${pageNo == posts.number} ? 'active'"><a
-						class="page-link"
-						th:href="@{/community/comm_main(p=${pageNo}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}"
-						th:text="${pageNo + 1}"> </a></li>
+                <nav>
+                    <ul class="pagination justify-content-center mt-3">
+                        <!-- 이전 페이지 버튼 -->
+                        <li class="page-item"
+                            th:classappend="${!posts.hasPrevious()} ? 'disabled'"><a
+                            class="page-link"
+                            th:href="@{/community/comm_main(p=${posts.number - 1}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}">이전</a>
+                        </li>
 
-					<!-- 다음 페이지 버튼 -->
-					<li class="page-item"
-						th:classappend="${!posts.hasNext()} ? 'disabled'"><a
-						class="page-link"
-						th:href="@{/community/comm_main(p=${posts.number + 1}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}">다음</a>
-					</li>
-				</ul>
-			</nav>
+                        <!-- 페이지 번호 목록 -->
+                        <li class="page-item"
+                            th:each="pageNo : ${#numbers.sequence(0, posts.totalPages - 1)}"
+                            th:if="${pageNo >= posts.number - 2 && pageNo <= posts.number + 2}"
+                            th:classappend="${pageNo == posts.number} ? 'active'"><a
+                            class="page-link"
+                            th:href="@{/community/comm_main(p=${pageNo}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}"
+                            th:text="${pageNo + 1}"> </a></li>
 
+                        <!-- 다음 페이지 버튼 -->
+                        <li class="page-item"
+                            th:classappend="${!posts.hasNext()} ? 'disabled'"><a
+                            class="page-link"
+                            th:href="@{/community/comm_main(p=${posts.number + 1}, post-cate=${selectedCategory}, search-category=${selectedSearchCategory}, keyword=${keyword})}">다음</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+    </div>
+    <script th:src="@{/js/comm_main.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
 
-
-
-
-
-
-
-
-
-
-
-			<!-- 기존 제명이 페이징 처리 -->
-			<!-- 			<nav aria-label="Page navigation">
-				<ul class="pagination justify-content-center">
-					<c:choose>
-						<c:when test="${currentPage > 1}">
-							<li class="page-item"><a class="page-link"
-								href="?page=${currentPage - 1}&size=${pageSize}"
-								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled"><a class="page-link" href="#"
-								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a></li>
-						</c:otherwise>
-					</c:choose>
-					<c:forEach begin="${startPage}" end="${endPage}" var="i">
-						<li class="page-item ${i == currentPage ? 'active' : ''}"><a
-							class="page-link" href="?page=${i}&size=${pageSize}">${i}</a></li>
-					</c:forEach>
-					<c:choose>
-						<c:when test="${currentPage < totalPages}">
-							<li class="page-item"><a class="page-link"
-								href="?page=${currentPage + 1}&size=${pageSize}"
-								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled"><a class="page-link" href="#"
-								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</nav>
--->
-
-
-
-
-
-
-
-
-		</footer>
-	</div>
-	</div>
-	<c:url var="comm_main_js" value="/js/comm_main.js" />
-	<script src="${comm_main_js}"></script>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-		crossorigin="anonymous"></script>
+    hgb
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
