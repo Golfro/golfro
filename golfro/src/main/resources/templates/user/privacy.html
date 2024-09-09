@@ -145,7 +145,7 @@
                                 <input class="form-control mt-1" type="text" id="address" name="mainAddress" size="50" th:value="${address}" readonly />
                                 <input class="form-control mt-1" type="text" name="detailAddress" th:value="${detailAddress}" readonly />
                             </div>
-                            <th:if test="${session.signedInUserGrade.id eq 'G10'}">
+                            <th:block th:if="${session.signedInUserGrade.id eq 'G10'}">
                                 <div class="mt-2">
                                     <label class="form-label" for="license">라이센스</label>
                                     <input class="form-control" type="text" id="license" name="license" th:value="*{pro.id}" readonly />
@@ -182,7 +182,7 @@
                                     <label class="form-label" for="point">포인트</label>
                                     <input class="form-control" id="point" name="point" type="text" th:value="*{point}" readonly />
                                 </div>
-                            </th:if>
+                            </th:block>
                             <div class="mt-2">
                                 <label class="form-label" for="grade">등급</label>
                                 <input class="form-control" id="grade" name="grade" type="text" 

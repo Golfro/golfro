@@ -118,12 +118,6 @@ public class UserProfileController {
 	        model.addAttribute("postcode", postcode);
 	        model.addAttribute("address", address);
 	        model.addAttribute("detailAddress", detailAddress);
-	        
-	        String[] AccountParts = user.getAccount().split("/");
-	        String bank = AccountParts[0];
-	        String bankAccount = AccountParts[1];
-	        model.addAttribute("bank", bank);
-	        model.addAttribute("bankAccount", bankAccount);
 		}
 
 		model.addAttribute("account", account);
@@ -185,12 +179,6 @@ public class UserProfileController {
 	        model.addAttribute("postcode", postcode);
 	        model.addAttribute("address", address);
 	        model.addAttribute("detailAddress", detailAddress);
-	        
-	        String[] AccountParts = user.getAccount().split("/");
-	        String bank = AccountParts[0];
-	        String bankAccount = AccountParts[1];
-	        model.addAttribute("bank", bank);
-	        model.addAttribute("bankAccount", bankAccount);
 		}
 	}
 
