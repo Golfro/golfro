@@ -15,29 +15,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.golfro.domain.Comment;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.CommentCreateDto;
-import com.itwill.golfro.dto.CommentUpdateDto;
 import com.itwill.golfro.dto.ReviewPostCreateDto;
 import com.itwill.golfro.dto.ReviewPostListDto;
 import com.itwill.golfro.dto.ReviewPostSearchDto;
 import com.itwill.golfro.dto.ReviewPostUpdateDto;
 import com.itwill.golfro.repository.CommentRepository;
 import com.itwill.golfro.service.ReviewPostService;
-import com.itwill.golfro.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -103,7 +97,7 @@ public class ReviewController {
 	}
 
 	@GetMapping("/review_details")
-	public String detailsCommunityPost(@RequestParam("id") long id, Model model, HttpSession session) {
+	public String detailsCommunityPost(@RequestParam("id") long id, @RequestParam(required = false) Long focusComment, Model model, HttpSession session) {
 
 		@SuppressWarnings("unchecked")
 		Set<Long> viewedPosts = (Set<Long>) session.getAttribute("viewedPosts");
@@ -135,6 +129,7 @@ public class ReviewController {
 		model.addAttribute("nextPost", nextPost); // 다음 글
 		model.addAttribute("commentlist", commentlist); // 댓글 목록 추가하기
 		model.addAttribute("commentcount", commentcount);
+		model.addAttribute("focusComment", focusComment);
 
 		return "review/review_details";
 	}

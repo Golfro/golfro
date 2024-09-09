@@ -99,11 +99,11 @@ tbody a:hover {
                         <tr th:each="c : ${comments}">
                             <td th:text="${c.post.id}" class="text-center"></td>
                             <td>
-                                <a th:if="${c.post.category.id eq 'P001'}" th:href="@{/mainPost/details/{id}(id=${c.post.id}, commentId=${c.id})}" th:text="${c.content}"></a>
+                                <a th:if="${c.post.category.id eq 'P001'}" th:href="@{/mainPost/details/{id}(id=${c.post.id}, focusComment=${c.id})}" th:text="${c.content}"></a>
                                 <a th:if="${c.post.category.id eq 'P003'}" th:href="@{/join/join_details(id=${c.post.id})}" th:text="${c.content}"></a>
-                                <a th:if="${c.post.category.id eq 'P004'}" th:href="@{/review/review_details(id=${c.post.id}, commentId=${c.id})}" th:text="${c.content}"></a>
+                                <a th:if="${c.post.category.id eq 'P004'}" th:href="@{/review/review_details(id=${c.post.id}, focusComment=${c.id})}" th:text="${c.content}"></a>
                                 <a th:if="${c.post.category.id eq 'F001' or c.post.category.id eq 'F002' or c.post.category.id eq 'F003'}"
-                                   th:href="@{/community/details/{id}(id=${c.post.id}, commentId=${c.id})}" th:text="${c.content}"></a>
+                                   th:href="@{/community/details/{id}(id=${c.post.id}, focusComment=${c.id})}" th:text="${c.content}"></a>
                             </td>
                             <td th:if="${c.post.category.id eq 'P001' and c.selection eq 0}" class="text-center">미채택</td>
                             <td th:if="${c.post.category.id eq 'P001' and c.selection eq 1}" class="text-center">채택됨</td>
