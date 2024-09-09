@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const postId = postIdElement.value;
-			fetch('/gaebokchi/community/increaseLikes?id=' + postId, {
+			fetch('/community/increaseLikes?id=' + postId, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'

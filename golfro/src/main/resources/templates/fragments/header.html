@@ -116,14 +116,14 @@
             </svg>
 					</button>
 					<!-- 로그인 정보가 세션에 저장된 경우 -->
-					<div th:if="${session.signedInUser != null}">
+					<div th:if="${signedInUser != null}">
 						<ul class="dropdown-menu">
 							<li><a th:href="@{/user/mypage}">마이페이지</a></li>
 							<li><a th:href="@{/user/signout}">로그아웃</a></li>
 						</ul>
 					</div>
 					<!-- 세션에 로그인 정보가 없는 경우 -->
-					<div th:unless="${session.signedInUser != null}">
+					<div th:unless="${signedInUser != null}">
 						<ul class="dropdown-menu">
 							<li><a th:href="@{/user/signin}">로그인</a></li>
 						</ul>
