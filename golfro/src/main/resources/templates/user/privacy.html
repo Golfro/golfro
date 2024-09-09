@@ -101,10 +101,6 @@
                                 <input class="form-control" type="text" id="userid" name="userid" th:value="*{userid}" readonly />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="password">비밀번호</label>
-                                <input class="form-control" id="password" type="password" name="password" th:value="*{password}" readonly />
-                            </div>
-                            <div class="mt-2">
                                 <label class="form-label" for="name">이름</label>
                                 <input class="form-control" id="name" type="text" name="name" th:value="*{name}" readonly />
                             </div>
@@ -191,17 +187,17 @@
                                 <label class="form-label" for="grade">등급</label>
                                 <input class="form-control" id="grade" name="grade" type="text" 
                                        th:value="*{grade.id eq 'G00' ? '관리자' 
-                                                                  : grade.id eq 'G10' ? '프로'
-                                                                  : grade.id eq 'G21' ? '일반회원'
-                                                                  : grade.id eq 'G22' ? '우수회원'
-                                                                  : grade.id eq 'G23' ? '최우수 회원'
-                                                                  : '특별 회원'}"
+                                                  : grade.id eq 'G10' ? '프로'
+                                                  : grade.id eq 'G21' ? '일반회원'
+                                                  : grade.id eq 'G22' ? '우수회원'
+                                                  : grade.id eq 'G23' ? '최우수 회원'
+                                                  : '특별 회원'}"
                                        readonly />
                             </div>
                         </form>
                     </div>
                     <div class="card-footer" id="card-footer">
-                        <a class="btn" th:href="@{/user/modify(userid=${user.userid})}">수정하기</a>
+                        <a class="btn" th:href="@{/user/modify}">수정하기</a>
                     </div>
                 </div>
             </div>

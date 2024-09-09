@@ -73,7 +73,7 @@ public class User implements Serializable {
 	private Integer gender;
 	
 	@Basic(optional = false)
-	@NaturalId
+	@Column(unique = true)
 	private String phone;
 	
 	@Basic(optional = false)
@@ -81,7 +81,6 @@ public class User implements Serializable {
 	
 	private String address;
 	
-	@NaturalId
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PRO_ID")
 	private Pro pro;
@@ -114,11 +113,10 @@ public class User implements Serializable {
         }
     }
 	
-	public User update(String password, String phone, String address, String proId, String account) {
+	public User update(String password, String phone, String address, String account) {
         this.password = password;
         this.phone = phone;
         this.address = address;
-        this.pro = Pro.builder().id(proId).build();
         this.account = account;
         
         return this;

@@ -5,18 +5,19 @@
 // HTML DOM(Document Obejct Model) 컨텐트 로딩이 끝났을 때, 이벤트 리스너를 실행.
 document.addEventListener('DOMContentLoaded', () => {
 	let passwordChecked = true; // 비밀번호 필드 작성 여부 체크.
-
+	let passwordConfirm = true;
+	
 	// form 요소를 찾음:
 	const modifyForm = document.querySelector('form#modifyForm');
 
 	// 저장 버튼 찾음:
 	const btnUpdate = document.querySelector('button#btnUpdate');
 
-	const password = document.querySelector('input#password');
-
 	const changePassword = document.querySelector('input#changePassword');
 	changePassword.addEventListener('input', checkPassword);
 
+	const confirmPassword = document.querySelector('input#checkPassword');
+	
 	const btnAddressSearch = document.querySelector('input#btnAddressSearch');
 	btnAddressSearch.addEventListener('click', searchAddress);
 
@@ -79,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	
 	function checkPassword(event) {
-		if (event.target.value === '' || changePassword.value === password.value) { // inputPassword.value
+		if (event.target.value === '') { // inputPassword.value
 			passwordChecked = false;
 		} else {
 			if (this.value.length > 0) {
@@ -100,23 +101,29 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
+	const passwordMatch = document.getElementById('passwordMatch');
+	
+	confirmPassword.addEventListener('input', function() {
+        if (this.value === changePassword.value) {
+            passwordMatch.textContent = '비밀번호가 일치합니다.';
+            passwordMatch.style.color = 'green';
+			passwordConfirm = true;
+        } else {
+            passwordMatch.textContent = '비밀번호가 일치하지 않습니다.';
+            passwordMatch.style.color = 'red';
+			passwordConfirm = false;
+        }
+    });
+	
 	// 저장 버튼에 클릭 이벤트 리스너를 설정.
 	btnUpdate.addEventListener('click', () => {
-		// 제목과 내용이 비어있는 지 체크:
-		/* const title = inputTitle.value; // input 요소에 입력된 값.
-		const content = textareaContent.value; // textarea 요소에 입력된 값.
-		if (title === '' || content === '') {
-			alert('제목과 내용은 반드시 입력해야 합니다!');
-			return; // 함수 종료
-		} */
-
-		if (!passwordChecked) {
+		if (!passwordChecked || !passwordConfirm) {
 			alert('비밀번호를 확인하세요.');
 			return;
 		}
 
 		const result = confirm('변경된 내용을 저장할까요?');
-		if (passwordChecked && result) {
+		if (passwordChecked && passwordConfirm && result) {
 			modifyForm.method = 'post'; // 폼 제출 방식 설정.
 			modifyForm.action = 'update'; // 폼 제출 요청 주소 설정.
 			modifyForm.submit(); // 폼 제출(서버로 요청을 보냄).

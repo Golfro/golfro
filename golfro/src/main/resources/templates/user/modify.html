@@ -32,9 +32,11 @@
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="password">비밀번호</label>
-                                <input class="form-control" id="password" type="text" name="password" th:value="*{password}" readonly />
+                                <input type="hidden" name="password" th:value="*{password}" />
                                 <input class="form-control mt-1" id="changePassword" type="password" name="changePassword" placeholder="8~15자의 숫자, 특수문자, 영문자 조합" />
                                 <div id="passwordStrength"></div>
+                                <input class="form-control mt-1" id="checkPassword" type="password" name="checkPassword" placeholder="비밀번호 확인" />
+                                <div id="passwordMatch"></div>
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="name">이름</label>
@@ -42,7 +44,7 @@
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="birth">생년월일</label>
-                                <input class="form-control" type="text" id="birth" name="birth" th:value="${#dates.format(user.birth, 'yyyy.MM.dd')}" readonly />
+                                <input class="form-control" type="text" id="birth" name="birth" th:value="${birth}" readonly />
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="gender">성별</label>
@@ -61,14 +63,14 @@
                                 <label class="form-label" for="phone">휴대폰 번호</label>
                                 <div class="flex">
                                     <select class="form-select" name="carrier" style="width: 20%">
-                                        <option value="SKT" th:selected="*{#strings.split(phone, '/')[0] == 'SKT'}">SKT</option>
-                                        <option value="KT" th:selected="*{#strings.split(phone, '/')[0] == 'KT'}">KT</option>
-                                        <option value="LG_U+" th:selected="*{#strings.split(phone, '/')[0] == 'LG_U+'}">LG U+</option>
-                                        <option value="SKT_ALTTEUL" th:selected="*{#strings.split(phone, '/')[0] == 'SKT_ALTTEUL'}">SKT 알뜰폰</option>
-                                        <option value="KT_ALTTEUL" th:selected="*{#strings.split(phone, '/')[0] == 'KT_ALTTEUL'}">KT 알뜰폰</option>
-                                        <option value="LG_U+_ALTTEUL" th:selected="*{#strings.split(phone, '/')[0] == 'LG_U+_ALTTEUL'}">LG U+ 알뜰폰</option>
+                                        <option value="SKT" th:selected="${carrier eq 'SKT'}">SKT</option>
+                                        <option value="KT" th:selected="${carrier eq 'KT'}">KT</option>
+                                        <option value="LG_U+" th:selected="${carrier eq 'LG_U+'}">LG U+</option>
+                                        <option value="SKT_ALTTEUL" th:selected="${carrier eq 'SKT_ALTTEUL'}">SKT 알뜰폰</option>
+                                        <option value="KT_ALTTEUL" th:selected="${carrier eq 'KT_ALTTEUL'}">KT 알뜰폰</option>
+                                        <option value="LG_U+_ALTTEUL" th:selected="${carrier eq 'LG_U+_ALTTEUL'}">LG U+ 알뜰폰</option>
                                     </select>
-                                    <input class="form-control" type="text" id="phone" name="number" th:value="*{#strings.split(phone, '/')[1]}" />
+                                    <input class="form-control" type="text" id="phone" name="number" th:value="${number}" />
                                 </div>
                             </div>
                             <div class="mt-2">
@@ -78,43 +80,43 @@
                             <div class="mt-2">
                                 <label class="form-label" for="mainAddress">주소</label>
                                 <div class="flex">
-                                    <input class="form-control" type="text" id="postcode" name="postcode" size="5" th:value="*{#strings.split(address, '/')[0]}" style="width: 15%" readonly />
+                                    <input class="form-control" type="text" id="postcode" name="postcode" size="5" th:value="${postcode}" style="width: 15%" readonly />
                                     <input class="form-control" id="btnAddressSearch" type="button" value="우편번호검색" style="width: 15%" />
                                 </div>
-                                <input class="form-control mt-1" type="text" id="mainAddress" name="mainAddress" size="50" th:value="*{#strings.split(user.address, '/')[1]}" readonly />
-                                <input class="form-control mt-1" type="text" id="detailAddress" name="detailAddress" th:value="*{#strings.split(address, '/')[2]}" />
+                                <input class="form-control mt-1" type="text" id="mainAddress" name="mainAddress" size="50" th:value="${address}" readonly />
+                                <input class="form-control mt-1" type="text" id="detailAddress" name="detailAddress" th:value="${detailAddress}" />
                             </div>
-                            <th:if test="${session.signedInUserGrade eq 'G10'}">
+                            <th:if test="${session.signedInUserGrade.id eq 'G10'}">
                                 <div class="mt-2">
                                     <label class="form-label" for="license">라이센스</label>
-                                    <input class="form-control" id="license" type="text" name="license" th:value="*{license}" />
+                                    <input class="form-control" id="license" type="text" name="license" th:value="*{pro.id}" readonly />
                                 </div>
                                 <div class="mt-2">
                                     <label class="form-label" for="account">어카운트</label>
                                     <div class="flex">
                                         <select class="form-select" name="bank" size="1">
-                                            <option value="" th:selected="*{#strings.split(account, '/')[0] == ''}">선택</option>
-                                            <option value="KWANGJU" th:selected="*{#strings.split(account, '/')[0] == 'KWANGJU'}">광주</option>
-                                            <option value="BNK" th:selected="*{#strings.split(account, '/')[0] == 'BNK'}">경남</option>
-                                            <option value="KB" th:selected="*{#strings.split(account, '/')[0] == 'KB'}">국민</option>
-                                            <option value="IBK" th:selected="*{#strings.split(account, '/')[0] == 'IBK'}">기업</option>
-                                            <option value="NH" th:selected="*{#strings.split(account, '/')[0] == 'NH'}">농협</option>
-                                            <option value="DGB" th:selected="*{#strings.split(account, '/')[0] == 'DGB'}">대구</option>
-                                            <option value="BUSAN" th:selected="*{#strings.split(account, '/')[0] == 'BUSAN'}">부산</option>
-                                            <option value="KDB" th:selected="*{#strings.split(account, '/')[0] == 'KDB'}">산업</option>
-                                            <option value="MG" th:selected="*{#strings.split(account, '/')[0] == 'MG'}">새마을금고</option>
-                                            <option value="SH" th:selected="*{#strings.split(account, '/')[0] == 'SH'}">수협</option>
-                                            <option value="SOL" th:selected="*{#strings.split(account, '/')[0] == 'SOL'}">신한</option>
-                                            <option value="ShinHyup" th:selected="*{#strings.split(account, '/')[0] == 'ShinHyup'}">신협</option>
-                                            <option value="WOORI" th:selected="*{#strings.split(account, '/')[0] == 'WOORI'}">우리</option>
-                                            <option value="PO" th:selected="*{#strings.split(account, '/')[0] == 'PO'}">우체국</option>
-                                            <option value="JB" th:selected="*{#strings.split(account, '/')[0] == 'JB'}">전북</option>
-                                            <option value="kakao" th:selected="*{#strings.split(account, '/')[0] == 'kakao'}">카카오뱅크</option>
-                                            <option value="Toss" th:selected="*{#strings.split(account, '/')[0] == 'Toss'}">토스</option>
-                                            <option value="KEB" th:selected="*{#strings.split(account, '/')[0] == 'KEB'}">하나</option>
-                                            <option value="SC" th:selected="*{#strings.split(account, '/')[0] == 'SC'}">SC제일</option>
+                                            <option value="">선택</option>
+                                            <option value="KWANGJU" th:selected="${bank eq 'KWANGJU'}">광주</option>
+                                            <option value="BNK" th:selected="${bank eq 'BNK'}">경남</option>
+                                            <option value="KB" th:selected="${bank eq 'KB'}">국민</option>
+                                            <option value="IBK" th:selected="${bank eq 'IBK'}">기업</option>
+                                            <option value="NH" th:selected="${bank eq 'NH'}">농협</option>
+                                            <option value="DGB" th:selected="${bank eq 'DGB'}">대구</option>
+                                            <option value="BUSAN" th:selected="${bank eq 'BUSAN'}">부산</option>
+                                            <option value="KDB" th:selected="${bank eq 'KDB'}">산업</option>
+                                            <option value="MG" th:selected="${bank eq 'MG'}">새마을금고</option>
+                                            <option value="SH" th:selected="${bank eq 'SH'}">수협</option>
+                                            <option value="SOL" th:selected="${bank eq 'SOL'}">신한</option>
+                                            <option value="ShinHyup" th:selected="${bank eq 'ShinHyup'}">신협</option>
+                                            <option value="WOORI" th:selected="${bank eq 'WOORI'}">우리</option>
+                                            <option value="PO" th:selected="${bank eq 'PO'}">우체국</option>
+                                            <option value="JB" th:selected="${bank eq 'JB'}">전북</option>
+                                            <option value="kakao" th:selected="${bank eq 'kakao'}">카카오뱅크</option>
+                                            <option value="Toss" th:selected="${bank eq 'Toss'}">토스</option>
+                                            <option value="KEB" th:selected="${bank eq 'KEB'}">하나</option>
+                                            <option value="SC" th:selected="${bank eq 'SC'}">SC제일</option>
                                         </select>
-                                        <input class="form-control" type="text" id="account" name="bank_account" th:value="*{#strings.split(account, '/')[1]}" />
+                                        <input class="form-control" type="text" id="account" name="bank_account" th:value="${bankAccount}" />
                                     </div>
                                 </div>
                                 <div class="mt-2">
@@ -125,11 +127,11 @@
                             <div class="mt-2">
                                 <label class="form-label" for="grade">등급</label>
                                 <input class="form-control" id="grade" name="grade" type="text" 
-                                    th:value="*{grade == 'G00' ? '관리자' : 
-                                                grade == 'G10' ? '프로' : 
-                                                grade == 'G21' ? '일반회원' : 
-                                                grade == 'G22' ? '우수회원' : 
-                                                grade == 'G23' ? '최우수 회원' : 
+                                    th:value="*{grade.id eq 'G00' ? '관리자' : 
+                                                grade.id eq 'G10' ? '프로' : 
+                                                grade.id eq 'G21' ? '일반회원' : 
+                                                grade.id eq 'G22' ? '우수회원' : 
+                                                grade.id eq 'G23' ? '최우수 회원' : 
                                                 '특별 회원'}"
                                 readonly />
                             </div>
