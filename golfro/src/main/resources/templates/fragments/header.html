@@ -38,7 +38,7 @@
 					</div>
 					<div class="offcanvas-body">
 						<!-- 로그인 상태에 따라 표시 -->
-						<div th:if="${signedInUser != null}">
+						<div th:if="${session.signedInUser != null}">
 							<!-- 로그인된 경우 -->
 							<ul class="list-login">
 								<li><a href="@{/user/mypage}" class="btn btn-link"
@@ -48,7 +48,7 @@
 
 							</ul>
 						</div>
-						<div th:unless="${signedInUser != null}">
+						<div th:unless="${session.signedInUser != null}">
 							<!-- 로그인되지 않은 경우 -->
 							<ul class="list-login">
 								<li><a th:href="@{/user/signin}" class="btn btn-link"

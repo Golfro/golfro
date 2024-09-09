@@ -116,8 +116,8 @@ body {
     align-items: center;
     border: 1px solid #ccc;
     border-radius: 8px;
-    width: 100px; /* 정사각형 크기 */
-    height: 100px; /* 정사각형 크기 */
+    width: 150px; /* 정사각형 크기 */
+    height: 150px; /* 정사각형 크기 */
     overflow: hidden; /* 내용이 넘칠 때 숨김 */
     text-align: center;
     line-height: 100px; /* 텍스트 수직 중앙 정렬 */
