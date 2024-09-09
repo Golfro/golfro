@@ -69,12 +69,60 @@ public class UserProfileController {
 
 		if (grade.equals("G10")) {
 			User pro = userService.readPro((String) userid);
-			model.addAttribute("user", pro);
 			log.info("user={}", pro);
+			model.addAttribute("user", pro);
+			
+			String birthStr = String.format("%08d", pro.getBirth());
+			String formattedBirth = birthStr.substring(0, 4) + "." + birthStr.substring(4, 6) + "." + birthStr.substring(6, 8);
+			model.addAttribute("birth", formattedBirth);
+			
+			String[] phoneParts = pro.getPhone().split("/");
+	        String carrier = phoneParts[0];
+	        String number = phoneParts[1];
+	        model.addAttribute("carrier", carrier);
+	        model.addAttribute("number", number);
+	        
+	        String[] addressParts = pro.getAddress().split("/");
+	        String postcode = addressParts[0];
+	        String address = addressParts[1];
+	        String detailAddress = addressParts[2];
+	        model.addAttribute("postcode", postcode);
+	        model.addAttribute("address", address);
+	        model.addAttribute("detailAddress", detailAddress);
+	        
+	        String[] AccountParts = pro.getAccount().split("/");
+	        String bank = AccountParts[0];
+	        String bankAccount = AccountParts[1];
+	        model.addAttribute("bank", bank);
+	        model.addAttribute("bankAccount", bankAccount);
 		} else {
 			User user = userService.read((String) userid);
-			model.addAttribute("user", user);
 			log.info("user={}", user);
+			model.addAttribute("user", user);
+			
+			String birthStr = String.format("%08d", user.getBirth());
+			String formattedBirth = birthStr.substring(0, 4) + "." + birthStr.substring(4, 6) + "." + birthStr.substring(6, 8);
+			model.addAttribute("birth", formattedBirth);
+			
+			String[] phoneParts = user.getPhone().split("/");
+	        String carrier = phoneParts[0];
+	        String number = phoneParts[1];
+	        model.addAttribute("carrier", carrier);
+	        model.addAttribute("number", number);
+	        
+	        String[] addressParts = user.getAddress().split("/");
+	        String postcode = addressParts[0];
+	        String address = addressParts[1];
+	        String detailAddress = addressParts[2];
+	        model.addAttribute("postcode", postcode);
+	        model.addAttribute("address", address);
+	        model.addAttribute("detailAddress", detailAddress);
+	        
+	        String[] AccountParts = user.getAccount().split("/");
+	        String bank = AccountParts[0];
+	        String bankAccount = AccountParts[1];
+	        model.addAttribute("bank", bank);
+	        model.addAttribute("bankAccount", bankAccount);
 		}
 
 		model.addAttribute("account", account);

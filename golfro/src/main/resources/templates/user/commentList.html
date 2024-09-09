@@ -96,42 +96,19 @@ tbody a:hover {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="c : ${comments}" th:object="${c}">
-                            <td th:text="*{postId}" class="text-center"></td>
-                            <td><th:choose>
-                                    <th:when
-                                        test="*{category eq 'P001'}">
-                                        <a
-                                            th:href="@{/mainPost/details(id=*{postId}, commentId=*{id})}"
-                                            th:text="*{content}"></a>
-                                    </th:when>
-                                    <th:when
-                                        test="*{category eq 'P003'}">
-                                        <a
-                                            href="@{/join/join_details(id=*{postId})}"
-                                            th:text="*{content}"></a>
-                                    </th:when>
-                                    <th:when
-                                        test="*{category eq 'P004'}">
-                                        <a
-                                            href="@{/review/review_details(id=*{postId}, commentId=*{id})}"
-                                            th:text="content"></a>
-                                    </th:when>
-                                    <th:otherwise>
-                                        <a
-                                            href="@{/community/comm_details(id=*{postId}, commentId=*{id})}"
-                                            th:text="content"></a>
-                                    </th:otherwise>
-                                </th:choose></td>
-                            <th:choose>
-                                <th:when test="*{selection eq 0}">
-                                    <td class="text-center">미채택</td>
-                                </th:when>
-                                <th:otherwise>
-                                    <td class="text-center">채택됨</td>
-                                </th:otherwise>
-                            </th:choose>
-                            <td th:text="*{modifiedTime}"></td>
+                        <tr th:each="c : ${comments}">
+                            <td th:text="${c.post.id}" class="text-center"></td>
+                            <td>
+                                <a th:if="${c.post.category.id eq 'P001'}" th:href="@{/mainPost/details/{id}(id=${c.post.id}, commentId=${c.id})}" th:text="${c.content}"></a>
+                                <a th:if="${c.post.category.id eq 'P003'}" th:href="@{/join/join_details(id=${c.post.id})}" th:text="${c.content}"></a>
+                                <a th:if="${c.post.category.id eq 'P004'}" th:href="@{/review/review_details(id=${c.post.id}, commentId=${c.id})}" th:text="${c.content}"></a>
+                                <a th:if="${c.post.category.id eq 'F001' or c.post.category.id eq 'F002' or c.post.category.id eq 'F003'}"
+                                   th:href="@{/community/details/{id}(id=${c.post.id}, commentId=${c.id})}" th:text="${c.content}"></a>
+                            </td>
+                            <td th:if="${c.post.category.id eq 'P001' and c.selection eq 0}" class="text-center">미채택</td>
+                            <td th:if="${c.post.category.id eq 'P001' and c.selection eq 1}" class="text-center">채택됨</td>
+                            <td th:if="${c.post.category.id ne 'P001'}" class="text-center"></td>
+                            <td th:text="${#temporals.format(c.modifiedTime, 'yyyy-MM-dd HH:mm')}"></td>
                         </tr>
                     </tbody>
                 </table>
