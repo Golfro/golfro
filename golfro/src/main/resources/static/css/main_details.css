@@ -444,6 +444,13 @@ p#likesCounts {
 
 
 img.image{
-	width: 50px;
-	height: 50px;
+	
+    width: 60px; /* 고정된 너비 */
+    height: 60px; /* 고정된 높이 */
+    padding: 3px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    object-fit: cover; /* 비율을 유지하면서 컨테이너에 맞게 조정 */
+    overflow: hidden; /* 자식 요소가 부모 요소의 크기를 넘어가면 숨김 */
 }
+

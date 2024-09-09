@@ -1,22 +1,20 @@
 @charset "UTF-8";
 
 body {
+   font-family: 'SUIT-Regular', SUIT-Regular;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
 .container {
-    width: 960px;
-    margin: 30px auto;
-    padding-bottom: 40px;
     display: flex;
     justify-content: space-between;
 }
 
 .card {
-    margin-top: 100px;
+    margin-top: 85px;
     width: 960px;
 }
 

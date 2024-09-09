@@ -200,6 +200,7 @@ h5.tit_type {
 /* 카드 이미지 */
 .rank-img {
 	width: 100%;
+	height: 100%;
 	object-fit: cover;
 	border-radius: 8px;
 	border: 1px solid #ccc;
