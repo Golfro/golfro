@@ -182,25 +182,29 @@ public class ReviewPostService {
 
 	@Transactional(readOnly = true)
 	public Page<ReviewPostListDto> search(ReviewPostSearchDto dto, int pageNo, Sort sort) {
-		log.info("search(dto={})", dto);
+		log.info("********** search(dto={})", dto);
 
 		Pageable pageable = PageRequest.of(pageNo, 10, sort);
 		Page<Post> list = postRepo.search(dto, pageable);
+		
+		
 		Page<ReviewPostListDto> posts = list.map(ReviewPostListDto::fromEntity);
-
+		
+		log.info("********** Page posts!!!! = {} ", posts.getSize());
+		
 		return posts;
 	}
 
 	@Transactional(readOnly = true)
 	public Post getPreviousPost(String[] categories, LocalDateTime createdTime) {
 		log.info("getPreviousPost(categories={}, createdTime={})", categories, createdTime);
-		return postRepo.findPreviousPost(categories, createdTime);
+		return postRepo.findPreviousPostReview(categories, createdTime);
 	}
 
 	@Transactional(readOnly = true)
 	public Post getNextPost(String[] categories, LocalDateTime createdTime) {
 		log.info("getNextPost(categories={}, createdTime={})", categories, createdTime);
-		return postRepo.findNextPost(categories, createdTime);
+		return postRepo.findNextPostReview(categories, createdTime);
 	}
 
 	@Transactional

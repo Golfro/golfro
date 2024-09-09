@@ -124,6 +124,45 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
 	    return result;
 	}
+	
+	
+	// 리뷰 게시판 이전글 찾기
+	@Override
+	public Post findPreviousPostReview(String[] category, LocalDateTime createdTime) {
+	    log.info("findPreviousPost(category={}, createdTime={})", category, createdTime);
+	    
+	    QPost post = QPost.post;
+	    
+	    JPQLQuery<Post> query = from(post)
+	            .where(post.createdTime.lt(createdTime)
+	                    .and(post.category.id.in(category)))
+	            .orderBy(post.createdTime.desc())
+	            .limit(1);
+	    
+	    Post result = query.fetchOne();
+
+	    return result;
+	}
+
+	
+	
+	// 리뷰 게시판 다음글 찾기
+	@Override
+	public Post findNextPostReview(String[] category, LocalDateTime createdTime) {
+	    log.info("findNextPost(category={}, createdTime={})", category, createdTime);
+
+	    QPost post = QPost.post;
+	    
+	    JPQLQuery<Post> query = from(post)
+	            .where(post.createdTime.gt(createdTime)
+	                    .and(post.category.id.in(category)))
+	            .orderBy(post.createdTime.asc())
+	            .limit(1);
+	    
+	    Post result = query.fetchOne();
+
+	    return result;
+	}
 
 	
 	
@@ -1017,7 +1056,7 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 	    QUser user = QUser.user;
 
 	    // 검색어 바인딩
-	    String searchKeyword = "%" + dto.getKeyword() + "%";
+	    String searchKeyword = dto.getKeyword();
 
 	    // 기본 쿼리 생성
 	    JPQLQuery<Post> query = from(post)

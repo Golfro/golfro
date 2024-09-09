@@ -41,7 +41,7 @@
 				<div class="d-flex justify-content-between align-items-center">
 					<div class="post-info">
 						<span><i class="bi bi-clock"></i> <span
-							th:text="${post.category}"></span> <span
+							th:text="${post.category.name}"></span> <span
 							th:text="${post.createdTime}"></span> </span> <span><i
 							class="bi bi-eye"></i> <span th:text="${post.views}"></span> </span> <span><i
 							class="bi bi-hand-thumbs-up"></i> <span id="likesCount"
@@ -130,7 +130,7 @@
                         <p th:text="${comment.content}"></p>
                         <div class="comm-footer">
                             <span th:text="${#temporals.format(comment.createdTime, 'yyyy-MM-dd HH:mm')}"></span>
-                            <input type="hidden" name="commentId" th:value="${comment.id}" />
+                            <input type="hidden" id="commentId" name="commentId" th:value="${comment.id}" />
                             <th:block th:if="${comment.user.userid eq session.signedInUser or session.signedInUser eq 'admin'}">
                                 <i class="bi bi-dot"></i>
                                 <button id="btnUpdateComment" class="btn btn-register-comment" type="submit">

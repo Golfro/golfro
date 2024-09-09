@@ -27,6 +27,10 @@ public interface PostQuerydsl {
 	Post findNextPostComm(String[] category, LocalDateTime createdTime);
 	
 	
+	Post findPreviousPostReview(String[] category, LocalDateTime createdTime);
+	
+	Post findNextPostReview(String[] category, LocalDateTime createdTime);
+	
 	
 	
 	Post selectById(Long id);

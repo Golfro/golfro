@@ -3,11 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const postIdElement = document.querySelector('input#postId');
 	const btnDeletePost = document.querySelector('button#btnDelete');
-	const btnLikes = document.querySelector('button#btnLikes');
+	
 	const likesCountElement = document.querySelector('#likesCount');
 	const btnRegisterComment = document.querySelector('button#btnRegisterComment');
 	const commentList = document.querySelector('.comment-list');
-
+	
+	
+	const btnLikes = document.querySelector('button#btnLikes');
 	const btnLikesNotLoggedIn = document.getElementById('btnLikes-notloggedIn');
 	let likedByCurrentUser = false; // 현재 사용자가 좋아요를 눌렀는지 여부를 추적
 
