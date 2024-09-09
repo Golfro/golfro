@@ -2,6 +2,8 @@ package com.itwill.golfro.service;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +13,6 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.UserProfileDto;
-import com.itwill.golfro.dto.UserUpdateDto;
 import com.itwill.golfro.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,9 @@ public class UserMypageService {
 
 	private final AmazonS3 amazonS3;
 	private final String bucketName = "golfro-bucket";
+	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 	
 	@Transactional(readOnly = true)
 	public User read(String userid) {
@@ -61,13 +65,12 @@ public class UserMypageService {
 	}
 
 	@Transactional
-	public void update(UserUpdateDto dto) {
-		log.info("update(dto={})", dto);
+	public void update(User user) {
+		log.info("update(user={})", user);
 
-		User entity = userRepo.findByUserid(dto.getUserid());
+		User entity = userRepo.findByUserid(user.getUserid());
 		
-		entity.update(dto.getPassword(), dto.getPhone(), dto.getAddress()
-				, dto.getProId(), dto.getAccount());
+		entity.update(passwordEncoder.encode(user.getPassword()), user.getPhone(), user.getAddress(), user.getAccount());
 	}
 	
 	@Transactional

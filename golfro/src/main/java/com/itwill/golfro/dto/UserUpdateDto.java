@@ -1,6 +1,5 @@
 package com.itwill.golfro.dto;
 
-import com.itwill.golfro.domain.Pro;
 import com.itwill.golfro.domain.User;
 
 import lombok.Data;
@@ -18,7 +17,6 @@ public class UserUpdateDto {
 	private String detailAddress;
 	private String address;
 	private String grade;
-	private String proId;
 	private String bank;
 	private String bank_account;
 	private String account;
@@ -35,7 +33,6 @@ public class UserUpdateDto {
 					.password(changePassword)
 					.phone(phone)
 					.address(address)
-					.pro(Pro.builder().id(proId).build())
 					.account(account)
 					.build();
 		}
@@ -46,7 +43,6 @@ public class UserUpdateDto {
 				.password(password)
 				.phone(phone)
 				.address(address)
-				.pro(Pro.builder().id(proId).build())
 				.account(account)
 				.build();
 	}
