@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	   if (focusCommentId) {
 		   const commentElement = document.getElementById(`comment-${focusCommentId}`);
 		   if (commentElement) {
-			   commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			   commentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 		   } else {
 			   console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
 		   }
