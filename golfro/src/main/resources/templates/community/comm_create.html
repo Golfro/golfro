@@ -150,8 +150,8 @@
         // 제목 길이 체크
         const title = form.querySelector('input[name="title"]');
         title.addEventListener('input', function() {
-            if (title.value.trim().length > 20) {
-                alert('제목은 20자 이내로 입력해주세요!');
+            if (title.value.trim().length > 50) {
+                alert('제목은 50자 이내로 입력해주세요!');
                 title.value = title.value.trim().substring(0, 20);
             }
         });

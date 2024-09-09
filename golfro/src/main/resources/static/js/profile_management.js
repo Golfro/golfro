@@ -91,12 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	
 	function updateIntroduce() {
-		const uri = `/user/professional/${userid}`;
-		axios.put(uri, { career: introduce.value })
+		const uri = '/user/professional';
+		axios.put(uri, { career: introduce.value, grade: grade })
 			.then((response) => {
 				console.log(response.data);
-				introduce.value = response.data.career;
-				userIntroduce.value = response.data.career;
+				introduce.value = response.data.pro.career;
+				userIntroduce.value = response.data.pro.career;
 				
 				editIntroduce.classList.add('d-none');
 				introduce.readOnly = true;

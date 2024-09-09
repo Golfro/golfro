@@ -129,7 +129,7 @@
                         <b th:text="${comment.user.nickname}"></b>
                         <p th:text="${comment.content}"></p>
                         <div class="comm-footer">
-                            <span th:text="${comment.createdTime}"></span>
+                            <span th:text="${#temporals.format(comment.createdTime, 'yyyy-MM-dd HH:mm')}"></span>
                             <input type="hidden" name="commentId" th:value="${comment.id}" />
                             <th:block th:if="${comment.user.userid eq session.signedInUser or session.signedInUser eq 'admin'}">
                                 <i class="bi bi-dot"></i>

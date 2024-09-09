@@ -159,7 +159,6 @@ footer.text-center {
                     <thead>
                         <tr>
                             <th>제목</th>
-                            <th>작성자</th>
                             <th>작성일</th>
                             <th>조회</th>
                             <th>추천</th>
@@ -170,11 +169,10 @@ footer.text-center {
                             th:object="${post}"
                             class="table table-secondary">
                             <td><a
-                                th:href="@{/community/comm_details(id=*{id})}"
+                                th:href="@{/community/details/{id}(id=*{id})}"
                                 th:text="*{title}" class="custom-link"></a>
                             </td>
-                            <td th:text="*{author}"></td>
-                            <td th:text="*{modifiedTime}"></td>
+                            <td th:text="*{#temporals.format(modifiedTime, 'yyyy-MM-dd HH:mm')}"></td>
                             <td th:text="*{views}"></td>
                             <td th:text="*{likes}"></td>
                         </tr>

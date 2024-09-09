@@ -11,6 +11,7 @@ public class UserProfileDto {
 	private String image;
 	private String nickname;
 	private String grade;
+	private Pro pro;
 	private String career;
 	
 	public User toEntity() {
@@ -18,7 +19,7 @@ public class UserProfileDto {
 				.image(image)
 				.userid(userid)
 				.nickname(nickname)
-				.pro(Pro.builder().career(career).build())
+				.pro(pro.updateProCareer(career))
 				.build(); 
 	}
 }

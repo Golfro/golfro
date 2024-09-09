@@ -90,7 +90,7 @@ public class UserMypageService {
 		}
         
         if (dto.getGrade().equals("G10") && dto.getCareer() != null) {
-        	entity.updateProCareer(dto.getCareer());
+        	entity.getPro().updateProCareer(dto.getCareer());
         }
         
         if (dto.getGrade().equals("G10")) {
