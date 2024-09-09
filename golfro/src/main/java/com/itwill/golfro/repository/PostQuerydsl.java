@@ -65,6 +65,8 @@ public interface PostQuerydsl {
 	
 	List<Post> getUsersLikesRank();
 	
+	List<Post> getCommRank();
+	
 	Page<Post> selectPagedPostsComm(Pageable pageable);
 	
 	Page<Post> selectPagedPosts(Pageable pageable);

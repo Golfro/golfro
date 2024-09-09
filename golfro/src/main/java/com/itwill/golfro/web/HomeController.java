@@ -29,9 +29,12 @@ public class HomeController {
 		
 		List<Post> likesRank = homeService.likesRank();
 		
+		List<Post> commRank = homeService.commRank();
+		
 		model.addAttribute("rank", home);
 		model.addAttribute("likesRank", likesRank);
-
+		model.addAttribute("commRank", commRank);
+		log.info("******* commRnak = {}", commRank);
 		return "home"; // 뷰(HTML 파일)의 이름.
 	}
 	
