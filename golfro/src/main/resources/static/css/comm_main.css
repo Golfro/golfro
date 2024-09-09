@@ -28,6 +28,10 @@ body {
 	align-items: center;
 }
 
+.bi {
+    font-style: normal; /* 기울임꼴 없애기 */
+}
+
 .container-fluid {
 	background-color: white;
 	padding: 0px !important;
@@ -38,6 +42,7 @@ body {
 
 .container {
 	max-width: 1080px;
+	padding: 1rem;
 }
 
 /* 헤더 스타일 */
@@ -73,7 +78,7 @@ body {
 /* 테이블 스타일 */
 table {
 	background-color: white; /* 테이블 전체 배경색 흰색 */
-	border: 1px solid #ccc;
+	
 }
 
 table thead {
@@ -84,11 +89,11 @@ table thead {
 }
 
 .best-posts {
-	font-family: 'Pretendard-Regular', Pretendard-Regular;
+	font-family: 'SUIT-Regular', SUIT-Regular;
 	font-weight: bold;
 	margin-top: 40px;
 	margin-bottom: 20px;
-	font-size: 23px;
+	font-size: 20px;
 }
 
 table thead tr th.text-center {
@@ -121,10 +126,34 @@ th, td {
 
 .category-button a {
 	border-radius: 50px;
+	font-weight: bold;
 }
 
 .search-container .col-auto {
 	font-size: 0.9rem;
+}
+
+.custom-link {
+    color: black; /* 글자 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+/* 마우스를 올렸을 때 밑줄 추가 */
+.custom-link:hover {
+    text-decoration: underline; /* 밑줄 생기게 */
+    font-weight: bold; /* 마우스 올렸을 때 글자 굵게 */
+}
+
+
+#btnCreateMainPost {
+	color: white !important;
+	background: #2FA599;
+	border-radius: 8px;
+}
+
+#btnCreateMainPost a {
+	font-size: 0.9rem;
+	color: white !important;
 }
 
 #searchButton {
@@ -139,8 +168,11 @@ th, td {
 	border-bottom: 1px solid #ccc;
 }
 
+.card-body{
+	padding: 0px;
+}
 .category-button {
-	padding-top: 16px;
+	padding: 16px;
 }
 
 
