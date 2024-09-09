@@ -177,7 +177,7 @@
                                                class="custom-link">
                                             </a>
                                             <a th:if="${p.category.id eq 'F001' or p.category.id eq 'F002' or p.category.id eq 'F003'}"
-                                               th:href="@{/community/details/(id=${p.id})}"
+                                               th:href="@{/community/details/{id}(id=${p.id})}"
                                                th:text="${p.title}" 
                                                class="custom-link">
                                             </a>
