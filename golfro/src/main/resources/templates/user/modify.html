@@ -10,15 +10,16 @@
           crossorigin="anonymous" />
     <link rel="stylesheet" href="/css/user_modify.css" />
     <link rel="stylesheet" href="/css/header.css" />
-    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/footer.css" /><link rel="stylesheet" href="/css/menu.css" />
 </head>
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
 
     <div class="container" id="mypage">
         <div class="row d-flex">
-			<div class="menu col-12 col-md-3 d-none d-md-block" th:replace="~{fragments/menu :: menu}"></div>
-
+			<div class="menu col-12 col-md-3">
+                <th:block th:replace="~{fragments/menu :: menu}"></th:block>
+            </div>
             <div class="col-12 col-md-9 mb-3">
                 <div class="card" id="card">
                     <div class="card-header" id="login-info">

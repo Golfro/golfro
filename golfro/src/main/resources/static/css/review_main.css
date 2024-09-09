@@ -111,7 +111,6 @@ body {
 
 
 .thumbnail {
-    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -120,7 +119,7 @@ body {
     width: 100px; /* 정사각형 크기 */
     height: 100px; /* 정사각형 크기 */
     overflow: hidden; /* 내용이 넘칠 때 숨김 */
-    text-align: center; /* 텍스트 중앙 정렬 */
+    text-align: center;
     line-height: 100px; /* 텍스트 수직 중앙 정렬 */
 }
 
@@ -129,6 +128,7 @@ body {
     height: 100%;
     object-fit: cover; /* 이미지가 정사각형을 채우도록 조정 */
 }
+
 
 .list-unstyled li{
 	border-top: 1px solid #ccc;

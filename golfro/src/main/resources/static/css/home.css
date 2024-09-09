@@ -2,243 +2,243 @@
 
 /* Font Definitions */
 @font-face {
-    font-family: 'Freesentation-9Black';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
-        format('woff2');
-    font-weight: 900;
-    font-style: normal;
+	font-family: 'Freesentation-9Black';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+		format('woff2');
+	font-weight: 900;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'SUIT-Regular';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
-        format('woff2');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'ChosunGu';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
-        format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'ChosunGu';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 /* General Layout */
 .container-fluid {
-    margin: 0px !important;
-    padding: 0px !important;
+	margin: 0px !important;
+	padding: 0px !important;
 }
 /* Header Section */
 .main-header-gif {
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	background-position: center;
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .swiper-button-prev, .swiper-button-next {
-    color: rgba(255, 255, 255, 0.5) !important;
+	color: rgba(255, 255, 255, 0.5) !important;
 }
 
 /* 페이지네이션 기본 색상 */
 .swiper-pagination-bullet {
-    background-color: rgba(255, 255, 255, 0.5) !important;
+	background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 /* 활성화된 페이지네이션 색상 */
 .swiper-pagination-bullet-active {
-    background-color: rgba(255, 255, 255, 1) !important;
+	background-color: rgba(255, 255, 255, 1) !important;
 }
 
 .middle-section {
-    max-width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 30px;
+	max-width: 100%;
+	box-sizing: border-box;
+	margin-bottom: 30px;
 }
 
 /* 클럽별 레슨받기 */
 .image-category {
-    max-width: 1080px !important;
-    text-align: center;
-    margin-top: 100px;
-    margin-bottom: 100px !important;
+	max-width: 1080px !important;
+	text-align: center;
+	margin-top: 100px;
+	margin-bottom: 100px !important;
 }
 
 .image-category h2 {
-    font-family: 'Freesentation-9Black';
-    font-size: 40px;
-    margin: 50px 0 30px;
+	font-family: 'Freesentation-9Black';
+	font-size: 40px;
+	margin: 50px 0 30px;
 }
 
 .btn-secondary {
-    margin: 50px 0 30px;
+	margin: 50px 0 30px;
 }
 /* 카드 목록을 Flexbox 컨테이너로 설정 */
 #clubCategory {
-    display: flex;
-    flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .text-left {
-    text-align: left !important;
+	text-align: left !important;
 }
 
 /* Card Styling */
 .card {
-    margin: 5px;
-    border-radius: 20px;
-    transition: transform 0.3s ease-in-out;
+	margin: 5px;
+	border-radius: 20px;
+	transition: transform 0.3s ease-in-out;
 }
 
 .card-body {
-    padding: 15px;
-    background-color: #82CBC4;
+	padding: 15px;
+	background-color: #82CBC4;
 }
 
 .card-img-top {
-    object-fit: cover;
-    width: 150px;
-    height: auto;
+	object-fit: cover;
+	width: 150px;
+	height: auto;
 }
 
 .card img {
-    transition: transform 0.5s ease-in-out;
-    border: 2px solid #82CBC4;
+	transition: transform 0.5s ease-in-out;
+	border: 2px solid #82CBC4;
 }
 
 .card:hover img {
-    transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 .image-category h5 {
-    font-family: 'ChosunGu';
-    font-weight: bold;
-    color: black;
-    padding: 7px 0px;
-    background-color: white;
-    border-radius: 20px;
-    margin: 0px;
+	font-family: 'ChosunGu';
+	font-weight: bold;
+	color: black;
+	padding: 7px 0px;
+	background-color: white;
+	border-radius: 20px;
+	margin: 0px;
 }
 
 #clubCategory a {
-    text-decoration: none;
-    color: black;
+	text-decoration: none;
+	color: black;
 }
 
 /* 프로 랭킹 부분 */
 .bestPro {
-    background-color: #f7f7f7;
+	background-color: #f7f7f7;
 }
 
 h2.tit_type {
-    font-size: 2rem;
-    font-family: 'Freesentation-9Black';
-    text-align: center; /* 텍스트를 가운데로 정렬 */
-    padding-top: 50px;
+	font-size: 2rem;
+	font-family: 'Freesentation-9Black';
+	text-align: center; /* 텍스트를 가운데로 정렬 */
+	padding-top: 50px;
 }
 
 h5.tit_type {
-    font-family: 'SUIT-Regular';
-    text-align: center; /* 텍스트를 가운데로 정렬 */
-    padding-bottom: 30px;
+	font-family: 'SUIT-Regular';
+	text-align: center; /* 텍스트를 가운데로 정렬 */
+	padding-bottom: 30px;
 }
 
 .middleArea {
-    display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    align-items: flex-start; /* 시작점에 정렬 */
-    flex-direction: column; /* 카드가 세로로 쌓이도록 설정 */
-    width: 100%;
+	display: flex;
+	justify-content: center; /* 중앙 정렬 */
+	align-items: flex-start; /* 시작점에 정렬 */
+	flex-direction: column; /* 카드가 세로로 쌓이도록 설정 */
+	width: 100%;
 }
 
 .rank-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column; /* 줄별로 카드 배치 */
-    align-items: center; /* 중앙 정렬 */
+	width: 100%;
+	display: flex;
+	flex-direction: column; /* 줄별로 카드 배치 */
+	align-items: center; /* 중앙 정렬 */
 }
 
 .rank-row {
-    display: flex;
-    justify-content: space-between; /* 카드 사이에 공간을 균등하게 배치 */
-    width: 100%; /* 부모 요소의 너비에 맞추기 */
-    flex-wrap: wrap; /* 카드가 줄 바꿈을 할 수 있도록 설정 */
-    gap: 10px; /* 카드 간의 가로 간격을 10px로 설정 */
+	display: flex;
+	justify-content: space-between; /* 카드 사이에 공간을 균등하게 배치 */
+	width: 100%; /* 부모 요소의 너비에 맞추기 */
+	flex-wrap: wrap; /* 카드가 줄 바꿈을 할 수 있도록 설정 */
+	gap: 10px; /* 카드 간의 가로 간격을 10px로 설정 */
 }
 
 /* 첫 번째 줄: 1위부터 3위까지 */
 .top-row .rank-card {
-    flex: 1 1 calc(33% - 10px);
-    /* 카드가 부모 요소의 33% 너비에서 10px을 뺀 너비를 차지하도록 설정 */
-    aspect-ratio: 3/4; /* 높이를 가로의 1.5배로 설정 */
-    margin-bottom: 20px;
+	flex: 1 1 calc(33% - 10px);
+	/* 카드가 부모 요소의 33% 너비에서 10px을 뺀 너비를 차지하도록 설정 */
+	aspect-ratio: 3/4; /* 높이를 가로의 1.5배로 설정 */
+	margin-bottom: 20px;
 }
 
 /* 두 번째 줄: 4위부터 7위까지 */
 .bottom-row .rank-card {
-    flex: 1 1 calc(25% - 10px);
-    /* 카드가 부모 요소의 25% 너비에서 10px을 뺀 너비를 차지하도록 설정 */
-    aspect-ratio: 5/6; /* 높이를 가로의 1.2배로 설정 */
-    margin-bottom: 50px;
+	flex: 1 1 calc(25% - 10px);
+	/* 카드가 부모 요소의 25% 너비에서 10px을 뺀 너비를 차지하도록 설정 */
+	aspect-ratio: 5/6; /* 높이를 가로의 1.2배로 설정 */
+	margin-bottom: 50px;
 }
 
 .rank-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    box-sizing: border-box; /* padding과 border를 포함한 전체 너비 계산 */
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 15px;
+	text-align: center;
+	box-sizing: border-box; /* padding과 border를 포함한 전체 너비 계산 */
 }
 
 /* 카드 이미지 */
 .rank-img {
-    width: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 8px;
+	border: 1px solid #ccc;
 }
 
 .rank-card-body {
-    display: flex;
-    justify-content: center; /* 수평으로 중앙에 배치 */
-    align-items: center; /* 수직으로 중앙에 배치 */
-    flex-direction: column;
-    text-align: center; /* 텍스트 중앙 정렬 (선택 사항) */
-    padding: 10px;
+	display: flex;
+	justify-content: center; /* 수평으로 중앙에 배치 */
+	align-items: center; /* 수직으로 중앙에 배치 */
+	flex-direction: column;
+	text-align: center; /* 텍스트 중앙 정렬 (선택 사항) */
+	padding: 10px;
 }
 
 .rank-title {
-    font-weight: bold;
-    margin-bottom: 5px;
-    padding: 10px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	padding: 10px;
 }
 
 .top-row h5.rank-title {
-    font-size: 2rem;
+	font-size: 2rem;
 }
 
 .bottom-row h5.rank-title {
-    font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 
 .rank-name {
-    font-family: 'Freesentation-9Black';
-    font-size: 1.5em;
-    margin: 0px;
+	font-family: 'Freesentation-9Black';
+	font-size: 1.5em;
+	margin: 0px;
 }
 
 .rank-point {
-    font-family: 'SUIT-Regular';
-    font-size: 1.2em;
-    color: #2FA599;
-    margin: 0px;
+	font-family: 'SUIT-Regular';
+	font-size: 1.2em;
+	color: #2FA599;
+	margin: 0px;
 }
 
 /* Rank Table */ /*
@@ -275,175 +275,252 @@ h5.tit_type {
 	height: auto;
 }
 */
+/* 부모 요소 설정 */
+.parent-container {
+	display: flex;
+	justify-content: center; /* 가로로 중앙 정렬 */
+}
 
-/* Hot Posts */
 .hot-posts {
-    font-family: 'SUIT-Regular';
-    padding: 30px;
-    height: 600px;
+	max-width: 1080px;
+	width: 100%;
+	margin: 80px auto; /* 화면 중앙에 배치 */
+	padding: 20px;
+	font-family: 'SUIT-Regular';
+	width: 100%;
+}
+
+.hot-posts h3 {
+	font-family: 'Freesentation-9Black';
+}
+
+.hot-posts h5 {
+	font-family: 'SUIT-Regular';
+	font-weight: bold;
+	color: #2FA599;
+}
+
+.hot-posts a {
+	text-decoration: none; /* 기본적으로 밑줄 제거 */
+	color: black; /* 링크 색상 설정 */
+}
+
+.hot-posts
+.d-flex.py-2 {
+	border-bottom: 1px solid #ccc; /* 1px solid #ccc 밑줄 */
+	margin-bottom: 10px;
+}
+
+.hot-posts a:hover {
+	text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
+}
+
+.more-link {
+	font-weight: normal; /* 볼드 없음 */
+	font-size: 0.9rem;
+	color: #808080;
+}
+
+.hot-posts ul {
+	padding: 0px;
+}
+
+.hot-posts li {
+	padding-bottom: 5px;
+}
+
+.lesson-rank, .comm-rank {
+	padding: 1rem;
+}
+
+.lesson-rank, .comm-rank {
+	padding: 1rem;
+}
+
+.view-likes {
+	width: 25%;
+	display: flex;
+	justify-content: space-between;
+	/* Distributes space evenly between children */
+}
+
+.views, .likes {
+	flex: 1; /* Ensures both elements take up equal space */
+	display: flex;
+	align-items: center; /* Aligns icons and text vertically */
+}
+
+.views i, .likes i {
+	margin-right: 5px; /* Adjust space between icon and text */
 }
 
 /* Instagram Section */
 .instagram {
-    max-width: 1280px !important;
-    text-align: left;
-    padding: 20px;
-    margin-top: 50px;
-    margin-bottom: 20px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 20px; /* 부모 요소의 범위를 넘는 콘텐츠를 숨깁니다. */
+	max-width: 1280px !important;
+	text-align: left;
+	padding: 20px;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 20px; /* 부모 요소의 범위를 넘는 콘텐츠를 숨깁니다. */
 }
 
 .instagram-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin-bottom: 20px;
 }
 
 .instagram h2 {
-    font-family: 'Freesentation-9Black';
+	font-family: 'Freesentation-9Black';
 }
 
 /*swiper*/
 .swiper-container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden; /* 슬라이더의 콘텐츠가 컨테이너를 넘지 않도록 합니다. */
-    padding-top: 20px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center; /* 가운데 정렬 */
+	width: 100%;
+	height: 100%;
+	overflow: hidden; /* 슬라이더의 콘텐츠가 컨테이너를 넘지 않도록 합니다. */
+	padding-top: 20px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
 }
 
 .swiper-slide {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 /* Responsive Design */
 @media ( max-width : 768px) {
-    .rank-item {
-        width: calc(50% - 10px);
-    }
-    .middleArea {
-        flex-direction: column;
-    }
+	.rank-item {
+		width: calc(50% - 10px);
+	}
+	.middleArea {
+		flex-direction: column;
+	}
 }
 
 .content-wrapper {
-    display: flex;
+	display: flex;
 }
 
 .middle-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 /* Ensuring that sections within middle-section stack vertically */
 .middle-section>section {
-    margin-bottom: 20px; /* optional: space between sections */
+	margin-bottom: 20px; /* optional: space between sections */
 }
 
 /* 모바일 화면에서 sidebar 숨기기 */
 @media ( max-width : 768px) {
-    .sidebar {
-        display: none;
-    }
-    .middle-section {
-        margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
-        padding: 0px !important;
-    }
-    h5.card-title {
-        font-size: 12px; /* Adjust the size as needed */
-        margin: 0px !important;
-    }
-    div.card-body {
-        padding: 5px;
-    }
+	.sidebar {
+		display: none;
+	}
+	.middle-section {
+		margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
+		padding: 0px !important;
+	}
+	h5.card-title {
+		font-size: 12px; /* Adjust the size as needed */
+		margin: 0px !important;
+	}
+	div.card-body {
+		padding: 5px;
+	}
+	div.rank-card {
+		font-size: 80%;
+	}
+	div.rank-card-body {
+		font-size: 60%;
+	}
 }
 
 @media ( max-width : 576px) {
-    h5.card-title {
-        font-size: 12px; /* Adjust the size as needed */
-        margin: 0px !important;
-    }
-    .middle-section {
-        margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
-        padding: 0px !important;
-    }
-    div.card-body {
-        padding: 5px;
-    }
+	h5.card-title {
+		font-size: 12px; /* Adjust the size as needed */
+		margin: 0px !important;
+	}
+	.middle-section {
+		margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
+		padding: 0px !important;
+	}
+	div.card-body {
+		padding: 5px;
+	}
 }
 
 .swiper-slide {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 /* Responsive Design */
 @media ( max-width : 768px) {
-    .rank-item {
-        width: calc(50% - 
+	.rank-item {
+		width: calc(50% - 
  
  10px);
-    }
-    .middleArea {
-        flex-direction: column;
-    }
+	}
+	.middleArea {
+		flex-direction: column;
+	}
 }
 
 .content-wrapper {
-    display: flex;
+	display: flex;
 }
 
 .middle-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 /* Ensuring that sections within middle-section stack vertically */
 .middle-section>section {
-    margin-bottom: 20px; /* optional: space between sections */
+	margin-bottom: 20px; /* optional: space between sections */
 }
 
 /* 모바일 화면에서 sidebar 숨기기 */
 @media ( max-width : 768px) {
-    .sidebar {
-        display: none;
-    }
-    .middle-section {
-        margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
-        padding: 0px !important;
-    }
-    h5
+	.sidebar {
+		display: none;
+	}
+	.middle-section {
+		margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
+		padding: 0px !important;
+	}
+	h5
 .card-title {
-        font-size: 12px; /* Adjust the size as needed */
-        margin: 0px !important;
-    }
-    div
+		font-size: 12px; /* Adjust the size as needed */
+		margin: 0px !important;
+	}
+	div
 .card-body {
-        padding: 5px;
-    }
+		padding: 5px;
+	}
 }
 
 @media ( max-width : 576px) {
-    h5
+	h5
 .card-title {
-        font-size: 12px; /* Adjust the size as needed */
-        margin: 0px !important;
-    }
-    .middle-section {
-        margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
-        padding: 0px !important;
-    }
-    div
+		font-size: 12px; /* Adjust the size as needed */
+		margin: 0px !important;
+	}
+	.middle-section {
+		margin-right: 0; /* 중간 섹션이 전체 너비를 차지하도록 */
+		padding: 0px !important;
+	}
+	div
 .card-body {
-        padding: 5px;
-    }
+		padding: 5px;
+	}
 }
