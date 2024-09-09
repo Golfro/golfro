@@ -61,4 +61,6 @@ window.addEventListener('scroll', function() {
 		rightSectionButton.style.color = 'white'; // 버튼 텍스트 색상 화이트로 변경
 		loginButton.style.fill = 'white'; // 로그인 버튼 아이콘 색상 화이트로 변경 (SVG fill 속성)
 	}
+	
+	
 });

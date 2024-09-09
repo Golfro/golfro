@@ -411,7 +411,10 @@ p#likesCounts {
 
 /* 모바일 화면 (768px 이하)에서 .left와 .right의 배치 변경 */
 @media ( max-width : 768px) {
+	.container{
+	margin-top: 50px;}
     .container, .container-fluid {
+    
         padding: 0px !important;
     }
     .mainTextArea {

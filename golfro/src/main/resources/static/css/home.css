@@ -508,6 +508,13 @@ h5.tit_type {
 .card-body {
 		padding: 5px;
 	}
+	.image-category {
+		margin-top: 10px;
+	} h2.text-left{
+	font-size: 30px;} 
+	
+	section.hot-posts, section.instagram.container{
+	margin-top: 20px;}
 }
 
 @media ( max-width : 576px) {
