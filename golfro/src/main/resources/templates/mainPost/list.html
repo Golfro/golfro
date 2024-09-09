@@ -249,11 +249,10 @@
 
 
 						<ul class="divide-y">
-                            <li class="notice" th:each="post : ${announcement}">
-                                <a th:href="@{/community/details/{id}(id=${post.id})}" class="notice-link">
-                                    <strong th:text="${post.title}"></strong>
-                                </a>
-                            </li>
+							<li class="notice" th:each="post : ${announcement}"><a
+								th:href="@{/community/details/{id}(id=${post.id})}"
+								class="notice-link"> <strong th:text="${post.title}"></strong>
+							</a></li>
 
 							<tr th:if="${#lists.isEmpty(posts)}">
 								<td colspan="3">검색 결과가 없습니다.</td>
@@ -306,7 +305,7 @@
 									class="page-link"
 									th:href="@{${baseUrl}(p=${posts.number - 1}, searchCategory=${param.searchCategory}, clubSelect=${param.clubSelect}, textSearchSelect=${param.textSearchSelect}, selectSelection=${param.selectSelection})}">이전</a>
 								</li>
-								
+
 								<li class="page-item"
 									th:each="pageNo : ${#numbers.sequence(0, posts.totalPages - 1, 1)}"
 									th:if="${pageNo >= posts.number - 2 && pageNo < posts.number + 3}"
@@ -314,7 +313,7 @@
 									class="page-link"
 									th:href="@{${baseUrl}(p=${pageNo}, searchCategory=${param.searchCategory}, clubSelect=${param.clubSelect}, textSearchSelect=${param.textSearchSelect}, selectSelection=${param.selectSelection})}"
 									th:text="${pageNo + 1}"></a></li>
-									
+
 								<li class="page-item"
 									th:classappend="${!posts.hasNext} ? 'disabled'"><a
 									class="page-link"
@@ -418,6 +417,8 @@
 			}
 		}
 	</script>
+	<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/top_button.js}"></script>
 
 
 
