@@ -11,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -146,7 +145,7 @@ public class MainPostController {
 	@GetMapping("/details/{id}")
 	public String mainPostDetails(@PathVariable(name = "id") Long id,
 		Model model, HttpSession session, RedirectAttributes redirectAttributes
-		, @RequestParam(required = false) Long commentId ) {
+		, @RequestParam(required = false) Long focusComment ) {
 		log.debug("mainPostDetails(id={})", id);
 		
 		
@@ -171,7 +170,7 @@ public class MainPostController {
 		log.debug("post={}", post);
 		
 		
-        model.addAttribute("commentId", commentId);	
+        model.addAttribute("focusComment", focusComment);
 		model.addAttribute("post", post);
 
 		// 뷰 이름 반환

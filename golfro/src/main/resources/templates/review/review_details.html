@@ -130,7 +130,10 @@
                         <p th:text="${comment.content}"></p>
                         <div class="comm-footer">
                             <span th:text="${#temporals.format(comment.createdTime, 'yyyy-MM-dd HH:mm')}"></span>
+
                             <input type="hidden" id="commentId" name="commentId" th:value="${comment.id}" />
+                            <input type="hidden" id="focusComment" th:value="${focusComment}" />
+
                             <th:block th:if="${comment.user.userid eq session.signedInUser or session.signedInUser eq 'admin'}">
                                 <i class="bi bi-dot"></i>
                                 <button id="btnUpdateComment" class="btn btn-register-comment" type="submit">
@@ -156,7 +159,6 @@
         </div>
     </div>
     <script>
-
         document.addEventListener('DOMContentLoaded', function() {
             // 모든 .imagePath와 .image 클래스를 가진 요소를 찾습니다.
             var imagePaths = document.querySelectorAll('.imagePath');
@@ -194,6 +196,22 @@
                     console.error('No file path found for index:', index);
                 }
             });
+            
+         	// focusCommentId 체크
+        	const focusCommentIdElement = document.querySelector('input#focusComment');
+        	if (focusCommentIdElement) {
+        		const focusCommentId = focusCommentIdElement.value;
+        		if (focusCommentId) {
+        			const commentElement = document.getElementById(`comment-${focusCommentId}`);
+        			if (commentElement) {
+        				commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        			} else {
+        				console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+        			}
+        		} else {
+        			console.error('focusCommentId is null or undefined.');
+        		}
+        	}
         });
     </script>
 	<script

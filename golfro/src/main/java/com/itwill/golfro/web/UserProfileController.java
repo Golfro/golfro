@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.itwill.golfro.domain.Comment;
+import com.itwill.golfro.domain.Grade;
 import com.itwill.golfro.domain.Post;
 import com.itwill.golfro.domain.User;
 import com.itwill.golfro.dto.MyPostListSearchDto;
@@ -133,15 +134,63 @@ public class UserProfileController {
 		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
 		log.info("modify(userid={})", userid);
 
-		String grade = (String) session.getAttribute(SESSION_USER_GRADE);
-		if (grade.equals("G10")) {
+		Grade grade = (Grade) session.getAttribute(SESSION_USER_GRADE);
+		if (grade.getId().equals("G10")) {
 			User pro = userService.readPro(userid);
 			model.addAttribute("user", pro);
 			log.info("user={}", pro);
+			
+			String birthStr = String.format("%08d", pro.getBirth());
+			String formattedBirth = birthStr.substring(0, 4) + "." + birthStr.substring(4, 6) + "." + birthStr.substring(6, 8);
+			model.addAttribute("birth", formattedBirth);
+			
+			String[] phoneParts = pro.getPhone().split("/");
+	        String carrier = phoneParts[0];
+	        String number = phoneParts[1];
+	        model.addAttribute("carrier", carrier);
+	        model.addAttribute("number", number);
+	        
+	        String[] addressParts = pro.getAddress().split("/");
+	        String postcode = addressParts[0];
+	        String address = addressParts[1];
+	        String detailAddress = addressParts[2];
+	        model.addAttribute("postcode", postcode);
+	        model.addAttribute("address", address);
+	        model.addAttribute("detailAddress", detailAddress);
+	        
+	        String[] AccountParts = pro.getAccount().split("/");
+	        String bank = AccountParts[0];
+	        String bankAccount = AccountParts[1];
+	        model.addAttribute("bank", bank);
+	        model.addAttribute("bankAccount", bankAccount);
 		} else {
 			User user = userService.read(userid);
 			model.addAttribute("user", user);
 			log.info("user={}", user);
+			
+			String birthStr = String.format("%08d", user.getBirth());
+			String formattedBirth = birthStr.substring(0, 4) + "." + birthStr.substring(4, 6) + "." + birthStr.substring(6, 8);
+			model.addAttribute("birth", formattedBirth);
+			
+			String[] phoneParts = user.getPhone().split("/");
+	        String carrier = phoneParts[0];
+	        String number = phoneParts[1];
+	        model.addAttribute("carrier", carrier);
+	        model.addAttribute("number", number);
+	        
+	        String[] addressParts = user.getAddress().split("/");
+	        String postcode = addressParts[0];
+	        String address = addressParts[1];
+	        String detailAddress = addressParts[2];
+	        model.addAttribute("postcode", postcode);
+	        model.addAttribute("address", address);
+	        model.addAttribute("detailAddress", detailAddress);
+	        
+	        String[] AccountParts = user.getAccount().split("/");
+	        String bank = AccountParts[0];
+	        String bankAccount = AccountParts[1];
+	        model.addAttribute("bank", bank);
+	        model.addAttribute("bankAccount", bankAccount);
 		}
 	}
 
@@ -164,10 +213,10 @@ public class UserProfileController {
 		log.info("update(dto={})", dto);
 
 		// 서비스 컴포넌트의 메서드를 호출해서 데이터베이스 테이블 업데이트를 수행.
-		userService.update(dto);
+		userService.update(dto.toEntity());
 
 		// 내 정보 페이지로 리다이렉트.
-		return "redirect:/user/privacy?userid=" + (String) session.getAttribute(SESSION_ATTR_USER);
+		return "redirect:/user/privacy";
 	}
 
 	@PutMapping({ "/updateNickname", "/professional" })
