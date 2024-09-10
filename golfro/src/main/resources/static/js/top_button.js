@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// 챗봇 버튼 클릭 이벤트 핸들러
 	chatBtn.addEventListener('click', function() {
-		window.open('/chatbot', '_blank', 'width=400,height=600,left=100,top=100');
+		window.open('/chatbot.html', '_blank', 'width=400,height=600,left=100,top=100');
 	});
 
 	// 챗봇 버튼을 body에 추가

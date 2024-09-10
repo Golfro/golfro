@@ -12,9 +12,9 @@ const responses = {
 
 function displayOptions() {
     const options = [
-        { text: '1. 옵션 1', action: 'option1' },
-        { text: '2. 옵션 2', action: 'option2' },
-        { text: '3. 옵션 3', action: 'option3' }
+        { text: '1. GOLFRO란?', action: 'option1' },
+        { text: '2. 게시판 이용 방법', action: 'option2' },
+        { text: '3. 포인트 획득과 환전', action: 'option3' }
     ];
     const messagesDiv = document.getElementById('messages');
     const optionElements = options.map(option => {
@@ -62,13 +62,16 @@ function handleOption(option) {
     
     switch (option) {
         case 'option1':
-            responseDiv.textContent = '옵션 1을 선택하셨습니다. 추가 정보는 다음과 같습니다...';
+            responseDiv.textContent = 'GOLFRO란, Golf + Professional의 합성어로 저희 사이트가 골프 프로선수가 되기 위한 첫걸음이 되었으면 하는 바람을 담았습니다.';
             break;
         case 'option2':
-            responseDiv.textContent = '옵션 2를 선택하셨습니다. 추가 정보는 다음과 같습니다...';
+            responseDiv.innerHTML = `1. 레슨: 일반회원이 자신의 골프 영상을 업로드하면 프로회원이 영상에 댓글로 피드백을 해주는 형식으로 온라인 강습장과 같은 효과를 만들어냅니다.<br>
+                                     2. 모임: 회원들과의 오프라인 라운딩 모임을 약속할 수 있습니다.<br>
+                                     3. 리뷰: 사이트를 이용하면서 경험했던 후기를 공유해 주세요.<br>
+                                     4. 커뮤니티: 회원들과 다양한 주제로 대화하며 친목을 쌓아보세요. 새로운 인연들을 만날 수 있습니다!`;
             break;
         case 'option3':
-            responseDiv.textContent = '옵션 3을 선택하셨습니다. 추가 정보는 다음과 같습니다...';
+            responseDiv.textContent = '포인트는 레슨 게시판에 프로 회원이 댓글로 피드백을 달고 채택이 돼야만 획득할 수 있습니다. 그동안 모았던 포인트는 마이페이지의 포인트 아이콘을 클릭하여 환전 페이지에서 원하는 만큼의 포인트를 자신의 계좌로 환전이 가능합니다.';
             break;
         default:
             responseDiv.textContent = '유효하지 않은 옵션입니다. 다시 시도해 주세요.';
