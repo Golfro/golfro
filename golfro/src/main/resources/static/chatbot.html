@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymleaf.org">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>챗봇｜GOLFRO</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/chat_style.css}">
+    <link rel="stylesheet" href="/css/chat_style.css">
 </head>
 <body>
     <div id="chat-container">
@@ -14,8 +14,8 @@
     </div>
     
     <!-- FAQ 챗봇 관련 스크립트 (옵션 선택 등) -->
-    <script th:src="@{/js/faq_chat.js}"></script>
+    <script src="/js/faq_chat.js"></script>
     <!-- 클라이언트 측 JavaScript 파일을 불러옵니다. -->
-    <script th:src="@{/js/chat_control.js}"></script>
+    <script src="/js/chat_control.js"></script>
 </body>
 </html>
