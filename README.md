@@ -1,17 +1,19 @@
-![newlogo1](https://github.com/user-attachments/assets/d6aa77ee-f49f-43e0-a47f-55731a9f31df)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d6aa77ee-f49f-43e0-a47f-55731a9f31df">
+</p>
 
-프로젝트 정보
+#### 프로젝트 정보
 
 아이티윌, '클라우드 가상화 기반 자바(JAVA) 개발자 양성과정'
 
 개발기간: 2024.06 - 2024.09
 
-개발팀 소개
+#### 개발팀 소개
 
 프론트엔드: 이지현
 백엔드: 배은진, 권순만
 
-프로젝트 소개
+#### 프로젝트 소개
 
 **골프로**는 온라인 웹을 통해 골프 정보와 레슨을 제공하는 웹 페이지입니다.
 
